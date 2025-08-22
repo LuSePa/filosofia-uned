@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 1: Fenomenología - Teoría del Conocimiento II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Definición de la paleta de colores y tipografías como variables CSS */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para las pestañas */
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        /* Estilos para carruseles de contenido */
+        .content-carousel-item {
+            display: none;
+        }
+        .content-carousel-item.active {
+            display: block;
+        }
+        /* Estilos para tooltips */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .next-button {
+            display: none; /* Oculto por defecto */
+        }
+        /* Estilo para botones de carrusel desactivados */
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal de la aplicación -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <!-- Contenido estático del Tema 1 -->
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 1: La fenomenología y las condiciones del conocimiento objetivo</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition active" style="border-color: transparent;" onclick="openTab(event, 'figuras')">Figuras Clave</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'resumen')">Resumen</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'conceptos')">Conceptos</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'examenes')">Exámenes</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'juego')">Juego</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+            </div>
+
+            <!-- Pestaña Figuras Clave -->
+            <div id="figuras" class="tab-content">
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <div class="flex flex-col md:flex-row gap-8 items-start">
+                            <figure class="text-center flex-shrink-0 w-full md:w-48">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Edmund_Husserl_1910s.jpg/800px-Edmund_Husserl_1910s.jpg" alt="Retrato en blanco y negro de Edmund Husserl, un hombre de mediana edad con bigote, mirando seriamente a la cámara." class="w-48 h-64 object-cover rounded-lg shadow-md border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <figcaption class="text-xs italic mt-2" style="color: var(--color-siena);">
+                                    Fuente: <a href="https://commons.wikimedia.org/wiki/File:Edmund_Husserl_1910s.jpg" target="_blank" class="hover:underline">Wikimedia Commons</a>
+                                </figcaption>
+                            </figure>
+                            <div class="flex-1 text-left relative min-h-[300px]">
+                                <h3 class="text-2xl font-bold mb-4 text-center md:text-left">Edmund Husserl</h3>
+                                <div id="content-carousel-0">
+                                    <!-- Contenido del carrusel de Husserl -->
+                                </div>
+                                <button id="prev-btn-0" onclick="changeContentCarousel(0, -1)" class="carousel-button absolute top-1/2 left-0 -ml-4 md:-ml-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-left fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                                <button id="next-btn-0" onclick="changeContentCarousel(0, 1)" class="carousel-button absolute top-1/2 right-0 -mr-4 md:-mr-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-right fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestaña Resumen -->
+            <div id="resumen" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Conceptos -->
+            <div id="conceptos" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Exámenes -->
+            <div id="examenes" class="tab-content" style="display:none;"></div>
+            
+            <!-- Pestaña Juego -->
+            <div id="juego" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Bibliografía -->
+            <div id="bibliografia" class="tab-content" style="display:none;"></div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página fijo -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- BASE DE DATOS DE CONTENIDO PARA EL TEMA 1 ---
+        const themeData = {
+            title: "La fenomenología y las condiciones del conocimiento objetivo",
+            figurasClave: [
+                {
+                    nombre: "Edmund Husserl",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Nacido en 1859 en Moravia (entonces Imperio Austríaco), Edmund Husserl fue un filósofo y matemático de origen judío. Tras estudiar en Leipzig, Berlín y Viena, y bajo la influencia de Franz Brentano, se dedicó a la filosofía. Su carrera académica transcurrió en Halle, Gotinga y Friburgo, donde desarrolló su método fenomenológico. A pesar de su conversión al luteranismo, fue apartado de la universidad por las leyes nazis en 1933. Falleció en 1938, dejando un vasto legado de manuscritos que fueron salvados y trasladados a Lovaina."
+                        },
+                        {
+                            titulo: "Antecedentes e Influencias",
+                            contenido: "La filosofía de Husserl surge como una respuesta a la crisis de la filosofía del siglo XIX, dialogando críticamente con el idealismo (Kant, Hegel), el empirismo y el psicologismo. Su maestro, Franz Brentano, fue una influencia decisiva al introducirle en el concepto de 'intencionalidad'. Descartes y Kant son sus interlocutores modernos fundamentales, a quienes busca radicalizar."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "Husserl funda la fenomenología, uno de los movimientos filosóficos más influyentes del siglo XX. Su proyecto de una 'ciencia rigurosa' y su método de epojé y reducción trascendental buscan un fundamento absoluto para el conocimiento en la conciencia pura, influyendo en el existencialismo (Heidegger, Sartre), la hermenéutica (Gadamer) y la deconstrucción (Derrida)."
+                        },
+                        {
+                            titulo: "Obras Clave",
+                            obras: [
+                                {
+                                    titulo: "Investigaciones lógicas (1900-1901)",
+                                    contenido: "Obra fundacional donde Husserl critica demoledoramente el psicologismo (la reducción de la lógica a la psicología) y establece la lógica como una ciencia de esencias ideales y a priori. Introduce conceptos clave como la intencionalidad y la distinción entre intuiciones y significaciones."
+                                },
+                                {
+                                    titulo: "Ideas I (1913)",
+                                    contenido: "Presenta sistemáticamente el método fenomenológico. Introduce la epojé (suspensión del juicio) y la reducción trascendental como vías de acceso al campo de la conciencia pura. Desarrolla la famosa correlación entre nóesis (acto de conciencia) y noema (objeto de conciencia)."
+                                },
+                                {
+                                    titulo: "Meditaciones cartesianas (1931)",
+                                    contenido: "Una radicalización del proyecto cartesiano. Parte del 'ego cogito' para desarrollar una 'egología' o ciencia del yo trascendental como fundamento último de todo sentido y objetividad. Aborda el espinoso problema de la intersubjetividad (la experiencia del otro)."
+                                },
+                                {
+                                    titulo: "La crisis de las ciencias europeas (1936)",
+                                    contenido: "Obra tardía en la que diagnostica la crisis de la racionalidad moderna. Introduce el concepto de 'mundo de la vida' (Lebenswelt) como el suelo de experiencia pre-científica que las ciencias han olvidado, perdiendo así su relevancia para la existencia humana."
+                                }
+                            ]
+                        }
+                    ],
+                }
+            ],
+            bibliografia: [
+                "Sánchez Meca, D. (2019). <em>Iniciación a la Teoría del Conocimiento</em>. Dykinson. (Capítulo 9: La Fenomenología y las condiciones del conocimiento objetivo, pp. 327-365).",
+                "Escudero Pérez, A. (s.f.). <em>Apuntes de Teoría del Conocimiento II</em>. (Tema 1: Husserl y la fenomenología).",
+                "García-Baró, M. (2015). <em>Husserl y Gadamer: Fenomenología y hermenéutica</em>. Batiscafo."
+            ],
+            resumenTemario: [
+                {
+                    epigrafe: "1. Contexto Teórico: De Hegel a Husserl",
+                    resumen: `<p class="text-justify">Tras el apogeo del idealismo hegeliano, el siglo XIX vio nacer una fuerte reacción positivista y neokantiana. El positivismo buscaba extender el método de las ciencias naturales a todos los ámbitos del saber, mientras que el neokantismo, con su lema <strong>"¡Vuelta a Kant!"</strong>, pretendía delimitar el conocimiento científico y refutar la metafísica. Es en este ambiente anti-especulativo donde Edmund Husserl propone la <strong>fenomenología</strong> como un proyecto para convertir la filosofía en una "ciencia estricta".</p>
+                    <p class="text-justify mt-2">Husserl se inspira en dos grandes figuras modernas:</p>
+                    <ul>
+                        <li class="ml-4 list-disc"><strong>Descartes:</strong> Adopta su actitud crítica y la búsqueda de una primera verdad indudable en el <em>ego cogito</em>. Sin embargo, critica a Descartes por permanecer en un plano psicológico y tener que recurrir a Dios para fundamentar la objetividad.</li>
+                        <li class="ml-4 list-disc"><strong>Kant:</strong> Asume la primacía del sujeto y el giro trascendental, pero considera que Kant se quedó a medio camino al mantener elementos "dogmáticos" como la "cosa en sí" y dar por sentada la validez de la ciencia físico-matemática.</li>
+                    </ul>
+                    <p class="text-justify mt-2">El objetivo de Husserl es, por tanto, radicalizar el proyecto moderno, fundamentando todo conocimiento en la evidencia absoluta que se da en la conciencia pura.</p>`,
+                    mapaConceptual: `<svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                        <style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style>
+                        <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs>
+                        <rect x="20" y="80" width="160" height="40" class="box"/><text x="100" y="105" class="text">Idealismo Hegeliano</text>
+                        <rect x="220" y="20" width="160" height="40" class="box"/><text x="300" y="45" class="text">Positivismo</text>
+                        <rect x="220" y="140" width="160" height="40" class="box"/><text x="300" y="165" class="text">Neokantismo</text>
+                        <rect x="420" y="80" width="160" height="40" class="box"/><text x="500" y="105" class="text">Fenomenología (Husserl)</text>
+                        <line x1="180" y1="100" x2="220" y2="40" class="arrow"/><line x1="180" y1="100" x2="220" y2="160" class="arrow"/>
+                        <line x1="380" y1="40" x2="420" y2="80" class="arrow"/><line x1="380" y1="160" x2="420" y2="100" class="arrow"/>
+                    </svg>`
+                },
+                {
+                    epigrafe: "2. La Crítica al Psicologismo",
+                    resumen: `<p class="text-justify">En sus <em>Investigaciones Lógicas</em>, Husserl realiza una crítica fundamental al <strong>psicologismo</strong>, la corriente que intentaba fundamentar las leyes de la lógica en los procesos psíquicos. Husserl argumenta que esto es un error por varias razones:</p>
+                    <ul>
+                        <li class="ml-4 list-disc">Las leyes de la psicología son <strong>empíricas y aproximadas</strong>, mientras que las leyes lógicas poseen una <strong>exactitud y evidencia apodíctica</strong>.</li>
+                        <li class="ml-4 list-disc">El psicologismo conduce inevitablemente al <strong>relativismo escéptico</strong>, ya que si la lógica dependiera de la psique, podrían existir diferentes lógicas para diferentes especies, anulando el concepto de "verdad en sí".</li>
+                    </ul>
+                    <p class="text-justify mt-2">Para Husserl, la lógica es una ciencia de <strong>esencias ideales</strong>, intemporales y universales, no de hechos psíquicos individuales. Esta distinción es crucial para poder fundamentar un conocimiento objetivo.</p>`,
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+                        <style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style>
+                        <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs>
+                        <rect x="10" y="55" width="120" height="40" class="box"/><text x="70" y="80" class="text">Psicologismo</text>
+                        <rect x="180" y="20" width="140" height="40" class="box"/><text x="250" y="45" class="text">Relativismo</text>
+                        <rect x="180" y="90" width="140" height="40" class="box"/><text x="250" y="115" class="text">Leyes Empíricas</text>
+                        <rect x="370" y="55" width="120" height="40" class="box"/><text x="430" y="80" class="text">Lógica Pura</text>
+                        <path d="M130,75 C145,55 160,40 180,40" class="arrow"/>
+                        <path d="M130,75 C145,95 160,110 180,110" class="arrow"/>
+                        <text x="155" y="65" class="text" style="font-size:10px;">conduce a</text>
+                        <text x="345" y="70" class="text" style="font-size:12px; fill: #D35400;">VS</text>
+                    </svg>`
+                },
+                {
+                    epigrafe: "3. El Método Fenomenológico: Epojé y Reducción",
+                    resumen: `<p class="text-justify">Para acceder al campo de la conciencia pura, Husserl propone un método riguroso. El primer paso es la <strong>epojé</strong> (suspensión del juicio), que consiste en "poner entre paréntesis" la <strong>actitud natural</strong>, es decir, nuestra creencia espontánea en la realidad del mundo. No se trata de negar el mundo, sino de neutralizar su tesis de existencia para poder analizarlo como puro <strong>fenómeno</strong>.</p>
+                    <p class="text-justify mt-2">El segundo paso es la <strong>reducción</strong>, un movimiento de purificación que tiene dos fases:</p>
+                    <ol>
+                        <li class="ml-4 list-decimal"><strong>Reducción Eidética:</strong> Se pasa del hecho fáctico y particular a su <em>eidos</em> o <strong>esencia</strong>. Al suspender el carácter de "hecho", nos quedamos con su contenido ideal, su forma pura.</li>
+                        <li class="ml-4 list-decimal"><strong>Reducción Trascendental:</strong> Se reconducen todas las esencias al principio que las justifica y les da unidad: el <strong>yo trascendental</strong>. Este yo no es el yo empírico, sino el polo puro de la subjetividad desde el cual se constituye toda objetividad.</li>
+                    </ol>`,
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+                        <style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style>
+                        <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs>
+                        <rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Actitud Natural</text>
+                        <rect x="180" y="55" width="100" height="40" class="box"/><text x="230" y="80" class="text">Epojé</text>
+                        <rect x="310" y="20" width="140" height="40" class="box"/><text x="380" y="45" class="text">Reducción Eidética</text>
+                        <rect x="310" y="90" width="140" height="40" class="box"/><text x="380" y="115" class="text">Reducción Trascendental</text>
+                        <rect x="480" y="55" width="110" height="40" class="box"/><text x="535" y="80" class="text">Yo Trascendental</text>
+                        <path d="M150,75 C160,75 170,75 180,75" class="arrow"/>
+                        <path d="M280,75 C290,65 300,50 310,40" class="arrow"/>
+                        <path d="M280,75 C290,85 300,100 310,110" class="arrow"/>
+                        <path d="M450,40 C460,50 470,65 480,75" class="arrow"/>
+                        <path d="M450,110 C460,100 470,85 480,75" class="arrow"/>
+                    </svg>`
+                },
+                 {
+                    epigrafe: "4. La Constitución del Sentido y el Tiempo Fenomenológico",
+                    resumen: `<p class="text-justify">El problema radical de la fenomenología es explicar cómo la conciencia <strong>constituye</strong> el sentido objetivo del noema. "Constituir" no significa crear la realidad, sino conferirle su sentido inteligible y objetivo. Para Husserl, esta constitución se realiza a través de la forma fundamental de la conciencia: el <strong>tiempo fenomenológico</strong>.</p>
+                    <p class="text-justify mt-2">La conciencia no es estática, sino un <strong>fluir constante de vivencias</strong>. Este fluir temporal (distinto del tiempo físico) es lo que permite la síntesis y la unidad de un objeto a través de sus múltiples apariciones. La estructura del tiempo interno de la conciencia, con su <strong>retención</strong> (del pasado inmediato), su <strong>protención</strong> (anticipación del futuro inmediato) y la <strong>impresión originaria</strong> (el ahora), es lo que hace posible que un objeto permanezca como idéntico para nosotros a pesar del cambio constante, fundamentando así su objetividad.</p>`,
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+                        <style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style>
+                        <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs>
+                        <rect x="20" y="55" width="120" height="40" class="box"/><text x="80" y="80" class="text">Yo Trascendental</text>
+                        <rect x="200" y="55" width="180" height="40" class="box"/><text x="290" y="80" class="text">Tiempo Fenomenológico</text>
+                        <rect x="440" y="20" width="140" height="40" class="box"/><text x="510" y="45" class="text">Unidad del Objeto</text>
+                        <rect x="440" y="90" width="140" height="40" class="box"/><text x="510" y="115" class="text">Identidad del Yo</text>
+                        <line x1="140" y1="75" x2="200" y2="75" class="arrow"/><text x="170" y="70" class="text" style="font-size:10px;">constituye vía</text>
+                        <line x1="380" y1="75" x2="440" y2="45" class="arrow"/><line x1="380" y1="75" x2="440" y2="105" class="arrow"/><text x="410" y="80" class="text" style="font-size:10px;">funda</text>
+                    </svg>`
+                }
+            ],
+            conceptosClave: [
+                { concepto: "Actitud Natural", definicion: "La creencia espontánea y no cuestionada en la existencia de un mundo real e independiente de la conciencia." },
+                { concepto: "Constitución", definicion: "El proceso por el cual el yo trascendental no crea, sino que dota de sentido y objetividad al mundo fenoménico." },
+                { concepto: "Cosa en sí (Ding an sich)", definicion: "Concepto kantiano para la realidad tal como es independientemente de nuestra experiencia; criticado por Husserl como un residuo dogmático." },
+                { concepto: "Ego Cogito", definicion: "El 'yo pienso' cartesiano, punto de partida para la búsqueda de una certeza absoluta que Husserl busca radicalizar." },
+                { concepto: "Eidos", definicion: "Término griego para la esencia pura o estructura invariante de un fenómeno, captada mediante la reducción eidética." },
+                { concepto: "Epojé", definicion: "Suspensión del juicio sobre la existencia del mundo externo para centrarse en el análisis de la conciencia pura." },
+                { concepto: "Fenómeno", definicion: "Lo que se manifiesta a la conciencia, despojado de la creencia en su realidad externa." },
+                { concepto: "Giro Trascendental", definicion: "El cambio de enfoque filosófico, iniciado por Kant, desde el objeto hacia las condiciones de posibilidad del conocimiento en el sujeto." },
+                { concepto: "Intencionalidad", definicion: "La propiedad esencial de la conciencia de ser siempre 'conciencia de algo', su direccionalidad hacia un objeto." },
+                { concepto: "Mundo de la Vida (Lebenswelt)", definicion: "El mundo pre-científico de la experiencia cotidiana, que sirve de fundamento olvidado para todas las ciencias objetivas." },
+                { concepto: "Noema", definicion: "El correlato objetivo de un acto de conciencia (nóesis). Es el objeto en tanto que pensado, percibido, recordado, etc." },
+                { concepto: "Nóesis", definicion: "El acto de conciencia (pensar, percibir, recordar) que se dirige intencionalmente hacia un objeto (noema)." },
+                { concepto: "Psicologismo", definicion: "Corriente que intenta fundamentar las leyes de la lógica en los procesos psíquicos, criticada por Husserl por conducir al relativismo." },
+                { concepto: "Reducción Eidética", definicion: "Proceso de pasar del hecho particular y contingente a su esencia universal y necesaria (eidos)." },
+                { concepto: "Reducción Trascendental", definicion: "Proceso de reconducir toda objetividad a su fuente última: el yo puro o trascendental." },
+                { concepto: "Retención y Protención", definicion: "Estructuras del tiempo fenomenológico: la retención es la conciencia del pasado inmediato y la protención es la anticipación del futuro inmediato." },
+                { concepto: "Tiempo Fenomenológico", definicion: "La estructura temporal interna de la conciencia (retención-protención) que posibilita la síntesis y constitución de los objetos." },
+                { concepto: "Yo Trascendental", definicion: "El polo subjetivo puro, fundamento de toda objetividad, que se revela tras la reducción fenomenológica." }
+            ],
+            historicoExamenes: [
+                {
+                    pregunta: "El concepto husserliano de 'mundo de la vida' (Lebenswelt) (8 apariciones)",
+                    fechas: ["Mayo-Junio 2011", "Mayo-Junio 2014 (2ª)", "Mayo-Junio 2015 (1ª)", "Mayo/Junio 2016 (1ª)", "Mayo/Junio 2018", "Septiembre 2019", "Septiembre 2023", "Mayo/Junio 2024 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Mundo pre-científico", resumen: "Es el mundo de la experiencia cotidiana, perceptiva e intersubjetiva, que damos por sentado." },
+                        { concepto: "Fundamento de las ciencias", resumen: "Husserl argumenta que este mundo vital es el suelo nutricio del que surgen las ciencias objetivas, aunque estas lo olviden." },
+                        { concepto: "Crisis de las ciencias europeas", resumen: "La crisis surge cuando las ciencias pierden su conexión con el Lebenswelt, volviéndose meras técnicas abstractas sin relevancia vital." },
+                        { concepto: "Actitud natural vs. Actitud fenomenológica", resumen: "El Lebenswelt es el objeto de la actitud natural, que la epojé pone entre paréntesis para revelar el mundo como fenómeno." }
+                    ]
+                },
+                {
+                    pregunta: "Etapas del método fenomenológico en Husserl (3 apariciones)",
+                    fechas: ["Mayo/Junio 2023 (1ª)", "Mayo/Junio 2024 (2ª)", "Junio 2025 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Actitud Natural", resumen: "La creencia espontánea en la realidad independiente del mundo. Es el punto de partida que la fenomenología busca suspender." },
+                        { concepto: "Epojé", resumen: "La 'puesta entre paréntesis' de la actitud natural. No es dudar ni negar, sino neutralizar la tesis de la existencia del mundo." },
+                        { concepto: "Reducción Eidética", resumen: "El primer paso de la reducción. Se pasa de los hechos fácticos a sus esencias (eidos) mediante la variación imaginativa." },
+                        { concepto: "Reducción Trascendental", resumen: "El paso final. Se reconducen todas las esencias y objetividades al yo puro como su fundamento último y constituyente." }
+                    ]
+                },
+                {
+                    pregunta: "La intencionalidad de la conciencia en Husserl (2 apariciones)",
+                    fechas: ["Septiembre 2012", "Mayo/Junio 2023 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Conciencia 'de' algo", resumen: "La estructura fundamental de toda vivencia. No hay conciencia vacía; siempre está dirigida a un objeto." },
+                        { concepto: "Nóesis y Noema", resumen: "La dualidad del acto de conciencia (nóesis) y su correlato objetivo (noema), el 'qué' de la vivencia." },
+                        { concepto: "Superación del dualismo", resumen: "La intencionalidad une sujeto y objeto en una correlación inseparable, superando la escisión tradicional." },
+                        { concepto: "Constitución", resumen: "El objeto no es una cosa externa, sino que es 'constituido' en su sentido por los actos intencionales de la conciencia." }
+                    ]
+                },
+                {
+                    pregunta: "Qué se entiende por Yo trascendental en Husserl (1 aparición)",
+                    fechas: ["Curso 2012-2013 (1ª semana)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Fundamento de la objetividad", resumen: "No es el yo psicológico, sino el polo puro y anónimo de la conciencia que constituye todo sentido y validez." },
+                        { concepto: "Resultado de la reducción", resumen: "Se alcanza tras la epojé y la reducción trascendental, como residuo fenomenológico." },
+                        { concepto: "Egología", resumen: "Husserl define su filosofía tardía como una 'egología', una ciencia del yo trascendental como origen absoluto." }
+                    ]
+                },
+                {
+                    pregunta: "Qué es la epojé fenomenológica (1 aparición)",
+                    fechas: ["Curso 2012-2013 (2ª semana)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Suspensión del juicio", resumen: "Significa 'poner entre paréntesis' la creencia en la existencia del mundo." },
+                        { concepto: "Neutralización, no negación", resumen: "La epojé no niega la realidad, sino que neutraliza la 'tesis' de la actitud natural para poder analizar los fenómenos puros." },
+                        { concepto: "Paso a la actitud filosófica", resumen: "Es el acto metódico que permite abandonar la actitud natural y acceder al campo de la conciencia trascendental." }
+                    ]
+                },
+                {
+                    pregunta: "El método en la fenomenología de Husserl (1 aparición)",
+                    fechas: ["Septiembre 2024"],
+                    conceptosDesarrollo: [
+                        { concepto: "Epojé", resumen: "La 'puesta entre paréntesis' de la actitud natural. No es dudar ni negar, sino neutralizar la tesis de la existencia del mundo." },
+                        { concepto: "Reducción", resumen: "Movimiento de reconducción a lo fundamental. Se divide en eidética (hacia la esencia) y trascendental (hacia el yo)." },
+                        { concepto: "Intuición de esencias (Ideación)", resumen: "El acto de captar la esencia (eidos) de un fenómeno una vez se ha realizado la reducción eidética." }
+                    ]
+                }
+            ],
+            juegoPreguntas: [
+                {pregunta:"¿Qué significa el término 'epojé' en la fenomenología de Husserl?",opciones:["La negación rotunda de la existencia del mundo externo.","La suspensión del juicio sobre la existencia del mundo.","La afirmación de la realidad a través de la experiencia.","Un método para analizar las estructuras lógicas del lenguaje."],correcta:1,explicacion:"La 'epojé' no niega el mundo, sino que 'pone entre paréntesis' o neutraliza nuestra creencia en su existencia para poder analizar la conciencia pura.", dummyExplanation: "Imagina que le das al botón de 'pausa' del mundo. No dices que no existe, solo dejas de preocuparte por si es real o no para poder concentrarte en cómo lo percibes en tu mente. Eso es la epojé."},
+                {pregunta:"Según Husserl, la propiedad esencial de la conciencia de ser siempre 'conciencia de algo' se denomina:",opciones:["Apercepción","Intencionalidad","Reducción","Intuición eidética"],correcta:1,explicacion:"La intencionalidad es el concepto clave que describe la direccionalidad de la conciencia hacia un objeto, sea este real o imaginario.", dummyExplanation: "Piensa que tu mente es como una flecha: siempre está apuntando a algo. Ya sea que pienses en una silla, un unicornio o un recuerdo, tu conciencia siempre es 'conciencia de algo'. A esa cualidad de 'apuntar' se le llama intencionalidad."},
+                {pregunta:"¿Cuál es el objetivo final de la 'reducción trascendental'?",opciones:["Llegar a las esencias puras de los objetos.","Demostrar la existencia de Dios.","Alcanzar el 'yo trascendental' como fundamento.","Analizar los hechos del mundo de la vida."],correcta:2,explicacion:"La reducción trascendental busca reconducir toda objetividad al yo puro como su fuente y fundamento último.", dummyExplanation: "Es como pelar una cebolla para llegar al centro. Después de poner el mundo en 'pausa' (epojé), la reducción trascendental es el último paso para llegar al 'yo' más puro, al núcleo de tu conciencia que da sentido a todo lo demás."},
+                {pregunta:"El 'noema' en la terminología husserliana se refiere a:",opciones:["El acto subjetivo de pensar.","El correlato objetivo de una vivencia.","Un sentimiento o emoción puros.","Una ley lógica fundamental."],correcta:1,explicacion:"El noema es el 'qué' de la conciencia: el árbol visto, el recuerdo recordado, etc., como correlato de la nóesis (el acto de ver, recordar...)." , dummyExplanation: "El 'noema' es simplemente 'aquello' en lo que estás pensando o percibiendo. Si piensas en una manzana, la manzana (como idea en tu mente) es el noema. Es el objeto de tu pensamiento."},
+                {pregunta:"Husserl critica al psicologismo por:",opciones:["Ser demasiado idealista y abstracto.","Fundamentar la lógica en hechos psíquicos contingentes.","Negar la importancia de la experiencia sensible.","Utilizar un método puramente deductivo."],correcta:1,explicacion:"El psicologismo reduce las leyes necesarias de la lógica a hechos empíricos de la mente, lo que para Husserl conduce al relativismo.", dummyExplanation: "Husserl decía que no puedes basar las reglas de la lógica (que son universales, como 2+2=4) en cómo funciona la mente de una persona (que es algo particular y cambiante). Sería como decir que las matemáticas dependen de si estás de buen o mal humor."},
+                {pregunta:"El 'Mundo de la Vida' (Lebenswelt) es para Husserl:",opciones:["Un concepto metafísico sin base real.","El mundo de las esencias puras e inmutables.","El mundo pre-científico de la experiencia cotidiana.","La suma de todas las teorías científicas existentes."],correcta:2,explicacion:"El Lebenswelt es el suelo de la experiencia inmediata y compartida que, aunque olvidado, fundamenta toda ciencia.", dummyExplanation: "Es el mundo del día a día, el que experimentamos antes de ponernos a pensar en ciencia o filosofía. Es el mundo del café por la mañana, de saludar al vecino... la base sobre la que se construye todo lo demás."},
+                {pregunta:"¿Qué es la 'actitud natural'?",opciones:["Una actitud filosófica de contemplación.","La creencia espontánea en la realidad del mundo.","El método para alcanzar las esencias.","La duda metódica de Descartes."],correcta:1,explicacion:"La actitud natural es nuestra postura cotidiana y no reflexiva de dar por sentada la existencia de un mundo objetivo e independiente.", dummyExplanation: "Es nuestro 'modo por defecto'. Damos por hecho que la silla en la que nos sentamos es real sin pararnos a pensarlo. La filosofía de Husserl empieza por cuestionar precisamente esa creencia automática."},
+                {pregunta:"La 'reducción eidética' es el proceso que nos permite pasar de:",opciones:["La conciencia al yo trascendental.","La duda a la certeza absoluta.","El hecho particular a la esencia universal.","La lógica a la psicología."],correcta:2,explicacion:"Mediante la variación imaginativa, la reducción eidética abstrae el 'eidos' o esencia de un hecho concreto.", dummyExplanation: "Consiste en mirar un objeto, como una silla, e imaginar todas las sillas posibles para quedarte solo con la 'idea' o 'esencia' de silla. Es pasar de 'esta silla' a 'lo que hace que una silla sea una silla'."},
+                {pregunta:"El idealismo de Husserl sostiene que el yo trascendental...",opciones:["...crea el mundo material de la nada.","...es una construcción social y lingüística.","...constituye el sentido y la objetividad del mundo.","...es irrelevante para el conocimiento objetivo."],correcta:2,explicacion:"En el idealismo fenomenológico, 'constituir' no es crear, sino dotar de estructura, sentido y validez objetiva al mundo fenoménico.", dummyExplanation: "El 'yo trascendental' no es que invente el mundo, sino que es como el sistema operativo que le da sentido a todo lo que percibimos. Sin él, solo habría un caos de sensaciones sin significado."},
+                {pregunta:"La 'protención' y la 'retención' son conceptos clave para entender:",opciones:["La estructura de la lógica pura.","La crítica al positivismo.","La relación entre diferentes culturas.","El tiempo fenomenológico de la conciencia."],correcta:3,explicacion:"La protención (anticipación) y la retención (recuerdo inmediato) son los componentes de la estructura temporal interna de la conciencia que permiten la síntesis.", dummyExplanation: "Cuando escuchas una melodía, 'retienes' la nota que acaba de sonar y 'anticipas' (protención) la que viene. Así es como tu mente une el tiempo y le da sentido a la música, y segundo Husserl, a toda experiencia."},
+                {pregunta:"¿Qué diferencia a la fenomenología del neokantismo según Husserl?",opciones:["El neokantismo es más radical en su crítica.","La fenomenología no acepta el giro trascendental.","El neokantismo da por sentada la validez de la ciencia.","La fenomenología se basa en el psicologismo."],correcta:2,explicacion:"Husserl critica al neokantismo por no someter a la epojé a la propia ciencia físico-matemática, tratándola como un hecho incuestionable.", dummyExplanation: "La gran diferencia es que los neokantianos daban por buena la ciencia sin más, mientras que Husserl decía: 'un momento, también hay que poner la ciencia en 'pausa' (epojé) y analizar cómo la conocemos'."},
+                {pregunta:"Para Husserl, la evidencia apodíctica se encuentra en:",opciones:["La correspondencia con los hechos externos.","El consenso de la comunidad científica.","La intuición directa de lo dado en la conciencia.","La coherencia lógica de un sistema de creencias."],correcta:2,explicacion:"El 'principio de todos los principios' para Husserl es que la intuición que da originariamente es una fuente de derecho para el conocimiento.", dummyExplanation: "Para Husserl, la única prueba irrefutable de algo es cuando lo 'ves' directamente en tu conciencia, sin intermediarios. Si lo percibes clara y distintamente en tu mente, eso es la máxima evidencia."},
+                {pregunta:"¿Qué es una 'nóesis' en la fenomenología?",opciones:["El objeto tal como es pensado o percibido.","La esencia inmutable de una cosa.","El acto de conciencia, como el percibir o el recordar.","Una creencia injustificada de la actitud natural."],correcta:2,explicacion:"La nóesis es el componente subjetivo del acto intencional, el 'cómo' de la conciencia (el pensar, el juzgar, el sentir).", dummyExplanation: "La 'nóesis' es el acto de tu mente: el 'ver', el 'recordar', el 'imaginar'. No es el objeto (eso sería el noema), sino la acción que tu conciencia realiza para captar ese objeto."},
+                {pregunta:"La fenomenología busca ser una 'ciencia estricta' al basarse en:",opciones:["Leyes matemáticas universales.","La observación empírica de hechos.","La descripción de esencias dadas con evidencia.","La interpretación de textos históricos."],correcta:2,explicacion:"Husserl aspira a un conocimiento apodíctico basado en la intuición de las esencias, libre de los presupuestos de las ciencias de hechos.", dummyExplanation: "Husserl quería que la filosofía fuera tan rigurosa como las matemáticas, pero en lugar de números, su base serían las 'esencias' de las cosas, aquello que podemos captar con total certeza en nuestra mente."},
+                {pregunta:"¿A qué filósofo considera Husserl un precursor de la actitud crítica, aunque incompleto?",opciones:["Aristóteles","Hegel","Descartes","Nietzsche"],correcta:2,explicacion:"Husserl ve en el 'ego cogito' de Descartes el punto de partida correcto, pero critica que no llegara a un yo trascendental puro.", dummyExplanation: "Husserl admiraba a Descartes por su 'pienso, luego existo', pero le parecía que se quedó a medias. Descartes encontró el 'yo', pero no se dio cuenta de que ese 'yo' era el 'sistema operativo' que da sentido a todo (el yo trascendental)."},
+                {pregunta:"El proceso de 'constitución' en Husserl se refiere a:",opciones:["La creación física de los objetos.","La dotación de sentido y unidad a los fenómenos.","La construcción de un lenguaje artificial.","La formulación de hipótesis científicas."],correcta:1,explicacion:"La conciencia 'constituye' el objeto al sintetizar el flujo de apariciones en una unidad de sentido idéntica.", dummyExplanation: "'Constituir' no es crear algo de la nada, sino darle sentido. Es como si tu mente cogiera un montón de píxeles sueltos (sensaciones) y los 'constituyera' en la imagen de una cara. La mente organiza y da forma."},
+                {pregunta:"La crítica de Husserl a Kant se centra en que este último:",opciones:["Era demasiado escéptico.","No dio suficiente importancia a la lógica.","Mantuvo la 'cosa en sí' como un residuo dogmático.","Ignoró el papel del sujeto en el conocimiento."],correcta:2,explicacion:"Para Husserl, la 'cosa en sí' kantiana es un concepto mítico que la fenomenología, con su reducción, supera completamente.", dummyExplanation: "Husserl le reprochaba a Kant que, después de explicar cómo nuestra mente organiza la realidad, dejara la idea de una 'cosa en sí' misteriosa e incognoscible. Para Husserl, si no podemos conocerla, no tiene sentido hablar de ella."},
+                {pregunta:"¿Qué es un 'eidos' para Husserl?",opciones:["Un hecho particular y contingente.","Una imagen mental subjetiva.","La esencia o estructura invariante de un objeto.","Una ley de la naturaleza."],correcta:2,explicacion:"'Eidos' es el término griego que Husserl utiliza para referirse a la esencia, aquello que se capta en la intuición eidética.", dummyExplanation: "Eidos es simplemente la palabra griega que Husserl usa para 'esencia'. Es la idea pura de algo, lo que hace que una silla sea una silla, independientemente de su color o material."},
+                {pregunta:"La fenomenología trascendental se define a sí misma como una:",opciones:["Psicología descriptiva.","Teoría de la ciencia.","Metafísica del ser.","Egología o ciencia del yo puro."],correcta:3,explicacion:"En su fase madura, Husserl considera que toda la filosofía se fundamenta en el estudio del yo trascendental y sus actos constituyentes.", dummyExplanation: "Como para Husserl todo se fundamenta en el 'yo puro' (el ego), llegó a llamar a su filosofía 'egología', es decir, el estudio o la ciencia del ego como origen de todo sentido."},
+                {pregunta:"¿Cuál es la relación entre la nóesis y el noema?",opciones:["Son idénticos.","Son completamente independientes.","Son dos polos correlativos de todo acto intencional.","La nóesis causa el noema."],correcta:2,explicacion:"No puede haber un acto de conciencia (nóesis) sin su objeto intencional (noema), y viceversa. Forman una unidad inseparable.", dummyExplanation: "Son las dos caras de la misma moneda. La 'nóesis' es el acto de ver y el 'noema' es lo visto. No puedes tener uno sin el otro; siempre van juntos."},
+            ]
+        };
+
+        let quizQuestions = [];
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+
+        // --- FUNCIONES DE RENDERIZADO ---
+        
+        function renderContent() {
+            renderFigurasClaveContent();
+            renderResumen();
+            renderConceptos();
+            renderExamenes();
+            renderJuego();
+            renderBibliografia();
+        }
+
+        function renderFigurasClaveContent() {
+            const figura = themeData.figurasClave[0];
+            const container = document.getElementById('content-carousel-0');
+            container.innerHTML = figura.carouselContent.map((item, contentIndex) => `
+                <div class="content-carousel-item ${contentIndex === 0 ? 'active' : ''}" data-content-index="${contentIndex}">
+                    <h4 class="font-bold mb-2" style="color: var(--color-pumpkin);">${item.titulo}</h4>
+                    ${item.obras ? 
+                        `<div class="space-y-2">
+                            ${item.obras.map(obra => `
+                                <details class="text-sm">
+                                    <summary class="font-semibold cursor-pointer">${obra.titulo}</summary>
+                                    <p class="pt-1 pl-4 text-justify">${obra.contenido}</p>
+                                </details>
+                            `).join('')}
+                        </div>` 
+                        : `<p class="text-justify text-sm">${item.contenido}</p>`
+                    }
+                </div>
+            `).join('');
+            window.currentContentCarouselIndex_0 = 0;
+            updateCarouselButtons(0);
+        }
+
+        function renderResumen() {
+            const container = document.getElementById('resumen');
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${themeData.resumenTemario.map(item => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h4 class="text-xl font-bold mb-3">${item.epigrafe}</h4>
+                        <div class="text-justify mb-4">${item.resumen}</div>
+                        <div class="border-t my-4" style="border-color: var(--color-siena);"></div>
+                        <h5 class="font-semibold mb-2" style="color: var(--color-pumpkin);">Mapa Conceptual</h5>
+                        <div class="w-full overflow-x-auto">${item.mapaConceptual}</div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${themeData.conceptosClave.sort((a, b) => a.concepto.localeCompare(b.concepto)).map(item => `
+                    <div class="bg-white p-4 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${item.concepto}</h5>
+                        <p class="text-sm mt-1">${item.definicion}</p>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            const sortedExams = themeData.historicoExamenes.sort((a, b) => b.fechas.length - a.fechas.length);
+            
+            const sortDates = (dates) => {
+                const monthOrder = { "Mayo": 5, "Junio": 6, "Septiembre": 9, "Curso": 1 };
+                return dates.slice().sort((a, b) => {
+                    const getYear = str => parseInt(str.match(/\d{4}/g)?.[0] || 0);
+                    const getMonth = str => {
+                        const monthKey = Object.keys(monthOrder).find(m => str.includes(m));
+                        return monthOrder[monthKey] || 0;
+                    };
+                    const yearA = getYear(a);
+                    const yearB = getYear(b);
+                    if (yearA !== yearB) return yearA - yearB;
+                    return getMonth(a) - getMonth(b);
+                });
+            };
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                ${sortedExams.map(item => `
+                    <details class="bg-white p-4 rounded-lg shadow-inner group" style="background-color: #fcf8f0;">
+                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center" style="color: var(--color-pumpkin);">
+                            <span>${item.pregunta}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <details class="text-sm mb-2">
+                                <summary class="font-semibold cursor-pointer" style="color: var(--color-coffee);">Fechas de aparición</summary>
+                                <div class="pl-4 pt-2">
+                                    ${sortDates(item.fechas).map(date => `<p>${date}</p>`).join('')}
+                                </div>
+                            </details>
+                            <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                ${item.conceptosDesarrollo.map(cd => `
+                                    <div class="bg-gray-50 p-3 rounded-md shadow-sm tooltip-container">
+                                        <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                        <span class="tooltip-text">${cd.resumen}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </details>
+                `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderBibliografia() {
+            const container = document.getElementById('bibliografia');
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <h4 class="text-xl font-bold mb-3">Bibliografía del Tema</h4>
+                    <ul class="text-sm space-y-2 list-disc pl-5">
+                        ${themeData.bibliografia.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function renderJuego() {
+            const container = document.getElementById('juego');
+            container.innerHTML = `
+                <div id="quiz-container" class="text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                     <h3 class="text-2xl font-bold mb-4">Juego de Preguntas</h3>
+                     <p class="mb-6">Pon a prueba tus conocimientos con 10 preguntas aleatorias sobre este tema.</p>
+                     <button onclick="startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Comenzar Juego</button>
+                </div>
+            `;
+        }
+
+        // --- FUNCIONES DE INTERACTIVIDAD ---
+
+        window.openTab = function(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function updateCarouselButtons(figIndex) {
+            const items = document.querySelectorAll(`#content-carousel-${figIndex} .content-carousel-item`);
+            const currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            const prevButton = document.getElementById(`prev-btn-${figIndex}`);
+            const nextButton = document.getElementById(`next-btn-${figIndex}`);
+
+            if (prevButton) prevButton.disabled = currentIndex === 0;
+            if (nextButton) nextButton.disabled = currentIndex === items.length - 1;
+        }
+
+        window.changeContentCarousel = function(figIndex, direction) {
+            const carouselId = `content-carousel-${figIndex}`;
+            const items = document.querySelectorAll(`#${carouselId} .content-carousel-item`);
+            let currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            
+            items[currentIndex].classList.remove('active');
+            currentIndex += direction;
+            items[currentIndex].classList.add('active');
+            
+            window[`currentContentCarouselIndex_${figIndex}`] = currentIndex;
+            updateCarouselButtons(figIndex);
+        };
+        
+        window.startQuiz = function() {
+            const shuffled = [...themeData.juegoPreguntas].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 10);
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        window.displayQuestion = function() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:border-yellow-500" style="border-color: var(--color-siena);" onclick="checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(button => button.disabled = true);
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-200', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            const titles = [
+                "En la Actitud Natural", "Dudando como Descartes", "Psicologista en Apuros", 
+                "Iniciando la Epojé", "Practicante de la Reducción", "Captando el Eidos", 
+                "Fenomenólogo Prometedor", "Intuyendo con Evidencia", "Habitante del Lebenswelt", 
+                "Conciencia Constituyente", "Yo Trascendental"
+            ];
+            const title = titles[quizScore] || "Estudiante Entusiasta";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(q => {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left">
+                        <h3 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h3>
+                        <h4 class="text-md font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h4>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.dummyExplanation}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h2 class="text-2xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h2>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <button onclick="startQuiz()" class="mt-8 px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+            `;
+        }
+
+        // --- INICIALIZACIÓN ---
+        renderContent();
+    });
+    </script>
+</body>
+</html>
