@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 3: La nueva filosofía de la ciencia - Teoría del Conocimiento II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Definición de la paleta de colores y tipografías como variables CSS */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para las pestañas */
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        /* Estilos para carruseles de contenido */
+        .content-carousel-item {
+            display: none;
+        }
+        .content-carousel-item.active {
+            display: block;
+        }
+        /* Estilos para tooltips */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .next-button {
+            display: none; /* Oculto por defecto */
+        }
+        /* Estilo para botones de carrusel desactivados */
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal de la aplicación -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 3: La nueva filosofía de la ciencia</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition active" style="border-color: transparent;" onclick="openTab(event, 'figuras')">Figuras Clave</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'resumen')">Resumen</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'conceptos')">Conceptos</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'examenes')">Exámenes</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'juego')">Juego</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+            </div>
+
+            <!-- Pestaña Figuras Clave -->
+            <div id="figuras" class="tab-content"></div>
+
+            <!-- Pestaña Resumen -->
+            <div id="resumen" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Conceptos -->
+            <div id="conceptos" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Exámenes -->
+            <div id="examenes" class="tab-content" style="display:none;"></div>
+            
+            <!-- Pestaña Juego -->
+            <div id="juego" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Bibliografía -->
+            <div id="bibliografia" class="tab-content" style="display:none;"></div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página fijo -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- BASE DE DATOS DE CONTENIDO PARA EL TEMA 3 ---
+        const themeData = {
+            title: "La nueva filosofía de la ciencia",
+            figurasClave: [
+                {
+                    nombre: "El Círculo de Viena",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Eingang_Mathematisches_Kolloquium.TIF/lossy-page1-800px-Eingang_Mathematisches_Kolloquium.TIF.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Eingang_Mathematisches_Kolloquium.TIF",
+                    altText: "Fotografía en blanco y negro de un grupo de hombres, miembros del Coloquio Matemático de Viena, precursores del Círculo de Viena.",
+                    carouselContent: [
+                        {
+                            titulo: "Historia del Círculo",
+                            contenido: "El Círculo de Viena fue un influyente grupo de filósofos y científicos que se reunieron en la Universidad de Viena desde 1924 bajo el liderazgo de Moritz Schlick. Miembros destacados como Rudolf Carnap, Otto Neurath y Kurt Gödel desarrollaron el positivismo lógico. El grupo se disolvió a mediados de la década de 1930 debido al ascenso del nazismo, que provocó el asesinato de Schlick y la emigración de la mayoría de sus miembros, quienes difundieron sus ideas por el mundo anglosajón."
+                        },
+                        {
+                            titulo: "Influencias y Contexto",
+                            contenido: "El Círculo de Viena se inspiró en la tradición empirista de David Hume y Ernst Mach, la nueva lógica simbólica de Gottlob Frege y Bertrand Russell, y, de manera crucial, en el 'Tractatus Logico-Philosophicus' de Ludwig Wittgenstein. Su objetivo era crear una filosofía científica que eliminara la metafísica, considerándola carente de significado."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "El Círculo de Viena fundó el positivismo lógico (o empirismo lógico), una de las corrientes más influyentes de la filosofía del siglo XX. Su 'principio de verificación' como criterio de significado y su proyecto de una 'ciencia unificada' transformaron la filosofía de la ciencia y el lenguaje. Aunque sus tesis más radicales fueron posteriormente criticadas y abandonadas, su rigor analítico y su enfoque en la ciencia marcaron la agenda de la filosofía analítica durante décadas."
+                        },
+                        {
+                            titulo: "Tesis Principales",
+                            obras: [
+                                {
+                                    titulo: "Principio de Verificación",
+                                    contenido: "Un enunciado solo tiene significado cognitivo si es analítico (una verdad lógica o matemática) o si es empíricamente verificable. Todo lo demás es considerado un 'sinsentido'."
+                                },
+                                {
+                                    titulo: "Rechazo de la Metafísica",
+                                    contenido: "Aplicando el principio de verificación, los enunciados de la metafísica, la ética y la estética son calificados como pseudoproposiciones, carentes de significado fáctico."
+                                },
+                                {
+                                    titulo: "Unidad de la Ciencia (Fisicalismo)",
+                                    contenido: "El objetivo de unificar todas las ciencias bajo un lenguaje común, basado en la física, que permitiera traducir y conectar los enunciados de todas las disciplinas científicas."
+                                },
+                                {
+                                    titulo: "Filosofía como Análisis Lógico",
+                                    contenido: "La tarea de la filosofía no es descubrir verdades sobre el mundo, sino analizar y clarificar la estructura lógica del lenguaje científico, actuando como una 'lógica de la ciencia'."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    nombre: "Karl Popper",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/4/43/Karl_Popper.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Karl_Popper.jpg",
+                    altText: "Retrato en blanco y negro de un Karl Popper anciano, con gafas y mirando a la izquierda.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Nacido en Viena en 1902, Karl Popper se formó en un ambiente de gran efervescencia intelectual. Aunque cercano al Círculo de Viena, fue uno de sus críticos más agudos. Huyó del nazismo a Nueva Zelanda en 1937 y, tras la guerra, se estableció en Londres, donde desarrolló su carrera en la London School of Economics. Murió en 1994, siendo uno de los filósofos más influyentes del siglo XX, no solo en la ciencia, sino también en la filosofía política con su defensa de la 'sociedad abierta'."
+                        },
+                        {
+                            titulo: "Influencias y Contexto",
+                            contenido: "Popper se opuso al positivismo lógico del Círculo de Viena. Su pensamiento se forjó en diálogo crítico con la tradición empirista (Hume) y racionalista (Kant). Dos eventos marcaron su filosofía: la confirmación de la teoría de la relatividad de Einstein, que vio como un modelo de audacia y refutabilidad científica, y su desilusión juvenil con el marxismo, que consideró una pseudociencia dogmática."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "Popper revolucionó la filosofía de la ciencia al sustituir el criterio de verificación por el de falsabilidad. Su 'racionalismo crítico' propone que la ciencia no avanza acumulando verdades, sino eliminando errores a través de un proceso de 'conjeturas y refutaciones'. Esta visión presenta una imagen de la ciencia como una empresa humana, falible y en constante búsqueda, pero rigurosamente crítica."
+                        },
+                        {
+                            titulo: "Obras Clave",
+                            obras: [
+                                {
+                                    titulo: "La lógica de la investigación científica (1934)",
+                                    contenido: "Su obra magna, donde presenta el falsacionismo como criterio de demarcación entre ciencia y pseudociencia, y critica la lógica inductiva."
+                                },
+                                {
+                                    titulo: "La sociedad abierta y sus enemigos (1945)",
+                                    contenido: "Una defensa apasionada de la democracia liberal y una crítica a las filosofías totalitarias de Platón, Hegel y Marx."
+                                },
+                                {
+                                    titulo: "Conjeturas y refutaciones (1963)",
+                                    contenido: "Colección de ensayos donde refina su falsacionismo e introduce el concepto de 'verosimilitud' para explicar el progreso científico como un acercamiento a la verdad."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    nombre: "Thomas S. Kuhn",
+                    foto: "https://upload.wikimedia.org/wikipedia/en/8/87/Thomas_Kuhn.jpg",
+                    fotoFuente: "https://en.wikipedia.org/wiki/File:Thomas_Kuhn.jpg",
+                    altText: "Fotografía en blanco y negro de un joven Thomas Kuhn, con gafas y mirando directamente a la cámara.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Nacido en Ohio en 1922, Thomas Kuhn se formó como físico en Harvard. Su transición a la historia y filosofía de la ciencia se produjo al preparar un curso sobre la mecánica de Aristóteles, donde experimentó un 'cambio de Gestalt' que le hizo comprender que las teorías pasadas no eran 'erróneas', sino que respondían a una visión del mundo diferente. Esta experiencia fue la semilla de su obra más famosa. Fue profesor en Berkeley, Princeton y el MIT. Murió en 1996."
+                        },
+                        {
+                            titulo: "Influencias y Contexto",
+                            contenido: "Kuhn representa la 'revuelta historicista' en la filosofía de la ciencia. Se opuso a las concepciones ahistóricas de Popper y el Círculo de Viena. Fue influido por historiadores como Alexandre Koyré y psicólogos de la Gestalt. Su trabajo introdujo factores sociológicos e históricos en el análisis de la ciencia, centrándose en el funcionamiento real de las 'comunidades científicas'."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "Kuhn cambió para siempre la forma de entender la ciencia. Su concepto de 'paradigma' y su distinción entre 'ciencia normal' y 'revolución científica' se han vuelto de uso común. Cuestionó la idea de un progreso científico lineal y acumulativo, introduciendo la noción de 'inconmensurabilidad' entre paradigmas, lo que abrió un intenso debate sobre el relativismo y la racionalidad en la ciencia."
+                        },
+                        {
+                            titulo: "Obras Clave",
+                            obras: [
+                                {
+                                    titulo: "La revolución copernicana (1957)",
+                                    contenido: "Un estudio histórico detallado que sirve de base para sus posteriores reflexiones filosóficas sobre el cambio científico."
+                                },
+                                {
+                                    titulo: "La estructura de las revoluciones científicas (1962)",
+                                    contenido: "Una de las obras de filosofía más citadas del siglo XX. Presenta su modelo de desarrollo científico basado en paradigmas, ciencia normal, crisis y revoluciones."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    nombre: "Paul Feyerabend",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/e/e2/Paul_Feyerabend_Berkeley.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Paul_Feyerabend_Berkeley.jpg",
+                    altText: "Fotografía en blanco y negro de Paul Feyerabend de perfil, hablando durante una clase en Berkeley.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Nacido en Viena en 1924, Feyerabend tuvo una vida tumultuosa, sirviendo en el ejército alemán durante la II Guerra Mundial. Estudió física y filosofía, y fue alumno de Popper en Londres, aunque más tarde se convirtió en uno de sus críticos más feroces. Fue un académico itinerante, enseñando en Berkeley, Zúrich y otras universidades. Su estilo provocador y su defensa de la libertad intelectual lo convirtieron en el 'enfant terrible' de la filosofía de la ciencia. Murió en 1994."
+                        },
+                        {
+                            titulo: "Influencias y Contexto",
+                            contenido: "Feyerabend parte de la crítica popperiana, pero la lleva a sus últimas consecuencias. Influido por su amigo Imre Lakatos y por la obra de Kuhn, radicaliza la crítica historicista. Su pensamiento también incorpora elementos del dadaísmo y una profunda desconfianza hacia toda forma de autoridad, incluida la de la razón y la ciencia."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "Feyerabend es el principal exponente del 'anarquismo epistemológico'. Sostiene que no existe 'el' método científico y que la ciencia progresa a menudo violando todas las reglas. Su lema 'todo vale' es una llamada a la libertad metodológica. Cuestionó el estatus privilegiado de la ciencia en la sociedad, defendiendo que debería ser tratada como una tradición más, sujeta al control democrático, en una 'sociedad libre'."
+                        },
+                        {
+                            titulo: "Obras Clave",
+                            obras: [
+                                {
+                                    titulo: "Tratado contra el método (1975)",
+                                    contenido: "Su obra más famosa y polémica. Utilizando el caso de Galileo, argumenta que no hay un método científico universal y que la ciencia real es una práctica anárquica y creativa."
+                                },
+                                {
+                                    titulo: "La ciencia en una sociedad libre (1978)",
+                                    contenido: "Desarrolla las implicaciones políticas de su anarquismo epistemológico, abogando por una separación entre ciencia y Estado."
+                                },
+                                {
+                                    titulo: "Adiós a la razón (1987)",
+                                    contenido: "Una colección de ensayos donde critica el absolutismo de la 'Razón' occidental y defiende el relativismo."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            bibliografia: [
+                "Sánchez Meca, D. (2019). <em>Iniciación a la Teoría del Conocimiento</em>. Dykinson. (Capítulo 11: La nueva filosofía de la ciencia, pp. 393-437).",
+                "Escudero Pérez, A. (s.f.). <em>Teoría del conocimiento II (Apuntes)</em>. UNED. (Tema 3: La nueva filosofía de la ciencia).",
+                "Moulines, C. U. (2015). <em>Popper y Kuhn: Dos gigantes de la filosofía de la ciencia del siglo XX</em>. Batiscafo.",
+                "Collina, B. (2016). <em>Lakatos y Feyerabend: La ciencia entre método y anarquía</em>. Batiscafo."
+            ],
+            resumenTemario: [
+                {
+                    epigrafe: "1. Introducción: El final del modelo clásico de cientificidad",
+                    resumen: "<p class='text-justify'>La filosofía de la ciencia del siglo XX supone una profunda revisión del <strong>ideal clásico de cientificidad</strong>, caracterizado por una visión del progreso científico como un proceso lineal, acumulativo y fundado en bases inquebrantables (ya sea la razón o la experiencia). La 'nueva' filosofía de la ciencia, en cambio, subraya que:</p><ul><li class='ml-4 list-disc'>Los <strong>hechos científicos</strong> son relativos al sistema conceptual utilizado.</li><li class='ml-4 list-disc'>La evaluación de hipótesis complejas no es reducible a reglas formales.</li><li class='ml-4 list-disc'>Teorías rivales pueden ser <strong>inconmensurables</strong>, impidiendo una comparación directa.</li></ul><p class='text-justify mt-2'>Este cambio de perspectiva abandona el modelo <strong>fundacionista</strong> y se orienta hacia un análisis más descriptivo y atento a la práctica real y la historia de la ciencia.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="160" height="40" class="box"/><text x="90" y="80" class="text">Modelo Clásico</text><rect x="230" y="55" width="140" height="40" class="box" style="fill:#ffdddd; stroke:#c00;"/><text x="300" y="80" class="text">CRÍTICA</text><rect x="430" y="55" width="160" height="40" class="box"/><text x="510" y="80" class="text">Nueva Filosofía</text><line x1="170" y1="75" x2="230" y2="75" class="arrow"/><line x1="370" y1="75" x2="430" y2="75" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "2. El Círculo de Viena: Verificación y unificación",
+                    resumen: "<p class='text-justify'>El <strong>Círculo de Viena</strong> representa la última gran defensa del modelo clásico desde el <strong>positivismo lógico</strong>. Inspirados por el <em>Tractatus</em> de Wittgenstein, propusieron una división radical del discurso:</p><ul><li class='ml-4 list-disc'><strong>Principio de Verificación:</strong> Un enunciado solo tiene significado si es analítico (lógico-matemático) o si es empíricamente verificable. Esto lleva al <strong>rechazo de la metafísica</strong> como un conjunto de pseudoproposiciones sin sentido.</li><li class='ml-4 list-disc'><strong>Lenguaje Unificado:</strong> Buscaron unificar todas las ciencias bajo un lenguaje común (<strong>fisicalismo</strong>), que permitiera traducir todos los enunciados a proposiciones sobre estados y procesos del mundo físico.</li><li class='ml-4 list-disc'><strong>Filosofía como Análisis Lógico:</strong> La tarea de la filosofía no es descubrir verdades sobre el mundo (eso es labor de la ciencia), sino clarificar la estructura lógica del lenguaje científico.</li></ul>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Círculo de Viena</text><rect x="200" y="20" width="180" height="40" class="box"/><text x="290" y="45" class="text">Principio de Verificación</text><rect x="200" y="90" width="180" height="40" class="box"/><text x="290" y="115" class="text">Rechazo de la Metafísica</text><rect x="430" y="55" width="160" height="40" class="box"/><text x="510" y="80" class="text">Ciencia Unificada</text><path d="M150,75 C165,60 180,45 200,40" class="arrow"/><path d="M150,75 C165,90 180,105 200,110" class="arrow"/><path d="M380,40 C395,50 410,55 430,60" class="arrow"/><path d="M380,110 C395,100 410,95 430,90" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "3. Popper: Investigación científica y desarrollo del conocimiento",
+                    resumen: "<p class='text-justify'><strong>Karl Popper</strong> inicia la crítica sistemática al positivismo lógico. Rechaza la <strong>inducción</strong> como método válido para verificar teorías, pues de casos particulares no se puede inferir una ley universal. Propone un nuevo <strong>criterio de demarcación</strong> entre ciencia y pseudociencia: la <strong>falsabilidad</strong>.</p><ul><li class='ml-4 list-disc'>Una teoría es científica si es <strong>falsable</strong>, es decir, si es posible concebir un experimento que la pueda refutar. Esto distingue la <strong>actitud científica</strong> (crítica, que busca refutaciones) de la <strong>actitud dogmática</strong> (que busca confirmaciones).</li><li class='ml-4 list-disc'>El progreso científico se da por <strong>conjeturas y refutaciones</strong>. Las teorías son hipótesis que se mantienen mientras son <strong>corroboradas</strong> (resisten los intentos de falsación).</li><li class='ml-4 list-disc'>La base empírica de la ciencia (los 'enunciados básicos') se acepta por <strong>decisión o convención</strong> de la comunidad científica, no por una justificación última en la experiencia.</li><li class='ml-4 list-disc'>El desarrollo del conocimiento es un <strong>acercamiento a la verdad</strong> mediante la eliminación de errores, no una acumulación de certezas.</li></ul>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="120" height="40" class="box"/><text x="70" y="80" class="text">Popper</text><rect x="180" y="55" width="140" height="40" class="box"/><text x="250" y="80" class="text">Falsabilidad</text><rect x="370" y="20" width="180" height="40" class="box"/><text x="460" y="45" class="text">Conjeturas y Refutaciones</text><rect x="370" y="90" width="180" height="40" class="box"/><text x="460" y="115" class="text">Acercamiento a la Verdad</text><line x1="130" y1="75" x2="180" y2="75" class="arrow"/><path d="M320,75 C335,60 350,45 370,40" class="arrow"/><path d="M320,75 C335,90 350,105 370,110" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "4. La ciencia en la historia y la sociedad: Kuhn y Feyerabend",
+                    resumen: "<p class='text-justify'>La 'nueva filosofía de la ciencia' radicaliza la crítica al modelo clásico, incorporando factores históricos y sociológicos. <strong>Thomas Kuhn</strong>, en <em>La estructura de las revoluciones científicas</em>, introduce conceptos que transforman la visión de la ciencia:</p><ul><li class='ml-4 list-disc'><strong>Paradigma:</strong> Un marco teórico-práctico (leyes, modelos, métodos, valores) compartido por una comunidad científica que define la 'ciencia normal'.</li><li class='ml-4 list-disc'><strong>Ciencia normal:</strong> La actividad de resolver 'enigmas' dentro de un paradigma aceptado, sin cuestionarlo. Es una actividad dogmática, no crítica como quería Popper.</li><li class='ml-4 list-disc'><strong>Revolución científica:</strong> Cuando las 'anomalías' (problemas que el paradigma no puede resolver) se acumulan, se entra en una crisis que puede llevar al abandono del viejo paradigma y la adopción de uno nuevo e <strong>inconmensurable</strong>.</li></ul><p class='text-justify mt-2'><strong>Paul Feyerabend</strong> lleva estas ideas a su extremo con su <strong>anarquismo epistemológico</strong>. En <em>Contra el método</em>, argumenta que no existe 'el' método científico. Analizando casos como el de Galileo, concluye que el progreso científico a menudo viola las reglas metodológicas. Defiende la <strong>proliferación de teorías</strong> y sostiene que la ciencia no tiene un estatus privilegiado sobre otras formas de conocimiento (como el mito o la magia). Su lema es <strong>'todo vale'</strong> (anything goes), promoviendo una total libertad metodológica para no frenar la creatividad científica.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="20" width="120" height="40" class="box"/><text x="70" y="45" class="text">Kuhn</text><rect x="10" y="90" width="120" height="40" class="box"/><text x="70" y="115" class="text">Feyerabend</text><rect x="180" y="20" width="140" height="40" class="box"/><text x="250" y="45" class="text">Paradigma</text><rect x="180" y="90" width="140" height="40" class="box"/><text x="250" y="115" class="text">Contra el Método</text><rect x="370" y="20" width="180" height="40" class="box"/><text x="460" y="45" class="text">Revolución Científica</text><rect x="370" y="90" width="180" height="40" class="box"/><text x="460" y="115" class="text">Anarquismo Epist.</text><line x1="130" y1="40" x2="180" y2="40" class="arrow"/><line x1="130" y1="110" x2="180" y2="110" class="arrow"/><line x1="320" y1="40" x2="370" y2="40" class="arrow"/><line x1="320" y1="110" x2="370" y2="110" class="arrow"/></svg>`
+                }
+            ],
+            conceptosClave: [
+                { concepto: "Actitud Dogmática", definicion: "Según Popper, es la actitud opuesta a la científica, que busca confirmar las propias teorías y protegerlas de la refutación mediante estratagemas." },
+                { concepto: "Anarquismo Epistemológico", definicion: "Tesis de Feyerabend que niega la existencia de un método científico universal y defiende la libertad metodológica total ('todo vale')." },
+                { concepto: "Ciencia Normal", definicion: "Según Kuhn, es la actividad científica rutinaria de 'resolución de enigmas' que se desarrolla dentro de un paradigma aceptado por la comunidad." },
+                { concepto: "Conjeturas y Refutaciones", definicion: "Modelo de Popper sobre el desarrollo de la ciencia, que avanza proponiendo hipótesis audaces (conjeturas) e intentando refutarlas." },
+                { concepto: "Corroboración", definicion: "Término de Popper para indicar que una teoría ha resistido los intentos de falsación. No significa que sea verdadera, solo que es provisionalmente aceptada." },
+                { concepto: "Criterio de Demarcación", definicion: "Principio que busca establecer una línea divisoria entre lo que es ciencia y lo que no lo es (pseudociencia, metafísica)." },
+                { concepto: "Decisionismo", definicion: "En Popper, la idea de que la aceptación de los enunciados básicos que contrastan una teoría es, en última instancia, una decisión o convención de los científicos." },
+                { concepto: "Enunciados Básicos", definicion: "En la filosofía de Popper, son enunciados existenciales singulares sobre hechos observables que sirven para contrastar y potencialmente falsar las teorías universales." },
+                { concepto: "Falsabilidad", definicion: "Criterio de demarcación de Popper: una teoría es científica si es posible concebir un enunciado observacional que, de ser verdadero, la refute." },
+                { concepto: "Fisicalismo", definicion: "Tesis del Círculo de Viena que propone que el lenguaje de la física puede servir como lenguaje universal para todas las ciencias." },
+                { concepto: "Inconmensurabilidad", definicion: "Según Kuhn y Feyerabend, es la imposibilidad de comparar directamente dos paradigmas o teorías rivales porque utilizan conceptos y estándares diferentes." },
+                { concepto: "Inducción", definicion: "Método de razonamiento que pretende establecer leyes universales a partir de la observación de casos particulares. Criticado por Popper como lógicamente inválido." },
+                { concepto: "Modelo Fundacionista", definicion: "Concepción clásica de la ciencia que busca basar todo el conocimiento en un fundamento último e inquebrantable (la razón o la experiencia)." },
+                { concepto: "Mundo 3", definicion: "Concepto de Popper para designar el mundo de los productos objetivos de la mente humana (teorías, problemas, argumentos), que es autónomo del mundo físico (Mundo 1) y del mental (Mundo 2)." },
+                { concepto: "Paradigma", definicion: "Concepto central de Kuhn. Es una matriz disciplinar que incluye leyes, teorías, modelos y métodos compartidos por una comunidad científica." },
+                { concepto: "Positivismo Lógico", definicion: "Corriente del Círculo de Viena que combina el empirismo radical con la lógica formal para eliminar la metafísica y unificar la ciencia." },
+                { concepto: "Principio de Verificación", definicion: "Criterio de significado del Círculo de Viena: un enunciado tiene sentido si es analítico o si su verdad puede ser comprobada empíricamente." },
+                { concepto: "Racionalismo Crítico", definicion: "La filosofía de Popper, que defiende la razón pero reconoce su falibilidad. La ciencia progresa a través de la crítica y la eliminación de errores." },
+                { concepto: "Revolución Científica", definicion: "Según Kuhn, es un episodio de desarrollo no acumulativo en el que un paradigma antiguo es reemplazado por uno nuevo e incompatible." }
+            ],
+            historicoExamenes: [
+                {
+                    pregunta: "Las aportaciones de Popper a la filosofía de la ciencia (3 apariciones)",
+                    fechas: ["Mayo/Junio 2023 (1ª)", "Mayo/Junio 2024 (2ª)", "Junio 2025 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Crítica a la inducción", resumen: "Argumenta que no se puede verificar una ley universal a partir de observaciones particulares." },
+                        { concepto: "Problema de la demarcación", resumen: "Distingue ciencia de pseudociencia, no por el significado, sino por la metodología." },
+                        { concepto: "Falsabilidad", resumen: "Propone la refutabilidad como criterio: una teoría es científica si puede ser falsada por la experiencia." },
+                        { concepto: "Conjeturas y refutaciones", resumen: "El conocimiento avanza mediante hipótesis audaces y el intento sistemático de refutarlas." }
+                    ]
+                },
+                {
+                    pregunta: "Las aportaciones de Kuhn a la filosofía de la ciencia (4 apariciones)",
+                    fechas: ["Mayo/Junio 2022 (2ª)", "Septiembre 2022", "Septiembre 2024", "Mayo/Junio 2025 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Paradigma", resumen: "Introduce la idea de un marco teórico-práctico que guía a una comunidad científica." },
+                        { concepto: "Ciencia normal", resumen: "Describe la ciencia como una actividad de 'resolución de enigmas' dentro de un paradigma, no como una búsqueda constante de refutaciones." },
+                        { concepto: "Revolución científica", resumen: "Explica el cambio científico como rupturas radicales y no como un proceso acumulativo y lineal." },
+                        { concepto: "Inconmensurabilidad", resumen: "Sostiene que los paradigmas rivales no pueden compararse objetivamente porque 'hablan mundos diferentes'." }
+                    ]
+                },
+                {
+                    pregunta: "La idea de ciencia en el Círculo de Viena (1 aparición)",
+                    fechas: ["Septiembre 2023"],
+                    conceptosDesarrollo: [
+                        { concepto: "Empirismo lógico", resumen: "Combinación de la lógica formal con la base empírica del conocimiento." },
+                        { concepto: "Principio de Verificación", resumen: "El significado de un enunciado es su método de verificación empírica. Rechazo de la metafísica." },
+                        { concepto: "Unidad de la ciencia", resumen: "El proyecto de unificar todas las ciencias a través de un lenguaje común (fisicalismo)." },
+                        { concepto: "Filosofía como análisis lógico", resumen: "La filosofía no crea teorías, sino que clarifica el lenguaje de la ciencia." }
+                    ]
+                }
+            ],
+            juegoPreguntas: [
+                // 100 PREGUNTAS NUEVAS
+                {pregunta:"¿Cuál fue el principal criterio de significado propuesto por el Círculo de Viena?",opciones:["La falsabilidad","La coherencia interna","El principio de verificación","El consenso de la comunidad"],correcta:2,explicacion:"El principio de verificación sostiene que una proposición sintética solo tiene sentido si puede ser comprobada empíricamente.", dummyExplanation: "Para el Círculo de Viena, si no lo puedes 'verificar' con tus ojos (o instrumentos), es como hablar de fantasmas: no tiene sentido científico."},
+                {pregunta:"Según Popper, ¿qué caracteriza a una teoría científica?",opciones:["Su capacidad de ser verificada.","Su origen en la observación pura.","Su capacidad de ser falsada.","Su aceptación por la mayoría."],correcta:2,explicacion:"El criterio de demarcación de Popper es la falsabilidad: una teoría es científica si se expone al riesgo de ser refutada por la experiencia.", dummyExplanation: "Una teoría científica de verdad, según Popper, es como un boxeador valiente: no teme que un 'hecho' le pueda noquear."},
+                {pregunta:"¿Qué concepto utiliza Kuhn para describir el marco teórico-práctico compartido por una comunidad científica?",opciones:["Hipótesis","Ley natural","Paradigma","Axioma"],correcta:2,explicacion:"Un paradigma, para Kuhn, es una matriz disciplinar que incluye leyes, métodos y valores que guían la investigación.", dummyExplanation: "Un paradigma es como las reglas y el tablero de un juego: todos los científicos de una época juegan con el mismo."},
+                {pregunta:"¿Qué significa el lema 'todo vale' (anything goes) de Feyerabend?",opciones:["Que todas las teorías son igualmente verdaderas.","Que no existe un único método científico.","Que la ciencia es una actividad irracional.","Que la ciencia debe basarse en la anarquía política."],correcta:1,explicacion:"Feyerabend argumenta contra la idea de un método universal, defendiendo la libertad y la proliferación de enfoques.", dummyExplanation: "Feyerabend era el 'punk' de la filosofía de la ciencia: ¡rompe las reglas metodológicas si eso te ayuda a descubrir algo nuevo!"},
+                {pregunta:"El proyecto de 'ciencia unificada' del Círculo de Viena se basaba en el...",opciones:["idealismo.","racionalismo.","fisicalismo.","existencialismo."],correcta:2,explicacion:"El fisicalismo proponía que el lenguaje de la física podía servir como lenguaje universal para todas las ciencias.", dummyExplanation: "Querían que todas las ciencias hablaran el mismo idioma, y eligieron el de la física como el 'esperanto' científico."},
+                {pregunta:"¿Cómo progresa la ciencia según Popper?",opciones:["Por acumulación de verdades.","Por conjeturas y refutaciones.","Por cambios de paradigma.","Por consenso social."],correcta:1,explicacion:"La ciencia avanza proponiendo hipótesis audaces (conjeturas) y sometiéndolas a duros intentos de refutación.", dummyExplanation: "El progreso científico, para Popper, es como un escultor: quita lo que sobra (errores) para acercarse a la forma correcta (verdad)."},
+                {pregunta:"¿Qué es la 'ciencia normal' en la terminología de Kuhn?",opciones:["La ciencia que sigue el método correcto.","La ciencia en sus etapas iniciales.","La resolución de enigmas dentro de un paradigma.","La ciencia que es aceptada por el público."],correcta:2,explicacion:"La ciencia normal es la actividad rutinaria y dogmática de aplicar el paradigma vigente para resolver problemas.", dummyExplanation: "La 'ciencia normal' es como hacer los deberes: aplicas lo que ya te han enseñado en clase (el paradigma) para resolver problemas."},
+                {pregunta:"¿Por qué critica Popper el método inductivo?",opciones:["Porque es demasiado lento.","Porque es lógicamente inválido para verificar teorías.","Porque es demasiado complejo.","Porque solo se aplica a las matemáticas."],correcta:1,explicacion:"Popper sostiene que, desde un punto de vista lógico, ninguna cantidad de observaciones particulares puede justificar una afirmación universal.", dummyExplanation: "Por muchos cisnes blancos que veas, nunca podrás estar 100% seguro de que no existe un cisne negro por ahí. La inducción no te da certeza total."},
+                {pregunta:"¿Qué significa que dos paradigmas son 'inconmensurables' según Kuhn?",opciones:["Que uno es mejor que el otro.","Que tratan sobre temas completamente diferentes.","Que no pueden compararse objetivamente.","Que son lógicamente equivalentes."],correcta:2,explicacion:"Al usar conceptos y estándares distintos, no hay una medida común para decidir racionalmente entre ellos.", dummyExplanation: "Comparar dos paradigmas es como intentar decidir si el ajedrez es 'mejor' que el fútbol. Son juegos con reglas y objetivos distintos."},
+                {pregunta:"¿Qué actitud promueve Feyerabend hacia la ciencia en la sociedad?",opciones:["Debe ser la única guía para la sociedad.","Debe separarse de la política y la ideología.","Debe ser controlada por expertos.","Debe ser tratada como una tradición más, sin privilegios."],correcta:3,explicacion:"Feyerabend defiende una sociedad libre donde la ciencia no tenga una autoridad superior a otras formas de conocimiento o tradición.", dummyExplanation: "Para Feyerabend, la ciencia debería ser una opción más en el 'menú' de conocimientos, no el único plato obligatorio."},
+                {pregunta:"¿Cuál es la principal diferencia entre el criterio de demarcación de Popper y el del Círculo de Viena?",opciones:["Popper busca separar ciencia de pseudociencia; el Círculo, con sentido de sinsentido.","Popper se basa en la lógica; el Círculo, en la historia.","Popper acepta la metafísica; el Círculo, no.","No hay una diferencia fundamental."],correcta:0,explicacion:"El Círculo de Viena proponía un criterio de significado (verificación), mientras que Popper proponía un criterio de demarcación científica (falsabilidad).", dummyExplanation: "El Círculo de Viena era como un portero de discoteca que no te dejaba entrar si no tenías 'sentido'. Popper era un árbitro que te dejaba jugar, pero te expulsaba si hacías una 'falta' (ser refutado)."},
+                {pregunta:"¿Qué son los 'enunciados básicos' para Popper?",opciones:["Los axiomas de una teoría.","Las hipótesis que deben ser verificadas.","Enunciados singulares que pueden contradecir una teoría.","Las leyes fundamentales de la naturaleza."],correcta:2,explicacion:"Son enunciados sobre hechos observables singulares que sirven como potenciales falsadores de una teoría universal.", dummyExplanation: "Un enunciado básico es la 'prueba del delito' que puede tumbar la coartada perfecta de una teoría científica."},
+                {pregunta:"Una 'revolución científica', según Kuhn, ocurre cuando...",opciones:["se descubre un nuevo hecho importante.","un científico gana el Premio Nobel.","se produce una crisis y un cambio de paradigma.","la ciencia se vuelve muy popular."],correcta:2,explicacion:"Las revoluciones son episodios no acumulativos donde un paradigma en crisis es sustituido por otro nuevo e incompatible.", dummyExplanation: "Una revolución científica es como un cambio de gobierno en la ciencia: se echa al viejo 'régimen' (paradigma) y se instaura uno nuevo."},
+                {pregunta:"¿Qué papel juega la historia de la ciencia en la filosofía de Kuhn y Feyerabend?",opciones:["Es irrelevante para la filosofía.","Es la fuente principal para entender qué es la ciencia.","Solo sirve para encontrar ejemplos de errores.","Debe ser ignorada en favor del análisis lógico."],correcta:1,explicacion:"Ambos critican la filosofía de la ciencia anterior por ignorar cómo funciona la ciencia en la práctica histórica.", dummyExplanation: "Para entender el fútbol, no basta con leer el reglamento; tienes que ver partidos. Para entender la ciencia, tienes que mirar su historia."},
+                {pregunta:"¿Qué es la 'corroboración' para Popper?",opciones:["La prueba definitiva de que una teoría es verdadera.","El grado en que una teoría ha resistido la falsación.","La probabilidad de que una teoría sea cierta.","La simplicidad y elegancia de una teoría."],correcta:1,explicacion:"Una teoría está más corroborada cuantos más intentos serios de refutación ha superado con éxito.", dummyExplanation: "La corroboración es como el historial de un boxeador: no significa que sea invencible, pero sí que ha ganado muchos combates difíciles."},
+                {pregunta:"¿Cuál es la principal crítica de Feyerabend a la idea de 'ciencia normal' de Kuhn?",opciones:["Que no existe en la realidad.","Que es deseable para el progreso científico.","Que es una etapa dogmática que frena el progreso.","Que solo se da en las ciencias sociales."],correcta:2,explicacion:"Feyerabend ve la 'ciencia normal' como un período de estancamiento dogmático que debe evitarse promoviendo la proliferación de teorías.", dummyExplanation: "Para Feyerabend, la 'ciencia normal' de Kuhn es como estar atrapado en un atasco: no hay movimiento ni progreso."},
+                {pregunta:"Según el Círculo de Viena, ¿qué son las proposiciones de la lógica y las matemáticas?",opciones:["Generalizaciones empíricas.","Hipótesis sobre el mundo.","Enunciados sintéticos a priori.","Tautologías o enunciados analíticos."],correcta:3,explicacion:"Son verdaderas por definición y no aportan información sobre el mundo empírico.", dummyExplanation: "Las mates, para ellos, son como decir 'un círculo es redondo'. No te dice nada nuevo, pero es una verdad irrefutable."},
+                {pregunta:"La idea de que los hechos científicos son 'theory-laden' (cargados de teoría) significa que...",opciones:["los hechos son inventados por las teorías.","la observación es siempre neutra y objetiva.","lo que observamos depende del marco conceptual que usamos.","las teorías se basan exclusivamente en hechos."],correcta:2,explicacion:"Esta tesis, central en la nueva filosofía de la ciencia, sostiene que no hay observación pura; siempre interpretamos a través de una teoría.", dummyExplanation: "No vemos el mundo 'en crudo'. Siempre lo vemos con unas 'gafas' (la teoría) que le dan forma y color."},
+                {pregunta:"¿Qué es el 'Mundo 3' en la filosofía tardía de Popper?",opciones:["Una realidad espiritual o divina.","El mundo de los estados mentales subjetivos.","El mundo objetivo de las teorías y problemas.","El universo físico de la materia y la energía."],correcta:2,explicacion:"Es el mundo de los productos de la mente humana (libros, teorías, argumentos) que tiene una existencia autónoma.", dummyExplanation: "El 'Mundo 3' es como la Biblioteca de Alejandría de las ideas: existe objetivamente, aunque nadie la esté pensando en ese momento."},
+                {pregunta:"¿Qué tienen en común Popper, Kuhn y Feyerabend frente al Círculo de Viena?",opciones:["Todos defienden el método inductivo.","Todos rechazan el papel de la historia en la ciencia.","Todos critican la visión simplista y ahistórica de la ciencia.","Todos son anarquistas epistemológicos."],correcta:2,explicacion:"A pesar de sus grandes diferencias, los tres representan un giro hacia una visión más histórica, dinámica y compleja de la ciencia.", dummyExplanation: "Son como tres detectives que, aunque discrepan en los detalles, coinciden en que el Círculo de Viena tenía una visión demasiado simple del 'caso científico'."},
+                {pregunta:"¿Cuál es el objetivo final de la ciencia según la visión clásica que critica la 'nueva filosofía'?",opciones:["Crear tecnologías útiles.","Alcanzar una verdad absoluta y definitiva.","Generar debates filosóficos.","Mantener el orden social."],correcta:1,explicacion:"El modelo clásico veía la ciencia como un camino seguro y acumulativo hacia una descripción completa y verdadera de la realidad.", dummyExplanation: "La ciencia clásica era como un coleccionista de cromos de la verdad: su objetivo era tener el álbum completo y sin repetidos."},
+                {pregunta:"¿Qué es una 'anomalía' para Kuhn?",opciones:["Un error experimental del científico.","Un resultado que contradice las expectativas del paradigma.","Una teoría pseudocientífica.","Un descubrimiento revolucionario."],correcta:1,explicacion:"Una anomalía es un 'enigma' que el paradigma debería poder resolver, pero que se resiste obstinadamente, pudiendo provocar una crisis.", dummyExplanation: "Una anomalía es la 'oveja negra' de los hechos, esa que no encaja en el rebaño del paradigma."},
+                {pregunta:"La crítica de Popper a la epistemología inductiva se inspira en el problema formulado por...",opciones:["Aristóteles.","Descartes.","Kant.","Hume."],correcta:3,explicacion:"Popper retoma y radicaliza el clásico 'problema de la inducción' de David Hume.", dummyExplanation: "Popper le dio una vuelta de tuerca al viejo problema de Hume: si el sol ha salido todos los días hasta hoy, ¿cómo sabes que saldrá mañana?"},
+                {pregunta:"¿Por qué la elección entre paradigmas es, para Kuhn, similar a una 'conversión religiosa'?",opciones:["Porque se basa en la fe y no en la lógica pura.","Porque requiere un ritual de iniciación.","Porque ambos prometen la salvación.","Porque ambos son irracionales."],correcta:0,explicacion:"Dado que los paradigmas son inconmensurables, la elección no puede basarse en una prueba lógica, sino en factores como la persuasión y la confianza en la promesa del nuevo paradigma.", dummyExplanation: "Cambiar de paradigma no es como resolver una ecuación; es como cambiar de equipo de fútbol: una decisión que va más allá de la pura lógica."},
+                {pregunta:"¿Qué tipo de racionalidad defiende Popper?",opciones:["Racionalidad instrumental.","Racionalidad comunicativa.","Racionalidad crítica.","Racionalidad histórica."],correcta:2,explicacion:"El 'racionalismo crítico' de Popper se basa en la idea de que la razón progresa a través de la discusión crítica y la eliminación de errores.", dummyExplanation: "La razón, para Popper, es como un buen amigo: no te dice siempre que tienes razón, sino que te ayuda a ver tus errores."},
+                {pregunta:"¿Cuál de estos autores sería considerado un 'pseudocientífico' según el criterio de Popper?",opciones:["Newton.","Einstein.","Freud.","Galileo."],correcta:2,explicacion:"Popper criticaba el psicoanálisis (junto al marxismo) por ser teorías que podían explicarlo todo y, por tanto, no eran falsables.", dummyExplanation: "Para Popper, teorías como la de Freud eran como un horóscopo: tan vagas que siempre aciertan, y por eso, no son ciencia."},
+                {pregunta:"¿Qué es lo que Feyerabend critica del 'método' científico?",opciones:["Su complejidad.","Su ineficacia.","Su pretensión de ser único y universal.","Su dependencia de las matemáticas."],correcta:2,explicacion:"Argumenta que la historia muestra que los grandes avances se han producido violando las reglas de cualquier método propuesto.", dummyExplanation: "Feyerabend pensaba que el 'método científico' era como un traje de talla única: no le sirve a todo el mundo ni para todas las ocasiones."},
+                {pregunta:"El 'contexto de justificación' se refiere a...",opciones:["la historia del descubrimiento de una teoría.","la estructura lógica y la validez de una teoría.","la aplicación práctica de una teoría.","la biografía del científico."],correcta:1,explicacion:"La filosofía de la ciencia clásica, especialmente la del Círculo de Viena, distinguía el 'contexto de descubrimiento' (histórico, psicológico) del 'contexto de justificación' (lógico), centrándose solo en este último.", dummyExplanation: "No importa si a Newton se le ocurrió la idea de la gravedad por una manzana o por un melocotón (descubrimiento); lo que importa es si la teoría se sostiene lógicamente (justificación)."},
+                {pregunta:"¿Qué significa que la ciencia, para Kuhn, es una empresa 'dogmática'?",opciones:["Que se basa en creencias religiosas.","Que los científicos aceptan el paradigma sin cuestionarlo.","Que es autoritaria y antidemocrática.","Que sus resultados son siempre erróneos."],correcta:1,explicacion:"Durante los períodos de 'ciencia normal', la comunidad científica trabaja dentro del paradigma, aceptándolo como base incuestionable.", dummyExplanation: "Un científico 'normal', según Kuhn, es como un creyente: no cuestiona los dogmas de su 'fe' (el paradigma)."},
+                {pregunta:"¿Cuál es la principal diferencia entre 'verificación' y 'corroboración'?",opciones:["La verificación es positiva, la corroboración es negativa.","Son sinónimos.","La verificación prueba la verdad, la corroboración solo la resistencia a la falsedad.","La verificación es inductiva, la corroboración es deductiva."],correcta:2,explicacion:"Verificar (para el Círculo de Viena) era probar que algo es verdadero. Corroborar (para Popper) es solo constatar que, hasta ahora, no hemos podido probar que es falso.", dummyExplanation: "Verificar es ganar la medalla de oro. Corroborar es simplemente no haber sido eliminado de la competición... todavía."},
+                {pregunta:"¿Qué autor influyó decisivamente en el Círculo de Viena con su 'Tractatus'?",opciones:["Heidegger.","Sartre.","Wittgenstein.","Derrida."],correcta:2,explicacion:"El 'Tractatus Logico-Philosophicus' de Wittgenstein fue considerado casi una 'biblia' por los miembros del Círculo.", dummyExplanation: "El Tractatus fue para el Círculo de Viena lo que la primera película de Star Wars fue para los fans de la ciencia ficción: una obra de culto."},
+                {pregunta:"¿Qué es una 'revolución científica' según la visión clásica?",opciones:["Un cambio radical de paradigma.","Un período de crisis e incertidumbre.","No existen, el progreso es siempre acumulativo.","Un descubrimiento que refuta una teoría."],correcta:2,explicacion:"En el modelo clásico, la ciencia progresa de forma lineal y acumulativa, sin rupturas revolucionarias como las que describe Kuhn.", dummyExplanation: "Para la ciencia clásica, el conocimiento era como construir una torre, ladrillo a ladrillo, siempre hacia arriba. Kuhn dijo que a veces hay que demoler la torre y empezar de nuevo."},
+                {pregunta:"¿Cuál es la relación entre ciencia y política para Feyerabend?",opciones:["La ciencia debe ser apolítica.","La ciencia es una forma de hacer política.","La política debe guiarse por la ciencia.","Son dos ámbitos completamente separados."],correcta:1,explicacion:"Feyerabend sostiene que la aceptación de teorías científicas a menudo depende de factores retóricos, propagandísticos y políticos.", dummyExplanation: "Para Feyerabend, una discusión científica a veces se parece más a un debate electoral que a una demostración matemática."},
+                {pregunta:"¿Qué es lo que, según Popper, diferencia a la ciencia de la metafísica?",opciones:["La ciencia es verdadera, la metafísica es falsa.","La ciencia es empírica, la metafísica no.","La ciencia es útil, la metafísica no.","La ciencia es falsable, la metafísica no."],correcta:3,explicacion:"Popper no dice que la metafísica sea un sinsentido, sino que no es ciencia porque sus teorías no pueden ser refutadas empíricamente.", dummyExplanation: "Puedes discutir sobre si Dios existe (metafísica) eternamente, pero no puedes diseñar un experimento para demostrar que es falso. Por eso, no es ciencia."},
+                {pregunta:"¿Qué es lo que, según Kuhn, ocurre durante un período de 'crisis' científica?",opciones:["Los científicos abandonan la ciencia.","Se aceptan múltiples paradigmas a la vez.","Se intensifica la investigación 'normal'.","Se cuestionan los fundamentos del paradigma."],correcta:3,explicacion:"La crisis abre un período de 'ciencia extraordinaria' donde se debaten los fundamentos y se proponen alternativas al paradigma dominante.", dummyExplanation: "Una crisis científica es como una crisis de fe: la gente empieza a cuestionar las creencias fundamentales que antes daba por sentadas."},
+                {pregunta:"¿Cuál de estas afirmaciones resume mejor la filosofía de la ciencia de Popper?",opciones:["La ciencia busca la confirmación.","La ciencia es un conjunto de paradigmas.","La ciencia avanza eliminando errores.","La ciencia es una construcción social."],correcta:2,explicacion:"El racionalismo crítico de Popper se basa en la idea de que nos acercamos a la verdad refutando nuestras conjeturas y aprendiendo de nuestros errores.", dummyExplanation: "La ciencia, para Popper, es un proceso de 'ensayo y error' a lo grande."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, comparten la ciencia y el mito?",opciones:["Ambos son irracionales.","Ambos son formas de entender el mundo.","Ambos son empíricamente verificables.","Ambos son universalmente válidos."],correcta:1,explicacion:"Feyerabend argumenta que no hay una razón a priori para preferir la ciencia al mito, ya que ambos son tradiciones para dar sentido a la realidad.", dummyExplanation: "Para Feyerabend, decir que la ciencia es 'mejor' que el mito es como decir que el rock es 'mejor' que el jazz: son estilos diferentes."},
+                {pregunta:"¿Qué es lo que, según la visión clásica, garantiza la objetividad de la ciencia?",opciones:["El consenso de los científicos.","La aplicación rigurosa de 'el' método.","Su utilidad práctica.","Su belleza matemática."],correcta:1,explicacion:"La concepción tradicional creía en la existencia de un método universal y ahistórico que, si se aplicaba correctamente, garantizaba el acceso a la verdad objetiva.", dummyExplanation: "La ciencia clásica tenía una 'receta' (el método) que, si la seguías al pie de la letra, te garantizaba un 'plato' perfecto (la verdad)."},
+                {pregunta:"¿Qué es lo que, según Popper, motiva al científico a proponer hipótesis 'audaces'?",opciones:["El deseo de fama.","La búsqueda de teorías con alto contenido informativo.","La facilidad para verificarlas.","La presión de la sociedad."],correcta:1,explicacion:"Una teoría audaz es una teoría muy falsable, que dice mucho sobre el mundo y, por tanto, es más interesante científicamente.", dummyExplanation: "Popper prefería las teorías que 'se la juegan', que hacen predicciones arriesgadas. Si aciertan, el premio es grande."},
+                {pregunta:"¿Qué es lo que, para Kuhn, une a los miembros de una comunidad científica?",opciones:["Su nacionalidad.","Su ideología política.","Su adhesión a un paradigma común.","Su coeficiente intelectual."],correcta:2,explicacion:"La comunidad científica se define por compartir un paradigma, lo que permite una comunicación y una práctica profesional fluidas.", dummyExplanation: "Los científicos de un paradigma son como los hinchas de un mismo equipo: hablan el mismo idioma y comparten las mismas pasiones."},
+                {pregunta:"¿Cuál es la principal consecuencia de la 'inconmensurabilidad' de los paradigmas?",opciones:["El progreso científico es imposible.","La elección entre paradigmas no es puramente racional.","La ciencia se vuelve subjetiva.","Todas las teorías son igualmente buenas."],correcta:1,explicacion:"Si no hay una base común para comparar, la elección de un nuevo paradigma implica factores de persuasión, fe y promesa de futuro.", dummyExplanation: "Si dos personas hablan idiomas que no tienen nada en común, no pueden decidir quién tiene razón con argumentos; uno tendrá que 'convertirse' al idioma del otro."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, debería hacer el Estado con respecto a la ciencia?",opciones:["Financiarla por encima de todo.","Controlar sus investigaciones.","Separarla de la educación.","Tratarla como una ideología más, separando Estado y Ciencia."],correcta:3,explicacion:"Defiende una separación entre Estado y Ciencia similar a la separación entre Estado e Iglesia, para proteger a la sociedad del dogmatismo científico.", dummyExplanation: "Feyerabend quería que la ciencia dejara de ser la 'religión oficial' del Estado."},
+                {pregunta:"¿Qué es lo que, para Popper, es un 'enunciado básico aceptado'?",opciones:["Una verdad absoluta e inmutable.","Una percepción subjetiva del científico.","Una decisión convencional y revisable.","Un axioma lógico autoevidente."],correcta:2,explicacion:"La 'base empírica' de la ciencia no es sólida, sino que descansa sobre pilotes en un pantano: decisiones de la comunidad científica que siempre pueden ser revisadas.", dummyExplanation: "Los 'hechos' en ciencia son como un acuerdo entre amigos: 'Vale, estamos de acuerdo en que esto es así por ahora, pero mañana podemos cambiar de opinión'."},
+                {pregunta:"¿Qué es lo que, según Kuhn, caracteriza a la mayoría de la historia de la ciencia?",opciones:["Períodos de revolución constante.","Largos períodos de 'ciencia normal'.","Un debate continuo entre paradigmas.","Un progreso lento pero constante."],correcta:1,explicacion:"Kuhn sostiene que la ciencia pasa la mayor parte de su tiempo en fases de 'ciencia normal', interrumpidas por breves y raras revoluciones.", dummyExplanation: "La historia de la ciencia, para Kuhn, es mayormente tranquila (ciencia normal), con algunas tormentas ocasionales (revoluciones)."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, es el mayor enemigo del progreso científico?",opciones:["La falta de financiación.","La ignorancia del público.","El dogmatismo metodológico.","La complejidad de la naturaleza."],correcta:2,explicacion:"Cree que la adhesión estricta a un único método ahoga la creatividad y impide los descubrimientos que surgen de violar las reglas.", dummyExplanation: "Para Feyerabend, el 'método' es como un policía de tráfico demasiado estricto que acaba provocando un atasco monumental."},
+                {pregunta:"¿Cuál es la principal diferencia entre la crítica de Popper y la de Kuhn al positivismo?",opciones:["Popper critica la inducción, Kuhn la acumulación.","Popper es lógico, Kuhn es sociológico.","Popper salva la objetividad, Kuhn la relativiza.","Todas las anteriores son correctas."],correcta:3,explicacion:"Popper hace una crítica lógica (falsación vs. verificación), mientras que Kuhn introduce factores históricos y sociológicos (paradigmas, comunidad) que cuestionan la idea de un progreso objetivo hacia 'la' verdad.", dummyExplanation: "Popper intentó arreglar el motor de la ciencia (lógica), mientras que Kuhn dijo que el problema era el propio coche y los conductores (sociología)."},
+                {pregunta:"¿Qué es lo que, según Popper, puede hacer la metafísica por la ciencia?",opciones:["Nada, es un sinsentido.","Proporcionar una base empírica.","Inspirar programas de investigación científica.","Establecer sus verdades definitivas."],correcta:2,explicacion:"Aunque no es falsable, Popper reconoce que las ideas metafísicas pueden ser heurísticamente fructíferas, sugiriendo hipótesis científicas.", dummyExplanation: "La metafísica, para Popper, es como la musa de la ciencia: no es científica, pero a veces le susurra ideas interesantes al oído."},
+                {pregunta:"¿Qué es lo que, para Kuhn, aprende un estudiante de científico al estudiar los 'ejemplares'?",opciones:["La historia de la ciencia.","Las leyes fundamentales de la naturaleza.","A resolver problemas siguiendo un modelo.","A ser crítico con el paradigma."],correcta:2,explicacion:"Los 'ejemplares' son los problemas-tipo resueltos que se estudian en los manuales y que enseñan al estudiante a 'ver' el mundo y a actuar según el paradigma.", dummyExplanation: "Aprender ciencia, según Kuhn, es como aprender a cocinar con las recetas de la abuela: sigues los ejemplos hasta que te sale igual."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, demuestra el caso de Galileo?",opciones:["La superioridad del método deductivo.","La importancia de la observación pura.","Que el progreso requiere a veces propaganda y astucia.","Que la Iglesia siempre se opone a la ciencia."],correcta:2,explicacion:"Feyerabend analiza cómo Galileo tuvo que usar la retórica, la propaganda e incluso 'trampas' para que su teoría fuera aceptada contra la 'evidencia' de la época.", dummyExplanation: "Galileo, para Feyerabend, no solo fue un gran científico, sino también un excelente 'publicista' de sus propias ideas."},
+                {pregunta:"¿Cuál es la relación entre 'verdad' y 'verosimilitud' en Popper?",opciones:["Son lo mismo.","La verdad es el objetivo, la verosimilitud es el grado de acercamiento.","La verdad es objetiva, la verosimilitud es subjetiva.","La verdad es inalcanzable, la verosimilitud no."],correcta:1,explicacion:"La verdad es una idea reguladora inalcanzable. La verosimilitud es un concepto para comparar teorías y determinar cuál está 'más cerca' de la verdad.", dummyExplanation: "La verdad es el 'Polo Norte', un punto ideal. La verosimilitud es saber si estás en Noruega o en España para ver quién está más cerca."},
+                {pregunta:"¿Qué es lo que, según Kuhn, es invisible para un científico durante la 'ciencia normal'?",opciones:["Los errores en sus cálculos.","Las aplicaciones de su teoría.","Las alternativas a su paradigma.","La historia de su disciplina."],correcta:2,explicacion:"El paradigma define tan fuertemente la manera de ver el mundo que las alternatives son literalmente impensables o vistas como absurdos errores.", dummyExplanation: "Un científico en 'ciencia normal' es como un pez en el agua: no es consciente del agua (el paradigma) en la que nada."},
+                {pregunta:"¿Qué es lo que, según Popper, es el principal motor del conocimiento humano?",opciones:["La curiosidad desinteresada.","La búsqueda de la certeza.","La resolución de problemas.","La acumulación de datos."],correcta:2,explicacion:"Para Popper, todo conocimiento, desde el de la ameba hasta el de Einstein, comienza con un problema o una expectativa defraudada.", dummyExplanation: "No pensamos por placer, pensamos porque tenemos un problema, como cuando no encuentras las llaves del coche."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, debería caracterizar a una 'sociedad libre'?",opciones:["La hegemonía de la ciencia.","La separación entre todas las tradiciones.","La igualdad de derechos entre todas las tradiciones.","La eliminación de las tradiciones no científicas."],correcta:2,explicacion:"En una sociedad libre, la ciencia sería una tradición más, sin más autoridad a priori que la magia, la religión u otras formas de vida.", dummyExplanation: "Feyerabend quería un 'mercado libre' de ideas, donde la ciencia compitiera en igualdad de condiciones con todos los demás 'productos'."},
+                {pregunta:"¿Qué es lo que, según el Círculo de Viena, NO es tarea de la filosofía?",opciones:["Analizar la sintaxis lógica.","Clarificar el significado de los términos.","Proponer una visión del mundo.","Criticar los sinsentidos."],correcta:2,explicacion:"La filosofía no debe construir 'Weltanschauungen' (visiones del mundo), ya que eso pertenece al ámbito de la metafísica sin sentido.", dummyExplanation: "La filosofía, para ellos, debía ser un 'limpiador' de lenguaje, no un 'constructor' de castillos en el aire metafísicos."},
+                {pregunta:"¿Qué es lo que, para Popper, garantiza la 'objetividad' de la ciencia?",opciones:["La imparcialidad del científico.","La correspondencia con la realidad.","La contrastabilidad intersubjetiva.","La exactitud de los instrumentos."],correcta:2,explicacion:"Un enunciado es objetivo si puede ser sometido a prueba y comprendido por cualquiera, independientemente de las creencias subjetivas.", dummyExplanation: "La objetividad científica no depende de que el científico sea un santo, sino de que sus ideas puedan ser puestas a prueba por sus peores enemigos."},
+                {pregunta:"¿Qué es lo que, según Kuhn, se pierde y se gana en una revolución científica?",opciones:["Se pierden errores y se ganan verdades.","Se pierde una forma de ver el mundo y se gana otra.","Se pierde financiación y se gana prestigio.","Se pierde simplicidad y se gana complejidad."],correcta:1,explicacion:"El cambio de paradigma no es puramente acumulativo; implica pérdidas y ganancias, y la nueva visión no es necesariamente 'mejor' en todos los aspectos.", dummyExplanation: "Una revolución científica es como mudarse de país: ganas nuevas costumbres y paisajes, pero también pierdes cosas del antiguo."},
+                {pregunta:"¿Qué es lo que, para Feyerabend, es la 'contrainducción'?",opciones:["Un método para refutar teorías.","Un procedimiento para proponer hipótesis que contradicen la evidencia.","Un tipo de razonamiento deductivo.","Un error lógico que debe evitarse."],correcta:1,explicacion:"Es una regla metodológica que aconseja introducir y elaborar hipótesis inconsistentes con teorías bien establecidas o con hechos bien establecidos.", dummyExplanation: "La contrainducción es pensar como un 'abogado del diablo': defender justo la idea que parece más loca y contraria a los hechos."},
+                {pregunta:"¿Qué es lo que, para Popper, es el 'convencionalismo'?",opciones:["La idea de que las teorías son verdaderas por definición.","La estrategia de salvar una teoría de la falsación mediante hipótesis ad hoc.","La idea de que la ciencia se basa en acuerdos sociales.","La filosofía que él mismo defiende."],correcta:1,explicacion:"Popper critica al convencionalista por reinterpretar los datos o añadir hipótesis auxiliares para que su teoría nunca pueda ser refutada.", dummyExplanation: "Un convencionalista es como un mal perdedor que cambia las reglas del juego a mitad de la partida para no perder nunca."},
+                {pregunta:"¿Qué es lo que, según Kuhn, es un 'ejemplar' (exemplar)?",opciones:["Un científico modelo a seguir.","Una teoría perfecta e irrefutable.","Un problema-solución concreto que sirve de modelo.","Un experimento crucial en la historia."],correcta:2,explicacion:"Son las soluciones a problemas concretos que los estudiantes aprenden y que les enseñan a aplicar el paradigma.", dummyExplanation: "Los 'ejemplares' son los 'problemas resueltos' del final del libro de texto, que te enseñan cómo se hacen las cosas en esa ciencia."},
+                {pregunta:"¿Qué es lo que, según Popper, es una 'hipótesis ad hoc'?",opciones:["Una conjetura audaz y arriesgada.","Una hipótesis auxiliar introducida para salvar una teoría de la falsación.","Una hipótesis que explica un nuevo tipo de fenómeno.","Una hipótesis que ha sido corroborada por la experiencia."],correcta:1,explicacion:"Popper critica el uso de hipótesis ad hoc porque reducen la falsabilidad de una teoría y son un signo de dogmatismo.", dummyExplanation: "Una hipótesis ad hoc es como poner un parche en un globo pinchado: puede que lo salve por un momento, pero no arregla el problema de fondo."},
+                {pregunta:"¿Qué es lo que, para la 'nueva filosofía de la ciencia', es imposible?",opciones:["La predicción de fenómenos.","La aplicación tecnológica de la ciencia.","Una observación completamente neutra.","La formulación de leyes matemáticas."],correcta:2,explicacion:"Autores como Hanson, Kuhn y Feyerabend insisten en que toda observación está 'cargada de teoría'.", dummyExplanation: "Nunca vemos el mundo con los 'ojos desnudos'; siempre llevamos puestas las 'gafas' de nuestras teorías y expectativas."},
+                {pregunta:"¿Qué es lo que, según Popper, es el 'trilema de Fries'?",opciones:["La elección entre dogmatismo, regresión infinita y psicologismo.","La elección entre razón, experiencia y fe.","La elección entre ciencia, metafísica y pseudociencia.","La elección entre verdad, probabilidad y falsedad."],correcta:0,explicacion:"Es el problema de la justificación de los enunciados. Si intentamos justificarlos, caemos o en el dogmatismo, o en una regresión infinita de justificaciones, o nos basamos en la experiencia perceptual (psicologismo).", dummyExplanation: "Es el 'callejón sin salida' de la justificación: o te paras porque sí, o sigues preguntando 'por qué' para siempre, o dices 'porque lo veo y punto'."},
+                {pregunta:"¿Qué es lo que, para Kuhn, es más importante para la elección de un paradigma que las pruebas lógicas?",opciones:["La simplicidad de la nueva teoría.","La capacidad de resolver anomalías y la promesa de futuro.","La nacionalidad de sus proponentes.","El apoyo financiero que recibe."],correcta:1,explicacion:"La elección se basa más en la confianza de la comunidad en que el nuevo paradigma será más fructífero para resolver los problemas pendientes.", dummyExplanation: "Elegir un paradigma es como apostar en una carrera de caballos: no solo miras quién va ganando ahora, sino quién crees que tiene más potencial para ganar en el futuro."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, es la ciencia en una sociedad democrática?",opciones:["La autoridad suprema.","Un conjunto de expertos que deben gobernar.","Una tradición entre otras, sujeta a control democrático.","Una actividad que debe ser eliminada."],correcta:2,explicacion:"Feyerabend aboga por un control democrático de la ciencia por parte de los ciudadanos, quitándole su estatus de experta privilegiada.", dummyExplanation: "Para Feyerabend, los científicos no deberían ser los 'reyes' de la sociedad, sino ciudadanos expertos que rinden cuentas ante los demás."},
+                {pregunta:"¿Qué es lo que, para Popper, es el 'contenido empírico' de una teoría?",opciones:["El número de hechos que la confirman.","El conjunto de sus potenciales falsadores.","Su grado de complejidad matemática.","Su utilidad para la tecnología."],correcta:1,explicacion:"Una teoría tiene más contenido empírico (dice más sobre el mundo) cuanto más prohíbe, es decir, cuanto mayor es el número de enunciados básicos con los que es incompatible.", dummyExplanation: "Una teoría con mucho contenido es como una persona muy específica en sus gustos: te dice exactamente lo que NO le gusta, y eso te da mucha información sobre ella."},
+                {pregunta:"¿Qué es lo que, para Kuhn, es un 'cambio de Gestalt'?",opciones:["Un tipo de razonamiento lógico.","Un cambio en la percepción del mundo al cambiar de paradigma.","Un error en la aplicación del método científico.","Un debate entre científicos de diferentes disciplinas."],correcta:1,explicacion:"Kuhn usa la analogía de las figuras ambiguas (como el pato-conejo) de la psicología de la Gestalt para explicar cómo cambia la 'visión' del mundo tras una revolución.", dummyExplanation: "Cambiar de paradigma es como si, de repente, donde siempre habías visto un pato, ahora solo pudieras ver un conejo. El dibujo es el mismo, pero tu forma de verlo ha cambiado por completo."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, es una 'teoría anarquista del conocimiento'?",opciones:["Una teoría que niega la posibilidad del conocimiento.","Una epistemología que rechaza todas las reglas metodológicas universales.","Una teoría política sobre la ciencia.","Una teoría que promueve el caos en la investigación."],correcta:1,explicacion:"Su 'anarquismo' es metodológico: se opone al gobierno de reglas fijas y universales en la búsqueda del conocimiento.", dummyExplanation: "El anarquismo de Feyerabend no es poner bombas en los laboratorios, es liberarse de las 'leyes' del método científico."},
+                {pregunta:"¿Qué es lo que, para Popper, es la 'verdad'?",opciones:["Un consenso entre científicos.","Una propiedad de las teorías bien corroboradas.","Una idea reguladora que guía la ciencia.","Algo que se alcanza definitivamente."],correcta:2,explicacion:"La verdad objetiva existe como un ideal, como la cumbre de una montaña que guía a los alpinistas, aunque quizás nunca la alcancen.", dummyExplanation: "La verdad, para Popper, es como el horizonte: siempre avanzas hacia él, pero nunca llegas del todo."},
+                {pregunta:"¿Qué es lo que, para Kuhn, es la 'educación científica'?",opciones:["Un entrenamiento en el pensamiento crítico.","Un proceso de adoctrinamiento en un paradigma.","El aprendizaje de la historia de la ciencia.","El desarrollo de la creatividad individual."],correcta:1,explicacion:"La formación de un científico consiste en una inmersión profunda y acrítica en el paradigma dominante a través de la resolución de ejemplares.", dummyExplanation: "Ir a la facultad de ciencias, según Kuhn, es un poco como ir a un seminario: te enseñan a creer y a trabajar dentro de una 'fe' (el paradigma)."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, es el principal argumento contra el método?",opciones:["Que es demasiado difícil de aplicar.","Que la historia de la ciencia muestra que se viola constantemente.","Que es lógicamente inconsistente.","Que es inmoral."],correcta:1,explicacion:"Feyerabend utiliza episodios históricos para mostrar que los grandes científicos como Galileo o Einstein no siguieron un método preestablecido, sino que actuaron como 'oportunistas'.", dummyExplanation: "La historia, para Feyerabend, está llena de genios que triunfaron precisamente porque se saltaron las reglas del 'método'."},
+                {pregunta:"¿Qué es lo que, para Popper, es el 'problema de la inducción'?",opciones:["Un problema sobre cómo justificar la inferencia de lo particular a lo universal.","Un problema sobre cómo deducir consecuencias de una teoría.","Un problema sobre cómo elegir entre teorías rivales.","Un problema sobre la existencia del mundo externo."],correcta:0,explicacion:"Es el problema lógico de cómo justificar las leyes universales de la ciencia basándose en un número finito de observaciones.", dummyExplanation: "Es el problema de la 'bola de cristal': por mucho que hayas visto el pasado, ¿cómo puedes estar seguro de lo que pasará en el futuro?"},
+                {pregunta:"¿Qué es lo que, para Kuhn, es la función de la 'ciencia normal'?",opciones:["Hacer descubrimientos revolucionarios.","Refutar el paradigma vigente.","Articular y extender el alcance del paradigma.","Debatir los fundamentos de la ciencia."],correcta:2,explicacion:"La ciencia normal no busca la novedad fundamental, sino que trabaja para hacer el paradigma más preciso, amplio y robusto.", dummyExplanation: "La ciencia normal es como rellenar los detalles de un mapa ya dibujado: no descubres un nuevo continente, pero haces el mapa mucho más útil."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, es la 'tenacidad'?",opciones:["Un vicio que lleva al dogmatismo.","Una virtud que permite a una nueva teoría desarrollarse.","Una característica de los malos científicos.","Algo que debe evitarse en la ciencia."],correcta:1,explicacion:"Feyerabend defiende que los científicos deben aferrarse 'tenazmente' a sus ideas, incluso frente a la evidencia contraria, para darles la oportunidad de mostrar su potencial.", dummyExplanation: "La tenacidad es ser 'cabezota' en el buen sentido: no abandonar tu idea a la primera de cambio, aunque todos te digan que estás loco."},
+                {pregunta:"¿Qué es lo que, para Popper, es la 'base empírica' de la ciencia?",opciones:["Un fundamento sólido de hechos indudables.","Un conjunto de experiencias subjetivas.","Un conjunto de enunciados básicos aceptados convencionalmente.","Las leyes inmutables de la naturaleza."],correcta:2,explicacion:"La base de la ciencia no es roca firme, sino que se apoya en decisiones de la comunidad científica, que siempre pueden ser revisadas.", dummyExplanation: "La base de la ciencia, para Popper, no está construida sobre roca, sino sobre 'pilotes en un pantano'. Funciona, pero siempre podrías clavar los pilotes un poco más hondo."},
+                {pregunta:"¿Qué es lo que, para Kuhn, es una 'matriz disciplinar'?",opciones:["Un laboratorio de alta tecnología.","El conjunto de elementos que componen un paradigma.","Un comité que evalúa a los científicos.","Un libro de texto canónico."],correcta:1,explicacion:"Es el término más técnico de Kuhn para referirse al paradigma, incluyendo generalizaciones simbólicas, modelos, valores y ejemplares.", dummyExplanation: "La 'matriz disciplinar' es el 'kit de herramientas' completo que recibe un científico para trabajar en su campo."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, es la 'proliferación' de teorías?",opciones:["Un signo de crisis en la ciencia.","Algo que debe evitarse para no crear confusión.","Una condición necesaria para el progreso y la crítica.","Un resultado de la falta de financiación."],correcta:2,explicacion:"Feyerabend argumenta que necesitamos muchas teorías alternativas, incluso las que parecen absurdas, para poder criticar eficazmente la teoría dominante.", dummyExplanation: "La proliferación es como tener muchos candidatos en unas elecciones: cuantas más opciones, más rica es la democracia (científica)."},
+                {pregunta:"¿Qué es lo que, para Popper, es la diferencia entre una 'falsación' y la 'falsabilidad'?",opciones:["Son lo mismo.","La falsabilidad es un criterio lógico, la falsación es un resultado histórico.","La falsabilidad se aplica a teorías, la falsación a hechos.","La falsabilidad es fácil, la falsación es difícil."],correcta:1,explicacion:"La falsabilidad es la propiedad lógica de una teoría de poder ser refutada. La falsación es el hecho concreto de que una teoría ha sido refutada por una prueba.", dummyExplanation: "La falsabilidad es ser 'mortal' (puedes morir). La falsación es 'morir' de verdad."},
+                {pregunta:"¿Qué es lo que, según Kuhn, es el principal motor del cambio científico?",opciones:["La lógica y la evidencia.","La genialidad de los individuos.","La crisis y la competencia entre paradigmas.","Las necesidades sociales y económicas."],correcta:2,explicacion:"El cambio no es un proceso gradual guiado por la lógica, sino una lucha entre comunidades que defienden visiones del mundo incompatibles.", dummyExplanation: "El cambio en la ciencia, para Kuhn, no es una evolución pacífica, es una 'guerra civil' entre paradigmas."},
+                {pregunta:"¿Qué es lo que, para Feyerabend, es el 'principio de tenacidad'?",opciones:["Aferrarse a las teorías viejas.","Insistir en un único método.","Mantener una teoría a pesar de las dificultades iniciales.","Ser terco en las discusiones."],correcta:2,explicacion:"Aconseja no descartar una teoría nueva solo porque se enfrente a problemas, sino darle tiempo para que se desarrolle y muestre su fuerza.", dummyExplanation: "Es como cuidar una planta pequeña: no la tiras porque al principio no dé frutos, le das tiempo y cuidados para que crezca."},
+                {pregunta:"¿Qué es lo que, para Popper, es la 'actitud dogmática'?",opciones:["La actitud de buscar la verdad a toda costa.","La actitud de buscar la confirmación de las propias teorías.","La actitud de dudar de todo.","La actitud de seguir la tradición científica."],correcta:1,explicacion:"El dogmatismo, opuesto a la actitud crítica, consiste en intentar verificar las teorías y salvarlas de la refutación a cualquier precio.", dummyExplanation: "Un dogmático es como un abogado que solo busca pruebas que apoyen a su cliente, ignorando todas las que van en su contra."},
+                {pregunta:"¿Qué es lo que, para Kuhn, es la 'invisibilidad de las revoluciones'?",opciones:["Que ocurren en secreto.","Que los libros de texto las presentan como un progreso acumulativo.","Que son tan rápidas que nadie se da cuenta.","Que son un mito y nunca han ocurrido."],correcta:1,explicacion:"La historia de la ciencia, tal como se enseña, tiende a borrar las rupturas y a presentar el pasado como una simple acumulación de pasos hacia el presente.", dummyExplanation: "Los libros de texto de ciencia son como las biografías oficiales de los reyes: borran las guerras civiles y hacen que parezca que todo fue una sucesión pacífica."},
+                {pregunta:"¿Qué es lo que, según Feyerabend, es la relación entre la ciencia y la libertad?",opciones:["La ciencia es la principal herramienta de la libertad.","La libertad es un obstáculo para la ciencia.","La hegemonía de la ciencia amenaza la libertad.","No tienen ninguna relación."],correcta:2,explicacion:"Feyerabend teme que la autoridad dogmática de la ciencia en la sociedad moderna pueda convertirse en una amenaza para la libertad de pensamiento.", dummyExplanation: "Para Feyerabend, si la ciencia se convierte en la única 'verdad' permitida, estamos en un aprieto. La libertad necesita muchas voces, no solo una."},
+                {pregunta:"¿Qué es lo que, para Popper, es la 'teoría del cubo' de la mente?",opciones:["Una teoría correcta sobre la percepción.","La idea de que la mente es una 'tabula rasa' que acumula datos.","Una metáfora para la complejidad del cerebro.","Una teoría sobre la memoria a largo plazo."],correcta:1,explicacion:"Popper critica la visión empirista de que la mente es un receptor pasivo (un cubo) que se llena con las percepciones, y opone su 'teoría del reflector' (la mente ilumina activamente el mundo con sus teorías).", dummyExplanation: "La mente no es un cubo vacío esperando a que le echen cosas (datos), dice Popper. Es más bien como un faro que busca activamente en la oscuridad."},
+                {pregunta:"¿Qué es lo que, para Kuhn, es la principal razón del dogmatismo en la 'ciencia normal'?",opciones:["La falta de inteligencia de los científicos.","La presión de las autoridades políticas.","Es una estrategia eficaz para la investigación detallada.","El miedo a la novedad y al cambio."],correcta:2,explicacion:"Aceptar el paradigma sin críticas permite a la comunidad centrar todos sus esfuerzos en un trabajo de articulación muy profundo y detallado.", dummyExplanation: "El dogmatismo en ciencia normal es como llevar anteojeras: te impide ver a los lados, pero te ayuda a concentrarte en el camino que tienes delante."},
+                {pregunta:"¿Qué es lo que, para Feyerabend, es el 'humanitarismo' en la ciencia?",opciones:["La aplicación de la ciencia para el bien de la humanidad.","La idea de que los científicos deben ser buenas personas.","El respeto a todas las tradiciones humanas, no solo a la científica.","La financiación de la ciencia con fines benéficos."],correcta:2,explicacion:"Un verdadero humanitarista, según él, debe defender la libertad de los individuos para elegir entre diferentes tradiciones (ciencia, religión, mito) y no imponer una sola.", dummyExplanation: "Ser humanitario, para Feyerabend, no es solo dar de comer al hambriento, es también respetar su derecho a creer en lo que quiera, aunque no sea 'científico'."}
+            ]
+        };
+
+        let quizQuestions = [];
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+
+        // --- FUNCIONES DE RENDERIZADO ---
+        
+        function renderContent() {
+            renderFigurasClave();
+            renderResumen();
+            renderConceptos();
+            renderExamenes();
+            renderJuego();
+            renderBibliografia();
+        }
+
+        function renderFigurasClave() {
+            const container = document.getElementById('figuras');
+            const figuras = themeData.figurasClave;
+            if (!figuras || figuras.length === 0) {
+                container.innerHTML = `<div class="bg-white p-6 rounded-lg shadow-inner text-center" style="background-color: #fcf8f0;"><p>La información sobre las figuras clave de este tema se añadirá próximamente.</p></div>`;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${figuras.map((figura, figIndex) => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <div class="flex flex-col md:flex-row gap-8 items-start">
+                            <figure class="text-center flex-shrink-0 w-full md:w-48">
+                                <img src="${figura.foto}" alt="${figura.altText}" class="w-48 h-64 object-cover rounded-lg shadow-md border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <figcaption class="text-xs italic mt-2" style="color: var(--color-siena);">
+                                    Fuente: <a href="${figura.fotoFuente}" target="_blank" class="hover:underline">Wikimedia Commons</a>
+                                </figcaption>
+                            </figure>
+                            <div class="flex-1 text-left relative min-h-[300px]">
+                                <h3 class="text-2xl font-bold mb-4 text-center md:text-left">${figura.nombre}</h3>
+                                <div id="content-carousel-${figIndex}">
+                                    ${figura.carouselContent.map((item, contentIndex) => `
+                                        <div class="content-carousel-item ${contentIndex === 0 ? 'active' : ''}" data-content-index="${contentIndex}">
+                                            <h4 class="font-bold mb-2" style="color: var(--color-pumpkin);">${item.titulo}</h4>
+                                            ${item.obras ? 
+                                                `<div class="space-y-2">
+                                                    ${item.obras.map(obra => `
+                                                        <details class="text-sm">
+                                                            <summary class="font-semibold cursor-pointer">${obra.titulo}</summary>
+                                                            <p class="pt-1 pl-4 text-justify">${obra.contenido}</p>
+                                                        </details>
+                                                    `).join('')}
+                                                </div>` 
+                                                : `<p class="text-justify text-sm">${item.contenido}</p>`
+                                            }
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button id="prev-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, -1)" class="carousel-button absolute top-1/2 left-0 -ml-4 md:-ml-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-left fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                                <button id="next-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, 1)" class="carousel-button absolute top-1/2 right-0 -mr-4 md:-mr-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-right fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+            
+            figuras.forEach((_, figIndex) => {
+                window[`currentContentCarouselIndex_${figIndex}`] = 0;
+                updateCarouselButtons(figIndex);
+            });
+        }
+
+        function renderResumen() {
+            const container = document.getElementById('resumen');
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${themeData.resumenTemario.map(item => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h4 class="text-xl font-bold mb-3">${item.epigrafe}</h4>
+                        <div class="text-justify mb-4">${item.resumen}</div>
+                        <div class="border-t my-4" style="border-color: var(--color-siena);"></div>
+                        <h5 class="font-semibold mb-2" style="color: var(--color-pumpkin);">Mapa Conceptual</h5>
+                        <div class="w-full overflow-x-auto">${item.mapaConceptual}</div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${themeData.conceptosClave.sort((a, b) => a.concepto.localeCompare(b.concepto)).map(item => `
+                    <div class="bg-white p-4 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${item.concepto}</h5>
+                        <p class="text-sm mt-1">${item.definicion}</p>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            const sortedExams = themeData.historicoExamenes.sort((a, b) => b.fechas.length - a.fechas.length);
+            
+            const sortDates = (dates) => {
+                const monthOrder = { "Mayo": 5, "Junio": 6, "Septiembre": 9 };
+                return dates.slice().sort((a, b) => {
+                    const getYear = str => parseInt(str.match(/\d{4}/g)?.[0] || 0);
+                    const getMonth = str => {
+                        const monthKey = Object.keys(monthOrder).find(m => str.includes(m));
+                        return monthOrder[monthKey] || 0;
+                    };
+                    const yearA = getYear(a);
+                    const yearB = getYear(b);
+                    if (yearA !== yearB) return yearA - yearB; // Sort ascending by year
+                    return getMonth(a) - getMonth(b); // Then ascending by month
+                });
+            };
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                ${sortedExams.map(item => `
+                    <details class="bg-white p-4 rounded-lg shadow-inner group" style="background-color: #fcf8f0;">
+                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center" style="color: var(--color-pumpkin);">
+                            <span>${item.pregunta}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <details class="text-sm mb-2">
+                                <summary class="font-semibold cursor-pointer" style="color: var(--color-coffee);">Fechas de aparición</summary>
+                                <div class="pl-4 pt-2">
+                                    ${sortDates(item.fechas).map(date => `<p>${date}</p>`).join('')}
+                                </div>
+                            </details>
+                            <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                ${item.conceptosDesarrollo.map(cd => `
+                                    <div class="bg-gray-50 p-3 rounded-md shadow-sm tooltip-container">
+                                        <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                        <span class="tooltip-text">${cd.resumen}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </details>
+                `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderBibliografia() {
+            const container = document.getElementById('bibliografia');
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <h4 class="text-xl font-bold mb-3">Bibliografía del Tema</h4>
+                    <ul class="text-sm space-y-2 list-disc pl-5">
+                        ${themeData.bibliografia.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function renderJuego() {
+            const container = document.getElementById('juego');
+            container.innerHTML = `
+                <div id="quiz-container" class="text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                     <h3 class="text-2xl font-bold mb-4">Juego de Preguntas</h3>
+                     <p class="mb-6">Pon a prueba tus conocimientos con 10 preguntas aleatorias sobre la nueva filosofía de la ciencia.</p>
+                     <button onclick="startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Comenzar Juego</button>
+                </div>
+            `;
+        }
+
+        // --- FUNCIONES DE INTERACTIVIDAD ---
+
+        window.openTab = function(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        window.changeContentCarousel = function(figIndex, direction) {
+            const carouselId = `content-carousel-${figIndex}`;
+            const items = document.querySelectorAll(`#${carouselId} .content-carousel-item`);
+            let currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            
+            items[currentIndex].classList.remove('active');
+            currentIndex += direction;
+            items[currentIndex].classList.add('active');
+            
+            window[`currentContentCarouselIndex_${figIndex}`] = currentIndex;
+            updateCarouselButtons(figIndex);
+        };
+
+        function updateCarouselButtons(figIndex) {
+            const items = document.querySelectorAll(`#content-carousel-${figIndex} .content-carousel-item`);
+            const currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            const prevButton = document.getElementById(`prev-btn-${figIndex}`);
+            const nextButton = document.getElementById(`next-btn-${figIndex}`);
+
+            if (prevButton) prevButton.disabled = currentIndex === 0;
+            if (nextButton) nextButton.disabled = currentIndex === items.length - 1;
+        }
+        
+        window.startQuiz = function() {
+            const shuffled = [...themeData.juegoPreguntas].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 10);
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        window.displayQuestion = function() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:border-yellow-500" style="border-color: var(--color-siena);" onclick="checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(button => button.disabled = true);
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-200', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            const titles = [
+                "Metafísico Pre-científico", "Inductivista Inocente", "Verificacionista en Prácticas",
+                "Falsador Tímido", "Científico Normal", "Revolucionario en Potencia",
+                "Anarquista Metodológico", "Historiador de la Ciencia", "Racionalista Crítico",
+                "Maestro de Paradigmas", "Filósofo de la Ciencia"
+            ];
+            const title = titles[quizScore] || "Estudiante Entusiasta";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(q => {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left">
+                        <h3 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h3>
+                        <h4 class="text-md font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h4>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.dummyExplanation}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h2 class="text-2xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h2>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta. Has superado el criterio de demarcación.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <button onclick="startQuiz()" class="mt-8 px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+            `;
+        }
+
+        // --- INICIALIZACIÓN ---
+        renderContent();
+        // Abrir la pestaña de figuras por defecto
+        document.querySelector('.tab-button[onclick*="figuras"]').click();
+    });
+    </script>
+</body>
+</html>

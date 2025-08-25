@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 2: Conocimiento, lógica y lenguaje - Teoría del Conocimiento II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Definición de la paleta de colores y tipografías como variables CSS */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para las pestañas */
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        /* Estilos para carruseles de contenido */
+        .content-carousel-item {
+            display: none;
+        }
+        .content-carousel-item.active {
+            display: block;
+        }
+        /* Estilos para tooltips */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .next-button {
+            display: none; /* Oculto por defecto */
+        }
+        /* Estilo para botones de carrusel desactivados */
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal de la aplicación -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <!-- Contenido estático del Tema 2 -->
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 2: Conocimiento, lógica y lenguaje</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition active" style="border-color: transparent;" onclick="openTab(event, 'figuras')">Figuras Clave</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'resumen')">Resumen</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'conceptos')">Conceptos</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'examenes')">Exámenes</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'juego')">Juego</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+            </div>
+
+            <!-- Pestaña Figuras Clave -->
+            <div id="figuras" class="tab-content"></div>
+
+            <!-- Pestaña Resumen -->
+            <div id="resumen" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Conceptos -->
+            <div id="conceptos" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Exámenes -->
+            <div id="examenes" class="tab-content" style="display:none;"></div>
+            
+            <!-- Pestaña Juego -->
+            <div id="juego" class="tab-content" style="display:none;"></div>
+
+            <!-- Pestaña Bibliografía -->
+            <div id="bibliografia" class="tab-content" style="display:none;"></div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página fijo -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- BASE DE DATOS DE CONTENIDO PARA EL TEMA 2 ---
+        const themeData = {
+            title: "Conocimiento, lógica y lenguaje",
+            figurasClave: [
+                {
+                    nombre: "El Círculo de Viena",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/1/17/Schlick_sitting.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Schlick_sitting.jpg",
+                    altText: "Moritz Schlick, circa 1930.",
+                    carouselContent: [
+                        {
+                            titulo: "Historia del Círculo",
+                            contenido: "El Círculo de Viena fue un influyente grupo de filósofos y científicos que se reunieron en la Universidad de Viena desde 1924 bajo el liderazgo de Moritz Schlick. Miembros destacados como Rudolf Carnap, Otto Neurath y Kurt Gödel desarrollaron el positivismo lógico. El grupo se disolvió a mediados de la década de 1930 debido al ascenso del nazismo, que provocó el asesinato de Schlick y la emigración de la mayoría de sus miembros, quienes difundieron sus ideas por el mundo anglosajón."
+                        },
+                        {
+                            titulo: "Influencias y Contexto",
+                            contenido: "El Círculo de Viena se inspiró en la tradición empirista de David Hume y Ernst Mach, la nueva lógica simbólica de Gottlob Frege y Bertrand Russell, y, de manera crucial, en el 'Tractatus Logico-Philosophicus' de Ludwig Wittgenstein. Su objetivo era crear una filosofía científica que eliminara la metafísica, considerándola carente de significado."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "El Círculo de Viena fundó el positivismo lógico (o empirismo lógico), una de las corrientes más influyentes de la filosofía del siglo XX. Su 'principio de verificación' como criterio de significado y su proyecto de una 'ciencia unificada' transformaron la filosofía de la ciencia y el lenguaje. Aunque sus tesis más radicales fueron posteriormente criticadas y abandonadas, su rigor analítico y su enfoque en la ciencia marcaron la agenda de la filosofía analítica durante décadas."
+                        },
+                        {
+                            titulo: "Tesis Principales",
+                            obras: [
+                                {
+                                    titulo: "Principio de Verificación",
+                                    contenido: "Un enunciado solo tiene significado cognitivo si es analítico (una verdad lógica o matemática) o si es empíricamente verificable. Todo lo demás es considerado un 'sinsentido'."
+                                },
+                                {
+                                    titulo: "Rechazo de la Metafísica",
+                                    contenido: "Aplicando el principio de verificación, los enunciados de la metafísica, la ética y la estética son calificados como pseudoproposiciones, carentes de significado fáctico."
+                                },
+                                {
+                                    titulo: "Unidad de la Ciencia (Fisicalismo)",
+                                    contenido: "El objetivo de unificar todas las ciencias bajo un lenguaje común, basado en la física, que permitiera traducir y conectar los enunciados de todas las disciplinas científicas."
+                                },
+                                {
+                                    titulo: "Filosofía como Análisis Lógico",
+                                    contenido: "La tarea de la filosofía no es descubrir verdades sobre el mundo, sino analizar y clarificar la estructura lógica del lenguaje científico, actuando como una 'lógica de la ciencia'."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    nombre: "Bertrand Russell",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Bertrand_Russell_in_1936.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Bertrand_Russell_in_1936.jpg",
+                    altText: "Retrato en blanco y negro de Bertrand Russell en 1936, mirando a la cámara.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Nacido en 1872 en Gales en una familia aristocrática liberal, Bertrand Russell quedó huérfano y fue educado por su abuela. Estudió matemáticas y filosofía en Cambridge, donde se convirtió en una figura central. Su activismo pacifista durante la I Guerra Mundial le costó su puesto en la universidad y le llevó a la cárcel. Fue un prolífico escritor, un intelectual público de fama mundial y un activista por la libertad y contra las armas nucleares hasta su muerte en 1970. Recibió el Premio Nobel de Literatura en 1950."
+                        },
+                        {
+                            titulo: "Antecedentes e Influencias",
+                            contenido: "Russell se rebeló contra el idealismo británico de su juventud. Su obra es una continuación y a la vez una crítica de la tradición empirista de Locke y Hume. Fue profundamente influido por la nueva lógica matemática de Peano y, sobre todo, de Gottlob Frege. Su relación intelectual con su discípulo Ludwig Wittgenstein fue tormentosa pero fundamental para el desarrollo del pensamiento de ambos. Russell es, junto a Frege y Moore, el fundador de la filosofía analítica."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "Russell transformó la filosofía con su aplicación del análisis lógico a los problemas tradicionales. Su 'teoría de las descripciones definidas' se considera un paradigma del quehacer filosófico. Su proyecto logicista, plasmado en 'Principia Mathematica', fue un intento monumental de fundamentar las matemáticas en la lógica. Su 'atomismo lógico' propuso una metafísica donde el mundo se compone de 'hechos atómicos' que el lenguaje lógicamente perfecto puede reflejar."
+                        },
+                        {
+                            titulo: "Obras Clave",
+                            obras: [
+                                {
+                                    titulo: "Los principios de las matemáticas (1903)",
+                                    contenido: "Presenta su programa logicista, defendiendo que las matemáticas son reducibles a la lógica."
+                                },
+                                {
+                                    titulo: "Sobre la denotación (1905)",
+                                    contenido: "Artículo revolucionario donde presenta su teoría de las descripciones definidas para resolver problemas sobre el significado y la referencia."
+                                },
+                                {
+                                    titulo: "Principia Mathematica (con Whitehead, 1910-1913)",
+                                    contenido: "Obra magna que intenta llevar a cabo la derivación de la matemática desde la lógica. Un hito en la historia de la lógica."
+                                },
+                                {
+                                    titulo: "Los problemas de la filosofía (1912)",
+                                    contenido: "Una introducción clásica a la teoría del conocimiento desde una perspectiva empirista y analítica."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    nombre: "Ludwig Wittgenstein",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Ludwig_Wittgenstein.jpg/800px-Ludwig_Wittgenstein.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Ludwig_Wittgenstein.jpg",
+                    altText: "Retrato en blanco y negro de Ludwig Wittgenstein, con mirada intensa y directa.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Nacido en Viena en 1889 en una de las familias más ricas de Europa, Ludwig Wittgenstein estudió ingeniería antes de que su interés por los fundamentos de las matemáticas le llevara a Cambridge para estudiar con Russell. Tras servir en la Primera Guerra Mundial, publicó su única obra en vida, el Tractatus. Después de un período como maestro de escuela, regresó a Cambridge en 1929, donde desarrolló una filosofía radicalmente nueva, plasmada póstumamente en sus Investigaciones Filosóficas. Murió en 1951."
+                        },
+                        {
+                            titulo: "Antecedentes e Influencias",
+                            contenido: "El 'primer Wittgenstein' está profundamente influido por la lógica de Gottlob Frege y Bertrand Russell. Su contexto cultural en la Viena de fin de siglo (Karl Kraus, Adolf Loos) es clave para entender su concepción ética del lenguaje. El 'segundo Wittgenstein' representa una ruptura radical con su obra anterior, fruto de su propia autocrítica y de nuevas influencias como la del economista Piero Sraffa."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "Wittgenstein revolucionó la filosofía dos veces. El Tractatus fue la inspiración del positivismo lógico, estableciendo los límites de lo que se puede decir con sentido. Sus Investigaciones Filosóficas iniciaron el 'giro lingüístico' tardío, cambiando el enfoque del lenguaje ideal al lenguaje ordinario y su uso. Su idea de la filosofía como una actividad terapéutica para disolver 'enredos' conceptuales ha sido enormemente influyente."
+                        },
+                        {
+                            titulo: "Obras Clave",
+                            obras: [
+                                {
+                                    titulo: "Tractatus Logico-Philosophicus (1921)",
+                                    contenido: "Una obra aforística que busca establecer los límites del lenguaje mediante la 'teoría figurativa'. Concluye que de lo que no se puede hablar (ética, lo místico), es mejor callar. Es una obra que se anula a sí misma, como una escalera que se tira tras haber subido."
+                                },
+                                {
+                                    titulo: "Investigaciones Filosóficas (póstuma, 1953)",
+                                    contenido: "Representa una completa demolición de las ideas del Tractatus. Abandona la idea de un lenguaje ideal y propone la noción de 'juegos del lenguaje'. El significado de una palabra no es el objeto que nombra, sino su 'uso' en un contexto determinado. La filosofía adquiere una función 'terapéutica'."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            bibliografia: [
+                "Sánchez Meca, D. (2019). <em>Iniciación a la Teoría del Conocimiento</em>. Dykinson. (Capítulo 10: Conocimiento, lógica y lenguaje, pp. 367-407).",
+                "Escudero Pérez, A. (s.f.). <em>Apuntes de Teoría del Conocimiento II</em>. (Tema 2: El positivismo lógico y la filosofía analítica).",
+                "Broncano, F. (2015). <em>Russell: Conocimiento y felicidad</em>. Batiscafo.",
+                "Carmona, C. (2015). <em>Wittgenstein: La consciencia del límite</em>. Batiscafo."
+            ],
+            resumenTemario: [
+                {
+                    epigrafe: "1. El Círculo de Viena y el positivismo lógico",
+                    resumen: "<p class='text-justify'>Surgido en los años 20 del siglo XX, el <strong>Círculo de Viena</strong> fue un movimiento filosófico que buscaba erradicar la metafísica de la filosofía y la ciencia. Liderado por figuras como <strong>Moritz Schlick</strong> y <strong>Rudolf Carnap</strong>, y fuertemente influido por la lógica de Russell y el primer Wittgenstein, su programa se basaba en el <strong>positivismo lógico</strong> (o empirismo lógico).</p><p class='text-justify mt-2'>Sus tesis centrales eran:</p><ul><li class='ml-4 list-disc'><strong>El criterio empírico del significado:</strong> Una proposición solo tiene sentido si es analítica (una verdad lógica, como 'un soltero no es casado') o si es sintética y puede ser <strong>verificada empíricamente</strong>. Si un enunciado no puede ser comprobado por la experiencia, es un 'sinsentido' (una pseudoproposición).</li><li class='ml-4 list-disc'><strong>Rechazo de la metafísica:</strong> Con este criterio, todos los enunciados de la metafísica, la ética o la teología quedan descalificados como carentes de significado cognitivo.</li><li class='ml-4 list-disc'><strong>La unidad de la ciencia:</strong> El objetivo era crear un lenguaje común para todas las ciencias (<strong>fisicalismo</strong>), basado en la lógica y en <strong>enunciados protocolares</strong> que describieran la experiencia directa. La filosofía quedaba reducida a una actividad de análisis lógico del lenguaje científico.</li></ul>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Círculo de Viena</text><rect x="200" y="20" width="180" height="40" class="box"/><text x="290" y="45" class="text">Principio de Verificación</text><rect x="200" y="90" width="180" height="40" class="box"/><text x="290" y="115" class="text">Rechazo de la Metafísica</text><rect x="430" y="55" width="160" height="40" class="box"/><text x="510" y="80" class="text">Ciencia Unificada</text><path d="M150,75 C165,60 180,45 200,40" class="arrow"/><path d="M150,75 C165,90 180,105 200,110" class="arrow"/><path d="M380,40 C395,50 410,55 430,60" class="arrow"/><path d="M380,110 C395,100 410,95 430,90" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "2. La superación del positivismo lógico: el Tractatus de Wittgenstein",
+                    resumen: "<p class='text-justify'>Aunque fue una obra inspiradora para el Círculo de Viena, el <strong><em>Tractatus Logico-Philosophicus</em></strong> de Ludwig Wittgenstein contenía las semillas de su propia superación. Wittgenstein propone la <strong>teoría figurativa del lenguaje</strong>: una proposición con sentido es una 'figura' o 'mapa' de un hecho posible en el mundo. Para que esto funcione, lenguaje y mundo deben compartir la misma <strong>forma lógica (isomorfismo)</strong>.</p><p class='text-justify mt-2'>Esto impone unos límites estrictos a lo que se puede decir:</p><ul><li class='ml-4 list-disc'><strong>Lo que se puede decir:</strong> Proposiciones que describen hechos del mundo (el campo de la ciencia natural).</li><li class='ml-4 list-disc'><strong>Lo que solo se puede mostrar:</strong> La propia forma lógica, la ética, la estética, el sentido de la vida... Esto es <strong>lo místico</strong>. No se puede hablar de ello, porque no son 'hechos' en el mundo, pero se 'muestra' en el lenguaje y en la vida.</li></ul><p class='text-justify mt-2'>La paradoja final del <em>Tractatus</em> es que sus propias proposiciones, al hablar sobre la lógica y los límites del lenguaje, son un sinsentido según sus propios criterios. Wittgenstein lo compara con una <strong>escalera que hay que tirar</strong> después de haber subido por ella para ver el mundo correctamente.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="120" height="40" class="box"/><text x="70" y="80" class="text">Tractatus</text><rect x="180" y="55" width="140" height="40" class="box"/><text x="250" y="80" class="text">Teoría Figurativa</text><rect x="370" y="20" width="160" height="40" class="box"/><text x="450" y="45" class="text">Lo que se puede DECIR</text><rect x="370" y="90" width="160" height="40" class="box"/><text x="450" y="115" class="text">Lo que se puede MOSTRAR</text><line x1="130" y1="75" x2="180" y2="75" class="arrow"/><path d="M320,75 C335,60 350,45 370,40" class="arrow"/><path d="M320,75 C335,90 350,105 370,110" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "3. El segundo Wittgenstein: los juegos del lenguaje",
+                    resumen: "<p class='text-justify'>En su obra tardía, principalmente en las <strong><em>Investigaciones Filosóficas</em></strong>, Wittgenstein abandona radicalmente las ideas del <em>Tractatus</em>. Critica la idea de que el lenguaje tiene una única esencia (la figuración lógica) y propone que, en realidad, está compuesto por una multiplicidad de <strong>'juegos del lenguaje'</strong>.</p><p class='text-justify mt-2'>Las ideas clave de esta etapa son:</p><ul><li class='ml-4 list-disc'><strong>El significado es el uso:</strong> El significado de una palabra no es el objeto que nombra, sino cómo se usa en la práctica, dentro de un juego concreto (ordenar, preguntar, contar un chiste...).</li><li class='ml-4 list-disc'><strong>Formas de vida:</strong> Cada juego de lenguaje está inseparablemente unido a una actividad, a un contexto, a una 'forma de vida'. Entender el lenguaje es entender la vida en la que se integra.</li><li class='ml-4 list-disc'><strong>Parecidos de familia:</strong> Los diferentes usos de una palabra (como 'juego') no comparten una esencia común, sino una red de similitudes que se superponen, como los rasgos faciales entre los miembros de una familia.</li></ul><p class='text-justify mt-2'>La filosofía ya no busca un lenguaje ideal, sino que tiene una función <strong>terapéutica</strong>: disolver los problemas filosóficos, que son enredos conceptuales causados por no entender cómo funciona nuestro lenguaje ordinario.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">2º Wittgenstein</text><rect x="200" y="20" width="160" height="40" class="box"/><text x="280" y="45" class="text">Juegos del Lenguaje</text><rect x="200" y="90" width="160" height="40" class="box"/><text x="280" y="115" class="text">Significado como Uso</text><rect x="410" y="55" width="180" height="40" class="box"/><text x="500" y="80" class="text">Parecidos de Familia</text><path d="M150,75 C165,60 180,45 200,40" class="arrow"/><path d="M150,75 C165,90 180,105 200,110" class="arrow"/><path d="M360,40 C375,50 390,55 410,60" class="arrow"/><path d="M360,110 C375,100 390,95 410,90" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "4. La filosofía analítica y el giro lingüístico",
+                    resumen: "<p class='text-justify'>El tema 'Conocimiento, lógica y lenguaje' se enmarca en la corriente de la <strong>filosofía analítica</strong>, que dominó gran parte del pensamiento anglosajón en el siglo XX. Su característica principal es el <strong>'giro lingüístico'</strong>: la convicción de que los problemas filosóficos tradicionales son, en realidad, problemas del lenguaje. La tarea de la filosofía, por tanto, no es construir grandes sistemas sobre la realidad, sino <strong>analizar el lenguaje</strong> para clarificar (o disolver) dichos problemas.</p><p class='text-justify mt-2'>Esta corriente se puede dividir en dos grandes fases:</p><ul><li class='ml-4 list-disc'><strong>Análisis del lenguaje ideal:</strong> Representada por Russell y el primer Wittgenstein, buscaba un lenguaje lógicamente perfecto que reflejara sin ambigüedades la estructura de la realidad. El <strong>atomismo lógico</strong> y la <strong>teoría figurativa</strong> son sus máximos exponentes.</li><li class='ml-4 list-disc'><strong>Análisis del lenguaje ordinario:</strong> Impulsada por el segundo Wittgenstein, abandona la búsqueda de un lenguaje ideal y se centra en describir los múltiples <strong>usos</strong> que hacemos del lenguaje en nuestra vida cotidiana, dentro de diferentes <strong>'juegos del lenguaje'</strong> y <strong>'formas de vida'</strong>.</li></ul>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Filosofía Analítica</text><rect x="230" y="20" width="140" height="40" class="box"/><text x="300" y="45" class="text">Lenguaje Ideal</text><rect x="230" y="90" width="140" height="40" class="box"/><text x="300" y="115" class="text">Lenguaje Ordinario</text><rect x="430" y="20" width="160" height="40" class="box"/><text x="510" y="45" class="text">Tractatus (1er Witt.)</text><rect x="430" y="90" width="160" height="40" class="box"/><text x="510" y="115" class="text">Investigaciones (2º Witt.)</text><path d="M150,75 C170,60 200,45 230,40" class="arrow"/><path d="M150,75 C170,90 200,105 230,110" class="arrow"/><line x1="370" y1="40" x2="430" y2="40" class="arrow"/><line x1="370" y1="110" x2="430" y2="110" class="arrow"/></svg>`
+                }
+            ],
+            conceptosClave: [
+                { concepto: "Atomismo Lógico", definicion: "Tesis de Russell y el primer Wittgenstein de que el mundo se compone de hechos atómicos independientes que son reflejados por proposiciones atómicas." },
+                { concepto: "Criterio Empírico del Significado", definicion: "Principio del Círculo de Viena según el cual una proposición solo tiene significado si es analítica o si es verificable empíricamente." },
+                { concepto: "Enunciados Protocolares", definicion: "Enunciados que describen la experiencia inmediata y que, para el Círculo de Viena, sirven de base para la verificación de las teorías científicas." },
+                { concepto: "Filosofía como Actividad Terapéutica", definicion: "Concepción del segundo Wittgenstein de que la filosofía no es una doctrina, sino una actividad para disolver los 'calambres mentales' causados por el mal uso del lenguaje." },
+                { concepto: "Formas de Vida", definicion: "Para el segundo Wittgenstein, es el conjunto de prácticas, costumbres y reacciones compartidas por una comunidad que sirven de base a los juegos del lenguaje." },
+                { concepto: "Isomorfismo", definicion: "La correspondencia estructural entre el lenguaje, el pensamiento y el mundo. La estructura lógica de la proposición es una 'figura' de la estructura del hecho." },
+                { concepto: "Juegos del Lenguaje", definicion: "En el segundo Wittgenstein, la idea de que el lenguaje se compone de múltiples 'juegos', cada uno con sus propias reglas y formas de vida asociadas." },
+                { concepto: "Lenguaje Fenoménico", definicion: "Lenguaje que se refiere exclusivamente a los datos sensoriales inmediatos, propuesto por el Círculo de Viena como base segura para la ciencia." },
+                { concepto: "Mundo", definicion: "En el Tractatus, la totalidad de los hechos, no de las cosas." },
+                { concepto: "Parecido de Familia", definicion: "Concepto del segundo Wittgenstein para explicar que los usos de una palabra no comparten una esencia común, sino una red de similitudes superpuestas." },
+                { concepto: "Positivismo Lógico", definicion: "Corriente filosófica del Círculo de Viena que combina el empirismo con la lógica formal para eliminar la metafísica." },
+                { concepto: "Proposición", definicion: "En el Tractatus, una figura lógica de los hechos. Muestra su sentido y su estructura lógica es idéntica a la del hecho que representa." },
+                { concepto: "Pseudoproposición", definicion: "Enunciado que parece una proposición pero que carece de significado por violar las reglas de la sintaxis lógica (p. ej., la metafísica)." },
+                { concepto: "Teoría Figurativa del Lenguaje", definicion: "La tesis del Tractatus de que una proposición con sentido es una 'figura' o 'mapa' de un estado de cosas." },
+                { concepto: "Verificabilidad", definicion: "Principio del positivismo lógico que establece que el significado de una proposición es su método de verificación empírica." }
+            ],
+            historicoExamenes: [
+                 {
+                    pregunta: "La idea de ciencia en el Círculo de Viena (1 aparición)",
+                    fechas: ["Septiembre 2023"],
+                    conceptosDesarrollo: [
+                        { concepto: "Empirismo lógico", resumen: "Combinación de la lógica formal con la base empírica del conocimiento." },
+                        { concepto: "Principio de Verificación", resumen: "El significado de un enunciado es su método de verificación empírica. Rechazo de la metafísica." },
+                        { concepto: "Unidad de la ciencia", resumen: "El proyecto de unificar todas las ciencias a través de un lenguaje común (fisicalismo)." },
+                        { concepto: "Filosofía como análisis lógico", resumen: "La filosofía no crea teorías, sino que clarifica el lenguaje de la ciencia." }
+                    ]
+                },
+                {
+                    pregunta: "La teoría de los juegos del lenguaje en Wittgenstein (4 apariciones)",
+                    fechas: ["Mayo/Junio 2017 (2ª)", "Mayo/Junio 2019 (2ª)", "Mayo/Junio 2021 (2ª)", "Mayo/Junio 2025 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Crítica al Tractatus", resumen: "Wittgenstein abandona la idea de un único lenguaje perfecto y la teoría figurativa." },
+                        { concepto: "Significado como uso", resumen: "El significado de una palabra no es el objeto que nombra, sino su uso en un contexto o 'juego' específico." },
+                        { concepto: "Formas de vida", resumen: "Cada juego del lenguaje está incrustado en una práctica social, en una 'forma de vida' que le da sentido." },
+                        { concepto: "Parecido de familia", resumen: "No hay una esencia común a todos los juegos, sino una red de similitudes, como en los miembros de una familia." }
+                    ]
+                },
+                {
+                    pregunta: "El Tractatus de Wittgenstein y su paradoja final (2 apariciones)",
+                    fechas: ["Junio 2025 (2ª)", "Septiembre 2023"],
+                    conceptosDesarrollo: [
+                        { concepto: "Teoría figurativa del lenguaje", resumen: "Las proposiciones son 'figuras' o 'mapas' de la realidad. Comparten la misma forma lógica." },
+                        { concepto: "Límites del lenguaje", resumen: "El lenguaje solo puede describir hechos del mundo. No puede hablar de la ética, la estética o lo místico." },
+                        { concepto: "Lo místico", resumen: "Aquello que no se puede decir, pero se muestra. La propia forma lógica del mundo." },
+                        { concepto: "La paradoja de la escalera", resumen: "Las proposiciones del propio Tractatus son, según sus criterios, un sinsentido. Hay que 'subir' por ellas y luego 'tirar la escalera'." }
+                    ]
+                }
+            ],
+            juegoPreguntas: [
+                // 100 PREGUNTAS NUEVAS
+                {pregunta:"¿Cuál es el principio fundamental del Círculo de Viena para determinar el sentido de una proposición?",opciones:["La coherencia lógica interna.","La verificabilidad empírica.","La autoridad de la tradición.","La intuición de carácter místico."],correcta:1,explicacion:"Para el positivismo lógico, una proposición sintética solo tiene significado si se puede comprobar a través de la experiencia.", dummyExplanation: "Si no puedes verlo o medirlo, para el Círculo de Viena, hablar de ello es como hablar de unicornios: no tiene sentido."},
+                {pregunta:"Según Carnap, un enunciado metafísico como 'El Ser es Uno' es una...",opciones:["verdad de carácter analítico.","hipótesis científica plausible.","pseudoproposición sin significado.","verdad mística e inefable."],correcta:2,explicacion:"Al no ser verificable empíricamente, la metafísica es considerada un conjunto de enunciados sin significado cognitivo.", dummyExplanation: "Es como gritar '¡Abra cadabra!'. Suena como si dijeras algo, pero en realidad no describe nada del mundo real."},
+                {pregunta:"En el Tractatus, una proposición es una 'figura' de la realidad porque...",opciones:["suena de manera similar al hecho.","comparte la misma estructura lógica.","es aceptada como cierta por todos.","se puede dibujar con facilidad."],correcta:1,explicacion:"La teoría figurativa sostiene un isomorfismo estructural entre la proposición y el hecho que representa.", dummyExplanation: "Piensa en un mapa. El mapa no es el territorio, pero tiene la misma estructura. La frase es un 'mapa' verbal."},
+                {pregunta:"¿Qué pertenece al ámbito de 'lo místico' en el Tractatus, aquello de lo que no se puede hablar?",opciones:["Los hechos de la ciencia natural.","Las reglas de la gramática.","La ética y el sentido de la vida.","Las verdades de la matemática."],correcta:2,explicacion:"Para el primer Wittgenstein, los valores no son hechos en el mundo, por lo que el lenguaje no puede describirlos.", dummyExplanation: "El lenguaje es una herramienta para describir cómo son las cosas, no para decir cómo deberían ser."},
+                {pregunta:"En su segunda etapa, ¿cómo describe Wittgenstein el lenguaje?",opciones:["Como una estructura lógica única.","Como una caja de herramientas.","Como un reflejo de Ideas platónicas.","Como un sistema de nombres."],correcta:1,explicacion:"El segundo Wittgenstein lo compara con una caja de herramientas, donde cada palabra tiene una función diferente.", dummyExplanation: "El lenguaje ya no es una cámara de fotos, ahora es una navaja suiza. Cada herramienta tiene su función y su 'juego'."},
+                {pregunta:"¿Qué determina el significado de una palabra según el segundo Wittgenstein?",opciones:["El objeto al que la palabra señala.","Su definición en el diccionario.","Su uso práctico en un contexto.","Su origen etimológico e histórico."],correcta:2,explicacion:"La máxima de las Investigaciones Filosóficas es 'el significado de una palabra es su uso en el lenguaje'.", dummyExplanation: "La palabra '¡Fuego!' no significa lo mismo si la grita alguien en un cine que un general a sus soldados."},
+                {pregunta:"¿Por qué los 'juegos' tienen en común un 'parecido de familia'?",opciones:["Porque todos tienen un elemento.","Comparten una red de similitudes.","Fueron inventados por la misma persona.","Siguen exactamente las mismas reglas."],correcta:1,explicacion:"No hay una única característica que todos los juegos compartan, sino una red de rasgos que se superponen.", dummyExplanation: "Piensa en tu familia. No hay un 'rasgo familiar' que todos compartan, pero hay una red de parecidos que los une."},
+                {pregunta:"¿Cuál es la función de la filosofía para el segundo Wittgenstein?",opciones:["Construir sistemas metafísicos.","Descubrir nuevas verdades físicas.","Mostrar a la mosca la salida.","Establecer reglas éticas universales."],correcta:2,explicacion:"La filosofía no resuelve problemas dándonos nueva información, sino disolviendo los enredos conceptuales.", dummyExplanation: "Los problemas filosóficos son como no encontrar la puerta. La filosofía te la señala, siempre estuvo ahí."},
+                {pregunta:"¿Qué quiere decir Wittgenstein con 'tirar la escalera' al final del Tractatus?",opciones:["Que el libro debe ser destruido.","Sus proposiciones son un sinsentido.","La lógica formal es inútil.","La filosofía es superior a la ciencia."],correcta:1,explicacion:"Las frases del Tractatus violan sus propios límites. Son un 'sinsentido' que ayuda a alcanzar una comprensión.", dummyExplanation: "Es como usar un andamio para construir una casa. Una vez terminada, el andamio ya no sirve para nada."},
+                {pregunta:"Para el Círculo de Viena, los 'enunciados protocolares' eran...",opciones:["leyes de la metafísica tradicional.","descripciones de la experiencia.","reglas de etiqueta en los debates.","poemas sobre el universo."],correcta:1,explicacion:"Eran considerados la base empírica de toda la ciencia, registrando una observación directa y simple.", dummyExplanation: "Son como las notas que un científico toma en su libreta: 'Veo que el líquido se vuelve azul'. Son la base de la ciencia."},
+                {pregunta:"¿Qué filósofo es considerado el principal precursor del Círculo de Viena por su empirismo radical?",opciones:["Immanuel Kant.","David Hume.","René Descartes.","G.W.F. Hegel."],correcta:1,explicacion:"La filosofía de Hume, con su escepticismo hacia la metafísica y su base en la experiencia, fue una influencia clave.", dummyExplanation: "Hume fue el que empezó a decir 'si no lo veo, no lo creo', una idea que al Círculo de Viena le encantó."},
+                {pregunta:"El proyecto de una 'ciencia unificada' del Círculo de Viena se basaba en el...",opciones:["idealismo.","racionalismo.","fisicalismo.","existencialismo."],correcta:2,explicacion:"El fisicalismo proponía que el lenguaje de la física podía servir como lenguaje universal para todas las ciencias.", dummyExplanation: "Querían que todas las ciencias hablaran el mismo idioma, y eligieron el de la física como 'esperanto' científico."},
+                {pregunta:"En el Tractatus, ¿qué garantiza el isomorfismo entre lenguaje y mundo?",opciones:["La voluntad divina.","La forma lógica.","Un acuerdo social.","La estructura cerebral."],correcta:1,explicacion:"Lenguaje y mundo comparten una misma 'forma lógica', lo que permite que el primero figure al segundo.", dummyExplanation: "Es como si el lenguaje y el mundo estuvieran construidos con las mismas piezas de Lego: la forma lógica."},
+                {pregunta:"¿Qué es una 'pseudoproposición' para el positivismo lógico?",opciones:["Una mentira intencionada.","Un enunciado falso pero verificable.","Un enunciado sin significado cognitivo.","Una pregunta retórica compleja."],correcta:2,explicacion:"Son enunciados que parecen afirmar algo sobre el mundo pero que no son ni analíticos ni verificables empíricamente.", dummyExplanation: "Es una frase que se disfraza de afirmación seria, pero que en el fondo está vacía, como un político en campaña."},
+                {pregunta:"El 'segundo' Wittgenstein critica la idea de que el lenguaje tiene una única...",opciones:["función comunicativa.","estructura gramatical.","esencia lógica.","utilidad práctica."],correcta:2,explicacion:"Abandona la idea del Tractatus de que la esencia del lenguaje es la figuración lógica de los hechos.", dummyExplanation: "Wittgenstein se dio cuenta de que el lenguaje no es un martillo que solo sirve para clavar, sino una navaja suiza multiusos."},
+                {pregunta:"El concepto de 'formas de vida' en Wittgenstein está ligado a...",opciones:["la biología evolutiva.","las estructuras económicas.","las prácticas y contextos sociales.","las leyes universales de la mente."],correcta:2,explicacion:"Los juegos de lenguaje están inseparablemente anclados en las actividades y costumbres de una comunidad.", dummyExplanation: "No puedes entender el juego de 'pedir una cerveza' si no entiendes la forma de vida de 'ir a un bar'."},
+                {pregunta:"¿Cuál de estas actividades NO sería un 'juego de lenguaje' según Wittgenstein?",opciones:["Contar un chiste.","Dar una orden.","Rezar una oración.","Reflejar la esencia del Ser."],correcta:3,explicacion:"Las tres primeras son usos concretos del lenguaje en contextos específicos; la última es una pretensión metafísica.", dummyExplanation: "Las tres primeras son cosas que haces con palabras; la última es algo que los filósofos intentan hacer y se enredan."},
+                {pregunta:"La filosofía como 'terapia' en Wittgenstein busca...",opciones:["alcanzar la felicidad personal.","curar enfermedades mentales.","disolver confusiones conceptuales.","construir un sistema filosófico."],correcta:2,explicacion:"Su objetivo es liberarnos de los 'calambres mentales' que surgen de un mal entendimiento del lenguaje.", dummyExplanation: "La filosofía es como un fisioterapeuta para tu cerebro: deshace los nudos que te has hecho pensando mal."},
+                {pregunta:"¿Qué distingue a una proposición con sentido de una tautología en el Tractatus?",opciones:["La primera es verdadera, la segunda no.","La primera describe el mundo, la segunda no.","La primera es simple, la segunda compleja.","La primera es verificable, la segunda no."],correcta:1,explicacion:"Una proposición con sentido 'pinta' un hecho del mundo; una tautología es verdadera por su forma lógica, no dice nada del mundo.", dummyExplanation: "Decir 'llueve' te informa del tiempo. Decir 'llueve o no llueve' no te informa de nada, pero siempre es verdad."},
+                {pregunta:"El atomismo lógico de Russell y el primer Wittgenstein sostiene que el mundo se compone de...",opciones:["átomos físicos indivisibles.","ideas platónicas perfectas.","hechos atómicos independientes.","relaciones sociales complejas."],correcta:2,explicacion:"La realidad última está constituida por hechos simples que se corresponden con proposiciones atómicas.", dummyExplanation: "El mundo, para ellos, era como una construcción de Lego hecha de piezas básicas e independientes: los hechos atómicos."},
+                {pregunta:"¿Qué corriente filosófica fue la principal diana de las críticas del Círculo de Viena?",opciones:["El existencialismo.","La metafísica.","El pragmatismo.","La fenomenología."],correcta:1,explicacion:"Consideraban que la metafísica estaba compuesta de pseudoproposiciones sin significado y debía ser eliminada.", dummyExplanation: "Para el Círculo de Viena, la metafísica era el enemigo público número uno de la filosofía con sentido."},
+                {pregunta:"La teoría figurativa del lenguaje del Tractatus implica que el lenguaje es fundamentalmente...",opciones:["performativo.","descriptivo.","emotivo.","persuasivo."],correcta:1,explicacion:"La función principal y esencial del lenguaje con sentido es describir estados de cosas en el mundo.", dummyExplanation: "El lenguaje, en su primera versión, era como un fotógrafo obsesionado con hacer retratos fieles de la realidad."},
+                {pregunta:"¿Qué problema filosófico surge de la paradoja final del Tractatus?",opciones:["El problema de la inducción.","El problema de los otros yoes.","El problema de la autorreferencia.","El problema del libre albedrío."],correcta:2,explicacion:"El libro, al hablar de los límites del lenguaje, se aplica sus propias restricciones y se anula a sí mismo.", dummyExplanation: "Es como si un libro sobre cómo no escribir libros acabara con la frase: 'Este libro no debería existir'."},
+                {pregunta:"El cambio del 'primer' al 'segundo' Wittgenstein es un giro desde la lógica hacia...",opciones:["la pragmática.","la ontología.","la ética.","la estética."],correcta:0,explicacion:"El enfoque se desplaza del análisis de la estructura lógica ideal al estudio del uso práctico del lenguaje.", dummyExplanation: "Wittgenstein pasó de ser un arquitecto de lenguajes perfectos a un antropólogo que estudiaba cómo la gente habla en la calle."},
+                {pregunta:"¿Qué concepto utiliza Wittgenstein para explicar la unidad de los diversos usos de una palabra?",opciones:["Esencia común.","Definición estricta.","Parecido de familia.","Arquetipo platónico."],correcta:2,explicacion:"Los usos de una palabra como 'juego' están conectados por una red de similitudes superpuestas, no por una esencia.", dummyExplanation: "La palabra 'juego' es como el apellido 'García': hay muchos, y aunque no todos se parezcan entre sí, forman una familia."},
+                {pregunta:"¿Cuál era el objetivo del proyecto del 'fisicalismo' de Neurath?",opciones:["Reducir la física a la biología.","Unificar todas las ciencias.","Demostrar la existencia de Dios.","Crear una nueva ética científica."],correcta:1,explicacion:"Buscaba unificar la ciencia traduciendo todos los enunciados científicos al lenguaje de la física.", dummyExplanation: "Era un intento de que la biología, la psicología y hasta la sociología aprendieran a hablar en 'físico'."},
+                {pregunta:"En el Tractatus, 'el mundo es la totalidad de los hechos, no de las...'",opciones:["cosas.","ideas.","palabras.","leyes."],correcta:0,explicacion:"La ontología del Tractatus se basa en hechos (combinaciones de objetos), no en objetos aislados.", dummyExplanation: "Para Wittgenstein, el mundo no era un catálogo de cosas, sino un álbum de fotos de lo que ocurre con esas cosas."},
+                {pregunta:"La crítica del segundo Wittgenstein a su obra anterior se centra en la 'dieta unilateral' de...",opciones:["ejemplos lógicos.","observaciones empíricas.","argumentos metafísicos.","casos prácticos."],correcta:0,explicacion:"Critica que en el Tractatus solo se consideraba el lenguaje descriptivo, ignorando su enorme variedad de usos.", dummyExplanation: "Se dio cuenta de que su filosofía anterior se había alimentado solo de un tipo de 'comida' lingüística, ignorando un menú muy variado."},
+                {pregunta:"¿Qué papel juega la 'comunidad' en la filosofía tardía de Wittgenstein?",opciones:["Es irrelevante para el lenguaje.","Es la fuente de los errores filosóficos.","Es la base de las reglas del lenguaje.","Es un obstáculo para el conocimiento."],correcta:2,explicacion:"Las reglas de los juegos de lenguaje se basan en el acuerdo y la práctica compartida de una comunidad.", dummyExplanation: "Las reglas de un idioma no las decide un rey, sino el acuerdo tácito de todos los que lo hablan."},
+                {pregunta:"¿Qué es lo que, según el Tractatus, el lenguaje no puede expresar pero sí 'mostrar'?",opciones:["Los hechos del mundo.","Las emociones humanas.","Su propia forma lógica.","Las leyes de la naturaleza."],correcta:2,explicacion:"La forma lógica que el lenguaje comparte con el mundo no puede ser descrita por el propio lenguaje, solo se muestra.", dummyExplanation: "Un mapa puede mostrarte una ciudad, pero no puede mostrarte qué es 'ser un mapa'. Eso solo lo 'muestra' siendo un mapa."},
+                {pregunta:"El positivismo lógico dividía las proposiciones con sentido en analíticas y...",opciones:["sintéticas.","dialécticas.","metafísicas.","estéticas."],correcta:0,explicacion:"Las proposiciones sintéticas son aquellas cuya verdad o falsedad depende de la experiencia empírica.", dummyExplanation: "Para ellos, las frases eran de dos tipos: las que son verdad por definición y las que tienes que mirar por la ventana para ver si son verdad."},
+                {pregunta:"¿A qué filósofo se asocia principalmente la idea del 'atomismo lógico' junto a Wittgenstein?",opciones:["Gottlob Frege.","Bertrand Russell.","G. E. Moore.","Rudolf Carnap."],correcta:1,explicacion:"Russell fue el principal desarrollador y defensor del atomismo lógico, influyendo enormemente en el joven Wittgenstein.", dummyExplanation: "Russell y Wittgenstein fueron como el 'dúo dinámico' del atomismo lógico, aunque luego tuvieran sus diferencias."},
+                {pregunta:"¿Qué problema fundamental intenta resolver la 'teoría de las descripciones' de Russell?",opciones:["El problema de la existencia de Dios.","El problema de los universales.","El problema de los enunciados sobre no existentes.","El problema de la inducción."],correcta:2,explicacion:"Busca explicar cómo enunciados como 'El actual rey de Francia es calvo' pueden tener sentido sin que exista tal rey.", dummyExplanation: "Russell encontró una forma ingeniosa de hablar de cosas que no existen sin tener que creer que existen en algún sitio raro."},
+                {pregunta:"La filosofía del lenguaje ordinario, inspirada en el segundo Wittgenstein, se centra en...",opciones:["crear un lenguaje perfecto.","analizar el uso real de las palabras.","descubrir la estructura lógica oculta.","traducir el lenguaje a símbolos."],correcta:1,explicacion:"Su objetivo es examinar cómo usamos el lenguaje en la vida cotidiana para disolver problemas filosóficos.", dummyExplanation: "En lugar de inventar un idioma nuevo, decidieron estudiar el que ya hablábamos todos los días."},
+                {pregunta:"¿Qué significa que el lenguaje, para el segundo Wittgenstein, es una 'forma de vida'?",opciones:["Que es un producto biológico.","Que está vivo y evoluciona.","Que es inseparable de la actividad humana.","Que es esencial para la supervivencia."],correcta:2,explicacion:"El lenguaje no es una herramienta abstracta, sino que está entretejido con nuestras prácticas, cultura y acciones.", dummyExplanation: "El lenguaje no es un objeto que llevas en el bolsillo, es parte de la tela con la que está hecha tu vida."},
+                {pregunta:"¿Cuál de las siguientes es una crítica central del segundo Wittgenstein al Tractatus?",opciones:["Su rechazo de la metafísica.","Su dependencia de la lógica de Frege.","Su concepción del significado como referencia.","Su estilo de escritura aforístico."],correcta:2,explicacion:"Critica la idea de que el significado de un nombre es el objeto que nombra, proponiendo el 'significado como uso'.", dummyExplanation: "Se dio cuenta de que las palabras no son simples etiquetas pegadas a las cosas del mundo."},
+                {pregunta:"Para el Círculo de Viena, ¿qué tipo de conocimiento proporcionan las proposiciones analíticas?",opciones:["Conocimiento sobre el mundo físico.","Conocimiento sobre verdades lógicas.","Conocimiento sobre valores éticos.","Conocimiento sobre experiencias místicas."],correcta:1,explicacion:"Las proposiciones analíticas, como las de la matemática, son verdaderas por definición y no informan sobre la realidad empírica.", dummyExplanation: "Saber que 'un triángulo tiene tres ángulos' no te dice nada sobre el tiempo que hace, pero es una verdad como un templo."},
+                {pregunta:"¿Qué papel juega la 'gramática' en la filosofía del segundo Wittgenstein?",opciones:["Un conjunto de reglas para hablar correctamente.","La estructura profunda y universal del lenguaje.","Las reglas que gobiernan un juego de lenguaje.","Un obstáculo para la comunicación clara."],correcta:2,explicacion:"La 'gramática' de un juego de lenguaje son las reglas que determinan el uso correcto y con sentido de las palabras en ese contexto.", dummyExplanation: "La gramática, para él, no era solo la del colegio, sino las reglas de cualquier juego que jugamos con palabras."},
+                {pregunta:"¿Qué tesis del Tractatus fue fundamental para el rechazo de la metafísica por el positivismo lógico?",opciones:["El mundo es la totalidad de los hechos.","De lo que no se puede hablar, hay que callar.","Una proposición es una figura de la realidad.","Los límites de mi lenguaje son los límites de mi mundo."],correcta:2,explicacion:"La teoría figurativa, junto al criterio de verificación, implicaba que los enunciados metafísicos no 'pintaban' ningún hecho.", dummyExplanation: "Si una frase no es una foto de algo real, los positivistas lógicos la tiraban a la papelera de los 'sinsentidos'."},
+                {pregunta:"¿Cuál es la principal diferencia entre el lenguaje y un cálculo según el segundo Wittgenstein?",opciones:["El lenguaje tiene reglas, el cálculo no.","El cálculo es útil, el lenguaje no siempre.","El lenguaje está anclado en una forma de vida.","El cálculo es preciso, el lenguaje es ambiguo."],correcta:2,explicacion:"Un cálculo es un sistema formal abstracto, mientras que un juego de lenguaje está inseparablemente ligado a prácticas humanas.", dummyExplanation: "Jugar al ajedrez es un cálculo, pero usar las piezas para contar una historia de reyes y reinas es un juego de lenguaje."},
+                {pregunta:"¿Qué actitud promueve la filosofía terapéutica de Wittgenstein hacia los problemas filosóficos?",opciones:["Resolverlos con una teoría definitiva.","Demostrar que son lógicamente irresolubles.","Disolverlos mostrando su origen en el lenguaje.","Ignorarlos como irrelevantes para la vida."],correcta:2,explicacion:"Los problemas filosóficos no son preguntas genuinas sobre el mundo, sino 'enredos' causados por un mal uso del lenguaje.", dummyExplanation: "La filosofía no es para encontrar la respuesta final, sino para darte cuenta de que la pregunta estaba mal hecha desde el principio."},
+                {pregunta:"¿Qué es un 'hecho atómico' en la filosofía de Russell?",opciones:["La partícula más pequeña de materia.","Una verdad lógica fundamental.","La unidad más simple de la realidad.","Un concepto mental básico."],correcta:2,explicacion:"Es la combinación más simple de objetos o particulares, que constituye la base de la realidad.", dummyExplanation: "Un hecho atómico es el 'píxel' más básico de la imagen que llamamos realidad."},
+                {pregunta:"¿Cuál de estas afirmaciones se alinea con el 'fisicalismo' del Círculo de Viena?",opciones:["La mente es una sustancia inmaterial.","Los fenómenos psicológicos son reducibles a físicos.","La física es una rama de la psicología.","La realidad última es de naturaleza mental."],correcta:1,explicacion:"El fisicalismo sostiene que todos los enunciados científicos, incluidos los de la psicología, pueden traducirse al lenguaje de la física.", dummyExplanation: "Para un fisicalista, el amor no es más que una compleja reacción química en tu cerebro."},
+                {pregunta:"¿Qué quería decir Wittgenstein con que sus proposiciones eran 'esclarecedoras'?",opciones:["Que revelaban verdades metafísicas profundas.","Que enseñaban un nuevo sistema filosófico.","Que mostraban la falta de sentido de la filosofía.","Que ofrecían consuelo y guía espiritual."],correcta:2,explicacion:"Al comprenderlas, uno se da cuenta de que la filosofía tradicional (incluido el propio Tractatus) carece de sentido.", dummyExplanation: "Sus frases eran como un chiste: una vez que lo pillas, te das cuenta de lo absurdo que era el problema."},
+                {pregunta:"¿Qué critica el segundo Wittgenstein de la búsqueda de 'definiciones' en filosofía?",opciones:["Que son demasiado difíciles de encontrar.","Que presuponen una esencia común que no existe.","Que son inútiles para la vida práctica.","Que siempre son inevitablemente ambiguas."],correcta:1,explicacion:"Critica la 'sed de generalidad' que nos lleva a buscar una definición única para los múltiples usos de una palabra.", dummyExplanation: "Buscar la definición de 'juego' es como buscar el 'rasgo común' de todos los García: una tarea imposible y sin sentido."},
+                {pregunta:"¿Cuál es la relación entre 'reglas' y 'práctica' en un juego de lenguaje?",opciones:["Las reglas existen independientemente de la práctica.","La práctica siempre viola las reglas.","Las reglas se derivan y se sostienen en la práctica.","Las reglas son más importantes que la práctica."],correcta:2,explicacion:"Las reglas no son entidades abstractas, sino que se manifiestan y tienen sentido en el uso y la práctica compartida.", dummyExplanation: "Las reglas del fútbol no están escritas en el cielo; existen porque la gente juega al fútbol de una determinada manera."},
+                {pregunta:"¿Qué es 'lo místico' para el autor del Tractatus?",opciones:["Una realidad superior accesible por la fe.","Aquello que se muestra pero no se puede decir.","Un conjunto de creencias irracionales.","El objeto de estudio de la teología."],correcta:1,explicacion:"Lo místico, como la ética o el sentido del mundo, no puede ser descrito con proposiciones, pero se manifiesta.", dummyExplanation: "Es como la belleza de una puesta de sol: puedes verla y sentirla, pero ninguna descripción le hará justicia."},
+                {pregunta:"¿Cuál era la principal motivación del Círculo de Viena para su proyecto filosófico?",opciones:["Defender la tradición metafísica.","Establecer una base científica para la filosofía.","Promover el relativismo cultural.","Unir la filosofía con la religión."],correcta:1,explicacion:"Buscaban eliminar la metafísica y reconstruir la filosofía sobre bases lógicas y empíricas rigurosas.", dummyExplanation: "Querían hacer una 'limpieza general' en la filosofía para dejarla tan ordenada y fiable como la ciencia."},
+                {pregunta:"¿Cómo se relaciona la 'teoría figurativa' con la verdad y la falsedad?",opciones:["Una figura siempre es verdadera.","Una figura puede ser verdadera o falsa.","Una figura no es ni verdadera ni falsa.","La verdad de una figura es subjetiva."],correcta:1,explicacion:"Una proposición (figura) es verdadera si el estado de cosas que representa existe, y falsa si no existe.", dummyExplanation: "Una foto puede ser fiel a la realidad o puede ser un montaje. Lo mismo pasa con las frases, según el Tractatus."},
+                {pregunta:"¿Qué papel juega el 'silencio' en la conclusión del Tractatus?",opciones:["Es un signo de ignorancia.","Es la actitud correcta ante lo inefable.","Es una estrategia retórica.","Es una invitación a la meditación."],correcta:1,explicacion:"'De lo que no se puede hablar, hay que callar' indica que debemos guardar silencio sobre la ética, lo místico, etc.", dummyExplanation: "Wittgenstein nos dice que, cuando llegamos a los límites del lenguaje con sentido, lo más sabio es cerrar la boca."},
+                {pregunta:"¿Qué tipo de análisis propone el segundo Wittgenstein para los conceptos filosóficos?",opciones:["Un análisis lógico de su estructura.","Un análisis histórico de su evolución.","Un análisis de sus diversos usos en el lenguaje.","Un análisis psicológico de su origen."],correcta:2,explicacion:"En lugar de buscar una definición, propone examinar la variedad de formas en que usamos palabras como 'saber' o 'creer'.", dummyExplanation: "Para entender qué es el 'conocimiento', no mires al cielo, mira cómo la gente usa la palabra 'saber'."},
+                {pregunta:"El concepto de 'juego de lenguaje' enfatiza la naturaleza... del lenguaje.",opciones:["privada e individual.","universal y ahistórica.","pública y social.","innata y biológica."],correcta:2,explicacion:"Los juegos de lenguaje son actividades compartidas, regidas por reglas públicas y aprendidas en una comunidad.", dummyExplanation: "No puedes inventarte tú solo las reglas del parchís y esperar que los demás jueguen contigo. Con el lenguaje, pasa lo mismo."},
+                {pregunta:"¿Qué es lo que, según Wittgenstein, causa la mayoría de los problemas filosóficos?",opciones:["La complejidad del mundo.","La falta de rigor lógico.","El malentendido del funcionamiento del lenguaje.","Las limitaciones de la mente humana."],correcta:2,explicacion:"Los problemas filosóficos surgen cuando sacamos las palabras de su contexto y las usamos de forma incorrecta.", dummyExplanation: "La filosofía, a menudo, es el resultado de usar una llave inglesa para clavar un clavo: la herramienta no es la adecuada."},
+                {pregunta:"¿Cuál es la principal diferencia entre una proposición y un nombre en el Tractatus?",opciones:["La proposición tiene sentido, el nombre no.","El nombre se refiere a un objeto, la proposición a un hecho.","La proposición es compleja, el nombre es simple.","Todas las anteriores son correctas."],correcta:3,explicacion:"Un nombre significa un objeto, pero solo en el contexto de una proposición que figura un hecho y tiene sentido.", dummyExplanation: "Un nombre es como un actor, pero solo tiene sentido cuando actúa en una obra (la proposición) que representa una escena (el hecho)."},
+                {pregunta:"El rechazo del lenguaje privado por Wittgenstein implica que el significado es necesariamente...",opciones:["objetivo.","subjetivo.","intersubjetivo.","trascendente."],correcta:2,explicacion:"El significado se establece y se mantiene en la práctica comunicativa compartida, no en la mente de un individuo.", dummyExplanation: "No puedes tener un idioma que solo entiendas tú, porque ¿cómo sabrías si estás usando las palabras correctamente?"},
+                {pregunta:"¿Qué es lo que une a todos los 'juegos' según la idea de 'parecidos de familia'?",opciones:["Una regla fundamental común.","Un objetivo final idéntico.","Una red de similitudes superpuestas.","Un origen histórico compartido."],correcta:2,explicacion:"No hay una única característica común, sino una serie de rasgos que se solapan y entrecruzan.", dummyExplanation: "Es como mirar un álbum de fotos familiar: no todos tienen la misma nariz, pero reconoces que son de la misma familia."},
+                {pregunta:"¿Qué significa que la filosofía, para el segundo Wittgenstein, 'deja todo como está'?",opciones:["Que es una actividad conservadora y reaccionaria.","Que no busca cambiar el mundo, sino entenderlo.","Que no altera el lenguaje, solo describe su uso.","Que es incapaz de producir ningún efecto real."],correcta:2,explicacion:"La filosofía no reforma el lenguaje ni descubre nuevas verdades, simplemente clarifica cómo funciona lo que ya tenemos.", dummyExplanation: "La filosofía no es un mecánico que arregla el motor del lenguaje, sino un manual de instrucciones que te explica cómo funciona."},
+                {pregunta:"¿Cuál de estas opciones NO es una tesis del positivismo lógico?",opciones:["Rechazo de la metafísica.","Principio de verificación.","La filosofía como análisis lógico.","La intuición como fuente de conocimiento."],correcta:3,explicacion:"El positivismo lógico basaba el conocimiento en la lógica y la experiencia empírica, rechazando la intuición como fuente válida.", dummyExplanation: "Para ellos, la intuición era como un horóscopo: entretenida, pero poco fiable para hacer ciencia."},
+                {pregunta:"¿Qué es lo que, según el Tractatus, tienen en común una proposición y el hecho que representa?",opciones:["Los mismos objetos.","La misma forma lógica.","El mismo valor de verdad.","La misma ubicación espacial."],correcta:1,explicacion:"La posibilidad de que una proposición represente un hecho se basa en que ambos comparten una estructura lógica idéntica.", dummyExplanation: "El plano de una casa y la casa no están hechos de los mismos materiales, pero comparten la misma estructura."},
+                {pregunta:"La idea de 'seguir una regla' en Wittgenstein implica...",opciones:["una interpretación mental de la regla.","una práctica habitual y pública.","un conocimiento explícito de la fórmula.","una decisión individual en cada caso."],correcta:1,explicacion:"Seguir una regla no es un proceso mental privado, sino participar en una costumbre o práctica establecida.", dummyExplanation: "Saber jugar al ajedrez no es tener las reglas en la cabeza, es saber mover las piezas correctamente en el tablero."},
+                {pregunta:"¿Por qué el lenguaje de la ética es un 'sinsentido' para el positivismo lógico?",opciones:["Porque es demasiado complejo.","Porque no es verificable empíricamente.","Porque es inherentemente contradictorio.","Porque se basa en emociones subjetivas."],correcta:1,explicacion:"Los juicios de valor no describen hechos del mundo y, por lo tanto, no pueden ser verificados.", dummyExplanation: "Decir 'robar es malo' no es como decir 'el cielo es azul'; lo segundo se puede comprobar, lo primero no."},
+                {pregunta:"¿Qué busca el análisis filosófico del segundo Wittgenstein?",opciones:["Una teoría general del lenguaje.","La definición esencial de los conceptos.","Una visión sinóptica de los usos del lenguaje.","La traducción del lenguaje a la lógica."],correcta:2,explicacion:"Busca obtener una 'visión clara' o sinóptica de las conexiones gramaticales para disolver los problemas.", dummyExplanation: "No quiere darte una definición de diccionario, sino mostrarte el mapa de cómo se usan las palabras."},
+                {pregunta:"¿Cuál es la relación entre los 'juegos de lenguaje' y las 'formas de vida'?",opciones:["Son conceptos idénticos.","Son completamente independientes.","El juego de lenguaje está incrustado en la forma de vida.","La forma de vida es un tipo de juego de lenguaje."],correcta:2,explicacion:"Un juego de lenguaje solo tiene sentido dentro del contexto más amplio de las prácticas y actividades de una forma de vida.", dummyExplanation: "El 'juego de lenguaje' de la confesión solo tiene sentido dentro de la 'forma de vida' del catolicismo."},
+                {pregunta:"¿Qué es lo que, según el Tractatus, constituye la 'sustancia' del mundo?",opciones:["Los hechos atómicos.","Las leyes lógicas.","Los objetos simples.","Las proposiciones verdaderas."],correcta:2,explicacion:"Los objetos son los constituyentes últimos e inalterables de la realidad, cuya configuración forma los hechos.", dummyExplanation: "Los objetos son los ladrillos indestructibles con los que está construido el edificio del mundo."},
+                {pregunta:"¿Cuál es el principal error que, según Wittgenstein, cometen los filósofos con el lenguaje?",opciones:["Usar palabras demasiado complicadas.","No definir sus términos con claridad.","Sacar las palabras de su contexto de uso.","Intentar crear lenguajes artificiales."],correcta:2,explicacion:"El 'mal uso' filosófico ocurre cuando una palabra se extrae de su 'juego de lenguaje' original y se usa en el vacío.", dummyExplanation: "Es como intentar usar una ficha de póker para pagar en el supermercado: fuera de su juego, no tiene valor."},
+                {pregunta:"Para el Círculo de Viena, la filosofía debía convertirse en...",opciones:["una guía moral para la humanidad.","una forma de expresión artística.","la lógica de la ciencia.","una síntesis de todas las religiones."],correcta:2,explicacion:"La única tarea legítima para la filosofía era el análisis lógico del lenguaje científico.", dummyExplanation: "Querían que la filosofía dejara de ser una poeta mística y se convirtiera en la estricta gramática de la ciencia."},
+                {pregunta:"¿Qué es lo que permite, según el Tractatus, que los nombres se conecten en una proposición?",opciones:["Las reglas de la gramática ordinaria.","La voluntad del hablante.","Su propia forma lógica interna.","Un acuerdo entre los hablantes."],correcta:2,explicacion:"Los objetos (y por tanto los nombres) tienen una 'forma lógica' que determina sus posibilidades de combinación en hechos.", dummyExplanation: "Las piezas de un puzle solo encajan si sus formas son compatibles. Lo mismo pasa con las palabras en una frase."},
+                {pregunta:"¿Por qué es imposible un 'lenguaje privado' según Wittgenstein?",opciones:["Porque sería demasiado difícil de aprender.","Porque no podría tener reglas consistentes.","Porque nadie más podría entenderlo.","Porque sería inútil para la ciencia."],correcta:1,explicacion:"No habría un criterio público para determinar si se está siguiendo una regla correctamente o no.", dummyExplanation: "Si te inventas un juego tú solo, ¿cómo sabes si estás haciendo trampa o no? Necesitas a otros para que haya reglas."},
+                {pregunta:"¿Qué tienen en común actividades tan dispares como 'dar órdenes' y 'contar un chiste'?",opciones:["Ambas buscan la verdad.","Ambas son 'juegos de lenguaje'.","Ambas siguen la misma estructura lógica.","Ambas son irracionales."],correcta:1,explicacion:"Son dos ejemplos de los innumerables y diferentes usos que hacemos del lenguaje en la vida.", dummyExplanation: "Aunque no se parezcan en nada, ambas son formas de 'jugar' con las palabras."},
+                {pregunta:"La filosofía del 'sentido común' de G. E. Moore defendía la verdad de proposiciones como...",opciones:["'El Ser es inmutable'.","'La Tierra existe'.","'La virtud es conocimiento'.","'Dios es omnipotente'."],correcta:1,explicacion:"Moore defendía la certeza de creencias básicas del sentido común que ningún argumento filosófico podía, en la práctica, refutar.", dummyExplanation: "Moore era el tipo de filósofo que te diría: 'Sé que tengo dos manos, y ningún argumento tuyo me va a convencer de lo contrario'."},
+                {pregunta:"¿Qué es lo que, según el positivismo lógico, caracteriza a un enunciado 'analítico'?",opciones:["Que se refiere a la experiencia.","Que es verdadero por definición.","Que es probable pero no seguro.","Que expresa un sentimiento."],correcta:1,explicacion:"Un enunciado analítico es verdadero en virtud del significado de sus términos, como 'Todos los solteros son no casados'.", dummyExplanation: "Es una verdad de 'Perogrullo': no necesitas mirar a ningún soltero para saber que no está casado."},
+                {pregunta:"¿Cuál es el objetivo final del análisis lógico propuesto por Russell?",opciones:["Crear un lenguaje poético.","Fundamentar la ética en la lógica.","Construir un lenguaje lógicamente perfecto.","Demostrar la existencia del mundo externo."],correcta:2,explicacion:"Russell buscaba un lenguaje libre de las ambigüedades y errores del lenguaje ordinario para expresar el conocimiento.", dummyExplanation: "Quería un lenguaje tan preciso y sin fallos como las matemáticas, un 'idioma para robots filósofos'."},
+                {pregunta:"¿Qué es lo que, según el segundo Wittgenstein, nos impide ver el funcionamiento del lenguaje?",opciones:["Nuestra falta de inteligencia.","La complejidad de la gramática.","Nuestra ansia de generalidad.","La influencia de la ciencia."],correcta:2,explicacion:"La tendencia a buscar una única esencia o explicación para todo nos ciega a la diversidad de los usos del lenguaje.", dummyExplanation: "Es como si, por buscar el 'árbol perfecto', no fuéramos capaces de ver la increíble variedad del bosque."},
+                {pregunta:"¿Qué es lo que, en última instancia, justifica una 'forma de vida'?",opciones:["Su corrección lógica.","Su utilidad para la supervivencia.","No se justifica, simplemente se da.","Un fundamento metafísico."],correcta:2,explicacion:"Las formas de vida son el 'lecho de roca' que no se justifica, es el punto de partida de nuestros juegos de lenguaje.", dummyExplanation: "No preguntas '¿por qué jugamos?'. Simplemente, jugamos. Las formas de vida son así."},
+                {pregunta:"¿Cuál de estas frases expresa mejor la concepción del lenguaje del Tractatus?",opciones:["El lenguaje es una herramienta.","El lenguaje es un organismo vivo.","El lenguaje es una imagen del mundo.","El lenguaje es un contrato social."],correcta:2,explicacion:"La idea central es que el lenguaje con sentido funciona como una representación o 'pintura' de la realidad.", dummyExplanation: "Para el joven Wittgenstein, el lenguaje era el 'Instagram' de la realidad."},
+                {pregunta:"¿Qué es lo que el 'análisis' filosófico debe hacer con los problemas filosóficos?",opciones:["Resolverlos.","Disolverlos.","Ignorarlos.","Sistematizarlos."],correcta:1,explicacion:"La meta no es encontrar una 'solución', sino mostrar que el problema era una confusión lingüística que se desvanece.", dummyExplanation: "No se trata de encontrar la llave, sino de darte cuenta de que la puerta nunca estuvo cerrada."},
+                {pregunta:"El Círculo de Viena estaba fuertemente influenciado por el empirismo y...",opciones:["el idealismo alemán.","la lógica simbólica.","el existencialismo francés.","la escolástica medieval."],correcta:1,explicacion:"Combinaron la tradición empirista con las nuevas herramientas de la lógica matemática de Frege y Russell.", dummyExplanation: "Fueron como un chef que mezcla la tradición de la abuela (empirismo) con las técnicas de la cocina molecular (lógica)."},
+                {pregunta:"¿Qué es lo que, según Russell, distingue un 'nombre propio' de una 'descripción definida'?",opciones:["El nombre es corto, la descripción larga.","El nombre designa directamente, la descripción no.","El nombre es ambiguo, la descripción precisa.","El nombre es innato, la descripción aprendida."],correcta:1,explicacion:"Un nombre propio (como 'Aristóteles') se refiere directamente a un individuo, mientras que una descripción ('el autor de la Metafísica') lo hace indirectamente.", dummyExplanation: "Un nombre es como señalar con el dedo; una descripción es como dar las indicaciones para llegar."},
+                {pregunta:"¿Qué es lo que, según el segundo Wittgenstein, nos enseña el significado de una palabra?",opciones:["Su definición en un diccionario.","La intención del hablante.","El uso de la palabra.","Su estructura fonética."],correcta:2,explicacion:"La famosa frase '¡Que el uso de las palabras te enseñe su significado!' resume su posición.", dummyExplanation: "No aprendes qué es un 'fuera de juego' leyéndolo, sino viendo partidos de fútbol."},
+                {pregunta:"¿Cuál es la relación del Tractatus con la ética?",opciones:["Propone un nuevo sistema ético.","Reduce la ética a la psicología.","Considera que la ética es inefable.","Niega la existencia de problemas éticos."],correcta:2,explicacion:"La ética pertenece al ámbito de 'lo místico', aquello que no puede ser dicho con sentido, solo mostrado.", dummyExplanation: "Para el Tractatus, la ética era como un secreto a voces: todo el mundo sabe que está ahí, pero nadie puede hablar de ello."},
+                {pregunta:"¿Qué es lo que, según Wittgenstein, tienen en común el lenguaje y el ajedrez?",opciones:["Ambos son entretenidos.","Ambos se basan en la lógica matemática.","Ambos son sistemas regidos por reglas.","Ambos son invenciones recientes."],correcta:2,explicacion:"El ajedrez es uno de sus ejemplos favoritos para ilustrar que el lenguaje es una actividad gobernada por reglas.", dummyExplanation: "Hablar un idioma es como jugar al ajedrez: no puedes mover las piezas (palabras) de cualquier manera."},
+                {pregunta:"¿Cuál es la principal diferencia entre el 'mundo' del Tractatus y el 'mundo' de la ciencia?",opciones:["El del Tractatus es finito, el de la ciencia infinito.","El del Tractatus son hechos, el de la ciencia teorías.","No hay ninguna diferencia fundamental.","El del Tractatus es lógico, el de la ciencia empírico."],correcta:1,explicacion:"El 'mundo' del Tractatus es la totalidad de los hechos, mientras que la ciencia es el conjunto de proposiciones verdaderas sobre ese mundo.", dummyExplanation: "El mundo es el territorio; la ciencia es el mapa completo y detallado de ese territorio."},
+                {pregunta:"¿Qué es lo que, según el segundo Wittgenstein, nos saca de un 'calambre mental' filosófico?",opciones:["Una nueva teoría científica.","Una visión clara de los usos del lenguaje.","Un argumento lógico irrefutable.","Un acto de fe irracional."],correcta:1,explicacion:"La 'terapia' consiste en ordenar nuestros conocimientos sobre el uso del lenguaje para ver la salida del problema.", dummyExplanation: "Es como cuando se te duerme una pierna: no necesitas una pierna nueva, solo moverla un poco para que vuelva a circular la sangre (del entendimiento)."},
+                {pregunta:"¿Qué es lo que, según el Círculo de Viena, NO puede hacer la filosofía?",opciones:["Analizar el lenguaje.","Clarificar conceptos.","Formular teorías sobre el mundo.","Criticar el mal uso del lenguaje."],correcta:2,explicacion:"La tarea de formular teorías sobre la realidad (proposiciones sintéticas) es exclusiva de la ciencia empírica.", dummyExplanation: "La filosofía, para ellos, era el árbitro, no un jugador más. Su trabajo era asegurarse de que los demás jugaran limpio."},
+                {pregunta:"¿Qué es lo que, para el primer Wittgenstein, hace que una proposición sea 'elemental' o 'atómica'?",opciones:["Que sea muy corta.","Que sea fácil de entender.","Que no se pueda descomponer en otras.","Que se refiera a un único objeto."],correcta:2,explicacion:"Una proposición atómica es lógicamente simple, representa un hecho atómico y no contiene otras proposiciones.", dummyExplanation: "Es la frase más básica que puedes construir, el 'átomo' del lenguaje."},
+                {pregunta:"¿Qué es lo que, según el segundo Wittgenstein, nos muestra la 'multiplicidad' de los juegos de lenguaje?",opciones:["La imperfección del lenguaje.","La creatividad de la mente humana.","La riqueza y variedad de la vida humana.","La necesidad de un lenguaje universal."],correcta:2,explicacion:"La enorme variedad de juegos de lenguaje refleja la enorme variedad de actividades que componen nuestras formas de vida.", dummyExplanation: "Tenemos tantas formas de hablar porque tenemos muchísimas cosas diferentes que hacer en la vida."},
+                {pregunta:"¿Cuál de estas opciones describe mejor la relación entre las dos obras de Wittgenstein?",opciones:["La segunda es un desarrollo de la primera.","La segunda es una refutación de la primera.","Son dos obras sobre temas completamente diferentes.","La segunda es un comentario a la primera."],correcta:1,explicacion:"Las Investigaciones Filosóficas representan una crítica radical y un abandono de las tesis centrales del Tractatus.", dummyExplanation: "Es como si un director de cine hiciera una película y, años después, hiciera otra solo para decir que la primera estaba toda mal."},
+                {pregunta:"¿Qué es lo que, para el positivismo lógico, unifica a todas las ciencias?",opciones:["Un objeto de estudio común.","Un conjunto de valores compartidos.","Un lenguaje y un método comunes.","Una misma tradición histórica."],correcta:2,explicacion:"El proyecto de la 'ciencia unificada' buscaba unificar las ciencias a través de un lenguaje fisicalista y un método verificacionista.", dummyExplanation: "Soñaban con una gran 'ONU' de las ciencias, donde todos hablaran el mismo idioma y siguieran las mismas reglas."},
+                {pregunta:"¿Qué es lo que, según el Tractatus, es 'indecible' pero se 'muestra'?",opciones:["El futuro.","Los pensamientos de otros.","Lo místico.","Los objetos matemáticos."],correcta:2,explicacion:"La ética, la estética y el sentido del mundo son inefables, no pueden ser puestos en palabras, pero se manifiestan.", dummyExplanation: "Es como el amor: puedes sentirlo y demostrarlo, pero ninguna palabra podrá nunca describirlo por completo."},
+                {pregunta:"¿Qué es lo que, según el segundo Wittgenstein, nos ayuda a entender un concepto?",opciones:["Su definición precisa.","Su etimología.","Ejemplos de su uso.","Su opuesto."],correcta:2,explicacion:"En lugar de buscar una definición abstracta, Wittgenstein nos invita a mirar cómo se usa una palabra en diferentes ejemplos.", dummyExplanation: "Para saber qué es la 'justicia', no leas una enciclopedia, mira casos en los que la gente actúa de forma justa."},
+                {pregunta:"¿Cuál es el principal peligro de la filosofía según Wittgenstein?",opciones:["Caer en el escepticismo radical.","Ser embrujado por el lenguaje.","Alejarse de los problemas reales.","Contradecir los resultados de la ciencia."],correcta:1,explicacion:"'La filosofía es una lucha contra el embrujamiento de nuestra inteligencia por el lenguaje'.", dummyExplanation: "El lenguaje puede ser como el canto de una sirena para los filósofos: los atrae con su belleza y los hace naufragar en confusiones."},
+                {pregunta:"¿Qué es lo que, en la filosofía de Russell, conecta el lenguaje con la realidad?",opciones:["La mente del hablante.","La correspondencia con los hechos.","Un decreto divino.","Una convención social."],correcta:1,explicacion:"La verdad de las proposiciones empíricas se basa en su correspondencia con los hechos del mundo.", dummyExplanation: "Para Russell, una frase verdadera era como un buen retrato: se parecía a la realidad."},
+                {pregunta:"¿Qué es lo que, según el segundo Wittgenstein, NO tienen en común todos los juegos?",opciones:["Reglas.","Ganadores y perdedores.","Una esencia.","Diversión."],correcta:2,explicacion:"La idea de 'parecido de familia' se opone a la búsqueda de una única esencia común a todos los juegos.", dummyExplanation: "El solitario y el fútbol son juegos, pero se parecen como un huevo a una castaña. No hay una 'esencia de juego' que los una."},
+                {pregunta:"¿Cuál es el estatus de las proposiciones de la lógica en el Tractatus?",opciones:["Son las verdades más importantes.","Son descripciones de la realidad.","Carecen de sentido (sinnlos).","Son hipótesis a verificar."],correcta:2,explicacion:"Son tautologías que no dicen nada sobre el mundo, por lo que carecen de sentido, aunque no son un sinsentido (Unsinn).", dummyExplanation: "Las frases de la lógica son como un eco: repiten lo que ya está en su propia estructura, pero no añaden información nueva."},
+                {pregunta:"¿Qué es lo que, según el segundo Wittgenstein, nos libera de un 'nudo' filosófico?",opciones:["Una nueva teoría.","Una visión de conjunto.","Un experimento crucial.","Una revelación mística."],correcta:1,explicacion:"La terapia filosófica busca una 'visión sinóptica' de los usos del lenguaje que nos permita ver la salida.", dummyExplanation: "Es como cuando tienes un lío de cables: no necesitas más cables, solo paciencia para ver cómo desenredarlos."},
+                {pregunta:"¿Qué es lo que, para el Círculo de Viena, hace que un enunciado sea 'metafísico'?",opciones:["Que sea muy abstracto.","Que hable de Dios.","Que no sea verificable.","Que sea falso."],correcta:2,explicacion:"Un enunciado es metafísico si no es ni analítico ni empíricamente verificable, y por tanto, carece de significado.", dummyExplanation: "Si no puedes demostrar que es verdad o mentira, ni siquiera con un superordenador, para ellos era metafísica y, por tanto, 'bla, bla, bla'."}
+            ]
+        };
+
+        let quizQuestions = [];
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+
+        // --- FUNCIONES DE RENDERIZADO ---
+        
+        function renderContent() {
+            renderFigurasClave();
+            renderResumen();
+            renderConceptos();
+            renderExamenes();
+            renderJuego();
+            renderBibliografia();
+        }
+
+        function renderFigurasClave() {
+            const container = document.getElementById('figuras');
+            const figuras = themeData.figurasClave;
+            if (!figuras || figuras.length === 0) {
+                container.innerHTML = `<div class="bg-white p-6 rounded-lg shadow-inner text-center" style="background-color: #fcf8f0;"><p>La información sobre las figuras clave de este tema se añadirá próximamente.</p></div>`;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${figuras.map((figura, figIndex) => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <div class="flex flex-col md:flex-row gap-8 items-start">
+                            <figure class="text-center flex-shrink-0 w-full md:w-48">
+                                <img src="${figura.foto}" alt="${figura.altText}" class="w-48 h-64 object-cover rounded-lg shadow-md border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <figcaption class="text-xs italic mt-2" style="color: var(--color-siena);">
+                                    Fuente: <a href="${figura.fotoFuente}" target="_blank" class="hover:underline">Wikimedia Commons</a>
+                                </figcaption>
+                            </figure>
+                            <div class="flex-1 text-left relative min-h-[300px]">
+                                <h3 class="text-2xl font-bold mb-4 text-center md:text-left">${figura.nombre}</h3>
+                                <div id="content-carousel-${figIndex}">
+                                    ${figura.carouselContent.map((item, contentIndex) => `
+                                        <div class="content-carousel-item ${contentIndex === 0 ? 'active' : ''}" data-content-index="${contentIndex}">
+                                            <h4 class="font-bold mb-2" style="color: var(--color-pumpkin);">${item.titulo}</h4>
+                                            ${item.obras ? 
+                                                `<div class="space-y-2">
+                                                    ${item.obras.map(obra => `
+                                                        <details class="text-sm">
+                                                            <summary class="font-semibold cursor-pointer">${obra.titulo}</summary>
+                                                            <p class="pt-1 pl-4 text-justify">${obra.contenido}</p>
+                                                        </details>
+                                                    `).join('')}
+                                                </div>` 
+                                                : `<p class="text-justify text-sm">${item.contenido}</p>`
+                                            }
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button id="prev-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, -1)" class="carousel-button absolute top-1/2 left-0 -ml-4 md:-ml-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-left fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                                <button id="next-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, 1)" class="carousel-button absolute top-1/2 right-0 -mr-4 md:-mr-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-right fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+            
+            figuras.forEach((_, figIndex) => {
+                window[`currentContentCarouselIndex_${figIndex}`] = 0;
+                updateCarouselButtons(figIndex);
+            });
+        }
+
+        function renderResumen() {
+            const container = document.getElementById('resumen');
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${themeData.resumenTemario.map(item => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h4 class="text-xl font-bold mb-3">${item.epigrafe}</h4>
+                        <div class="text-justify mb-4">${item.resumen}</div>
+                        <div class="border-t my-4" style="border-color: var(--color-siena);"></div>
+                        <h5 class="font-semibold mb-2" style="color: var(--color-pumpkin);">Mapa Conceptual</h5>
+                        <div class="w-full overflow-x-auto">${item.mapaConceptual}</div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${themeData.conceptosClave.sort((a, b) => a.concepto.localeCompare(b.concepto)).map(item => `
+                    <div class="bg-white p-4 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${item.concepto}</h5>
+                        <p class="text-sm mt-1">${item.definicion}</p>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            const sortedExams = themeData.historicoExamenes.sort((a, b) => b.fechas.length - a.fechas.length);
+            
+            const sortDates = (dates) => {
+                const monthOrder = { "Mayo": 5, "Junio": 6, "Septiembre": 9, "Curso": 1 };
+                return dates.slice().sort((a, b) => {
+                    const getYear = str => parseInt(str.match(/\d{4}/g)?.[0] || 0);
+                    const getMonth = str => {
+                        const monthKey = Object.keys(monthOrder).find(m => str.includes(m));
+                        return monthOrder[monthKey] || 0;
+                    };
+                    const yearA = getYear(a);
+                    const yearB = getYear(b);
+                    if (yearA !== yearB) return yearA - yearB;
+                    return getMonth(a) - getMonth(b);
+                });
+            };
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                ${sortedExams.map(item => `
+                    <details class="bg-white p-4 rounded-lg shadow-inner group" style="background-color: #fcf8f0;">
+                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center" style="color: var(--color-pumpkin);">
+                            <span>${item.pregunta}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <details class="text-sm mb-2">
+                                <summary class="font-semibold cursor-pointer" style="color: var(--color-coffee);">Fechas de aparición</summary>
+                                <div class="pl-4 pt-2">
+                                    ${sortDates(item.fechas).map(date => `<p>${date}</p>`).join('')}
+                                </div>
+                            </details>
+                            <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                ${item.conceptosDesarrollo.map(cd => `
+                                    <div class="bg-gray-50 p-3 rounded-md shadow-sm tooltip-container">
+                                        <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                        <span class="tooltip-text">${cd.resumen}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </details>
+                `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderBibliografia() {
+            const container = document.getElementById('bibliografia');
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <h4 class="text-xl font-bold mb-3">Bibliografía del Tema</h4>
+                    <ul class="text-sm space-y-2 list-disc pl-5">
+                        ${themeData.bibliografia.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function renderJuego() {
+            const container = document.getElementById('juego');
+            container.innerHTML = `
+                <div id="quiz-container" class="text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                     <h3 class="text-2xl font-bold mb-4">Juego de Preguntas</h3>
+                     <p class="mb-6">Pon a prueba tus conocimientos con 10 preguntas aleatorias sobre este tema.</p>
+                     <button onclick="startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Comenzar Juego</button>
+                </div>
+            `;
+        }
+
+        // --- FUNCIONES DE INTERACTIVIDAD ---
+
+        window.openTab = function(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function updateCarouselButtons(figIndex) {
+            const items = document.querySelectorAll(`#content-carousel-${figIndex} .content-carousel-item`);
+            const currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            const prevButton = document.getElementById(`prev-btn-${figIndex}`);
+            const nextButton = document.getElementById(`next-btn-${figIndex}`);
+
+            if (prevButton) prevButton.disabled = currentIndex === 0;
+            if (nextButton) nextButton.disabled = currentIndex === items.length - 1;
+        }
+
+        window.changeContentCarousel = function(figIndex, direction) {
+            const carouselId = `content-carousel-${figIndex}`;
+            const items = document.querySelectorAll(`#${carouselId} .content-carousel-item`);
+            let currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            
+            items[currentIndex].classList.remove('active');
+            currentIndex += direction;
+            items[currentIndex].classList.add('active');
+            
+            window[`currentContentCarouselIndex_${figIndex}`] = currentIndex;
+            updateCarouselButtons(figIndex);
+        };
+        
+        window.startQuiz = function() {
+            const shuffled = [...themeData.juegoPreguntas].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 10);
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        window.displayQuestion = function() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:border-yellow-500" style="border-color: var(--color-siena);" onclick="checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(button => button.disabled = true);
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-200', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            const titles = [
+                "Metafísico Confundido", "Atrapado en la Botella", "Hablando Sinsentidos",
+                "Verificacionista Incipiente", "Analista Lógico", "Figurando el Mundo",
+                "Jugador del Lenguaje", "Terapeuta Filosófico", "Mostrando lo Místico",
+                "Al Límite del Lenguaje", "Ha Tirado la Escalera"
+            ];
+            const title = titles[quizScore] || "Estudiante Entusiasta";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(q => {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left">
+                        <h3 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h3>
+                        <h4 class="text-md font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h4>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.dummyExplanation}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h2 class="text-2xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h2>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <button onclick="startQuiz()" class="mt-8 px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+            `;
+        }
+
+        // --- INICIALIZACIÓN ---
+        renderContent();
+    });
+    </script>
+</body>
+</html>
