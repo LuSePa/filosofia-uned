@@ -6,3 +6,5 @@ Este repositorio contiene los apuntes, resúmenes y materiales de estudio para l
 ### Primero
 #### **Teoría del Conocimiento II**
 ##### [Tema 1: La Fenomenología y las condiciones del conocimiento objetivo](https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema1.html)
+##### [Tema 2: Conocimiento, lógica y lenguaje](https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema2.html)
+##### [Tema 3: La nueva filosofía de la ciencia](https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema3.html)
