@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 5: Conocimiento, comprensión e interpretación - Teoría del Conocimiento II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías como variables CSS */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .next-button {
+            display: none;
+        }
+        .carousel-slide {
+            display: none;
+        }
+        .carousel-slide.active {
+            display: block;
+        }
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 5: Conocimiento, comprensión e interpretación</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition active" style="border-color: transparent;" onclick="openTab(event, 'figuras')">Figuras Clave</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'resumen')">Resumen</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'conceptos')">Conceptos</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'examenes')">Exámenes</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'juego')">Juego</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+            </div>
+
+            <div id="figuras" class="tab-content active"></div>
+            <div id="resumen" class="tab-content"></div>
+            <div id="conceptos" class="tab-content"></div>
+            <div id="examenes" class="tab-content"></div>
+            <div id="juego" class="tab-content"></div>
+            <div id="bibliografia" class="tab-content"></div>
+        </main>
+
+    </div>
+
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canvas de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const themeData = {
+            title: "Conocimiento, comprensión e interpretación",
+            figurasClave: [
+                {
+                    name: "Hans-Georg Gadamer",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Hans-Georg_Gadamer.jpg/800px-Hans-Georg_Gadamer.jpg",
+                    alt: "Retrato en blanco y negro de Hans-Georg Gadamer, un hombre mayor con el ceño fruncido, gafas y camisa blanca con corbata.",
+                    sections: [
+                        {
+                            title: "Breve biografía",
+                            content: "<p class='text-justify'>Nacido en Marburgo en 1900, Hans-Georg Gadamer vivió un siglo de convulsiones históricas. Su infancia en Breslau estuvo marcada por una salud frágil y una tensa relación con su autoritario padre, un reputado químico que desaprobaba su vocación por las humanidades. Se doctoró en Marburgo bajo la influencia del neokantismo, pero su encuentro con Martin Heidegger en 1923 reorientó definitivamente su pensamiento. Su carrera se desarrolló en el complejo contexto del ascenso nazi, manteniendo una posición ambigua. Tras la guerra, y después de ser rector en Leipzig, se estableció en Heidelberg en 1949, donde desarrollaría la mayor parte de su influyente obra hasta su muerte en 2002, a los 102 años.</p>"
+                        },
+                        {
+                            title: "Influencias y contexto",
+                            content: "<p class='text-justify'>El pensamiento de Gadamer es un crisol de influencias. Inicialmente formado en el <strong>neokantismo</strong> de Marburgo con maestros como Paul Natorp y Nicolai Hartmann, su giro decisivo provino de <strong>Martin Heidegger</strong>, de quien adoptó la idea de la comprensión como un modo de ser (ontología) y no un simple método. La <strong>filología clásica</strong>, que estudió sistemáticamente, le proporcionó un profundo conocimiento de Platón y Aristóteles, fundamental en su obra. Además, el ambiente intelectual de Marburgo lo puso en contacto con figuras como el teólogo <strong>Rudolf Bultmann</strong>, con quien compartió un profundo interés por la interpretación de textos. Su filosofía es, en esencia, un diálogo constante con la tradición filosófica griega y la fenomenología de Husserl, pero siempre desde la perspectiva existencial abierta por Heidegger.</p>"
+                        },
+                        {
+                            title: "Relevancia filosófica",
+                            content: "<p class='text-justify'>Gadamer es la figura central de la <strong>hermenéutica filosófica</strong> del siglo XX. Su principal aportación fue consumar el 'giro ontológico' de la hermenéutica: comprender no es una técnica que aplicamos, sino la forma en que existimos. Conceptos como <strong>'fusión de horizontes'</strong>, <strong>'historia de los efectos'</strong> y la rehabilitación del <strong>'prejuicio'</strong> y la <strong>'tradición'</strong> como condiciones de posibilidad del conocimiento, revolucionaron la teoría de la interpretación. Con <em>Verdad y Método</em>, desafió el monopolio del método científico como única vía hacia la verdad, reivindicando la experiencia del arte, la historia y el diálogo como formas auténticas de 'acontecer de la verdad'. Su debate con Habermas sobre la posibilidad de una crítica a la tradición marcó la filosofía de la segunda mitad del siglo.</p>"
+                        },
+                        {
+                            title: "Obras clave",
+                            content: `
+                                <div class="space-y-2">
+                                    <details class="bg-white p-2 rounded-lg shadow-sm group">
+                                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center text-sm">Verdad y método (1960)<i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform text-xs"></i></summary>
+                                        <p class="mt-2 text-xs text-justify">Su obra capital. En ella desarrolla su ontología de la comprensión y critica la reducción del concepto de verdad al método de las ciencias naturales.</p>
+                                    </details>
+                                    <details class="bg-white p-2 rounded-lg shadow-sm group">
+                                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center text-sm">La actualidad de lo bello (1977)<i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform text-xs"></i></summary>
+                                        <p class="mt-2 text-xs text-justify">Ensayo clave donde expone su teoría estética, defendiendo el arte como una experiencia de verdad a través de los conceptos de juego, símbolo y fiesta.</p>
+                                    </details>
+                                    <details class="bg-white p-2 rounded-lg shadow-sm group">
+                                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center text-sm">Verdad y método II (1986)<i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform text-xs"></i></summary>
+                                        <p class="mt-2 text-xs text-justify">Recopilación de ensayos posteriores donde complementa, aclara y responde a las críticas surgidas tras la publicación de su obra principal.</p>
+                                    </details>
+                                </div>
+                            `
+                        }
+                    ]
+                }
+            ],
+            resumenTemario: [
+                {
+                    epigrafe: "1. Introducción: De la Hermenéutica Metódica a la Ontología Hermenéutica",
+                    resumen: "<p class='text-justify'>La <strong>hermenéutica</strong> evoluciona desde una disciplina auxiliar (un método para interpretar textos) hasta convertirse en una filosofía fundamental. Inicialmente, con <strong>Schleiermacher</strong> y <strong>Dilthey</strong>, se establece como el método propio de las <strong>ciencias del espíritu</strong>, centrado en la <strong>comprensión (Verstehen)</strong> de las intenciones del autor y las manifestaciones culturales, en oposición a la <strong>explicación (Erklären)</strong> causal de las ciencias naturales. Se buscaba una objetividad basada en la reconstrucción psicológica del acto creador.</p><p class='text-justify mt-2'>El giro decisivo llega con <strong>Heidegger</strong> y su discípulo <strong>Hans-Georg Gadamer</strong>. Para ellos, la hermenéutica ya no es un método que el sujeto aplica, sino la <strong>estructura ontológica de la existencia humana (Dasein)</strong>. Comprender no es una actividad más, sino nuestro modo fundamental de 'ser-en-el-mundo'. La filosofía hermenéutica se convierte así en una <strong>ontología de la comprensión</strong>, donde la verdad no se 'alcanza' mediante un método, sino que 'acontece' en la propia experiencia interpretativa. El foco se desplaza de la intención del autor al evento mismo del comprender.</p>",
+                    esquema: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle; font-size: 12px;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead); fill: none;}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="160" height="40" class="box"/><text x="90" y="75" class="text">Hermenéutica Metódica</text><text x="90" y="90" class="text">(Dilthey)</text><rect x="430" y="55" width="160" height="40" class="box"/><text x="510" y="75" class="text">Ontología Hermenéutica</text><text x="510" y="90" class="text">(Heidegger/Gadamer)</text><path d="M 170,75 H 430" class="arrow"/><text x="300" y="65" class="text" style="fill: #D35400; font-weight: bold;">Giro Ontológico</text></svg>`
+                },
+                {
+                    epigrafe: "2. La Ontología de la Comprensión en Gadamer",
+                    resumen: "<p class='text-justify'>En su obra magna <em>Verdad y Método</em>, Gadamer desarrolla la ontología hermenéutica de Heidegger, argumentando que toda comprensión está radicalmente condicionada por nuestra <strong>finitud e historicidad</strong>. Esto se manifiesta en conceptos clave que redefinen el acto de interpretar:</p><ul><li class='ml-4 list-disc'><strong>Precomprensión y Prejuicios:</strong> No nos acercamos a un texto desde un punto de vista neutral. Nuestra comprensión siempre está guiada por una 'precomprensión' (<em>Vorverständnis</em>) formada por los 'prejuicios' (<em>Vorurteile</em>) legítimos de nuestra tradición. Lejos de ser un obstáculo, como sostenía la Ilustración, los prejuicios son la <strong>condición de posibilidad</strong> de todo entendimiento.</li><li class='ml-4 list-disc'><strong>Círculo Hermenéutico:</strong> Comprender es un movimiento circular entre el todo y las partes. Proyectamos un sentido sobre el todo a partir de las partes, y a su vez, las partes cobran sentido a la luz de nuestra anticipación del todo. Este círculo no es un defecto metodológico, sino la estructura misma del comprender.</li><li class='ml-4 list-disc'><strong>Fusión de Horizontes (<em>Horizontverschmelzung</em>):</strong> La comprensión no consiste en reconstruir la intención original del autor (su horizonte), sino en un 'diálogo' entre el horizonte histórico del texto y nuestro propio horizonte presente. En la comprensión, ambos horizontes se 'fusionan', creando un nuevo sentido que no pertenece ni al autor ni al intérprete, sino al 'acontecer' de la tradición.</li></ul>",
+                    esquema: `<svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle; font-size: 12px;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead); fill: none;}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="200" y="10" width="200" height="40" class="box"/><text x="300" y="35" class="text">Comprensión (Gadamer)</text><rect x="10" y="80" width="160" height="40" class="box"/><text x="90" y="105" class="text">Precomprensión / Prejuicios</text><rect x="220" y="80" width="160" height="40" class="box"/><text x="300" y="105" class="text">Círculo Hermenéutico</text><rect x="430" y="80" width="160" height="40" class="box"/><text x="510" y="105" class="text">Fusión de Horizontes</text><path d="M 240,50 V 80" class="arrow"/><path d="M 300,50 V 80" class="arrow"/><path d="M 360,50 V 80" class="arrow"/><rect x="150" y="150" width="300" height="40" class="box" style="fill:#fff8e1;"/><text x="300" y="175" class="text">Resultado: Acontecer de la Verdad (no un método)</text><path d="M 90,120 C 90,140 150,150 150,150" class="arrow"/><path d="M 300,120 V 150" class="arrow"/><path d="M 510,120 C 510,140 450,150 450,150" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "3. La Conciencia Histórica y la Lingüisticidad",
+                    resumen: "<p class='text-justify'>La hermenéutica de Gadamer justifica la 'conciencia histórica' no como un método para objetivar el pasado, sino como la conciencia de nuestra <strong>pertenencia (<em>Zugehörigkeit</em>)</strong> a la historia. No estamos 'frente' a la historia como un objeto, sino 'dentro' de ella. Esta pertenencia se articula a través de la <strong>tradición</strong> y la <strong>autoridad</strong>, conceptos que Gadamer rehabilita contra la crítica ilustrada, entendiendo la autoridad no como sumisión ciega, sino como el reconocimiento libre del saber.</p><p class='text-justify mt-2'>El vehículo fundamental de esta tradición es el <strong>lenguaje</strong>. La comprensión es un fenómeno esencialmente lingüístico. La famosa tesis de Gadamer, <strong>'El ser que puede ser comprendido es lenguaje'</strong>, significa que no hay un mundo 'en sí' al que accedemos; nuestro mundo es siempre un mundo lingüísticamente articulado. El <strong>diálogo</strong>, con su estructura de pregunta y respuesta, se convierte en el modelo de toda comprensión, un proceso en el que la 'cosa misma' (<em>die Sache selbst</em>) se manifiesta.</p>",
+                    esquema: `<svg width="100%" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle; font-size: 12px;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead); fill: none;}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="200" y="10" width="200" height="40" class="box"/><text x="300" y="35" class="text">Conciencia Histórica</text><rect x="10" y="80" width="160" height="40" class="box"/><text x="90" y="105" class="text">Pertenencia (Zugehörigkeit)</text><rect x="430" y="80" width="160" height="40" class="box"/><text x="510" y="105" class="text">Lingüisticidad</text><path d="M 200,30 C 150,30 110,80 90,80" class="arrow"/><path d="M 400,30 C 450,30 490,80 510,80" class="arrow"/><rect x="220" y="130" width="160" height="40" class="box" style="fill:#fff8e1;"/><text x="300" y="155" class="text">Vehículo: La Tradición</text><path d="M 90,120 V 140 C 90,150 220,150 220,150" class="arrow"/><path d="M 510,120 V 140 C 510,150 380,150 380,150" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "4. Hermenéutica Crítica y Post-Gadameriana",
+                    resumen: "<p class='text-justify'>La hermenéutica de Gadamer, a pesar de su influencia, ha sido objeto de importantes debates. <strong>Jürgen Habermas</strong>, desde la Teoría Crítica, le reprocha su conservadurismo y la falta de una instancia crítica frente a la tradición. Para Habermas, la tradición no solo transmite sentidos, sino también relaciones de poder y 'comunicaciones sistemáticamente distorsionadas' (ideologías). Por ello, la hermenéutica debe completarse con una <strong>crítica de las ideologías</strong> que, inspirada en el psicoanálisis, busque la emancipación y una 'situación ideal de habla' libre de coacción.</p><p class='text-justify mt-2'>Por otro lado, teóricos como <strong>Paul Ricoeur</strong> proponen un 'arco hermenéutico' que integra la <strong>'explicación'</strong> (propia de las ciencias estructurales, como la semiología) y la <strong>'comprensión'</strong>. Ricoeur subraya la <strong>autonomía del texto escrito</strong>: su independencia del autor, del contexto y del destinatario original. Esta 'distanciación' no es un problema, sino la condición que permite un análisis objetivo de las estructuras del texto (explicación) como paso previo y necesario para la apropiación existencial de su sentido (comprensión). La lectura es una 'reefectuación' de las referencias de la obra, abriendo un 'mundo del texto' frente al lector.</p>",
+                    esquema: `<svg width="100%" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle; font-size: 12px;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead); fill: none;}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="225" y="10" width="150" height="40" class="box"/><text x="300" y="35" class="text">Hermenéutica Gadamer</text><rect x="10" y="80" width="250" height="40" class="box"/><text x="135" y="95" class="text">Crítica de las Ideologías (Habermas)</text><text x="135" y="110" class="text">Interés Emancipatorio</text><rect x="340" y="80" width="250" height="40" class="box"/><text x="465" y="95" class="text">'Arco Hermenéutico' (Ricoeur)</text><text x="465" y="110" class="text">Explicación + Comprensión</text><path d="M 250,50 C 200,60 150,80 135,80" class="arrow"/><path d="M 350,50 C 400,60 450,80 465,80" class="arrow"/><rect x="150" y="150" width="300" height="40" class="box" style="fill:#fff8e1;"/><text x="300" y="175" class="text">Debate: Tradición vs. Crítica / Comprensión vs. Explicación</text></svg>`
+                }
+            ],
+            conceptosClave: [
+                { concepto: "Hermenéutica", definicion: "Originalmente, el arte o método de interpretación de textos. En Heidegger y Gadamer, se convierte en la estructura ontológica fundamental de la existencia humana." },
+                { concepto: "Círculo Hermenéutico", definicion: "Estructura del comprender que se mueve dialécticamente entre la parte y el todo. La precomprensión del todo guía la interpretación de las partes, y estas a su vez modifican la comprensión del todo." },
+                { concepto: "Comprensión (Verstehen)", definicion: "Para Dilthey, es el método de las ciencias del espíritu, opuesto a la explicación. Para Gadamer, es el modo de ser fundamental del Dasein, un acontecer de la verdad." },
+                { concepto: "Fusión de Horizontes", definicion: "Concepto clave de Gadamer. La comprensión no es la reconstrucción del horizonte del autor, sino la fusión del horizonte del texto con el del intérprete, creando un nuevo sentido." },
+                { concepto: "Precomprensión (Vorverständnis)", definicion: "La estructura de anticipación de sentido con la que siempre nos acercamos a algo. Está formada por nuestros prejuicios y nuestra pertenencia a una tradición." },
+                { concepto: "Prejuicio (Vorurteil)", definicion: "Para Gadamer, no es un juicio falso, sino la condición de posibilidad de toda comprensión. Son los juicios previos que constituyen nuestro horizonte histórico." },
+                { concepto: "Tradición (Überlieferung)", definicion: "No es un objeto del pasado, sino una realidad viva que nos constituye y en la que participamos. Es el vehículo de la historia y del lenguaje." },
+                { concepto: "Historia de los Efectos (Wirkungsgeschichte)", definicion: "La conciencia de que la comprensión está siempre determinada por la historia de las interpretaciones y efectos que un texto o una obra ha generado a lo largo del tiempo." },
+                { concepto: "Pertenencia (Zugehörigkeit)", definicion: "La conciencia de que no estamos fuera de la historia como observadores neutrales, sino que pertenecemos a ella y somos configurados por la tradición." },
+                { concepto: "Lingüisticidad (Sprachlichkeit)", definicion: "Tesis de que toda comprensión y toda experiencia del mundo es fundamentalmente lingüística. 'El ser que puede ser comprendido es lenguaje'." },
+                { concepto: "Diálogo", definicion: "Modelo de Gadamer para la comprensión, entendido como una estructura de pregunta y respuesta en la que se busca un acuerdo sobre 'la cosa misma' (die Sache selbst)." },
+                { concepto: "Crítica de las Ideologías", definicion: "Propuesta de Habermas para complementar la hermenéutica. Busca desvelar las distorsiones sistemáticas de la comunicación causadas por relaciones de poder." },
+                { concepto: "Autonomía del Texto", definicion: "Tesis de Ricoeur que afirma que un texto escrito se independiza de la intención del autor, del contexto original y del destinatario, abriéndose a una pluralidad de lecturas." },
+                { concepto: "Explicación vs. Comprensión", definicion: "Dicotomía establecida por Dilthey. La 'explicación' busca leyes causales (ciencias naturales), mientras que la 'comprensión' busca el sentido de las manifestaciones humanas (ciencias del espíritu)." },
+                { concepto: "Mundo del Texto", definicion: "Para Ricoeur, es la referencia no ostensiva que una obra proyecta. La interpretación se apropia de este 'mundo' que la obra despliega frente a sí misma." }
+            ],
+            historicoExamenes: [
+                {
+                    pregunta: "La ontología de la comprensión en Gadamer (2 apariciones)",
+                    fechas: ["Mayo/Junio 2022", "Mayo/Junio 2025 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Superación del método", resumen: "La verdad no se alcanza por un método, sino que 'acontece' en la experiencia hermenéutica." },
+                        { concepto: "Carácter ontológico del comprender", resumen: "Comprender no es una actividad del sujeto, sino el modo de ser de la existencia (Dasein)." },
+                        { concepto: "Fusión de horizontes", resumen: "El acto de comprender como un diálogo entre el pasado del texto y el presente del intérprete." },
+                        { concepto: "Lingüisticidad", resumen: "'El ser que puede ser comprendido es lenguaje', la comprensión es un fenómeno lingüístico." }
+                    ]
+                },
+                {
+                    pregunta: "La 'historia efectual' o 'historia de los efectos' en Gadamer (2 apariciones)",
+                    fechas: ["Mayo/Junio 2014 (2ª)", "Mayo/Junio 2025 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Wirkungsgeschichte", resumen: "La historia de los efectos o de la recepción de una obra a lo largo del tiempo." },
+                        { concepto: "Conciencia histórica", resumen: "No es objetivar el pasado, sino ser consciente de que nuestra propia comprensión está determinada por esta historia de efectos." },
+                        { concepto: "Pertenencia a la tradición", resumen: "No podemos salir de la historia; nuestra perspectiva está formada por la cadena de interpretaciones que nos precede." },
+                        { concepto: "Diálogo con el pasado", resumen: "La historia efectual crea el espacio para un diálogo continuo entre el presente y la tradición." }
+                    ]
+                },
+                {
+                    pregunta: "La hermenéutica filosófica de Gadamer (2 apariciones)",
+                    fechas: ["Septiembre 2023", "Mayo/Junio 2024 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Comprensión", resumen: "No como método, sino como modo de ser. Es un evento, un acontecer de la verdad." },
+                        { concepto: "Prejuicio", resumen: "Rehabilitación del concepto. No es un error, sino la condición de posibilidad de todo entender." },
+                        { concepto: "Tradición", resumen: "No es un objeto a estudiar, sino el medio vivo en el que existimos y desde el que comprendemos." },
+                        { concepto: "Fusión de horizontes", resumen: "El resultado del diálogo entre el intérprete y el texto, superando la dicotomía sujeto-objeto." }
+                    ]
+                },
+                {
+                    pregunta: "La reformulación gadameriana del círculo hermenéutico (2 apariciones)",
+                    fechas: ["Mayo/Junio 2014 (1ª semana)", "Mayo/Junio 2015 (1ª semana)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Círculo en Heidegger", resumen: "Estructura existencial del Dasein. La comprensión como proyecto." },
+                        { concepto: "Crítica al subjetivismo", resumen: "Gadamer se aleja de la idea de 'meterse' en la mente del autor (Schleiermacher)." },
+                        { concepto: "Diálogo pregunta-respuesta", resumen: "El círculo se mueve por el diálogo con el texto, que nos interpela." },
+                        { concepto: "Anticipación de la perfección", resumen: "Partimos del prejuicio de que el texto tiene una unidad de sentido coherente." }
+                    ]
+                },
+                {
+                    pregunta: "El arte como mediación de verdad según Gadamer (1 aparición)",
+                    fechas: ["Mayo/Junio 2014 (1ª semana)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Crítica a la conciencia estética", resumen: "El arte no es un objeto para el mero goce subjetivo, sino una experiencia de verdad." },
+                        { concepto: "Concepto de 'juego' (Spiel)", resumen: "La obra de arte tiene su propia dinámica que 'atrapa' al espectador, superando la dicotomía sujeto-objeto." },
+                        { concepto: "Acontecer de la verdad", resumen: "En la experiencia artística, la verdad se muestra, 'acontece', en lugar de ser descubierta por un método." },
+                        { concepto: "Carácter ontológico", resumen: "La obra de arte transforma al que la experimenta, aumentando su ser." }
+                    ]
+                }
+            ],
+            bibliografia: [
+                "SÁNCHEZ MECA, D. (2019). <em>Iniciación a la Teoría del Conocimiento</em>. Madrid: Dykinson. (Capítulo 13: Conocimiento, comprensión e interpretación, pp. 501-545).",
+                "ESCUDERO, A. (2024). <em>Apuntes de Teoría del Conocimiento II</em>. UNED. (Tema 5: Gadamer y la hermenéutica filosófica).",
+                "GARCÍA-BARÓ, M. (2015). <em>Husserl y Gadamer. Fenomenología y hermenéutica</em>. Barcelona: Batiscafo."
+            ],
+            juegoPreguntas: [
+                {pregunta: "¿Qué autor transforma la hermenéutica de un método para las 'ciencias del espíritu' a una ontología fundamental?", opciones: ["Dilthey", "Schleiermacher", "Heidegger", "Habermas"], correcta: 2, explicacion: "Heidegger, en 'Ser y Tiempo', sitúa la comprensión (Verstehen) no como un método, sino como el modo de ser fundamental del Dasein (existencia humana)."},
+                {pregunta: "Según Gadamer, ¿cuál es la condición indispensable para que podamos comprender algo?", opciones: ["La objetividad absoluta", "La eliminación de todo prejuicio", "Nuestra pertenencia a una tradición", "Un método científico riguroso"], correcta: 2, explicacion: "Para Gadamer, no hay comprensión desde un punto cero. Nuestra pertenencia a una tradición, con sus prejuicios, es lo que nos abre al entendimiento."},
+                {pregunta: "El concepto de 'fusión de horizontes' (Horizontverschmelzung) de Gadamer describe la comprensión como:", opciones: ["La reconstrucción exacta de la intención del autor.", "La imposición del punto de vista del lector sobre el texto.", "Un diálogo en el que el horizonte del texto y el del intérprete se unen.", "La traducción literal de un texto a un lenguaje moderno."], correcta: 2, explicacion: "La comprensión es un encuentro productivo, un diálogo donde el pasado del texto y el presente del intérprete se fusionan para crear un nuevo sentido."},
+                {pregunta: "¿Cómo valora Gadamer los 'prejuicios' en el acto de comprender?", opciones: ["Como obstáculos que deben ser eliminados por completo.", "Como juicios falsos que distorsionan la verdad.", "Como condiciones positivas y necesarias para toda comprensión.", "Como elementos irrelevantes que no afectan al resultado."], correcta: 2, explicacion: "En contra de la Ilustración, Gadamer rehabilita el prejuicio (Vorurteil) como el 'juicio previo' que constituye nuestro horizonte y nos permite empezar a comprender."},
+                {pregunta: "La frase 'El ser que puede ser comprendido es lenguaje' resume la tesis gadameriana de la...", opciones: ["Esteticidad", "Historicidad", "Lingüisticidad", "Subjetividad"], correcta: 2, explicacion: "Esta famosa afirmación subraya que toda nuestra experiencia del mundo y toda comprensión es, en su raíz, un fenómeno lingüístico."},
+                {pregunta: "¿Qué es la 'historia de los efectos' (Wirkungsgeschichte) para Gadamer?", opciones: ["La biografía del autor de una obra.", "La historia objetiva de los hechos que narra un texto.", "La cadena de interpretaciones y efectos que una obra genera a lo largo del tiempo.", "El efecto psicológico que una obra causa en un lector individual."], correcta: 2, explicacion: "Es la conciencia de que nuestra propia interpretación forma parte de la historia de la recepción de una obra, y está influida por ella."},
+                {pregunta: "Frente a la hermenéutica de Gadamer, ¿qué propone Jürgen Habermas como complemento necesario?", opciones: ["Un análisis puramente estético.", "Una crítica de las ideologías.", "Un método de deconstrucción.", "Un retorno a la metafísica clásica."], correcta: 1, explicacion: "Habermas critica a Gadamer por no tener en cuenta que la tradición también transmite poder y distorsión. Propone una crítica de las ideologías para revelar la 'comunicación sistemáticamente distorsionada'."},
+                {pregunta: "¿Qué autor de la Escuela de Constanza habla de los 'lugares de indeterminación' en un texto que el lector debe 'concretar'?", opciones: ["Hans Robert Jauss", "Wolfgang Iser", "Roman Ingarden", "Hans-Georg Gadamer"], correcta: 2, explicacion: "Ingarden, desde una perspectiva fenomenológica, describe la obra literaria como una estructura esquemática con 'lagunas' que la lectura debe rellenar."},
+                {pregunta: "Paul Ricoeur propone un 'arco hermenéutico' que busca mediar entre:", opciones: ["Verdad y método.", "Explicación y comprensión.", "Sujeto y objeto.", "Texto y autor."], correcta: 1, explicacion: "Ricoeur argumenta que la comprensión profunda (apropiación) de un texto requiere un momento previo de explicación objetiva de sus estructuras (análisis estructural, semiología)."},
+                {pregunta: "La dicotomía entre 'explicación' (Erklären) y 'comprensión' (Verstehen) fue establecida fundamentalmente por:", opciones: ["Heidegger", "Gadamer", "Dilthey", "Kant"], correcta: 2, explicacion: "Dilthey estableció esta distinción para fundamentar la autonomía metodológica de las 'ciencias del espíritu' frente a las 'ciencias de la naturaleza'."},
+                {pregunta: "El modelo de toda comprensión para Gadamer es:", opciones: ["El experimento científico.", "La deducción lógica.", "La contemplación estética.", "El diálogo."], correcta: 3, explicacion: "El diálogo, entendido como una estructura de pregunta y respuesta, representa para Gadamer el movimiento fundamental del comprender, donde se busca un acuerdo sobre 'la cosa misma'."},
+                {pregunta: "La tesis de la 'autonomía del texto' de Ricoeur significa que el texto se independiza de:", opciones: ["Su estructura gramatical.", "La intención original del autor.", "Cualquier posible interpretación.", "Su valor de mercado."], correcta: 1, explicacion: "Con la escritura, el texto se desliga de la intención de su autor, de su contexto original y de sus destinatarios iniciales, abriéndose a nuevas lecturas."},
+                {pregunta: "¿Qué es la 'precomprensión' (Vorverständnis) en la hermenéutica?", opciones: ["Un entendimiento perfecto y definitivo.", "La estructura de anticipación de sentido con la que abordamos un texto.", "Un resumen previo del contenido de la obra.", "La incapacidad de comprender algo nuevo."], correcta: 1, explicacion: "Es el conjunto de expectativas y juicios previos (prejuicios) que guían nuestro acceso inicial a un texto y que se modifican en el círculo hermenéutico."},
+                {pregunta: "Para Gadamer, la tradición es...", opciones: ["Un conjunto de reliquias muertas del pasado.", "Un obstáculo para la razón y el progreso.", "Una autoridad que debe ser obedecida ciegamente.", "Un acontecer vivo del que participamos y que nos constituye."], correcta: 3, explicacion: "La tradición no es un objeto que estudiamos, sino el medio en el que vivimos y que hace posible la comprensión histórica."},
+                {pregunta: "¿Cuál es el objetivo de la 'crítica de las ideologías' de Habermas?", opciones: ["Demostrar que todas las opiniones son válidas.", "Conservar la tradición sin cambios.", "Revelar y superar las formas de comunicación distorsionadas por el poder.", "Establecer una única ideología correcta."], correcta: 2, explicacion: "Busca la emancipación a través de la crítica de cómo el poder y la dominación social distorsionan el lenguaje y el consenso."},
+                {pregunta: "La hermenéutica metódica de Dilthey tenía un fuerte componente...", opciones: ["Lógico-formal.", "Matemático.", "Psicológico.", "Teológico."], correcta: 2, explicacion: "Dilthey buscaba comprender las 'expresiones de la vida' reconstruyendo la experiencia vivida (Erlebnis) y la estructura psíquica del autor."},
+                {pregunta: "La 'fusión de horizontes' implica que el sentido de un texto es:", opciones: ["Fijo y determinado por el autor para siempre.", "Totalmente subjetivo y dependiente del lector.", "Un producto del encuentro entre el pasado y el presente.", "Inaccesible para cualquier lector moderno."], correcta: 2, explicacion: "El sentido no está ni solo en el texto ni solo en el lector, sino que emerge del diálogo entre el horizonte histórico de la obra y el horizonte actual del intérprete."},
+                {pregunta: "El giro ontológico de la hermenéutica significa que comprender es:", opciones: ["Un método científico.", "Una habilidad especial de los filólogos.", "El modo de ser fundamental de la existencia.", "Un acto de la imaginación."], correcta: 2, explicacion: "Iniciado por Heidegger, este giro concibe el comprender no como una actividad que 'hacemos', sino como lo que 'somos' fundamentalmente: seres interpretativos."},
+                {pregunta: "Para Ricoeur, el 'mundo del texto' se refiere a:", opciones: ["El contexto histórico en que se escribió la obra.", "La biografía detallada del autor.", "La referencia no ostensiva que la obra proyecta y abre al lector.", "El mundo físico de los libros y las bibliotecas."], correcta: 2, explicacion: "La obra literaria no se refiere al mundo de la experiencia cotidiana, sino que crea y proyecta su propio 'mundo' posible, que el lector puede 'habitar' a través de la lectura."},
+                {pregunta: "La crítica de la Ilustración a los prejuicios los consideraba:", opciones: ["Fuentes de sabiduría ancestral.", "Errores de juicio que impiden el conocimiento verdadero.", "Elementos necesarios para la cohesión social.", "Formas de expresión artística."], correcta: 1, explicacion: "La Ilustración luchó contra los prejuicios (la superstición, la tradición no examinada) en nombre de una razón autónoma y universal."},
+                {pregunta: "¿Qué es lo que, según Gadamer, nos permite cuestionar nuestros propios prejuicios?", opciones: ["El encuentro con la tradición y el texto.", "La aplicación de un método lógico.", "Un acto de pura voluntad.", "El olvido completo del pasado."], correcta: 0, explicacion: "Es en el diálogo con el texto, en el choque con su alteridad, donde nuestros prejuicios se ponen en juego, se hacen conscientes y pueden ser revisados."},
+                {pregunta: "La hermenéutica de Schleiermacher se centra en reconstruir...", opciones: ["la estructura social de la época.", "el acto creativo del autor.", "la historia de la recepción de la obra.", "la gramática universal del lenguaje."], correcta: 1, explicacion: "Su objetivo era 'comprender a un autor mejor de lo que él mismo se comprendió', reconstruyendo el proceso mental que dio origen a la obra."},
+                {pregunta: "Para Heidegger, la comprensión tiene una estructura temporal que se orienta principalmente hacia...", opciones: ["el presente eterno.", "el pasado inmutable.", "el futuro como posibilidad.", "un ciclo que se repite."], correcta: 2, explicacion: "La comprensión es 'proyecto' (Entwurf), un lanzarse hacia las propias posibilidades, por lo que el futuro (Zukunft) es su dimensión temporal fundamental."},
+                {pregunta: "La 'estética de la recepción' de H.R. Jauss se centra en:", opciones: ["La perfección formal de la obra.", "La biografía del artista.", "El diálogo entre la obra y sus sucesivos públicos.", "La intención original del autor."], correcta: 2, explicacion: "Analiza cómo el 'horizonte de expectativas' de los lectores de cada época condiciona la interpretación y el valor de una obra literaria."},
+                {pregunta: "El concepto de 'pertenencia' (Zugehörigkeit) en Gadamer se opone a la idea de...", opciones: ["la objetivación histórica.", "la subjetividad del intérprete.", "la importancia del lenguaje.", "la finitud humana."], correcta: 0, explicacion: "Se opone a la idea de que podemos distanciarnos de la historia para convertirla en un objeto de estudio neutral. Siempre 'pertenecemos' a la historia que intentamos comprender."},
+                {pregunta: "La crítica de Habermas a Gadamer se puede resumir como una defensa de:", opciones: ["La tradición frente a la razón.", "La estética frente a la ética.", "La emancipación frente a la autoridad.", "El individuo frente a la sociedad."], correcta: 2, explicacion: "Habermas defiende el poder de la reflexión crítica para liberarnos de las coacciones y distorsiones impuestas por la tradición y la autoridad."},
+                {pregunta: "En la hermenéutica de Ricoeur, la 'distanciación' producida por la escritura es vista como...", opciones: ["un obstáculo insalvable para la comprensión.", "una pérdida irreparable del sentido original.", "la condición positiva que permite la interpretación objetiva.", "un efecto negativo de la tecnología moderna."], correcta: 2, explicacion: "La distanciación no es una carencia, sino lo que libera al texto y permite un análisis estructural (explicación) como mediación para una comprensión más profunda."},
+                {pregunta: "El 'círculo hermenéutico' describe la comprensión como un proceso...", opciones: ["lineal y acumulativo.", "vicioso y sin salida.", "dialéctico y productivo.", "aleatorio e impredecible."], correcta: 2, explicacion: "Lejos de ser un círculo vicioso, es la estructura dialéctica que hace posible el crecimiento del conocimiento a través del movimiento entre la parte y el todo."},
+                {pregunta: "La hermenéutica filosófica considera que la verdad...", opciones: ["se descubre de una vez para siempre.", "es una correspondencia exacta con la realidad.", "acontece en la experiencia de la comprensión.", "es relativa a la opinión de cada individuo."], correcta: 2, explicacion: "La verdad no es algo que 'poseemos' a través de un método, sino un 'evento' (Ereignis) que tiene lugar en el diálogo interpretativo con la tradición."},
+                {pregunta: "El concepto de 'aplicación' (Anwendung) en Gadamer significa que...", opciones: ["la teoría debe aplicarse en la práctica.", "toda comprensión implica una relación con la situación presente del intérprete.", "las leyes científicas se aplican a casos particulares.", "la hermenéutica es una técnica que se aplica a los textos."], correcta: 1, explicacion: "Inspirado en la hermenéutica jurídica, Gadamer sostiene que no se puede comprender un texto sin 'aplicarlo', es decir, sin ver su relevancia para nuestra propia situación histórica."},
+                {pregunta: "¿Cuál fue el objetivo principal de Dilthey al desarrollar su hermenéutica?", opciones: ["Superar la metafísica.", "Fundamentar las ciencias del espíritu.", "Crear una nueva estética.", "Criticar el idealismo alemán."], correcta: 1, explicacion: "Dilthey buscaba un método propio para las Geisteswissenschaften que garantizara su cientificidad frente al modelo de las ciencias naturales."},
+                {pregunta: "La 'fusión de horizontes' de Gadamer es una crítica directa a la idea de...", opciones: ["la objetividad histórica.", "la importancia del lenguaje.", "la finitud del ser humano.", "la pluralidad de interpretaciones."], correcta: 0, explicacion: "Critica el ideal del historicismo de una reconstrucción objetiva del pasado 'tal como fue'. La comprensión siempre es una mediación entre pasado y presente."},
+                {pregunta: "Heidegger critica toda la metafísica occidental por su 'olvido de...'", opciones: ["la existencia humana.'", "la diferencia ontológica.'", "la importancia del lenguaje.'", "los límites del conocimiento.'"], correcta: 1, explicacion: "La metafísica ha confundido el 'ser' con los 'entes' (especialmente con un ente supremo o fundamento), olvidando la diferencia fundamental entre ambos."},
+                {pregunta: "La hermenéutica de Ricoeur se diferencia de la de Gadamer por su mayor énfasis en...", opciones: ["la tradición.", "la explicación estructural.", "el diálogo.", "los prejuicios."], correcta: 1, explicacion: "Ricoeur integra el análisis estructural y la semiología como un momento de 'explicación' necesario para mediar la comprensión."},
+                {pregunta: "¿Qué es lo que, según Gadamer, tiene 'autoridad' en un sentido positivo?", opciones: ["El poder político que se impone por la fuerza.", "El conocimiento reconocido libremente.", "Cualquier costumbre, por el mero hecho de ser antigua.", "La opinión de la mayoría."], correcta: 1, explicacion: "La verdadera autoridad no se basa en la sumisión, sino en el reconocimiento libre de que el otro (o la tradición) posee un conocimiento o una visión superior."},
+                {pregunta: "El concepto de 'juego' (Spiel) en Gadamer sirve para ilustrar que...", opciones: ["la comprensión es una actividad frívola.", "el arte es un mero entretenimiento.", "el sujeto no controla el proceso de comprensión.", "hay ganadores y perdedores en la interpretación."], correcta: 2, explicacion: "Como en un juego, el proceso hermenéutico tiene su propia dinámica que 'atrapa' a los participantes, quienes son más 'jugados' que 'jugadores'."},
+                {pregunta: "La 'conciencia de la historia efectual' es la conciencia de que...", opciones: ["podemos conocer el pasado objetivamente.", "estamos condicionados por la historia de las interpretaciones.", "la historia tiene un efecto moral en nosotros.", "los efectos de nuestras acciones son impredecibles."], correcta: 1, explicacion: "Es la reflexión sobre cómo la historia de la recepción de una obra (sus efectos) forma parte de nuestro propio horizonte de comprensión."},
+                {pregunta: "Para la hermenéutica filosófica, el lenguaje es principalmente...", opciones: ["un sistema de signos arbitrarios.", "un instrumento para transmitir información.", "el medio en el que acontece la comprensión del mundo.", "un reflejo de la estructura de la mente."], correcta: 2, explicacion: "El lenguaje no es una herramienta que usamos, sino el horizonte que nos constituye y en el que 'habitamos' y comprendemos el mundo."},
+                {pregunta: "La crítica de Habermas a la hermenéutica se basa en que ésta no considera suficientemente...", opciones: ["el poder y la ideología.", "la belleza y el arte.", "la historia y la tradición.", "el individuo y la subjetividad."], correcta: 0, explicacion: "Habermas argumenta que Gadamer idealiza la tradición, sin ver que también es un medio de poder que distorsiona la comunicación."},
+                {pregunta: "El 'giro ontológico' de la hermenéutica fue iniciado por:", opciones: ["Dilthey.", "Schleiermacher.", "Gadamer.", "Heidegger."], correcta: 3, explicacion: "Fue Heidegger quien reorientó la hermenéutica desde una cuestión de método (Dilthey) a una cuestión sobre el ser de la existencia (Dasein)."},
+                {pregunta: "Según Ricoeur, ¿qué permite la 'distanciación' de la escritura?", opciones: ["La pérdida de todo sentido.", "La posibilidad de una crítica objetiva.", "La comunicación directa con el autor.", "La creación de un lenguaje perfecto."], correcta: 1, explicacion: "La escritura crea una distancia que, lejos de ser negativa, abre el espacio para un análisis crítico y una pluralidad de interpretaciones."},
+                {pregunta: "El concepto de 'aplicación' en Gadamer está tomado de la hermenéutica...", opciones: ["teológica.", "filológica.", "jurídica.", "musical."], correcta: 2, explicacion: "Al igual que un juez 'aplica' una ley a un caso concreto, todo intérprete 'aplica' el sentido de un texto a su propia situación histórica."},
+                {pregunta: "La 'fusión de horizontes' de Gadamer se opone a la idea de una comprensión como...", opciones: ["diálogo.", "experiencia.", "reconstrucción.", "interpretación."], correcta: 2, explicacion: "Se opone al ideal historicista (de Dilthey o Schleiermacher) de una reconstrucción empática del pasado 'tal como fue'."},
+                {pregunta: "La hermenéutica filosófica entiende la finitud humana como...", opciones: ["un defecto a superar.", "la condición de posibilidad de la comprensión.", "una consecuencia del pecado original.", "un problema sin solución."], correcta: 1, explicacion: "Nuestra finitud, nuestra historicidad, no es un límite negativo, sino la condición misma que nos permite comprender al estar situados en una tradición."},
+                {pregunta: "El objetivo de la 'estética de la recepción' es analizar...", opciones: ["la vida del autor.", "la estructura interna de la obra.", "la relación histórica entre obra y público.", "la perfección formal del arte."], correcta: 2, explicacion: "Desarrollada por H.R. Jauss, se centra en cómo las sucesivas generaciones de lectores interpretan y valoran las obras literarias."},
+                {pregunta: "Para Gadamer, la experiencia estética es una forma de...", opciones: ["conocimiento (acontecer de la verdad).", "mero placer subjetivo.", "escape de la realidad.", "manipulación ideológica."], correcta: 0, explicacion: "En el arte no solo sentimos placer, sino que tenemos una experiencia de verdad; la obra nos 'dice' algo verdadero sobre el mundo."},
+                {pregunta: "La crítica de Heidegger a la metafísica se centra en su...", opciones: ["complejidad excesiva.", "falta de base empírica.", "olvido de la diferencia ontológica.", "origen en la mitología griega."], correcta: 2, explicacion: "La metafísica ha pensado el 'ser' como si fuera un 'ente' (el más alto), olvidando la diferencia fundamental entre el ser y los entes."},
+                {pregunta: "El concepto de 'mundo de la vida' (Lebenswelt) fue introducido en la fenomenología por:", opciones: ["Heidegger.", "Sartre.", "Husserl.", "Merleau-Ponty."], correcta: 2, explicacion: "Husserl, en su última etapa, desarrolló este concepto para referirse al mundo pre-científico de la experiencia cotidiana, que es el fundamento de todas las ciencias."},
+                {pregunta: "Para la hermenéutica, la objetividad en las ciencias humanas se logra a través de...", opciones: ["la eliminación del intérprete.", "la aplicación de un método formal.", "la reflexión sobre los propios prejuicios.", "la adhesión a una única teoría."], correcta: 2, explicacion: "La objetividad no consiste en la neutralidad, sino en hacer conscientes y poner en juego los prejuicios que guían nuestra comprensión."},
+                {pregunta: "La principal diferencia entre la hermenéutica de Dilthey y la de Gadamer radica en que la primera es un método y la segunda...", opciones: ["una estética.", "una lógica.", "una ontología.", "una política."], correcta: 2, explicacion: "Gadamer, siguiendo a Heidegger, eleva la hermenéutica de una metodología para las ciencias humanas a una filosofía sobre el ser mismo de la comprensión."},
+                {pregunta: "¿Qué es lo que, según Ricoeur, media entre la explicación estructural y la comprensión existencial?", opciones: ["La intención del autor.", "La interpretación.", "La crítica ideológica.", "La tradición."], correcta: 1, explicacion: "La interpretación es el acto que integra los resultados del análisis objetivo (explicación) en una nueva comprensión de la existencia (apropiación)."},
+                {pregunta: "La rehabilitación del 'prejuicio' por parte de Gadamer es una crítica directa a:", opciones: ["El Romanticismo.", "La Escolástica.", "La Ilustración.", "El Existencialismo."], correcta: 2, explicacion: "La Ilustración demonizó el prejuicio como lo opuesto a la razón. Gadamer muestra que es una condición inevitable y productiva del entender."},
+                {pregunta: "El 'giro lingüístico' en la filosofía del siglo XX significa que los problemas filosóficos se entienden como problemas de...", opciones: ["existencia.", "conocimiento.", "lenguaje.", "valores."], correcta: 2, explicacion: "La filosofía analítica y la hermenéutica, por vías distintas, coinciden en que el lenguaje es el medio fundamental en el que se plantean y resuelven las cuestiones filosóficas."},
+                {pregunta: "La 'situación ideal de habla' de Habermas es...", opciones: ["una descripción de cómo hablamos normalmente.", "un ideal utópico que sirve como criterio crítico.", "una regla gramatical del lenguaje.", "un hecho histórico que se dio en la antigua Grecia."], correcta: 1, explicacion: "Es un concepto contrafáctico, una utopía de comunicación sin coacción que nos permite criticar las distorsiones de la comunicación real."},
+                {pregunta: "Para Gadamer, la comprensión de un texto histórico se parece más a:", opciones: ["resolver un problema matemático.", "observar un objeto en un laboratorio.", "participar en una conversación.", "seguir un manual de instrucciones."], correcta: 2, explicacion: "El modelo del diálogo (pregunta-respuesta) es central en su hermenéutica para describir la relación viva entre el intérprete y la tradición."},
+                {pregunta: "La hermenéutica de Schleiermacher es fundamentalmente...", opciones: ["ontológica.", "psicológica y gramatical.", "política.", "estética."], correcta: 1, explicacion: "Su método combinaba un análisis 'gramatical' (objetivo) del lenguaje con una reconstrucción 'psicológica' (subjetiva) de la mente del autor."},
+                {pregunta: "¿Qué es lo que, según la Escuela de Constanza, guía la lectura de una obra?", opciones: ["El 'horizonte de expectativas' del lector.", "Las instrucciones explícitas del autor.", "Las críticas literarias de la época.", "Un análisis puramente formal."], correcta: 0, explicacion: "H.R. Jauss acuñó este término para describir el sistema de referencias y expectativas culturales que cada generación de lectores aporta a la obra."},
+                {pregunta: "La 'crítica de la tradición' en la hermenéutica de Gadamer se realiza...", opciones: ["desde un punto de vista externo a la tradición.", "rechazando la tradición en su totalidad.", "desde dentro de la propia tradición.", "aceptando la tradición sin cuestionarla."], correcta: 2, explicacion: "No podemos salir de la tradición para criticarla. La crítica y la transformación solo son posibles como un diálogo inmanente con ella."},
+                {pregunta: "El concepto de 'Dasein' de Heidegger se refiere a:", opciones: ["La existencia humana como 'ser-en-el-mundo'.", "La esencia inmutable del ser humano.", "El sujeto transcendental de Kant.", "El alma inmortal de Platón."], correcta: 0, explicacion: "Dasein (ser-ahí) es el término que usa Heidegger para la existencia humana, caracterizada por su apertura al mundo y su comprensión del ser."},
+                {pregunta: "Para Ricoeur, la tarea final de la hermenéutica es la 'apropiación', que significa:", opciones: ["Poseer el texto como un objeto.", "Hacer nuestro el 'mundo' que el texto despliega.", "Imponer nuestra propia ideología al texto.", "Descubrir el único significado correcto."], correcta: 1, explicacion: "La apropiación es el acto por el cual el lector, tras la explicación y la comprensión, hace suya la propuesta de mundo del texto, transformando su propia autocomprensión."},
+                {pregunta: "La hermenéutica filosófica critica el ideal de conocimiento de las ciencias naturales por ser...", opciones: ["demasiado complejo.", "insuficientemente riguroso.", "objetivista y metodológico.", "excesivamente histórico."], correcta: 2, explicacion: "Critica el ideal de un conocimiento objetivo y neutral, alcanzado por un método, que ignora la historicidad y la implicación del sujeto en la comprensión."},
+                {pregunta: "El concepto de 'juego' (Spiel) en Gadamer enfatiza la...", opciones: ["seriedad y el rigor de la interpretación.", "primacía del sujeto sobre la obra.", "naturaleza reglada y competitiva del arte.", "primacía de la obra, que 'atrapa' al intérprete."], correcta: 3, explicacion: "En el juego (y en la experiencia estética), no es el sujeto quien juega, sino que el juego mismo se despliega y absorbe al jugador. La obra tiene la primacía."},
+                {pregunta: "La 'historicidad' de la comprensión significa que...", opciones: ["solo podemos comprender textos históricos.", "la comprensión es un proceso que cambia con el tiempo.", "la historia es el único objeto de conocimiento válido.", "el pasado determina completamente el presente."], correcta: 1, explicacion: "Nuestra manera de comprender no es fija ni universal, sino que está condicionada por nuestra situación histórica y la tradición a la que pertenecemos."},
+                {pregunta: "La principal diferencia entre la hermenéutica de Heidegger y la de Gadamer es que este último se centra más en...", opciones: ["la analítica existencial del Dasein.", "la crítica de la metafísica.", "la experiencia del arte y las ciencias humanas.", "la cuestión de la técnica."], correcta: 2, explicacion: "Mientras que Heidegger se centra en las estructuras ontológicas del Dasein, Gadamer 'aplica' esa ontología al problema concreto de la comprensión en las Geisteswissenschaften (arte, historia, etc.)."},
+                {pregunta: "La hermenéutica de Ricoeur es a menudo llamada 'hermenéutica de la...' ", opciones: ["sospecha.'", "confianza.'", "distanciación.'", "aplicación.'"], correcta: 2, explicacion: "Aunque integra la confianza, su énfasis en la necesidad de la explicación y la crítica ideológica lo sitúan en una posición de 'distanciación' crítica frente al texto."},
+                {pregunta: "El modelo del 'círculo hermenéutico' se opone a una concepción del conocimiento como...", opciones: ["proceso dialéctico.", "fundamento lineal.", "experiencia subjetiva.", "construcción social."], correcta: 1, explicacion: "Se opone al modelo fundacionalista que busca un punto de partida absoluto y avanza de forma lineal. La comprensión es siempre circular."},
+                {pregunta: "Para Gadamer, un 'clásico' es una obra que...", opciones: ["es muy antigua y difícil de leer.", "representa perfectamente los prejuicios de su época.", "tiene algo que decirnos a través del tiempo.", "ha sido canonizada por la autoridad académica."], correcta: 2, explicacion: "Un clásico es una obra que sobrevive a su tiempo porque su verdad nos interpela directamente a través de la distancia histórica."},
+                {pregunta: "La 'rehabilitación de la autoridad' en Gadamer se refiere a...", opciones: ["la obediencia ciega al poder.", "el reconocimiento libre del saber.", "la imposición de una única interpretación.", "el respeto por las instituciones políticas."], correcta: 1, explicacion: "La verdadera autoridad no se basa en la coacción, sino en el reconocimiento de que alguien (o una tradición) tiene un conocimiento superior que aceptamos libremente."},
+                {pregunta: "La 'comprensión' en Dilthey se basa en la capacidad de...", opciones: ["deducción lógica.", "revivir (Nacherleben) la experiencia ajena.", "verificación empírica.", "abstracción conceptual."], correcta: 1, explicacion: "La comprensión de las expresiones de la vida se logra al revivir empáticamente la experiencia psíquica que les dio origen."},
+                {pregunta: "El 'giro ontológico' de la hermenéutica implica que la interpretación es...", opciones: ["un problema de método.", "una característica del ser humano.", "una técnica para filólogos.", "un obstáculo para la verdad."], correcta: 1, explicacion: "La interpretación no es algo que hacemos, sino algo que somos. Es la condición fundamental de la existencia humana."},
+                {pregunta: "La 'fusión de horizontes' de Gadamer resuelve la oposición entre...", opciones: ["verdad y falsedad.", "bien y mal.", "subjetividad y objetividad.", "arte y ciencia."], correcta: 2, explicacion: "En la comprensión, la subjetividad del intérprete y la objetividad del texto se median dialécticamente, superando la tradicional dicotomía epistemológica."},
+                {pregunta: "El concepto de 'aplicación' (Anwendung) de Gadamer muestra que toda comprensión es también...", opciones: ["una creación.", "una situación.", "una abstracción.", "una negación."], correcta: 1, explicacion: "Comprender no es solo reproducir, sino también producir sentido en relación con nuestra situación presente. Toda interpretación es una aplicación."},
+                {pregunta: "La crítica de Ricoeur a Gadamer se centra en la necesidad de un momento de...", opciones: ["fe.", "intuición.", "explicación.", "olvido."], correcta: 2, explicacion: "Ricoeur insiste en que la comprensión debe estar mediada por una fase de explicación objetiva de las estructuras del texto."},
+                {pregunta: "El concepto de 'tradición' en Gadamer es...", opciones: ["estático e inmutable.", "dinámico y en constante formación.", "un objeto del pasado.", "una construcción puramente subjetiva."], correcta: 1, explicacion: "La tradición no es un depósito muerto, sino un proceso vivo de transmisión y reinterpretación en el que participamos activamente."},
+                {pregunta: "La hermenéutica filosófica se opone al 'historicismo', entendido como...", opciones: ["el estudio de la historia.", "la creencia en el progreso histórico.", "la objetivación del pasado como un objeto de ciencia.", "la negación de la importancia de la historia."], correcta: 2, explicacion: "Critica la pretensión del historicismo del siglo XIX de alcanzar un conocimiento objetivo del pasado, ignorando la propia historicidad del historiador."},
+                {pregunta: "Para Gadamer, el lenguaje de la poesía es...", opciones: ["un uso deficiente del lenguaje.", "el lenguaje en su máxima expresión.", "un simple sistema de adornos.", "un obstáculo para la verdad."], correcta: 1, explicacion: "En la poesía, el lenguaje no es un mero instrumento, sino que la 'cosa misma' llega a hablar. Es un 'acontecer de la verdad'."},
+                {pregunta: "La 'conciencia histórica' para Gadamer implica...", opciones: ["dominar todos los datos del pasado.", "ser consciente de nuestra propia historicidad.", "predecir el futuro a partir del pasado.", "juzgar el pasado con los criterios del presente."], correcta: 1, explicacion: "No se trata de saber mucho de historia, sino de ser consciente de que pensamos y comprendemos desde una situación histórica concreta."},
+                {pregunta: "La hermenéutica de Ricoeur busca un equilibrio entre la fenomenología y...", opciones: ["el existencialismo.", "el marxismo.", "el estructuralismo.", "el positivismo."], correcta: 2, explicacion: "Ricoeur integra las aportaciones del estructuralismo (el análisis objetivo de las estructuras del lenguaje) en su teoría de la interpretación."},
+                {pregunta: "El 'diálogo' en Gadamer es un modelo que se opone a la concepción del conocimiento como...", opciones: ["construcción.", "experiencia.", "representación.", "interpretación."], correcta: 2, explicacion: "Se opone al modelo sujeto-objeto donde un sujeto 'representa' una realidad externa. En el diálogo, la verdad emerge entre los interlocutores."},
+                {pregunta: "La 'crítica de las ideologías' de Habermas está inspirada en parte por...", opciones: ["Platón y Aristóteles.", "Kant y Hegel.", "Marx y Freud.", "Nietzsche y Heidegger."], correcta: 2, explicacion: "Toma de Marx la idea de ideología como falsa conciencia y de Freud el modelo terapéutico para desvelar represiones y distorsiones."},
+                {pregunta: "El concepto de 'mundo' en Heidegger y Gadamer se refiere a...", opciones: ["el planeta Tierra.", "el conjunto de todos los objetos físicos.", "un horizonte de sentido lingüísticamente abierto.", "una creación de la mente individual."], correcta: 2, explicacion: "El 'mundo' no es la suma de las cosas, sino el horizonte de inteligibilidad, la red de significados en la que existimos y que hace que las cosas nos aparezcan como tales."},
+                {pregunta: "La hermenéutica post-gadameriana ha puesto un mayor énfasis en...", opciones: ["la intención del autor.", "la estructura objetiva del texto.", "la tradición oral.", "la inspiración divina."], correcta: 1, explicacion: "Autores como Ricoeur han reintroducido la necesidad de un análisis estructural y semiológico del texto como mediación necesaria para la comprensión."},
+                {pregunta: "El 'acontecer de la verdad' (Wahrheitsgeschehen) en Gadamer ocurre principalmente en:", opciones: ["la ciencia, la filosofía y el derecho.", "la experiencia del arte, la historia y el diálogo.", "la lógica, la matemática y la física.", "la política, la economía y la guerra."], correcta: 1, explicacion: "Gadamer analiza estas tres experiencias (arte, historia, diálogo) como lugares privilegiados donde la verdad 'acontece' más allá del control del método científico."},
+                {pregunta: "La hermenéutica filosófica considera que la interpretación es...", opciones: ["una actividad opcional.", "un signo de ignorancia.", "la condición fundamental de la experiencia humana.", "un método exclusivo de los críticos literarios."], correcta: 2, explicacion: "No hay una experiencia 'directa' del mundo; toda nuestra experiencia está siempre ya mediada por la interpretación."},
+                {pregunta: "La diferencia fundamental entre la hermenéutica y el positivismo es que la primera se centra en el 'sentido' y el segundo en...", opciones: ["los 'hechos'.", "las 'ideas'.", "los 'valores'.", "las 'formas'."], correcta: 0, explicacion: "El positivismo busca explicar los hechos observables a través de leyes causales, mientras que la hermenéutica busca comprender el sentido de las manifestaciones humanas."},
+                {pregunta: "¿Qué es lo que, según Gadamer, nos une a un texto del pasado a pesar de la distancia temporal?", opciones: ["Un método científico universal.", "La humanidad compartida.", "La pertenencia a una misma tradición continua.", "La estructura idéntica de la mente humana."], correcta: 2, explicacion: "La tradición no es una barrera, sino el puente que nos conecta con el pasado y hace posible el diálogo hermenéutico."}
+            ]
+        };
+
+        let quizQuestions = [];
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+        let currentCarouselIndex = 0;
+
+        function renderContent() {
+            renderFiguras();
+            renderResumen();
+            renderConceptos();
+            renderExamenes();
+            renderJuego();
+            renderBibliografia();
+            // Activar la primera pestaña por defecto
+            openTab({ currentTarget: document.querySelector('.tab-button') }, 'figuras');
+        }
+        
+        function renderFiguras() {
+            const container = document.getElementById('figuras');
+            const figura = themeData.figurasClave[0];
+
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <h3 class="text-2xl font-bold text-center mb-6">${figura.name}</h3>
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3 flex-shrink-0">
+                            <img src="${figura.image}" alt="${figura.alt}" class="rounded-lg shadow-md w-full">
+                        </div>
+                        <div class="md:w-2/3 flex items-center">
+                            <button onclick="changeSlide(-1)" id="prev-btn" class="carousel-button p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition disabled:opacity-50 mr-4">
+                                <i class="fas fa-arrow-left w-5 h-5" style="color: var(--color-siena);"></i>
+                            </button>
+                            <div id="carousel-content" class="relative flex-grow">
+                                ${figura.sections.map((section, index) => `
+                                    <div class="carousel-slide ${index === 0 ? 'active' : ''}">
+                                        <h4 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${section.title}</h4>
+                                        <div class="text-sm space-y-2">${section.content}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                             <button onclick="changeSlide(1)" id="next-btn" class="carousel-button p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition ml-4">
+                                <i class="fas fa-arrow-right w-5 h-5" style="color: var(--color-siena);"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            showSlide(0); // Initialize carousel
+        }
+
+        function renderResumen() {
+            const container = document.getElementById('resumen');
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${themeData.resumenTemario.map(item => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h4 class="text-xl font-bold mb-3">${item.epigrafe}</h4>
+                        <div class="text-base space-y-2">${item.resumen}</div>
+                        <div class="border-t my-4" style="border-color: var(--color-siena);"></div>
+                        <h5 class="font-semibold mb-2" style="color: var(--color-pumpkin);">Esquema Conceptual</h5>
+                        <div class="w-full overflow-x-auto">${item.esquema}</div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${themeData.conceptosClave.sort((a, b) => a.concepto.localeCompare(b.concepto)).map(item => `
+                    <div class="bg-white p-4 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${item.concepto}</h5>
+                        <p class="text-sm mt-1 text-justify">${item.definicion}</p>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            const sortedExams = themeData.historicoExamenes.sort((a, b) => b.fechas.length - a.fechas.length);
+            
+            const sortDates = (dates) => {
+                const monthOrder = { "Mayo": 5, "Junio": 6, "Septiembre": 9 };
+                
+                const parseDate = (dateString) => {
+                    const yearMatch = dateString.match(/\\d{4}/);
+                    const year = yearMatch ? parseInt(yearMatch[0], 10) : 0;
+                    
+                    let month = 0;
+                    for (const key in monthOrder) {
+                        if (dateString.includes(key)) {
+                            month = monthOrder[key];
+                            break;
+                        }
+                    }
+                    return { year, month, original: dateString };
+                };
+
+                return dates.map(parseDate).sort((a, b) => {
+                    if (a.year !== b.year) {
+                        return a.year - b.year;
+                    }
+                    return a.month - b.month;
+                }).map(d => d.original);
+            };
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                ${sortedExams.map(item => `
+                    <details class="bg-white p-4 rounded-lg shadow-inner group" style="background-color: #fcf8f0;">
+                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center" style="color: var(--color-pumpkin);">
+                            <span>${item.pregunta}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <details class="text-sm mb-2">
+                                <summary class="font-semibold cursor-pointer" style="color: var(--color-coffee);">Fechas de aparición</summary>
+                                <div class="pl-4 pt-2">
+                                    ${sortDates(item.fechas).map(date => `<p>${date}</p>`).join('')}
+                                </div>
+                            </details>
+                            <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                ${item.conceptosDesarrollo.map(cd => `
+                                    <div class="bg-gray-50 p-3 rounded-md shadow-sm tooltip-container">
+                                        <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                        <span class="tooltip-text">${cd.resumen}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </details>
+                `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderBibliografia() {
+            const container = document.getElementById('bibliografia');
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <h4 class="text-xl font-bold mb-4">Bibliografía</h4>
+                    <ul class="space-y-2 text-sm list-disc pl-5">
+                        ${themeData.bibliografia.map(item => `
+                            <li>${item}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function renderJuego() {
+            const container = document.getElementById('juego');
+            container.innerHTML = `
+                <div id="quiz-container" class="text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                     <h3 class="text-2xl font-bold mb-4">Juego de Preguntas</h3>
+                     <p class="mb-6">Pon a prueba tus conocimientos con 10 preguntas aleatorias sobre la hermenéutica filosófica.</p>
+                     <button onclick="startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Comenzar Juego</button>
+                </div>
+            `;
+        }
+
+        window.openTab = function(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            const currentTab = document.getElementById(tabName);
+            currentTab.style.display = "block";
+            setTimeout(() => currentTab.classList.add("active"), 10);
+            evt.currentTarget.classList.add("active");
+        }
+
+        window.showSlide = function(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            currentCarouselIndex = index;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentCarouselIndex].classList.add('active');
+
+            prevBtn.disabled = currentCarouselIndex === 0;
+            nextBtn.disabled = currentCarouselIndex === slides.length - 1;
+        }
+
+        window.changeSlide = function(n) {
+            let newIndex = currentCarouselIndex + n;
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (newIndex >= 0 && newIndex < slides.length) {
+                showSlide(newIndex);
+            }
+        }
+
+        window.startQuiz = function() {
+            const shuffled = [...themeData.juegoPreguntas].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 10);
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        window.displayQuestion = function() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:bg-orange-50" style="border-color: var(--color-siena);" onclick="checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(button => button.disabled = true);
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-100', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-100', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-100', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            const titles = [
+                "Intérprete Desconcertado", "Atrapado en el Círculo", "Con Prejuicios",
+                "Abriendo el Horizonte", "Dialogando con la Tradición", "Fusionando Horizontes",
+                "Hermenéuta Novel", "Maestro de la Comprensión", "Conciencia Histórica",
+                "Experimentando la Verdad", "Ha Acontecido la Verdad"
+            ];
+            const title = titles[quizScore] || "Estudiante Entusiasta";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(q => {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left">
+                        <h3 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h3>
+                        <h4 class="text-md font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h4>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.explicacion}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h2 class="text-2xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h2>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <button onclick="startQuiz()" class="mt-8 px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+            `;
+        }
+
+        renderContent();
+    });
+    </script>
+</body>
+</html>
