@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 7: Intereses del conocimiento y acción interpretativa - Teoría del Conocimiento II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías de la muestra */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        .content-carousel-item { display: none; }
+        .content-carousel-item.active { display: block; }
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .next-button { display: none; }
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 7: Intereses del conocimiento y acción interpretativa</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition active" style="border-color: transparent;" onclick="openTab(event, 'figuras')">Figura Clave</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'resumen')">Resumen</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'conceptos')">Conceptos</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'examenes')">Exámenes</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'juego')">Juego</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+            </div>
+
+            <!-- Pestañas de contenido (se llenarán con JS) -->
+            <div id="figuras" class="tab-content"></div>
+            <div id="resumen" class="tab-content" style="display:none;"></div>
+            <div id="conceptos" class="tab-content" style="display:none;"></div>
+            <div id="examenes" class="tab-content" style="display:none;"></div>
+            <div id="juego" class="tab-content" style="display:none;"></div>
+            <div id="bibliografia" class="tab-content" style="display:none;"></div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- BASE DE DATOS DE CONTENIDO PARA EL TEMA 7 ---
+        const themeData = {
+            title: "Intereses del conocimiento y acción interpretativa",
+            bibliografia: [
+                "Sánchez Meca, D. (2019). <em>Iniciación a la Teoría del Conocimiento</em>. Dykinson. (Capítulo 15: Intereses del conocimiento y acción comunicativa, pp. 549-586).",
+                "Escudero Pérez, A. (s.f.). <em>Apuntes de Teoría del Conocimiento II</em>. (Tema 5: La Escuela de Frankfurt).",
+                "Guerra Palmero, M. J. (2015). <em>Habermas: La apuesta por la democracia</em>. Batiscafo."
+            ],
+            figurasClave: [
+                {
+                    nombre: "Jürgen Habermas",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Habermas10_%2814298469242%29.jpg/800px-Habermas10_%2814298469242%29.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Habermas10_(14298469242).jpg",
+                    altText: "Jürgen Habermas en 2014, hablando durante una conferencia, con un fondo desenfocado.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve biografía",
+                            contenido: "Jürgen Habermas (Düsseldorf, 1929) es el filósofo y pensador interdisciplinar más destacado de la segunda generación de la Escuela de Frankfurt. Su vida y obra están marcadas por la historia alemana: la conmoción del nazismo, que vivió en su adolescencia, la reconstrucción de la República Federal Alemana, la caída del Muro de Berlín y los desafíos de la unificación. Fue asistente de Theodor Adorno y, a diferencia de sus maestros, su trayectoria se caracteriza por una defensa perseverante del 'proyecto inacabado' de la Ilustración y una apuesta decidida por la democracia."
+                        },
+                        {
+                            titulo: "Influencias y contexto",
+                            contenido: "Habermas entronca con la gran tradición filosófica alemana, manteniendo un diálogo crítico constante con Kant (inspiración fundamental) y Hegel. Su pensamiento se nutre de la sociología clásica (Marx, Weber, Durkheim) y realiza un 'giro lingüístico' al incorporar la filosofía analítica (Wittgenstein, Austin) y el pragmatismo norteamericano (Peirce, Mead). Su obra es una reacción al pesimismo de la primera Teoría Crítica y una confrontación con corrientes como la hermenéutica de Gadamer, el postestructuralismo de Foucault o el neoconservadurismo."
+                        },
+                        {
+                            titulo: "Relevancia filosófica",
+                            contenido: "Habermas propone un 'giro comunicativo' para la Teoría Crítica. Frente al pesimismo de Adorno y Horkheimer, que veían la razón autodestruirse en su forma instrumental, Habermas encuentra en las estructuras del lenguaje y la comunicación orientada al entendimiento un potencial de racionalidad y emancipación. Su proyecto busca fundamentar la ética, la política y el derecho en la deliberación y el uso público de la razón, ofreciendo una de las teorías más sistemáticas y ambiciosas de la filosofía contemporánea."
+                        },
+                        {
+                            titulo: "Obras clave",
+                            obras: [
+                                {
+                                    titulo: "Historia y crítica de la opinión pública (1962)",
+                                    contenido: "Analiza el origen, apogeo y declive de la esfera pública burguesa como espacio de debate racional, sentando las bases de su proyecto democrático."
+                                },
+                                {
+                                    titulo: "Conocimiento e interés (1968)",
+                                    contenido: "Establece su influyente teoría de los tres intereses rectores del conocimiento (técnico, práctico y emancipatorio), criticando la falsa neutralidad del positivismo."
+                                },
+                                {
+                                    titulo: "Teoría de la acción comunicativa (1981)",
+                                    contenido: "Su obra magna, donde fundamenta la racionalidad en el lenguaje y desarrolla los conceptos de acción comunicativa, mundo de la vida y sistema."
+                                },
+                                {
+                                    titulo: "Facticidad y validez (1992)",
+                                    contenido: "Aplica su teoría comunicativa al ámbito del derecho y la política, desarrollando su modelo de democracia deliberativa y el principio del discurso."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            resumenTemario: [
+                {
+                    epigrafe: "1. La denuncia del conservadurismo filosófico y científico",
+                    resumen: "<p class='text-justify'>Jürgen Habermas, como figura central de la segunda generación de la Escuela de Frankfurt, continúa la crítica a la <strong>teoría tradicional</strong>, pero con un nuevo enfoque. Denuncia que la filosofía y la ciencia modernas, al proclamarse neutrales, han separado la teoría de la praxis y han reducido la racionalidad práctica (orientada a valores y al bien común) a una mera racionalidad <strong>técnica</strong> (orientada a la eficiencia y el control).</p><p class='text-justify mt-2'>Este <strong>cientificismo</strong>, según Habermas, es conservador porque elimina las cuestiones sobre fines y valores del debate público, dejándolas en manos de expertos o de decisiones irracionales. De este modo, corrientes como el positivismo, la filosofía analítica del lenguaje ordinario o incluso la hermenéutica de Gadamer (a la que acusa de un excesivo respeto por la tradición), terminan por legitimar el orden social existente en lugar de ofrecer herramientas para su crítica y transformación.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="160" height="40" class="box"/><text x="90" y="80" class="text">Teoría Tradicional</text><rect x="230" y="55" width="160" height="40" class="box"/><text x="310" y="80" class="text">Reduce lo práctico a técnico</text><rect x="450" y="55" width="140" height="40" class="box"/><text x="520" y="80" class="text">Conserva el statu quo</text><line x1="170" y1="75" x2="230" y2="75" class="arrow"/><line x1="390" y1="75" x2="450" y2="75" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "2. Los intereses rectores del conocimiento",
+                    resumen: "<p class='text-justify'>Para superar este reduccionismo, Habermas propone en <em>Conocimiento e Interés</em> que el conocimiento humano no es puro ni neutral, sino que está constituido por <strong>intereses</strong> fundamentales anclados en las condiciones de la vida humana: el trabajo, el lenguaje y el poder.</p><ul><li class='ml-4 list-disc'><strong>Interés Técnico:</strong> Guía a las <strong>ciencias empírico-analíticas</strong> (física, biología). Su objetivo es la predicción y el <strong>control</strong> de la naturaleza. Está ligado a la dimensión del <strong>trabajo</strong>.</li><li class='ml-4 list-disc'><strong>Interés Práctico:</strong> Guía a las <strong>ciencias histórico-hermenéuticas</strong> (historia, filología). Su objetivo es el <strong>entendimiento</strong> mutuo a través de la interpretación de la tradición. Está ligado a la dimensión de la <strong>interacción</strong> mediada por el lenguaje.</li><li class='ml-4 list-disc'><strong>Interés Emancipatorio:</strong> Guía a las <strong>ciencias críticas</strong> (la propia Teoría Crítica, el psicoanálisis). Su objetivo es la <strong>liberación</strong> de la dominación y la coacción (ideologías, represiones) a través de la <strong>autorreflexión</strong>.</li></ul><p class='text-justify mt-2'>La crítica de las ideologías se hace posible gracias a este interés emancipatorio, que busca desenmascarar las 'comunicaciones sistemáticamente distorsionadas' por el poder.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="120" height="40" class="box"/><text x="70" y="80" class="text">Conocimiento</text><rect x="180" y="5" width="150" height="40" class="box"/><text x="255" y="30" class="text">Interés Técnico</text><rect x="180" y="55" width="150" height="40" class="box"/><text x="255" y="80" class="text">Interés Práctico</text><rect x="180" y="105" width="150" height="40" class="box"/><text x="255" y="130" class="text">Interés Emancipatorio</text><rect x="380" y="5" width="210" height="40" class="box"/><text x="485" y="30" class="text">Ciencias Empírico-Analíticas</text><rect x="380" y="55" width="210" height="40" class="box"/><text x="485" y="80" class="text">Ciencias Histórico-Hermenéuticas</text><rect x="380" y="105" width="210" height="40" class="box"/><text x="485" y="130" class="text">Ciencias Críticas</text><path d="M130,75 C145,45 160,25 180,25" class="arrow"/><line x1="130" y1="75" x2="180" y2="75" class="arrow"/><path d="M130,75 C145,105 160,125 180,125" class="arrow"/><line x1="330" y1="25" x2="380" y2="25" class="arrow"/><line x1="330" y1="75" x2="380" y2="75" class="arrow"/><line x1="330" y1="125" x2="380" y2="125" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "3. La sociedad ideal de la comunicación",
+                    resumen: "<p class='text-justify'>Habermas fundamenta su proyecto en la <strong>razón comunicativa</strong>. Sostiene que la racionalidad no es una propiedad de la conciencia de un sujeto, sino que está inscrita en la estructura del <strong>lenguaje orientado al entendimiento</strong>. Cuando hablamos con la intención de entendernos, inevitablemente elevamos <strong>pretensiones de validez</strong> (que lo que decimos es inteligible, verdadero, veraz y correcto). Si estas pretensiones son puestas en duda, podemos defenderlas con argumentos en un discurso racional.</p><p class='text-justify mt-2'>Este proceso argumentativo presupone una <strong>'situación ideal de habla'</strong>: una comunicación simétrica, libre de toda coacción, donde solo prevalece la fuerza del mejor argumento. Aunque esta situación es una utopía, funciona como un <strong>ideal regulativo</strong> y un estándar desde el cual criticar las comunicaciones reales, que siempre están distorsionadas por el poder y la desigualdad.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Acción Comunicativa</text><rect x="200" y="55" width="160" height="40" class="box"/><text x="280" y="80" class="text">Pretensiones de Validez</text><rect x="410" y="20" width="180" height="40" class="box"/><text x="500" y="45" class="text">Discurso Racional</text><rect x="410" y="90" width="180" height="40" class="box"/><text x="500" y="115" class="text">Situación Ideal de Habla</text><line x1="150" y1="75" x2="200" y2="75" class="arrow"/><path d="M360,75 C375,60 390,45 410,40" class="arrow"/><path d="M360,75 C375,90 390,105 410,110" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "4. Completar el proyecto de la Ilustración",
+                    resumen: "<p class='text-justify'>Frente a los pensadores postmodernos (como Lyotard) que declaran el fin de los 'grandes relatos' de la modernidad (progreso, emancipación), Habermas defiende que el <strong>proyecto de la Ilustración</strong> no ha fracasado, sino que está <strong>inacabado</strong>. La modernidad ha desarrollado de forma unilateral la racionalidad instrumental (la ciencia, la técnica, el mercado, la burocracia), dejando atrofiada la racionalidad comunicativa (la moral, la política, la esfera pública).</p><p class='text-justify mt-2'>La tarea crítica no es abandonar la razón, sino completarla: se trata de defender el 'mundo de la vida' (la esfera de la comunicación y el consenso) de la <strong>'colonización'</strong> por parte de los 'sistemas' de acción instrumental (el poder y el dinero). Esto implica fortalecer la esfera pública y promover una democracia deliberativa donde las decisiones sobre el destino común se tomen a través de un debate público y racional, y no por imperativos técnicos o económicos.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Modernidad</text><rect x="200" y="20" width="180" height="40" class="box"/><text x="290" y="45" class="text">Razón Instrumental</text><rect x="200" y="90" width="180" height="40" class="box"/><text x="290" y="115" class="text">Razón Comunicativa</text><rect x="430" y="20" width="160" height="40" class="box"/><text x="510" y="45" class="text">Hiperdesarrollada</text><rect x="430" y="90" width="160" height="40" class="box"/><text x="510" y="115" class="text">Atrofiada</text><path d="M150,75 C165,60 180,45 200,40" class="arrow"/><path d="M150,75 C165,90 180,105 200,110" class="arrow"/><line x1="380" y1="40" x2="430" y2="40" class="arrow"/><line x1="380" y1="110" x2="430" y2="110" class="arrow"/></svg>`
+                }
+            ],
+            conceptosClave: [
+                { concepto: "Acción Comunicativa", definicion: "En Habermas, la interacción social orientada al entendimiento mutuo a través del lenguaje, en contraposición a la acción instrumental." },
+                { concepto: "Acción Instrumental", definicion: "En Habermas, la acción orientada al éxito y al control técnico sobre la naturaleza o la sociedad, regida por una lógica de medios y fines." },
+                { concepto: "Autorreflexión", definicion: "Para Habermas, es el proceso por el cual un sujeto o grupo se libera de dependencias dogmáticas (ideologías) al tomar conciencia de las condiciones que las generaron." },
+                { concepto: "Colonización del Mundo de la Vida", definicion: "Tesis de Habermas según la cual los 'sistemas' regidos por la lógica instrumental (mercado, burocracia) invaden y distorsionan la esfera de la comunicación y el consenso." },
+                { concepto: "Ética del Discurso", definicion: "Teoría ética de Habermas según la cual una norma moral solo es válida si todos los afectados por ella pueden aceptarla libremente en un discurso racional." },
+                { concepto: "Interés Emancipatorio", definicion: "En Habermas, el interés fundamental en la liberación de la dominación y la coacción a través de la autorreflexión. Fundamenta las ciencias críticas." },
+                { concepto: "Interés Práctico", definicion: "En Habermas, el interés en asegurar y ampliar el entendimiento mutuo en la acción. Fundamenta las ciencias histórico-hermenéuticas." },
+                { concepto: "Interés Técnico", definicion: "En Habermas, el interés en la predicción y el control técnico sobre procesos objetivados. Fundamenta las ciencias empírico-analíticas." },
+                { concepto: "Mundo de la Vida (Lebenswelt)", definicion: "En Habermas, el horizonte de significados, normas y certezas compartidas intersubjetivamente que los participantes en la comunicación dan por supuesto." },
+                { concepto: "Pragmática Universal", definicion: "Proyecto de Habermas de reconstruir las condiciones universales e ineludibles que debe satisfacer cualquier comunicación posible orientada al entendimiento." },
+                { concepto: "Pretensiones de Validez", definicion: "En Habermas, las cuatro afirmaciones implícitas en todo acto de habla orientado al entendimiento: inteligibilidad, verdad, veracidad y corrección normativa." },
+                { concepto: "Razón Comunicativa", definicion: "Concepto central de Habermas para una racionalidad inherente a la comunicación lingüística orientada al entendimiento, que sirve de base para la crítica social." },
+                { concepto: "Razón Instrumental", definicion: "Concepto de Horkheimer para una razón que ha sido reducida a un mero instrumento para calcular los medios más eficientes para fines dados, sin poder juzgar la racionalidad de los fines mismos." },
+                { concepto: "Situación Ideal de Habla", definicion: "Ideal contrafáctico que, según Habermas, presuponemos en toda comunicación, donde el consenso se logra únicamente por la fuerza del mejor argumento, sin coacción alguna." },
+                { concepto: "Teoría Crítica", definicion: "Tipo de teoría social, desarrollada por la Escuela de Frankfurt, que no se limita a describir la sociedad, sino que busca criticarla para promover la emancipación humana." }
+            ],
+            historicoExamenes: [
+                 {
+                    pregunta: "Los intereses del conocimiento en Habermas (5 apariciones)",
+                    fechas: ["Mayo/Junio 2015 (2ª)", "Septiembre 2016", "Mayo/Junio 2024 (2ª)", "Septiembre 2024", "Mayo/Junio 2025 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Interés Técnico", resumen: "Ligado al trabajo y al control de la naturaleza. Fundamenta las ciencias empírico-analíticas." },
+                        { concepto: "Interés Práctico", resumen: "Ligado a la interacción y el entendimiento mutuo. Fundamenta las ciencias histórico-hermenéuticas." },
+                        { concepto: "Interés Emancipatorio", resumen: "Ligado al poder y la liberación de la dominación. Fundamenta las ciencias críticas (psicoanálisis, Teoría Crítica)." },
+                        { concepto: "Autorreflexión", resumen: "Es el medio por el cual el interés emancipatorio se realiza, liberando al sujeto de dependencias que no son conscientes." }
+                    ]
+                },
+                {
+                    pregunta: "La sociedad ideal de la comunicación en Habermas (3 apariciones)",
+                    fechas: ["Septiembre 2011", "Mayo/Junio 2015 (1ª)", "Mayo/Junio 2023 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Razón Comunicativa", resumen: "Racionalidad inherente al lenguaje orientado al entendimiento, no a la conciencia del sujeto." },
+                        { concepto: "Pretensiones de Validez", resumen: "Afirmaciones implícitas (inteligibilidad, verdad, veracidad, corrección) en todo acto de habla." },
+                        { concepto: "Situación Ideal de Habla", resumen: "Condición utópica de comunicación sin coacción, donde solo vale el mejor argumento. Funciona como ideal regulativo." },
+                        { concepto: "Ética del Discurso", resumen: "Una norma es válida si todos los afectados por ella pueden aceptarla en un discurso racional." }
+                    ]
+                },
+                {
+                    pregunta: "La crítica de la razón instrumental en Horkheimer (2 apariciones)",
+                    fechas: ["Septiembre 2011", "Mayo/Junio 2015 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Razón Subjetiva vs. Objetiva", resumen: "La razón objetiva (tradicional) contenía fines en sí misma. La razón subjetiva (instrumental, moderna) es solo un cálculo formal de medios." },
+                        { concepto: "Dialéctica de la Ilustración", resumen: "El afán de dominio de la razón ilustrada la convierte en su contrario: una nueva forma de mito y dominación." },
+                        { concepto: "Dominio de la Naturaleza", resumen: "La razón instrumental trata tanto a la naturaleza externa como a la naturaleza interna del hombre como objetos a controlar y explotar." },
+                        { concepto: "Pérdida de Sentido", resumen: "Al no poder establecer fines racionales, la razón instrumental conduce a una vida social y personal vacía de sentido y orientada por intereses ciegos." }
+                    ]
+                },
+                {
+                    pregunta: "La Teoría Crítica como utopía negativa (1 aparición)",
+                    fechas: ["Septiembre 2014"],
+                    conceptosDesarrollo: [
+                        { concepto: "Pesimismo de la primera generación", resumen: "Tras el fascismo y el estalinismo, Horkheimer y Adorno pierden la fe en el progreso y la revolución." },
+                        { concepto: "Crítica a las utopías positivas", resumen: "Los diseños detallados de una sociedad perfecta (Platón, Marx) tienden a volverse totalitarios al imponer una única forma de vida." },
+                        { concepto: "Dialéctica Negativa", resumen: "El pensamiento debe resistir la reconciliación y la síntesis, manteniendo la contradicción para no legitimar lo existente." },
+                        { concepto: "Nostalgia de lo 'Completamente Otro'", resumen: "La utopía ya no es un plan a realizar, sino un anhelo de algo radicalmente diferente al mundo administrado, una esperanza que solo puede formularse negativamente." }
+                    ]
+                }
+            ],
+            juegoPreguntas: [
+                {pregunta:"¿Qué distingue a la 'Teoría Crítica' de la 'Teoría Tradicional' según Horkheimer?",opciones:["Su interés explícito en la emancipación humana.","Su mayor grado de rigor lógico y matemático.","Su completa neutralidad ante los valores.","El uso de un lenguaje mucho más complejo."],correcta:0,explicacion:"La Teoría Crítica es consciente de su interés práctico en la liberación humana, mientras que la Teoría Tradicional se presenta falsamente como desinteresada.", dummyExplanation: "La Teoría Tradicional es como un científico que dice 'yo solo describo', pero sus descubrimientos los usan para hacer bombas. La Teoría Crítica pregunta: '¿para quién trabajas?'."},
+                {pregunta:"Para Horkheimer, la 'razón instrumental' se ocupa principalmente de...",opciones:["determinar los fines últimos de la vida.","calcular la eficiencia de los medios.","interpretar textos de la antigüedad.","la creación de grandes obras de arte."],correcta:1,explicacion:"Es una razón formalizada que se limita a encontrar los medios más adecuados para alcanzar fines que ella misma no cuestiona.", dummyExplanation: "Es como un GPS superinteligente: te dice la ruta más rápida para llegar a cualquier sitio, pero es incapaz de decirte si el sitio al que vas merece la pena."},
+                {pregunta:"En 'Dialéctica de la Ilustración', ¿en qué se convierte la razón en su afán de dominio?",opciones:["En una nueva forma de mito y control.","En una fuerza de liberación universal.","En un sentimiento de carácter religioso.","En una nueva expresión artística."],correcta:0,explicacion:"La razón ilustrada, al querer explicarlo y controlarlo todo, recae en una nueva mitología, la del cálculo y la eficiencia, que genera nuevas formas de barbarie.", dummyExplanation: "La Ilustración quiso matar al monstruo del mito, pero en la lucha, se convirtió ella misma en un monstruo con corbata."},
+                {pregunta:"¿Qué es la 'industria cultural' para Adorno y Horkheimer?",opciones:["El patrocinio estatal de las bellas artes.","La producción masiva de bienes culturales.","El conjunto de museos y teatros de un país.","La educación artística en las escuelas."],correcta:1,explicacion:"Es el sistema de producción estandarizada de cultura (cine, música...) como mercancía para generar conformidad en las masas.", dummyExplanation: "Es como una fábrica de hamburguesas culturales: todas saben igual, te llenan rápido y te quitan las ganas de probar algo nuevo y nutritivo."},
+                {pregunta:"La 'Dialéctica Negativa' de Adorno se opone a la dialéctica de Hegel en que...",opciones:["es mucho más optimista sobre el futuro.","busca una síntesis final reconciliadora.","insiste en la no-identidad y la contradicción.","se basa estrictamente en la lógica formal."],correcta:2,explicacion:"Adorno rechaza la síntesis hegeliana que subsume lo particular en lo universal. Su dialéctica mantiene la tensión para no traicionar el sufrimiento de lo no-idéntico.", dummyExplanation: "La dialéctica de Hegel es como una discusión que acaba con un abrazo. La de Adorno es una discusión que se niega a terminar porque sabe que un abrazo sería falso."},
+                {pregunta:"Según Habermas, ¿cuál es el 'interés' que guía a las ciencias empírico-analíticas?",opciones:["El interés práctico en la comunicación.","El interés emancipatorio en la libertad.","El interés estético en la belleza.","El interés técnico en el control."],correcta:3,explicacion:"El conocimiento en estas ciencias está constituido por un interés en la predicción y el control técnico sobre la naturaleza.", dummyExplanation: "La física no pregunta '¿por qué cae la manzana?', sino '¿cómo puedo calcular y controlar la caída de la manzana (y de los cohetes)?'."},
+                {pregunta:"¿Qué tipo de ciencias están guiadas por el 'interés práctico' en Habermas?",opciones:["Las ciencias formales como las matemáticas.","Las ciencias histórico-hermenéuticas.","Las ciencias naturales como la biología.","Las ciencias puramente críticas."],correcta:1,explicacion:"El interés práctico en el entendimiento mutuo fundamenta a las ciencias que interpretan la tradición, como la historia o la filología.", dummyExplanation: "Son las ciencias que, en lugar de controlar, buscan entender: '¿Qué quería decir Cervantes aquí?'."},
+                {pregunta:"La 'autorreflexión' es el medio por el cual se realiza el interés...",opciones:["técnico.","práctico.","emancipatorio.","económico."],correcta:2,explicacion:"El interés en liberarse de la dominación (ideologías, represiones) se logra a través de la autorreflexión, como en el psicoanálisis.", dummyExplanation: "Es el interés que te lleva a preguntarte: 'Un momento, ¿por qué pienso esto? ¿Es idea mía o me la han metido en la cabeza?'."},
+                {pregunta:"¿Qué distingue la 'acción comunicativa' de la 'acción instrumental' en Habermas?",opciones:["La primera busca el éxito, la segunda el entendimiento.","La primera es individual, la segunda siempre es social.","La primera busca el entendimiento, la segunda el éxito.","La primera es irracional, la segunda es racional."],correcta:2,explicacion:"La acción instrumental está orientada al éxito (lograr un fin), mientras que la comunicativa está orientada al entendimiento mutuo.", dummyExplanation: "Acción instrumental es usar un martillo para clavar un clavo. Acción comunicativa es convencer a tu amigo para que te ayude a clavarlo."},
+                {pregunta:"La 'situación ideal de habla' de Habermas es...",opciones:["una descripción de los debates parlamentarios.","un ideal regulativo de comunicación sin coacción.","una técnica retórica para ganar discusiones.","un estado mental de perfecta claridad."],correcta:1,explicacion:"Es una condición utópica que presuponemos al argumentar, donde solo la fuerza del mejor argumento determina el consenso.", dummyExplanation: "Es como una discusión de bar ideal: nadie grita, todos escuchan y al final gana el que tiene razón, no el que tiene más amigos."},
+                {pregunta:"¿Qué concepto de Adorno describe la tendencia del pensamiento a igualar lo diferente?",opciones:["La razón instrumental.","El pensamiento identificante.","La industria cultural.","La dialéctica negativa."],correcta:1,explicacion:"El 'pensamiento identificante' es la violencia que ejerce el concepto al subsumir la riqueza de lo particular bajo una etiqueta universal.", dummyExplanation: "Es cuando dices 'todos los políticos son iguales', borrando las diferencias (aunque sean pocas)."},
+                {pregunta:"¿Cuál es la principal crítica de Habermas a la hermenéutica de Gadamer?",opciones:["Es demasiado optimista sobre la historia.","Ignora por completo el lenguaje.","Subordina la crítica a la tradición.","Es excesivamente científica y formal."],correcta:2,explicacion:"Habermas critica que Gadamer, al enfatizar nuestra pertenencia a la tradición, debilita la capacidad de la reflexión para criticar esa misma tradición.", dummyExplanation: "Para Habermas, Gadamer es como alguien que dice 'hay que respetar las tradiciones', incluso si la tradición es la tauromaquia."},
+                {pregunta:"En la 'Dialéctica de la Ilustración', el dominio sobre la naturaleza externa conduce a...",opciones:["la economía globalizada.","el dominio sobre la naturaleza interna del hombre.","el descubrimiento de las leyes de la física.","la superación definitiva del lenguaje."],correcta:1,explicacion:"La misma lógica de control que se aplica a la naturaleza se vuelve hacia el interior, reprimiendo los instintos y emociones humanas.", dummyExplanation: "Si aprendes a controlar un río con una presa, pronto querrás controlar tus propias 'inundaciones' emocionales de la misma manera."},
+                {pregunta:"¿Qué es una 'pretensión de validez' en la teoría de Habermas?",opciones:["Una opinión meramente subjetiva.","Una afirmación implícita de verdad o corrección.","Una orden de carácter autoritario.","Una pregunta de tipo retórico."],correcta:1,explicacion:"Todo acto de habla orientado al entendimiento conlleva pretensiones implícitas de ser inteligible, verdadero, veraz y correcto.", dummyExplanation: "Cuando hablas, es como si pusieras unas 'condiciones de uso': 'doy por hecho que me entiendes, que digo la verdad y que tengo derecho a decírtelo'."},
+                {pregunta:"La 'Dialéctica Negativa' de Adorno puede ser descrita como una filosofía de la...",opciones:["reconciliación final.","no-identidad.","certeza absoluta.","utilidad práctica."],correcta:1,explicacion:"Su objetivo es pensar la contradicción sin resolverla en una síntesis superior, respetando la primacía del objeto no-idéntico.", dummyExplanation: "Es una filosofía que prefiere un puzle con piezas que no encajan a un puzle perfecto pero falso."},
+                {pregunta:"¿Qué significa la 'colonización del mundo de la vida' para Habermas?",opciones:["La expansión de la cultura occidental.","La invasión de la vida privada por los medios.","La subordinación de la comunicación al dinero y poder.","El estudio científico de la vida cotidiana."],correcta:2,explicacion:"Los 'sistemas' (mercado, burocracia) invaden y distorsionan el 'mundo de la vida' (la esfera de la comunicación y el entendimiento).", dummyExplanation: "Es cuando una conversación sobre qué es lo justo se interrumpe porque alguien pregunta '¿y cuánto nos va a costar?'."},
+                {pregunta:"¿Cuál es el papel del arte auténtico (de vanguardia) para Adorno?",opciones:["Entretener a las masas.","Decorar los espacios públicos.","Resistir a la industria cultural.","Generar beneficios económicos."],correcta:2,explicacion:"El arte vanguardista, a través de su dificultad y disonancia, se resiste a ser consumido como una mercancía y mantiene viva la utopía.", dummyExplanation: "El arte de vanguardia es como una comida rara y difícil: no es para todos, pero te hace pensar y te saca de la rutina de la 'comida rápida' cultural."},
+                {pregunta:"La 'Ética del Discurso' de Habermas es una reformulación dialógica del...",opciones:["utilitarismo de Bentham.","imperativo categórico de Kant.","hedonismo de Epicuro.","voluntarismo de Nietzsche."],correcta:1,explicacion:"Transforma el monólogo de la conciencia moral kantiana en un diálogo público donde las normas se validan por consenso racional.", dummyExplanation: "Kant te decía: 'piensa si tu norma podría ser ley para todos'. Habermas te dice: 'pregúntaselo a todos y a ver qué te dicen'."},
+                {pregunta:"¿Por qué Horkheimer y Adorno critican el positivismo?",opciones:["Porque es demasiado idealista.","Porque separa la ciencia de la sociedad.","Porque es demasiado pesimista.","Porque rechaza la lógica formal."],correcta:1,explicacion:"Critican su falsa neutralidad, que oculta cómo el conocimiento científico está implicado en las relaciones de poder social.", dummyExplanation: "El positivismo es como un árbitro que dice ser neutral pero que siempre pita a favor del equipo de casa."},
+                {pregunta:"¿Qué dos dimensiones de la praxis humana distingue Habermas?",opciones:["Trabajo e Interacción.","Teoría y Práctica.","Cuerpo y Mente.","Individuo y Sociedad."],correcta:0,explicacion:"Critica que Marx reduce toda la praxis al 'trabajo' (acción instrumental), olvidando la 'interacción' (acción comunicativa).", dummyExplanation: "Para Habermas, la vida no es solo 'trabajar' (relación con las cosas), sino también 'hablar' (relación con las personas)."},
+                {pregunta:"¿Qué es lo que, según Adorno, la filosofía de la identidad reprime?",opciones:["La lógica formal.","La tradición filosófica.","Lo particular y diferente.","El concepto de verdad."],correcta:2,explicacion:"El pensamiento conceptual, en su afán de universalidad, ejerce una violencia sobre lo concreto, lo no-idéntico, lo que no encaja.", dummyExplanation: "Es como intentar meter todos los objetos, sean redondos o cuadrados, en una caja con agujeros redondos."},
+                {pregunta:"El proyecto de Habermas de una 'pragmática universal' busca...",opciones:["crear un nuevo idioma universal.","reconstruir las condiciones de la comunicación.","analizar el lenguaje corporal.","estudiar la historia de los idiomas."],correcta:1,explicacion:"Busca identificar las estructuras universales e ineludibles que subyacen a cualquier acto de habla orientado al entendimiento.", dummyExplanation: "Es como buscar el 'sistema operativo' universal que está detrás de todos los 'programas' (idiomas) que usamos para comunicarnos."},
+                {pregunta:"¿Cuál es la actitud de la primera Teoría Crítica hacia la Ilustración?",opciones:["La rechaza por completo.","La acepta sin ninguna crítica.","Muestra su dialéctica autodestructiva.","La considera un proyecto finalizado."],correcta:2,explicacion:"'Dialéctica de la Ilustración' muestra cómo la propia lógica de la razón ilustrada la lleva a convertirse en su opuesto, en dominio y mito.", dummyExplanation: "La Ilustración es como Ícaro: en su afán por volar alto con las alas de la razón, se acercó demasiado al sol del dominio y se estrelló."},
+                {pregunta:"¿Qué es lo que, según Adorno, caracteriza al 'sujeto' en la sociedad administrada?",opciones:["Su autonomía radical.","Su capacidad crítica.","Su intercambiabilidad.","Su creatividad artística."],correcta:2,explicacion:"En la sociedad totalmente organizada, el individuo pierde su particularidad y se convierte en un mero ejemplar anónimo del sistema.", dummyExplanation: "El individuo moderno es como una pieza de recambio: si se estropea, se cambia por otra igual sin que la máquina social se entere."},
+                {pregunta:"¿Cuál es el objetivo final de la 'terapia' psicoanalítica, vista como modelo por Habermas?",opciones:["Adaptar al paciente a la sociedad.","Hacer consciente lo reprimido para la emancipación.","Descubrir traumas por curiosidad.","Recetar medicamentos eficaces."],correcta:1,explicacion:"El psicoanálisis es un modelo de ciencia crítica porque, a través de la autorreflexión, libera al sujeto de coacciones internas que no controla.", dummyExplanation: "El psicoanálisis es como una conversación que te ayuda a descubrir al 'okupa' que vive en tu cabeza sin pagar alquiler y a echarlo."},
+                {pregunta:"¿Qué autor influyó en la 'dialéctica negativa' de Adorno con su crítica a la identidad?",opciones:["Kant.","Hegel.","Marx.","Nietzsche."],correcta:1,explicacion:"La dialéctica de Adorno es una confrontación constante con Hegel, intentando liberar el pensamiento dialéctico de su final reconciliador.", dummyExplanation: "Adorno leyó a Hegel y pensó: 'me gusta la idea de la contradicción, pero no el final feliz'. Así que escribió una versión sin 'y comieron perdices'."},
+                {pregunta:"¿Qué es lo que, para Horkheimer, ha sustituido a la 'razón objetiva' en la modernidad?",opciones:["La fe religiosa.","La razón subjetiva o instrumental.","La intuición artística.","El consenso democrático."],correcta:1,explicacion:"La razón ha perdido su contenido sustantivo (la capacidad de conocer un orden objetivo del mundo) y se ha formalizado.", dummyExplanation: "Antes la razón era un mapa que te decía cuál era el destino correcto. Ahora es solo un motor que te lleva a donde tú le digas, sea un hospital o un precipicio."},
+                {pregunta:"¿Qué es lo que, según Habermas, se presupone en cualquier argumento serio?",opciones:["La existencia de Dios.","La superioridad del hablante.","La posibilidad de un consenso racional.","La relatividad de toda verdad."],correcta:2,explicacion:"Argumentar solo tiene sentido si presuponemos que es posible llegar a un acuerdo basado en razones, no en la fuerza.", dummyExplanation: "Discutir es como jugar un partido: presupones que hay unas reglas y que al final ganará el mejor, no el que dé la patada más fuerte."},
+                {pregunta:"La crítica de Adorno a la 'autenticidad' en el jazz se debe a que la considera...",opciones:["demasiado compleja para el público.","una forma de individualismo radical.","una falsa espontaneidad estandarizada.","una expresión de la lucha de clases."],correcta:2,explicacion:"Para Adorno, la improvisación en el jazz comercial era una pseudo-individualidad, un efecto calculado por la industria cultural.", dummyExplanation: "Para Adorno, el solo de un músico de jazz comercial era como la opción 'personaliza tu hamburguesa': parece que eliges, pero las opciones ya están dadas."},
+                {pregunta:"¿Cuál es el peligro de reducir las cuestiones 'prácticas' a 'técnicas' según Habermas?",opciones:["Que se vuelven más difíciles de resolver.","Que se eliminan de la discusión pública.","Que requieren más inversión económica.","Que pierden interés para los científicos."],correcta:1,explicacion:"Cuando un problema moral o político se trata como un mero problema técnico, se deja en manos de expertos y se sustrae al debate democrático.", dummyExplanation: "Es como si en una familia, en lugar de discutir a dónde ir de vacaciones, se contratara a un 'experto en optimización del ocio' para que decidiera por todos."},
+                {pregunta:"¿Qué es lo que, según Horkheimer y Adorno, el mito y la Ilustración tienen en común?",opciones:["Su creencia en múltiples dioses.","Su rechazo de la ciencia.","Su intento de dominar una naturaleza amenazante.","Su defensa de la democracia."],correcta:2,explicacion:"Ambos son intentos de explicar y controlar un mundo temido; la Ilustración simplemente sustituye los espíritus por fórmulas matemáticas.", dummyExplanation: "El hombre mítico intentaba controlar la lluvia con una danza; el hombre ilustrado, con una estación meteorológica. El objetivo es el mismo: que no se te moje la ropa."},
+                {pregunta:"¿Qué es lo que, según Adorno, queda reprimido en la música tonal clásica?",opciones:["La melodía.","La armonía.","La disonancia.","El ritmo."],correcta:2,explicacion:"La música tonal tradicional resuelve las tensiones en consonancias, reprimiendo el poder expresivo de la disonancia, que para Adorno representa el sufrimiento no reconciliado.", dummyExplanation: "La música de Mozart es como una conversación educada donde nadie dice lo que realmente piensa. La de Schönberg es la cena de Navidad donde todos se gritan las verdades a la cara."},
+                {pregunta:"¿Qué es lo que, para Habermas, garantiza la validez de una norma en la ética del discurso?",opciones:["Su utilidad para la mayoría.","Su origen en la tradición.","El acuerdo racional de todos los afectados.","Su correspondencia con una ley divina."],correcta:2,explicacion:"Una norma es justa si puede ser aceptada por todos los posibles afectados en un diálogo libre de coacción.", dummyExplanation: "La regla de oro de Habermas es: 'No impongas una norma a los demás que no estarían dispuestos a aceptar si lo discutierais tranquilamente con un café'."},
+                {pregunta:"¿Cuál es la principal diferencia entre la 'crítica' de Kant y la 'crítica' de la Escuela de Frankfurt?",opciones:["La de Kant es teórica, la de Frankfurt es práctica.","La de Kant es social, la de Frankfurt es epistemológica.","La de Kant busca fundamentos, la de Frankfurt los disuelve.","La de Kant es inmanente, la de Frankfurt es trascendente."],correcta:0,explicacion:"La crítica kantiana busca las condiciones de posibilidad del conocimiento, mientras que la Teoría Crítica busca las condiciones sociales de la dominación y la emancipación.", dummyExplanation: "Kant se preguntaba '¿cómo funciona mi cerebro?'. La Escuela de Frankfurt se preguntaba '¿cómo funciona esta sociedad tan injusta?'."},
+                {pregunta:"¿Qué es lo que, según Adorno, caracteriza la experiencia del tiempo en la modernidad tardía?",opciones:["Una sensación de progreso continuo.","La vivencia del 'eterno retorno'.","La intercambiabilidad de los momentos.","Una profunda conexión con el pasado."],correcta:2,explicacion:"Bajo el dominio de la producción y el consumo, el tiempo pierde su cualidad y se convierte en una sucesión de instantes homogéneos e intercambiables.", dummyExplanation: "El tiempo moderno es como una cinta transportadora: da igual en qué punto estés, todo es igual y te lleva al mismo sitio (el centro comercial)."},
+                {pregunta:"¿Cuál es el objetivo del 'proyecto inacabado de la modernidad' según Habermas?",opciones:["Abandonar la razón por completo.","Volver a una sociedad pre-moderna.","Completar el potencial emancipador de la Ilustración.","Establecer un gobierno mundial tecnocrático."],correcta:2,explicacion:"Habermas sostiene que el potencial racional y emancipador de la Ilustración no se ha agotado, sino que debe ser completado a través de la razón comunicativa.", dummyExplanation: "Para Habermas, la modernidad es como una casa a medio construir: en lugar de demolerla, hay que terminarla bien."},
+                {pregunta:"La 'utopía negativa' de Horkheimer y Adorno se basa en...",opciones:["un plan detallado para una sociedad perfecta.","la esperanza en una intervención divina.","la denuncia del mal sin describir positivamente el bien.","la creencia en el progreso tecnológico ilimitado."],correcta:2,explicacion:"Ante el fracaso de las utopías positivas, proponen una crítica que se centra en la negación de la injusticia presente, sin prescribir dogmáticamente el futuro.", dummyExplanation: "Es como un médico que te dice todo lo que está mal en tu salud, pero admite que no tiene la receta mágica para la vida eterna."},
+                {pregunta:"¿Qué significa que la comunicación está 'sistemáticamente distorsionada'?",opciones:["Que hay errores gramaticales.","Que los hablantes no se entienden.","Que el poder y la ideología impiden un diálogo abierto.","Que se usan demasiadas metáforas."],correcta:2,explicacion:"Es un concepto clave de la crítica de las ideologías: las relaciones de poder impiden una comunicación transparente y racional.", dummyExplanation: "Es una conversación en la que uno de los interlocutores tiene el altavoz y el otro un trozo de esparadrapo en la boca."},
+                {pregunta:"¿Cuál de estas pretensiones de validez se refiere a la corrección de una norma social?",opciones:["Verdad.","Veracidad.","Inteligibilidad.","Rectitud."],correcta:3,explicacion:"La pretensión de rectitud (Richtigkeit) se refiere a la validez de la norma que subyace a un acto de habla, y se resuelve en el discurso práctico.", dummyExplanation: "Es la pretensión que pones en juego cuando dices 'no deberías hacer eso', y esperas que el otro reconozca que tienes razón según las normas que compartís."},
+                {pregunta:"¿Qué es lo que, según Adorno, caracteriza a la música de Schönberg y la Segunda Escuela de Viena?",opciones:["Su carácter comercial y popular.","Su simplicidad y claridad.","Su resistencia a la industria cultural a través de la disonancia.","Su nostalgia por la tonalidad clásica."],correcta:2,explicacion:"Adorno veía en la música atonal y dodecafónica la única forma de arte musical auténtica, al expresar la contradicción social sin falsas reconciliaciones.", dummyExplanation: "La música de Schönberg, para Adorno, es la que se atreve a sonar 'mal' para decir la verdad sobre un mundo que está 'mal'."},
+                {pregunta:"¿Qué dos 'sistemas' colonizan el 'mundo de la vida' en la teoría de Habermas?",opciones:["La ciencia y la religión.","El arte y la filosofía.","El mercado y el estado burocrático.","La familia y la escuela."],correcta:2,explicacion:"Los subsistemas del dinero (mercado) y el poder administrativo (Estado) imponen su lógica instrumental sobre la esfera de la comunicación y el consenso.", dummyExplanation: "Son los dos 'grandes hermanos' que intentan convertir todas tus conversaciones y decisiones en una cuestión de dinero o de papeleo."},
+                {pregunta:"¿Cuál es la principal diferencia entre el 'trabajo' y la 'interacción' para Habermas?",opciones:["El trabajo es físico, la interacción es mental.","El trabajo es individual, la interacción es colectiva.","El trabajo es acción instrumental, la interacción es acción comunicativa.","El trabajo es productivo, la interacción es improductiva."],correcta:2,explicacion:"El trabajo se rige por la lógica instrumental (control sobre la naturaleza), mientras que la interacción se rige por la lógica comunicativa (entendimiento mutuo).", dummyExplanation: "Trabajo es construir una pared. Interacción es ponerse de acuerdo con los vecinos sobre dónde ponerla."},
+                {pregunta:"¿Qué es lo que, según Adorno, se pierde en la traducción de una obra de arte a un concepto?",opciones:["Su significado lógico.","Su valor de mercado.","Su contenido de verdad no-conceptual.","Su estructura formal."],correcta:2,explicacion:"El arte contiene una verdad que no puede ser totalmente capturada por el pensamiento discursivo; el concepto siempre traiciona la particularidad de la obra.", dummyExplanation: "Explicar un chiste es como disecar una rana: aprendes cómo funciona, pero en el proceso, la matas."},
+                {pregunta:"¿Por qué la 'ética del discurso' de Habermas es 'procedimental'?",opciones:["Porque ofrece una lista de deberes concretos.","Porque se basa en un procedimiento de argumentación.","Porque depende de los sentimientos de cada uno.","Porque se deriva de la tradición religiosa."],correcta:1,explicacion:"No dice qué normas son correctas, sino que establece el procedimiento formal (el discurso ideal) a través del cual una comunidad puede determinar sus propias normas válidas.", dummyExplanation: "No te da el pescado, te enseña a pescar. No te dice qué es lo justo, te da el método para que lo descubras con los demás."},
+                {pregunta:"¿Qué es la 'falsa conciencia' en la tradición de la Teoría Crítica?",opciones:["Un error de cálculo.","Una mentira deliberada.","Una comprensión ideológicamente distorsionada de la realidad.","Una falta de memoria."],correcta:2,explicacion:"Es la interiorización de la ideología dominante, que lleva a los individuos a no percibir su propia situación de opresión.", dummyExplanation: "Es como el pavo que espera con ilusión el Día de Acción de Gracias, sin saber lo que le espera."},
+                {pregunta:"¿Qué es lo que, según Adorno, caracteriza la 'personalidad autoritaria'?",opciones:["La creatividad y la independencia.","La sumisión a la autoridad y el desprecio a los débiles.","La empatía y la solidaridad.","El escepticismo y el pensamiento crítico."],correcta:1,explicacion:"Los estudios sobre la personalidad autoritaria la definen por su rigidez, su pensamiento estereotipado y su adhesión acrítica a las convenciones.", dummyExplanation: "Es el clásico 'trepa' de oficina: pelota con el jefe y tirano con los que están por debajo."},
+                {pregunta:"¿Cuál es la relación entre 'razón' y 'felicidad' para la primera Escuela de Frankfurt?",opciones:["La razón garantiza la felicidad.","La razón es un obstáculo para la felicidad.","Son conceptos sin relación.","La razón instrumental impide la verdadera felicidad."],correcta:3,explicacion:"La racionalidad puramente instrumental, al servicio del sistema, impide una felicidad auténtica, que estaría ligada a la emancipación.", dummyExplanation: "La razón instrumental te da un móvil más rápido, pero no te da más tiempo para hablar con tus amigos. La verdadera felicidad está en lo segundo."},
+                {pregunta:"¿Qué es lo que, para Habermas, distingue a los humanos de otros animales?",opciones:["La capacidad de usar herramientas.","La capacidad de sentir emociones.","La capacidad de coordinar acciones a través del lenguaje.","La capacidad de sobrevivir en entornos hostiles."],correcta:2,explicacion:"La reproducción de la vida humana está mediada culturalmente por el trabajo y, crucialmente, por la interacción lingüística.", dummyExplanation: "Las abejas colaboran, pero no se reúnen para discutir si la colmena debería tener un diseño más moderno. Nosotros sí."},
+                {pregunta:"¿Cuál es la crítica de Adorno a la idea de 'progreso'?",opciones:["El progreso es siempre bueno.","El progreso es una ilusión, nada cambia.","El progreso técnico ha venido acompañado de un retroceso moral.","El progreso solo es posible en el arte."],correcta:2,explicacion:"La 'Dialéctica de la Ilustración' muestra cómo el progreso en el dominio técnico ha llevado a nuevas formas de barbarie.", dummyExplanation: "Tenemos cohetes para ir a la Luna, pero los usamos para apuntarnos con misiles nucleares. Eso, para Adorno, no es progreso."},
+                {pregunta:"¿Qué es lo que, según Habermas, proporciona un fundamento 'trascendental' a su teoría?",opciones:["La existencia de Dios.","Las estructuras universales de la comunicación.","Las leyes de la física.","La naturaleza humana innata."],correcta:1,explicacion:"Habermas busca un fundamento 'cuasi-trascendental' en las condiciones de posibilidad ineludibles de cualquier acto de entendimiento lingüístico.", dummyExplanation: "Es como la gravedad de la conversación: no la ves, pero sin ella, ninguna palabra se sostendría."},
+                {pregunta:"¿Cómo entiende Adorno el concepto de 'naturaleza'?",opciones:["Como un recurso a explotar.","Como un conjunto de leyes matemáticas.","Como lo no-idéntico y reprimido por la razón.","Como un ideal romántico perdido."],correcta:2,explicacion:"La naturaleza (tanto externa como interna) es para Adorno lo 'otro' de la razón, lo que el pensamiento conceptual intenta dominar y reprimir.", dummyExplanation: "La naturaleza es todo aquello que tu agenda super-organizada no puede controlar: un atasco, un resfriado o un ataque de risa."},
+                {pregunta:"¿Cuál es el objetivo de la 'democracia deliberativa' de Habermas?",opciones:["Que los expertos tomen todas las decisiones.","Que las decisiones se tomen por votación simple.","Que las decisiones políticas se legitimen a través del debate público racional.","Que el mercado regule la sociedad sin intervención política."],correcta:2,explicacion:"Busca una forma de política donde la formación de la opinión y la voluntad colectiva se base en la argumentación pública y no en el poder o el dinero.", dummyExplanation: "Es la idea de que un país debería funcionar como una buena asamblea de vecinos: hablando se entiende (y se gobierna) la gente."},
+                {pregunta:"¿Qué es lo que, para Horkheimer, caracteriza la 'teoría' en su sentido más auténtico?",opciones:["Su neutralidad absoluta.","Su capacidad para predecir el futuro.","Su inseparable unión con la praxis emancipadora.","Su complejidad matemática."],correcta:2,explicacion:"La verdadera teoría, la Teoría Crítica, no puede separarse de la lucha por una sociedad más justa.", dummyExplanation: "Para Horkheimer, un filósofo que no se 'mancha las manos' con los problemas de su tiempo no es un filósofo, es un coleccionista de ideas."},
+                {pregunta:"¿Qué es lo que, según Adorno, hace que la filosofía siga siendo necesaria?",opciones:["Para justificar el orden existente.","Porque el momento de su realización se ha perdido.","Para proporcionar consuelo espiritual.","Para ayudar al progreso de la ciencia."],correcta:1,explicacion:"La filosofía es necesaria porque la promesa de reconciliación entre la razón y la realidad no se ha cumplido; su tarea es mantener viva la conciencia de ese fracaso.", dummyExplanation: "La filosofía es como ese amigo pesimista que, cuando todos celebran, te recuerda que los problemas siguen ahí fuera."},
+                {pregunta:"¿Cuál es la relación entre 'verdad' y 'consenso' en la teoría de Habermas?",opciones:["La verdad es lo que la mayoría opina.","La verdad es independiente de cualquier consenso.","La verdad es el consenso alcanzado en una situación ideal de habla.","El consenso es un obstáculo para la verdad."],correcta:2,explicacion:"Habermas propone una teoría consensual de la verdad: una afirmación es verdadera si puede ser justificada con razones ante una comunidad ilimitada de comunicación.", dummyExplanation: "La verdad no es lo que tú dices, ni lo que yo digo, sino lo que acordaríamos si pudiéramos discutirlo infinitamente sin trampas."},
+                {pregunta:"¿Qué es lo que, según la Escuela de Frankfurt, caracteriza al 'individuo' en la sociedad de consumo?",opciones:["Su autonomía y pensamiento crítico.","Su profunda conexión con la comunidad.","Su pasividad y conformidad.","Su rechazo de los bienes materiales."],correcta:2,explicacion:"La industria cultural y el consumismo generan individuos pasivos que buscan la felicidad en la conformidad y la adquisición de mercancías.", dummyExplanation: "Es el individuo que cree que es libre porque puede elegir entre 100 marcas de zapatillas, sin darse cuenta de que todas están hechas en la misma fábrica."},
+                {pregunta:"¿Qué es el 'cientificismo' para Habermas?", opciones:["El uso de la ciencia para el bien común.","La creencia de que solo el método científico produce conocimiento válido.","El estudio filosófico de la ciencia.","Una corriente artística de vanguardia."], correcta:1, explicacion:"Habermas critica el cientificismo por su pretensión de monopolizar la racionalidad, excluyendo otras formas de saber como el práctico-moral.", dummyExplanation:"Es la actitud de quien cree que si no puedes meterlo en un tubo de ensayo, no es real ni importante."},
+                {pregunta:"¿Cuál es la función del 'discurso' en la teoría de Habermas?", opciones:["Convencer a cualquier precio.","Resolver pretensiones de validez problematizadas.","Expresar emociones personales.","Contar historias ficticias."], correcta:1, explicacion:"Cuando una pretensión de validez (verdad, rectitud) es cuestionada, se entra en un discurso para examinarla con argumentos.", dummyExplanation:"El discurso es la 'sala de apelaciones' de la conversación: si no estamos de acuerdo, vamos allí a ver los argumentos de cada uno."},
+                {pregunta:"¿Qué es lo que, según Adorno, la 'mímesis' representa en el arte?", opciones:["Una imitación exacta de la realidad.","Una afinidad no-conceptual con lo reprimido.","Un concepto lógico.","Una técnica de composición musical."], correcta:1, explicacion:"La mímesis es la capacidad del arte para asemejarse a lo 'otro' de la razón (naturaleza, sufrimiento) sin dominarlo conceptualmente.", dummyExplanation:"Es la capacidad del arte de 'hacerse pasar' por un árbol o por la tristeza, sin decir 'esto es un árbol' o 'esto es tristeza'."},
+                {pregunta:"¿Por qué Habermas critica a los postestructuralistas como Foucault o Derrida?", opciones:["Por ser demasiado optimistas.","Por su 'crítica total' que se autodestruye.","Por ser demasiado sistemáticos.","Por no conocer la filosofía alemana."], correcta:1, explicacion:"Habermas argumenta que su crítica radical a la razón socava los propios fundamentos normativos desde los que se puede criticar.", dummyExplanation:"Es como si cortaran la rama en la que están sentados: si toda razón es poder, ¿desde dónde critican ellos sin ejercer poder?"},
+                {pregunta:"¿Qué es el 'mundo administrado' para la Escuela de Frankfurt?", opciones:["Una sociedad perfectamente democrática.","Una sociedad totalmente organizada por la racionalidad burocrática y económica.","Una utopía anarquista.","El conjunto de las Naciones Unidas."], correcta:1, explicacion:"Es una sociedad en la que la vida social e individual está completamente controlada por las lógicas impersonales del mercado y la burocracia.", dummyExplanation:"Es un mundo donde tu vida entera, desde el nacimiento hasta la muerte, parece un formulario que hay que rellenar por triplicado."},
+                {pregunta:"¿Cuál es la pretensión de validez que se refiere a la sinceridad del hablante?", opciones:["Verdad.","Veracidad.","Inteligibilidad.","Rectitud."], correcta:1, explicacion:"La veracidad (Wahrhaftigkeit) se refiere a que el hablante expresa genuinamente sus intenciones y creencias.", dummyExplanation:"Es la que pones en duda cuando le preguntas a alguien que te sonríe: '¿Lo dices en serio o es ironía?'."},
+                {pregunta:"¿Qué es el 'aura' de la obra de arte, según Walter Benjamin?", opciones:["Su valor económico.","Su unicidad e historicidad, ligada al aquí y ahora.","Su capacidad de ser reproducida técnicamente.","Su mensaje político explícito."], correcta:1, explicacion:"Benjamin, autor cercano a la Escuela, argumenta que la reproducción técnica (foto, cine) destruye el 'aura' de la obra de arte tradicional.", dummyExplanation:"El 'aura' de la Mona Lisa es lo que sientes al verla en el Louvre, que no es lo mismo que verla en una postal."},
+                {pregunta:"¿Qué es lo que, según Habermas, fundamenta la moralidad?", opciones:["La voluntad de Dios.","La tradición cultural.","Las emociones individuales.","Las condiciones de la argumentación racional."], correcta:3, explicacion:"La ética del discurso fundamenta las normas morales en el consenso que se alcanzaría en una situación ideal de habla.", dummyExplanation:"Para Habermas, algo es moralmente correcto no porque lo diga un libro sagrado, sino porque todos estaríamos de acuerdo si lo discutiéramos en igualdad de condiciones."},
+                {pregunta:"¿Qué es lo que, según Adorno, un 'aforismo' permite expresar?", opciones:["Una verdad sistemática y completa.","Una contradicción sin resolverla.","Una orden clara y directa.","Un sentimiento simple."], correcta:1, explicacion:"El estilo fragmentario y aforístico de Adorno busca reflejar una realidad rota y contradictoria, resistiéndose a la totalidad falsa de un sistema.", dummyExplanation:"Un aforismo es como un relámpago: ilumina una parte del paisaje en la oscuridad, pero no pretende mostrarte el mapa completo."},
+                {pregunta:"¿Cuál es la relación entre el psicoanálisis y el interés emancipatorio para Habermas?", opciones:["No tienen ninguna relación.","El psicoanálisis es un ejemplo de ciencia empírica.","El psicoanálisis es un modelo de autorreflexión que libera de coacciones internas.","El psicoanálisis es una forma de dominación."], correcta:2, explicacion:"La terapia psicoanalítica, al hacer consciente lo inconsciente, es un proceso de emancipación análogo al de la crítica de las ideologías.", dummyExplanation:"La crítica social es como un psicoanálisis para la sociedad: ayuda a sacar a la luz los 'traumas' históricos que la hacen actuar de forma irracional."},
+                {pregunta:"¿Qué es la 'reificación' (Verdinglichung) en la tradición marxista que recoge la Teoría Crítica?", opciones:["El proceso de enriquecimiento.","Tratar las relaciones humanas como si fueran relaciones entre cosas.","La idealización de la realidad.","La destrucción de mercancías."], correcta:1, explicacion:"Es un concepto de Lukács, crucial para la Escuela, que describe cómo el capitalismo convierte las relaciones sociales en algo objetivo e impersonal.", dummyExplanation:"Es cuando tu jefe habla de 'recursos humanos' como si fueras una grapadora o un ordenador más de la oficina."},
+                {pregunta:"¿Cuál es la función de la 'esfera pública' (Öffentlichkeit) en la teoría de Habermas?", opciones:["Un espacio para el ocio y el consumo.","Un espacio de debate racional entre ciudadanos.","El conjunto de instituciones del Estado.","El mercado de bienes y servicios."], correcta:1, explicacion:"La esfera pública es el ámbito donde los ciudadanos discuten asuntos de interés común para formar una opinión pública crítica.", dummyExplanation:"Es la 'plaza del pueblo' de la democracia, donde la gente va a discutir de política en lugar de a comprar melones."},
+                {pregunta:"¿Qué es lo que, según Adorno, la 'jerga de la autenticidad' critica?", opciones:["Un lenguaje preciso y crítico.","Un uso profundo y original de las palabras.","Un lenguaje que simula profundidad para ocultar el vacío.","El lenguaje de la ciencia."], correcta:2, explicacion:"Adorno critica el lenguaje del existencialismo alemán (como el de Heidegger) por usar palabras solemnes que en realidad no significan nada y sirven para enmascarar la conformidad.", dummyExplanation:"Es el tipo de lenguaje que usaría un 'coach' para venderte un curso carísimo sobre cómo 'encontrar tu verdadero yo interior'."},
+                {pregunta:"¿Por qué es 'crítica' la Teoría Crítica?", opciones:["Porque siempre está de mal humor.","Porque critica todo sin proponer nada.","Porque une la crítica filosófica con la crítica social para la emancipación.","Porque se centra en la crítica literaria."], correcta:2, explicacion:"Su objetivo no es solo entender el mundo, sino criticar sus formas de dominación para posibilitar una sociedad más libre y racional.", dummyExplanation:"No es la crítica del que se queja en el sofá, sino la del que desmonta el sofá para ver por qué es tan incómodo y cómo se puede arreglar."},
+                {pregunta:"¿Qué es lo que, según Habermas, el positivismo niega?", opciones:["La existencia del mundo exterior.","La validez de las matemáticas.","La conexión entre conocimiento e interés.","La importancia de los experimentos."], correcta:2, explicacion:"El positivismo postula una ciencia libre de valores y desinteresada, ocultando el interés técnico que la constituye.", dummyExplanation:"El positivismo es como un juez que dice no tener ninguna opinión previa, pero que en el fondo es del equipo local."},
+                {pregunta:"¿Cuál es el principal problema de la 'razón' para la primera Escuela de Frankfurt?", opciones:["Es demasiado débil.","Se ha vuelto irracional al instrumentalizarse.","Hay demasiada en el mundo.","Solo la tienen los filósofos."], correcta:1, explicacion:"La razón, en lugar de ser una fuerza liberadora, se ha convertido en una herramienta de cálculo y dominio, generando nuevas formas de barbarie.", dummyExplanation:"La razón se ha convertido en un cuchillo muy afilado en manos de un mono: es muy eficiente, pero los resultados pueden ser catastróficos."},
+                {pregunta:"¿Qué es lo que, según Adorno, la 'identidad' hace con el 'objeto'?", opciones:["Lo respeta en su particularidad.","Lo violenta al forzarlo a entrar en un concepto.","Lo ignora por completo.","Lo convierte en una obra de arte."], correcta:1, explicacion:"El 'primado del concepto' en la filosofía occidental ejerce una violencia sobre la cosa, que siempre es más rica y contradictoria que la etiqueta que le ponemos.", dummyExplanation:"El concepto 'perro' es una violencia contra la infinita variedad de tu perro Fido, con sus manías y su forma única de roncar."},
+                {pregunta:"¿Qué es lo que, para Habermas, permite el 'entendimiento' (Verständigung)?", opciones:["La empatía y los sentimientos.","La aceptación de pretensiones de validez con razones.","La sumisión a la autoridad.","El uso de la fuerza."], correcta:1, explicacion:"El entendimiento no es un mero acuerdo fáctico, sino un consenso motivado racionalmente, basado en la aceptación de las razones del otro.", dummyExplanation:"No es decir 'vale, de acuerdo' para que se calle, sino decir 'vale, me has convencido'."},
+                {pregunta:"¿Cuál es la crítica de la Teoría Crítica a la familia tradicional?", opciones:["Es demasiado liberal.","Es un agente de socialización autoritaria.","No es económicamente eficiente.","Debería haber más miembros."], correcta:1, explicacion:"En estudios como los de la 'personalidad autoritaria', la familia patriarcal es vista como una institución que reproduce las estructuras de dominación social.", dummyExplanation:"La familia tradicional, para ellos, era la 'fábrica' donde se producían ciudadanos obedientes y sumisos al sistema."},
+                {pregunta:"¿Qué es lo que, según Habermas, distingue una 'norma' de una 'orden'?", opciones:["La norma es más larga.","La norma se basa en una pretensión de rectitud que puede ser justificada.","La orden es más educada.","No hay diferencia."], correcta:1, explicacion:"Una orden se basa en el poder; una norma válida se basa en un consenso racional sobre lo que es correcto para todos.", dummyExplanation:"Una orden es '¡Cállate!'. Una norma es 'Deberíamos guardar silencio porque estamos en una biblioteca'."},
+                {pregunta:"¿Qué es el 'contenido de verdad' (Wahrheitsgehalt) de una obra de arte para Adorno?", opciones:["El mensaje moral explícito.","La forma en que revela una verdad social sin ser un mero reflejo.","Su precio en el mercado.","La biografía del artista."], correcta:1, explicacion:"La obra de arte, a través de su forma y sus contradicciones internas, puede expresar verdades sobre la sociedad que el discurso normal no puede.", dummyExplanation:"El Guernica no es 'verdadero' porque sea una foto de un bombardeo, sino porque su forma desgarrada nos dice una verdad sobre el horror de la guerra."},
+                {pregunta:"¿Por qué Habermas se distancia del pesimismo de Horkheimer y Adorno?", opciones:["Porque cree que el capitalismo se ha vuelto más humano.","Porque encuentra un potencial emancipador en la razón comunicativa.","Porque era más joven y optimista.","Porque no vivió el nazismo."], correcta:1, explicacion:"Mientras sus maestros veían la razón instrumental dominarlo todo, Habermas encuentra en el lenguaje una reserva de racionalidad y utopía.", dummyExplanation:"Horkheimer y Adorno veían un túnel sin salida. Habermas encontró una pequeña luz al final: la capacidad de la gente para hablar y entenderse."},
+                {pregunta:"¿Qué es un 'juego de lenguaje' para Wittgenstein, según la lectura de Habermas?", opciones:["Un sistema de reglas que puede ser criticado desde fuera.","Un sistema cerrado de reglas que no se puede criticar.","Un juego de mesa filosófico.","Una forma de hablar sin sentido."], correcta:1, explicacion:"Habermas critica a la filosofía del lenguaje ordinario por ver los juegos de lenguaje como formas de vida que solo se pueden describir, no criticar normativamente.", dummyExplanation:"Para la filosofía analítica, la sociedad son muchos 'partidos' con sus propias reglas. Para Habermas, tiene que haber un 'reglamento' común para saber si el partido es justo."},
+                {pregunta:"¿Cuál es el papel de la 'memoria' y el 'sufrimiento' en el pensamiento de Adorno?", opciones:["Son obstáculos para la felicidad.","Son centrales para una filosofía que no traicione a las víctimas.","Deben ser olvidados para progresar.","Son meros datos para la psicología."], correcta:1, explicacion:"La filosofía, después de Auschwitz, tiene el imperativo de pensar desde el sufrimiento de las víctimas para que no se repita. La memoria es una categoría moral.", dummyExplanation:"Adorno dice que la filosofía debe ser como el elefante: nunca olvida, especialmente el dolor, para no volver a tropezar con la misma piedra."},
+                {pregunta:"¿Qué es lo que, según Habermas, la 'esfera pública literaria' del siglo XVIII representó?", opciones:["El inicio de la industria cultural.","Un modelo de debate racional entre privados sobre asuntos públicos.","Una forma de entretenimiento para la aristocracia.","La decadencia de la cultura."], correcta:1, explicacion:"En su obra 'Historia y crítica de la opinión pública', Habermas ve en los cafés y salones de la burguesía ilustrada el germen de una esfera pública crítica.", dummyExplanation:"Fue el primer 'Twitter' de la historia, donde la gente empezó a criticar al gobierno usando argumentos en lugar de cotilleos."},
+                {pregunta:"¿Qué es lo que, para Horkheimer en su última etapa, representa la 'nostalgia de lo completamente otro'?", opciones:["El deseo de volver a la infancia.","La esperanza en una revolución proletaria.","Un anhelo teológico de justicia más allá del mundo administrado.","El gusto por el arte abstracto."], correcta:2, explicacion:"Ante el pesimismo sobre las posibilidades de cambio, Horkheimer ve en la teología (negativa) la única expresión para el deseo de una redención que la historia no ofrece.", dummyExplanation:"Es la sensación de que 'tiene que haber algo más', incluso cuando todo parece indicar que no lo hay."},
+                {pregunta:"¿Qué es lo que, según la Teoría Crítica, la 'psicología' debe estudiar?", opciones:["Solo el comportamiento observable.","Las estructuras cerebrales.","La mediación entre el individuo y la estructura social.","Las enfermedades mentales de forma aislada."], correcta:2, explicacion:"La Teoría Crítica integra el psicoanálisis para entender cómo las presiones sociales se interiorizan y forman la psique del individuo.", dummyExplanation:"No se preguntan '¿por qué está triste esta persona?', sino '¿qué hay en esta sociedad que hace que la gente se ponga triste?'."},
+                {pregunta:"¿Cuál es la diferencia entre 'consenso' y 'compromiso' para Habermas?", opciones:["No hay diferencia.","El consenso se basa en razones compartidas, el compromiso en la negociación de intereses.","El consenso es temporal, el compromiso es permanente.","El consenso es político, el compromiso es personal."], correcta:1, explicacion:"Un consenso se logra cuando todos aceptan una afirmación por las mismas buenas razones. Un compromiso es un acuerdo estratégico donde cada uno cede un poco.", dummyExplanation:"Consenso es cuando todos estamos de acuerdo en que la pizza de piña es la mejor. Compromiso es cuando la pedimos mitad con piña y mitad sin ella para no pelearnos."},
+                {pregunta:"¿Qué es lo que, según Adorno, la 'administración' hace con el arte?", opciones:["Lo financia y lo promueve.","Lo convierte en un objeto de consumo más.","Lo utiliza para la educación crítica.","Lo deja en paz."], correcta:1, explicacion:"Dentro del 'mundo administrado', el arte es absorbido por la industria cultural, despojado de su potencial crítico y convertido en entretenimiento.", dummyExplanation:"El sistema convierte a Beethoven en un tono de llamada para el móvil."},
+                {pregunta:"¿Qué es lo que, para Habermas, unifica los tres intereses del conocimiento?", opciones:["La lógica matemática.","El interés último en la autonomía y la responsabilidad.","El deseo de poder.","La búsqueda del placer."], correcta:1, explicacion:"Los tres intereses (técnico, práctico y emancipatorio) están al servicio de un meta-interés en la realización de una vida humana autónoma y racional.", dummyExplanation:"Aunque parezcan diferentes, los tres intereses son como tres herramientas en la misma caja: todas sirven para construir una vida mejor y más libre."},
+                {pregunta:"¿Cuál es la crítica de Adorno al existencialismo de Sartre?", opciones:["Es demasiado materialista.","Su concepto de 'libertad' es abstracto e ignora las condiciones sociales.","Es demasiado pesimista.","No le da importancia al individuo."], correcta:1, explicacion:"Adorno critica que la libertad existencialista es una ilusión si no se tienen en cuenta las determinaciones económicas y sociales que la limitan.", dummyExplanation:"Sartre te dice 'eres libre de elegir'. Adorno le responde: 'sí, libre de elegir entre Coca-Cola y Pepsi'."},
+                {pregunta:"¿Qué es lo que, según Habermas, caracteriza a la 'postmodernidad'?", opciones:["El triunfo final de la razón.","La incredulidad hacia los grandes relatos de la Ilustración.","Una nueva fe en el progreso.","El retorno a la religión."], correcta:1, explicacion:"Habermas dialoga críticamente con la postmodernidad (definida por Lyotard), a la que acusa de abandonar el proyecto emancipador de la modernidad.", dummyExplanation:"La postmodernidad es como ese amigo que, después de un desengaño amoroso, dice que 'el amor no existe'. Habermas intenta convencerle de que no se rinda."},
+                {pregunta:"¿Qué es lo que, para la Teoría Crítica, el 'lenguaje' no es?", opciones:["Un medio de comunicación.","Un vehículo de la tradición.","Un instrumento neutral para describir la realidad.","Una forma de acción social."], correcta:2, explicacion:"El lenguaje nunca es inocente; siempre está cargado de ideología y relaciones de poder. No es un espejo transparente del mundo.", dummyExplanation:"El lenguaje no es una ventana limpia, sino una lente con una graduación que nos ha puesto la sociedad."},
+                {pregunta:"¿Cuál es la función de la 'utopía' en la Teoría Crítica de Habermas?", opciones:["Es un plan detallado de la sociedad futura.","No tiene ninguna función, es un concepto obsoleto.","Funciona como un ideal regulativo inscrito en la comunicación.","Es una forma de evasión de la realidad."], correcta:2, explicacion:"La 'situación ideal de habla' no es un estado a alcanzar, sino un ideal contrafáctico que nos permite criticar lo existente.", dummyExplanation:"La utopía de Habermas no es un mapa del tesoro, sino la brújula que nos dice en qué dirección está el norte (una sociedad más justa)."},
+                {pregunta:"¿Qué es lo que, según Adorno, la 'filosofía primera' debería ser después de Auschwitz?", opciones:["La metafísica tradicional.","La lógica formal.","La reflexión sobre la posibilidad de la barbarie.","La teoría de la ciencia."], correcta:2, explicacion:"Adorno sostiene que todo el pensamiento debe reorientarse a partir de la catástrofe de Auschwitz, con el imperativo de que no se repita.", dummyExplanation:"Después de Auschwitz, la pregunta más importante para la filosofía ya no es '¿qué es el ser?', sino '¿cómo hemos llegado a esto?'."}
+            ]
+        };
+        
+        let quizQuestions = [];
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+
+        // --- FUNCIONES DE RENDERIZADO ---
+        
+        function renderContent() {
+            renderFigurasClave();
+            renderResumen();
+            renderConceptos();
+            renderExamenes();
+            renderJuego();
+            renderBibliografia();
+        }
+
+        function renderFigurasClave() {
+            const container = document.getElementById('figuras');
+            const figuras = themeData.figurasClave;
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${figuras.map((figura, figIndex) => `
+                    <div class="bg-white p-6 rounded-lg shadow-sm" style="background-color: #fcf8f0;">
+                        <div class="flex flex-col md:flex-row gap-8 items-start">
+                            <figure class="text-center flex-shrink-0 w-full md:w-48">
+                                <img src="${figura.foto}" alt="${figura.altText}" class="w-48 h-64 object-cover rounded-lg shadow-md border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <figcaption class="text-xs italic mt-2" style="color: var(--color-siena);">
+                                    Fuente: <a href="${figura.fotoFuente}" target="_blank" class="hover:underline">Wikimedia Commons</a>
+                                </figcaption>
+                            </figure>
+                            <div class="flex-1 flex items-center gap-2">
+                                <button id="prev-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, -1)" class="carousel-button bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition self-center flex-shrink-0"><i class="fa-solid fa-chevron-left fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                                <div class="relative flex-1 min-h-[300px]">
+                                    <div id="content-carousel-${figIndex}">
+                                        ${figura.carouselContent.map((item, contentIndex) => `
+                                            <div class="content-carousel-item ${contentIndex === 0 ? 'active' : ''}" data-content-index="${contentIndex}">
+                                                <h3 class="text-2xl font-bold mb-4 text-center">${figura.nombre}</h3>
+                                                <h4 class="font-bold mb-2 text-lg" style="color: var(--color-pumpkin);">${item.titulo}</h4>
+                                                ${item.obras ? 
+                                                    `<div class="space-y-2">
+                                                        ${item.obras.map(obra => `
+                                                            <details class="text-sm">
+                                                                <summary class="font-semibold cursor-pointer">${obra.titulo}</summary>
+                                                                <p class="pt-1 pl-4 text-justify">${obra.contenido}</p>
+                                                            </details>
+                                                        `).join('')}
+                                                    </div>` 
+                                                    : `<p class="text-justify text-sm">${item.contenido}</p>`
+                                                }
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <button id="next-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, 1)" class="carousel-button bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition self-center flex-shrink-0"><i class="fa-solid fa-chevron-right fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+            
+            figuras.forEach((_, figIndex) => {
+                window[`currentContentCarouselIndex_${figIndex}`] = 0;
+                updateCarouselButtons(figIndex);
+            });
+        }
+
+        function renderResumen() {
+            const container = document.getElementById('resumen');
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${themeData.resumenTemario.map(item => `
+                    <div class="bg-white p-6 rounded-lg shadow-sm" style="background-color: #fcf8f0;">
+                        <h4 class="text-xl font-bold mb-3">${item.epigrafe}</h4>
+                        <div class="text-justify mb-4 space-y-2 text-sm">${item.resumen}</div>
+                        <div class="border-t my-4" style="border-color: var(--color-siena);"></div>
+                        <h5 class="font-semibold mb-2" style="color: var(--color-coffee);">Mapa Conceptual</h5>
+                        <div class="w-full overflow-x-auto">${item.mapaConceptual}</div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${themeData.conceptosClave.sort((a, b) => a.concepto.localeCompare(b.concepto)).map(item => `
+                    <div class="bg-white p-4 rounded-lg shadow-sm" style="background-color: #fcf8f0;">
+                        <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${item.concepto}</h5>
+                        <p class="text-sm mt-1 text-justify">${item.definicion}</p>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            const sortedExams = themeData.historicoExamenes.sort((a, b) => b.fechas.length - a.fechas.length);
+            
+            const sortDates = (dates) => {
+                const monthOrder = { "Mayo": 5, "Junio": 6, "Septiembre": 9, "Curso": 1 };
+                return dates.slice().sort((a, b) => {
+                    const getYear = str => parseInt(str.match(/\d{4}/g)?.[0] || 0);
+                    const getMonth = str => {
+                        const monthKey = Object.keys(monthOrder).find(m => str.includes(m));
+                        return monthOrder[monthKey] || 0;
+                    };
+                    const yearA = getYear(a);
+                    const yearB = getYear(b);
+                    if (yearA !== yearB) return yearA - yearB;
+                    return getMonth(a) - getMonth(b);
+                });
+            };
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                ${sortedExams.map(item => `
+                    <details class="bg-white p-4 rounded-lg shadow-sm group" style="background-color: #fcf8f0;">
+                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center" style="color: var(--color-pumpkin);">
+                            <span>${item.pregunta}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <details class="text-sm mb-2">
+                                <summary class="font-semibold cursor-pointer" style="color: var(--color-coffee);">Fechas de aparición</summary>
+                                <div class="pl-4 pt-2">
+                                    ${sortDates(item.fechas).map(date => `<p>${date}</p>`).join('')}
+                                </div>
+                            </details>
+                            <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                ${item.conceptosDesarrollo.map(cd => `
+                                    <div class="bg-gray-50 p-3 rounded-md shadow-sm tooltip-container">
+                                        <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                        <span class="tooltip-text">${cd.resumen}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </details>
+                `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderBibliografia() {
+            const container = document.getElementById('bibliografia');
+            const biblioSources = themeData.bibliografia.map(item => `<li>${item}</li>`).join('');
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-sm" style="background-color: #fcf8f0;">
+                    <ul class="text-sm space-y-2 list-disc pl-5">
+                        ${biblioSources}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function renderJuego() {
+            const container = document.getElementById('juego');
+            container.innerHTML = `
+                <div id="quiz-container" class="text-center bg-white p-8 rounded-lg shadow-sm" style="background-color: #fcf8f0;">
+                     <h3 class="text-2xl font-bold mb-4">Juego de Preguntas</h3>
+                     <p class="mb-6">Pon a prueba tus conocimientos con 10 preguntas aleatorias sobre la Teoría Crítica.</p>
+                     <button onclick="startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Comenzar Juego</button>
+                </div>
+            `;
+        }
+
+        // --- FUNCIONES DE INTERACTIVIDAD ---
+
+        window.openTab = function(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function updateCarouselButtons(figIndex) {
+            const items = document.querySelectorAll(`#content-carousel-${figIndex} .content-carousel-item`);
+            const currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            const prevButton = document.getElementById(`prev-btn-${figIndex}`);
+            const nextButton = document.getElementById(`next-btn-${figIndex}`);
+
+            if (prevButton) prevButton.disabled = currentIndex === 0;
+            if (nextButton) nextButton.disabled = currentIndex === items.length - 1;
+        }
+
+        window.changeContentCarousel = function(figIndex, direction) {
+            const carouselId = `content-carousel-${figIndex}`;
+            const items = document.querySelectorAll(`#${carouselId} .content-carousel-item`);
+            let currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            
+            items[currentIndex].classList.remove('active');
+            currentIndex += direction;
+            items[currentIndex].classList.add('active');
+            
+            window[`currentContentCarouselIndex_${figIndex}`] = currentIndex;
+            updateCarouselButtons(figIndex);
+        };
+        
+        window.startQuiz = function() {
+            const shuffled = [...themeData.juegoPreguntas].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 10);
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        window.displayQuestion = function() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:border-yellow-500" style="border-color: var(--color-siena);" onclick="checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(button => button.disabled = true);
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-100', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-100', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-100', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            const titles = [
+                "Consumidor Pasivo de la Industria Cultural", "Atrapado en la Jaula de Hierro", "Víctima de la Falsa Conciencia",
+                "Racionalista Instrumental", "Crítico Incipiente", "Reflexionando sobre los Intereses",
+                "Hacia la Emancipación", "Practicante del Diálogo Racional", "Buscando el Consenso",
+                "Superando la Colonización", "Teórico Crítico Emancipado"
+            ];
+            const title = titles[quizScore] || "Estudiante Entusiasta";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(q => {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left">
+                        <h3 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h3>
+                        <h4 class="text-md font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h4>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.dummyExplanation}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h2 class="text-2xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h2>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <button onclick="startQuiz()" class="mt-8 px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+            `;
+        }
+
+        // --- INICIALIZACIÓN ---
+        renderContent();
+    });
+    </script>
+</body>
+</html>
