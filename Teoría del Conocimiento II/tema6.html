@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 6: Teoría tradicional y teoría crítica - Teoría del Conocimiento II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías como variables CSS (según fuente) */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para las pestañas */
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        /* Estilos para carruseles de contenido */
+        .content-carousel-item {
+            display: none;
+        }
+        .content-carousel-item.active {
+            display: block;
+        }
+        /* Estilos para tooltips */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .next-button {
+            display: none; /* Oculto por defecto */
+        }
+        /* Estilo para botones de carrusel desactivados */
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal de la aplicación -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <!-- Contenido estático del Tema 6 -->
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 6: Teoría tradicional y teoría crítica</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition active" style="border-color: transparent;" onclick="openTab(event, 'figuras')">Figuras Clave</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'resumen')">Resumen</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'conceptos')">Conceptos</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'examenes')">Exámenes</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'juego')">Juego</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+            </div>
+
+            <!-- Pestaña Figuras Clave -->
+            <div id="figuras" class="tab-content">
+                <!-- El contenido se generará con JavaScript -->
+            </div>
+
+            <!-- Pestaña Resumen -->
+            <div id="resumen" class="tab-content" style="display:none;">
+                <!-- El contenido se generará con JavaScript -->
+            </div>
+
+            <!-- Pestaña Conceptos -->
+            <div id="conceptos" class="tab-content" style="display:none;">
+                <!-- El contenido se generará con JavaScript -->
+            </div>
+
+            <!-- Pestaña Exámenes -->
+            <div id="examenes" class="tab-content" style="display:none;">
+                <!-- El contenido se generará con JavaScript -->
+            </div>
+            
+            <!-- Pestaña Juego -->
+            <div id="juego" class="tab-content" style="display:none;">
+                <!-- El contenido se generará con JavaScript -->
+            </div>
+
+            <!-- Pestaña Bibliografía -->
+            <div id="bibliografia" class="tab-content" style="display:none;">
+                <!-- El contenido se generará con JavaScript -->
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página fijo -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- BASE DE DATOS DE CONTENIDO PARA EL TEMA 6 ---
+        const themeData = {
+            title: "Teoría tradicional y teoría crítica",
+            figurasClave: [
+                {
+                    nombre: "Max Horkheimer",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/9/94/Max_Horkheimer.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Max_Horkheimer.jpg",
+                    altText: "Retrato en blanco y negro de Max Horkheimer, un hombre mayor con gafas, mirando seriamente a la cámara.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Max Horkheimer (1895-1973) fue un filósofo y sociólogo alemán, figura central y director del Instituto de Investigación Social, conocido como la Escuela de Frankfurt. Hijo de un rico comerciante judío, renunció a seguir los pasos de su padre para dedicarse a la filosofía. Su experiencia biográfica, incluyendo una detención por error y la vivencia de la Primera Guerra Mundial, le acercó al marxismo. Guió al Instituto durante su exilio en Estados Unidos y su posterior regreso a Frankfurt, siendo una figura clave en la formulación de la Teoría Crítica."
+                        },
+                        {
+                            titulo: "Influencias y Contexto",
+                            contenido: "El pensamiento de Horkheimer se forja en un marxismo heterodoxo, alejado del dogmatismo soviético. Integra la filosofía de Hegel, la crítica de Schopenhauer y el psicoanálisis de Freud para analizar la sociedad capitalista. Su obra es una respuesta a los grandes traumas del siglo XX: el fracaso de la revolución obrera en Alemania, el ascenso del fascismo y la consolidación de la sociedad de consumo. Junto a Friedrich Pollock, conformó el núcleo inicial del Instituto, compartiendo un profundo interés por la economía política y la crítica social."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "Horkheimer es quien define el programa de la 'Teoría Crítica' en su ensayo de 1937, oponiéndola a la 'Teoría Tradicional'. Su aportación más célebre es la crítica a la 'razón instrumental', la tesis de que la razón moderna se ha reducido a un mero cálculo de medios eficientes para fines dados, perdiendo su capacidad para evaluar esos mismos fines. En 'Dialéctica de la Ilustración', coescrita con Adorno, diagnostica cómo el proyecto ilustrado de emancipación ha devenido en una nueva forma de dominación y barbarie racionalizada."
+                        },
+                        {
+                            titulo: "Obras Clave",
+                            obras: [
+                                {
+                                    titulo: "Teoría tradicional y teoría crítica (1937)",
+                                    contenido: "Manifiesto programático que distingue la teoría tradicional (positivista, contemplativa, separada de la praxis) de una teoría crítica que se entiende a sí misma como parte de la lucha por una sociedad más racional y justa."
+                                },
+                                {
+                                    titulo: "Crítica de la razón instrumental (1947)",
+                                    contenido: "Analiza la 'subjetivación' de la razón, que al perder su capacidad de establecer fines objetivos (razón objetiva), se convierte en un mero instrumento al servicio de cualquier poder, sea cual sea."
+                                },
+                                {
+                                    titulo: "Dialéctica de la Ilustración (con Adorno, 1944)",
+                                    contenido: "Tesis central: la Ilustración, en su afán por dominar la naturaleza a través de la razón, acaba dominando también al ser humano, generando nuevas formas de barbarie. El mito no es superado, sino racionalizado."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    nombre: "Theodor W. Adorno",
+                    foto: "https://upload.wikimedia.org/wikipedia/commons/1/18/Theodor_W._Adorno.jpg",
+                    fotoFuente: "https://commons.wikimedia.org/wiki/File:Theodor_W._Adorno.jpg",
+                    altText: "Fotografía en blanco y negro de Theodor W. Adorno, un hombre de mediana edad con gafas, mirando directamente a la cámara con gesto pensativo.",
+                    carouselContent: [
+                        {
+                            titulo: "Breve Biografía",
+                            contenido: "Theodor W. Adorno (1903-1969), nacido como Theodor Wiesengrund, fue un filósofo, sociólogo y musicólogo alemán. Hijo de un comerciante de vinos de origen judío y una cantante lírica italo-corsa, adoptó el apellido materno. Creció en un ambiente culturalmente estimulante que marcó su pasión por la música. Su formación se vio influida por el marxismo heterodoxo de Lukács y Bloch, y por la amistad intelectual con figuras como Siegfried Kracauer y, de forma decisiva, Walter Benjamin. Fue una de las mentes más brillantes de la Escuela de Frankfurt."
+                        },
+                        {
+                            titulo: "El Pensar por Constelaciones",
+                            contenido: "Influido por Walter Benjamin, Adorno adoptó el método de 'pensar por constelaciones'. Este enfoque rechaza la abstracción del concepto filosófico tradicional, que busca subsumir la realidad en esquemas rígidos. En su lugar, propone acercar elementos y fragmentos de la realidad para que, en su configuración, revelen una verdad sin desvirtuar su particularidad. Es un intento de reunir los escombros de la realidad sin suprimir sus diferencias, una reconciliación frágil que respeta la singularidad de cada elemento."
+                        },
+                        {
+                            titulo: "Relevancia Filosófica",
+                            contenido: "La filosofía de Adorno es una crítica radical a la sociedad y al pensamiento occidental. Su concepto de 'Dialéctica Negativa' se opone a la síntesis reconciliadora de Hegel, insistiendo en que el pensamiento debe permanecer en la contradicción para dar voz al sufrimiento de lo 'no-idéntico'. Su crítica a la 'industria cultural' como sistema de producción masiva de cultura estandarizada para el control social ha sido enormemente influyente. Para Adorno, tras Auschwitz, la filosofía tiene la tarea de resistir para que la barbarie no se repita."
+                        },
+                        {
+                            titulo: "Obras y Tesis Clave",
+                            obras: [
+                                {
+                                    titulo: "Dialéctica de la Ilustración (con Horkheimer, 1944)",
+                                    contenido: "Sostiene que la razón ilustrada, en su afán de dominio sobre la naturaleza, se autodestruye y revierte en una nueva forma de mito y barbarie."
+                                },
+                                {
+                                    titulo: "Mínima Moralia (1951)",
+                                    contenido: "Colección de aforismos sobre la 'vida dañada' en el capitalismo tardío, reflexionando sobre la imposibilidad de una vida correcta en un mundo falso."
+                                },
+                                {
+                                    titulo: "Dialéctica Negativa (1966)",
+                                    contenido: "Su obra filosófica principal. Propone un modo de pensar que no busca la identidad y la síntesis, sino que se mantiene en la contradicción para dar voz al sufrimiento de lo particular oprimido por lo universal."
+                                },
+                                {
+                                    titulo: "Teoría Estética (póstuma, 1970)",
+                                    contenido: "Defiende que el arte auténtico (especialmente el de vanguardia) es una forma de conocimiento que, a través de su autonomía y negatividad, revela las contradicciones de la sociedad y contiene una 'promesa de felicidad'."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            bibliografia: [
+                "Sánchez Meca, D. (2019). <em>Iniciación a la Teoría del Conocimiento</em>. Dykinson. (Capítulo 14: Teoría tradicional y teoría crítica, pp. 507-548).",
+                "Escudero Pérez, A. (s.f.). <em>Apuntes de Teoría del Conocimiento II</em>. (Tema 5: La Escuela de Frankfurt).",
+                "Farina, M. (2016). <em>Adorno: Teoría crítica y pensamiento negativo</em>. Batiscafo."
+            ],
+            resumenTemario: [
+                {
+                    epigrafe: "1. Teoría Tradicional vs. Teoría Crítica: La Lucha por la Emancipación",
+                    resumen: "<p class='text-justify'>La <strong>Teoría Crítica</strong> de la Escuela de Frankfurt, con <strong>Max Horkheimer</strong> a la cabeza, surge como una oposición directa a la <strong>Teoría Tradicional</strong>. Esta última, tanto en su vertiente metafísica como positivista, se concibe como un saber neutral, objetivo y desinteresado, separado de la práctica social. Su objetivo es describir el mundo 'tal como es'.</p><p class='text-justify mt-2'>Por el contrario, la Teoría Crítica sostiene que todo conocimiento está enraizado en la vida social y guiado por <strong>intereses</strong>. Denuncia que la pretendida neutralidad de la ciencia tradicional es una ideología que oculta su función: legitimar el orden social existente. La Teoría Crítica, de base marxista, se entiende a sí misma como una <strong>praxis</strong>; no busca solo describir la sociedad, sino transformarla. Su fin no es la objetividad por sí misma, sino la <strong>emancipación humana</strong>: la creación de una sociedad racional, libre de opresión y miseria.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: var(--color-cream); stroke: var(--color-siena); stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: var(--color-coffee); text-anchor: middle;} .arrow{stroke: var(--color-pumpkin); stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-pumpkin)" /></marker></defs><rect x="5" y="20" width="170" height="40" class="box"/><text x="90" y="45" class="text">Teoría Tradicional</text><text x="90" y="60" class="text" font-size="10">(Contemplativa, Neutral)</text><rect x="5" y="90" width="170" height="40" class="box"/><text x="90" y="115" class="text">Teoría Crítica</text><text x="90" y="130" class="text" font-size="10">(Praxis, Intereses)</text><rect x="225" y="55" width="160" height="40" class="box"/><text x="305" y="80" class="text">Crítica de la Sociedad</text><rect x="425" y="55" width="170" height="40" class="box"/><text x="510" y="80" class="text">Emancipación Humana</text><path d="M175,40 C195,50 215,55 225,60" class="arrow"/><path d="M175,110 C195,100 215,95 225,90" class="arrow"/><line x1="385" y1="75" x2="425" y2="75" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "2. El Pensamiento de Horkheimer: De la Razón Instrumental a la Utopía Negativa",
+                    resumen: "<p class='text-justify'>Horkheimer analiza la degeneración de la razón en la modernidad. Distingue entre una <strong>razón objetiva</strong> (propia de la metafísica, capaz de establecer fines universales) y una <strong>razón instrumental o subjetiva</strong> (propia del positivismo, que solo calcula los medios más eficientes para fines dados, sin poder juzgarlos). La modernidad ha provocado el 'eclipse' de la razón objetiva, dejando a la razón instrumental como única forma de racionalidad. Esto convierte a la razón en una herramienta al servicio del poder y la dominación.</p><p class='text-justify mt-2'>Esta crítica culmina en la <strong><em>Dialéctica de la Ilustración</em></strong> (con Adorno), donde se muestra cómo el proyecto ilustrado de liberar al hombre del mito a través de la razón deviene en una nueva barbarie tecnificada. Ante el fracaso de los proyectos revolucionarios y la consolidación de un 'mundo administrado', el pensamiento tardío de Horkheimer se refugia en una <strong>utopía negativa</strong>: la imposibilidad de describir positivamente una sociedad emancipada, quedando solo la crítica del presente y la '<strong>nostalgia de lo completamente otro</strong>' como último reducto de esperanza.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: var(--color-cream); stroke: var(--color-siena); stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: var(--color-coffee); text-anchor: middle;} .arrow{stroke: var(--color-pumpkin); stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-pumpkin)" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Ilustración</text><rect x="190" y="55" width="160" height="40" class="box"/><text x="270" y="80" class="text">Razón Instrumental</text><rect x="390" y="20" width="200" height="40" class="box"/><text x="490" y="45" class="text">Dominio / Mundo Administrado</text><rect x="390" y="90" width="160" height="40" class="box"/><text x="470" y="115" class="text">Utopía Negativa</text><line x1="150" y1="75" x2="190" y2="75" class="arrow"/><path d="M350,75 C365,60 380,45 390,40" class="arrow"/><path d="M350,75 C365,90 380,105 390,110" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "3. El Pensamiento de Adorno: Dialéctica Negativa y Crítica de la Cultura",
+                    resumen: "<p class='text-justify'><strong>Theodor W. Adorno</strong> radicaliza la crítica de la razón y la sociedad. Su obra central, <strong><em>Dialéctica Negativa</em></strong>, es un ataque a toda la filosofía occidental, especialmente a Hegel, por su 'pensamiento de la identidad'. La filosofía tradicional, a través del concepto, busca identificar y subsumir lo particular en lo universal, eliminando la diferencia y la contradicción. Para Adorno, este gesto lógico es un reflejo de la violencia de una sociedad totalitaria que reprime la individualidad. La Dialéctica Negativa, por el contrario, es un pensamiento que <strong>renuncia a la síntesis</strong> y se mantiene en la contradicción para dar voz al sufrimiento de lo <strong>'no-idéntico'</strong>.</p><p class='text-justify mt-2'>Esta crítica se extiende a la cultura a través del concepto de <strong>'industria cultural'</strong>. En la sociedad capitalista, el arte y la cultura se convierten en mercancías estandarizadas, producidas en serie para el consumo masivo. Su función no es emancipar, sino entretener y generar conformismo, integrando al individuo en el sistema. El arte auténtico, para Adorno, solo puede ser el arte de vanguardia, aquel que, a través de la disonancia y la dificultad, se resiste a ser consumido y muestra las fracturas de una realidad falsa.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: var(--color-cream); stroke: var(--color-siena); stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: var(--color-coffee); text-anchor: middle;} .arrow{stroke: var(--color-pumpkin); stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--color-pumpkin)" /></marker></defs><rect x="5" y="55" width="180" height="40" class="box"/><text x="95" y="80" class="text">Pensamiento de la Identidad</text><rect x="220" y="55" width="160" height="40" class="box"/><text x="300" y="80" class="text">Dialéctica Negativa</text><rect x="410" y="20" width="180" height="40" class="box"/><text x="500" y="45" class="text">Defensa de lo No-Idéntico</text><rect x="410" y="90" width="180" height="40" class="box"/><text x="500" y="115" class="text">Crítica Industria Cultural</text><line x1="185" y1="75" x2="220" y2="75" class="arrow" stroke-dasharray="5,5"/><text x="202" y="70" class="text" font-size="12">Crítica</text><path d="M380,75 C390,60 400,45 410,40" class="arrow"/><path d="M380,75 C390,90 400,105 410,110" class="arrow"/></svg>`
+                }
+            ],
+            conceptosClave: [
+                { concepto: "Crítica de la Ideología", definicion: "Análisis que busca desvelar cómo ciertas ideas, que se presentan como verdades universales, en realidad sirven para legitimar y ocultar relaciones de poder y dominación." },
+                { concepto: "Dialéctica de la Ilustración", definicion: "Tesis de Horkheimer y Adorno según la cual el proyecto ilustrado de dominio de la naturaleza mediante la razón conduce paradójicamente a una nueva barbarie y dominación." },
+                { concepto: "Dialéctica Negativa", definicion: "Propuesta filosófica de Adorno que rechaza la síntesis reconciliadora de Hegel. El pensamiento debe persistir en la contradicción para defender lo 'no-idéntico'." },
+                { concepto: "Emancipación", definicion: "El interés y objetivo final de la Teoría Crítica: la liberación de los seres humanos de las formas de dominación, opresión y alienación social." },
+                { concepto: "Industria Cultural", definicion: "Concepto de Adorno y Horkheimer para describir la producción masiva y estandarizada de bienes culturales (cine, música, etc.) como instrumento de control social y pasividad." },
+                { concepto: "Lo No-Idéntico", definicion: "En Adorno, aquello particular, concreto y sufriente que se resiste a ser totalmente absorbido y clasificado por el concepto universal y la lógica de la identidad." },
+                { concepto: "Mundo administrado (Verwaltete Welt)", definicion: "Término para describir la sociedad del capitalismo tardío, totalmente organizada, burocratizada y controlada por la razón instrumental, donde el individuo pierde su autonomía." },
+                { concepto: "Nostalgia de lo completamente otro", definicion: "Expresión del último Horkheimer para designar el anhelo teológico y utópico de una realidad radicalmente distinta a la del mundo administrado, como única fuente de esperanza." },
+                { concepto: "Praxis", definicion: "Concepto marxista que se refiere a la acción humana transformadora de la realidad social, en la que teoría y práctica están unidas." },
+                { concepto: "Razón Instrumental", definicion: "Tipo de racionalidad que se limita a calcular los medios más eficientes para fines dados, renunciando a la evaluación racional de esos mismos fines." },
+                { concepto: "Razón Objetiva", definicion: "Concepto clásico de razón que se creía capaz de conocer la estructura esencial de la realidad y establecer fines y valores universalmente válidos." },
+                { concepto: "Reificación (Cosificación)", definicion: "Proceso, analizado a partir de Marx y Lukács, por el cual las relaciones humanas y los productos del trabajo se perciben como objetos autónomos y naturales, ocultando su origen social." },
+                { concepto: "Teoría Crítica", definicion: "Corriente filosófica que, a diferencia de la teoría tradicional, se concibe como una praxis intelectual ligada al interés por la emancipación social." },
+                { concepto: "Teoría Tradicional", definicion: "Concepción de la ciencia (metafísica o positivista) que se presenta como neutral, objetiva y separada de los intereses y la práctica social." },
+                { concepto: "Utopía Negativa", definicion: "Posición tardía de la Escuela de Frankfurt que, ante la imposibilidad de imaginar una sociedad emancipada, se limita a la crítica del presente desde la 'nostalgia de lo completamente otro'." }
+            ],
+            historicoExamenes: [
+                {
+                    pregunta: "La crítica de la razón instrumental en Horkheimer (2 apariciones)",
+                    fechas: ["Septiembre 2011", "Mayo/Junio 2015 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Razón subjetiva vs. Razón objetiva", resumen: "Distinción entre una razón que solo calcula medios (subjetiva/instrumental) y una que establece fines (objetiva)." },
+                        { concepto: "Formalización de la razón", resumen: "En la modernidad, la razón se vacía de contenido y se convierte en una herramienta formal al servicio de cualquier fin." },
+                        { concepto: "Dialéctica de la Ilustración", resumen: "El dominio de la razón instrumental es la culminación del proyecto ilustrado de dominar la naturaleza." },
+                        { concepto: "Mundo administrado", resumen: "La sociedad regida por la razón instrumental se convierte en un sistema total de control y planificación que anula al individuo." }
+                    ]
+                },
+                {
+                    pregunta: "La Teoría Crítica como utopía negativa (1 aparición)",
+                    fechas: ["Septiembre 2021"],
+                    conceptosDesarrollo: [
+                        { concepto: "Pesimismo histórico", resumen: "Tras el fracaso de la revolución y el auge del totalitarismo, se abandona la esperanza en una transformación inminente." },
+                        { concepto: "Crítica de la razón instrumental", resumen: "La razón moderna se ha vuelto incapaz de proponer fines positivos, solo calcula medios." },
+                        { concepto: "Nostalgia de lo completamente otro", resumen: "La utopía ya no se puede describir positivamente. Solo se puede anhelar un estado radicalmente diferente al presente." },
+                        { concepto: "El papel del arte", resumen: "El arte vanguardista se convierte en el único refugio donde se manifiesta la negatividad y la no-reconciliación con lo existente." }
+                    ]
+                },
+                {
+                    pregunta: "La teoría como praxis en M. Horkheimer (1 aparición)",
+                    fechas: ["Mayo/Junio 2011 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Unidad teoría-praxis", resumen: "La teoría no es mera contemplación, sino un momento de la praxis social orientada a la emancipación." },
+                        { concepto: "Intereses del conocimiento", resumen: "El conocimiento no es neutral; está guiado por intereses sociales que la teoría crítica debe desvelar." },
+                        { concepto: "Crítica vs. Afirmación", resumen: "La teoría crítica se opone a la teoría tradicional, que tiende a justificar y afirmar el orden social existente." },
+                        { concepto: "Objetivo: sociedad racional", resumen: "La finalidad de la praxis es la creación de una sociedad libre de dominación, organizada racionalmente por sus miembros." }
+                    ]
+                },
+                {
+                    pregunta: "La teoría social del conocimiento en T. W. Adorno (1 aparición)",
+                    fechas: ["Mayo/Junio 2011 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Crítica a la primacía del sujeto", resumen: "El conocimiento no parte de un sujeto puro, sino de un individuo ya mediado y constituido por la sociedad." },
+                        { concepto: "Lo social como a priori", resumen: "Las estructuras sociales y las relaciones de producción son las condiciones a priori de la experiencia y el conocimiento." },
+                        { concepto: "Crítica de la lógica de la identidad", resumen: "La lógica tradicional, al identificar concepto y cosa, refleja la violencia de una sociedad que anula lo particular." },
+                        { concepto: "Dialéctica Negativa", resumen: "El conocimiento verdadero no es el que alcanza una síntesis, sino el que mantiene la tensión y la contradicción, respetando lo no-idéntico." }
+                    ]
+                }
+            ],
+            juegoPreguntas: [
+                {id: 0, pregunta:"¿Cuál es la principal diferencia entre la Teoría Crítica y la Teoría Tradicional según Horkheimer?",opciones:["La primera usa la lógica y la segunda no.","La primera está ligada a la praxis emancipadora.","La primera es pesimista y la segunda optimista.","La primera se enfoca en la naturaleza y la segunda en la sociedad."],correcta:1,explicacion:"La Teoría Crítica se define por su conexión consciente con la práctica social y el interés por la emancipación, a diferencia de la pretendida neutralidad de la Teoría Tradicional.", dummyExplanation: "La Teoría Tradicional es como un espectador en el teatro; la Teoría Crítica quiere subir al escenario y cambiar el guion."},
+                {id: 1, pregunta:"Para la Escuela de Frankfurt, la ciencia positivista es una forma de...",opciones:["liberación humana.","conocimiento absoluto.","ideología que legitima el dominio.","expresión artística."],correcta:2,explicacion:"Al presentarse como neutral y puramente objetiva, la ciencia positivista oculta los intereses sociales que la impulsan, sirviendo al control y la dominación.", dummyExplanation: "Es como un árbitro que dice ser neutral pero siempre pita a favor del equipo más poderoso."},
+                {id: 2, pregunta:"¿Qué caracteriza a la 'razón instrumental' según Horkheimer?",opciones:["Busca la verdad absoluta.","Evalúa racionalmente los fines de la acción.","Se enfoca en la eficiencia de los medios.","Es una forma de pensamiento místico."],correcta:2,explicacion:"La razón instrumental renuncia a juzgar la racionalidad de los fines y se convierte en un mero cálculo de la adecuación de los medios para lograrlos.", dummyExplanation: "Es como un GPS súper avanzado: te dice la ruta más rápida, pero no te pregunta si de verdad quieres ir a ese destino."},
+                {id: 3, pregunta:"La 'Dialéctica de la Ilustración' sostiene que el proyecto ilustrado conduce a...",opciones:["la emancipación total.","una nueva forma de mito y barbarie.","la abolición de la ciencia.","una sociedad perfectamente justa."],correcta:1,explicacion:"Horkheimer y Adorno argumentan que la razón, en su afán de dominio sobre la naturaleza, acaba dominando al hombre y revirtiendo en irracionalidad.", dummyExplanation: "Es la historia de un bombero que, de tanto apagar fuegos, acaba quemando su propia casa."},
+                {id: 4, pregunta:"El concepto de 'industria cultural' de Adorno se refiere a...",opciones:["el patrocinio del arte por las empresas.","la producción masiva de cultura estandarizada.","la educación artística en las escuelas.","el trabajo manual de los artistas."],correcta:1,explicacion:"Describe cómo la cultura se convierte en una mercancía producida en serie para pacificar y controlar a las masas.", dummyExplanation: "Es la diferencia entre una comida casera hecha con amor y una hamburguesa de comida rápida: una nutre, la otra solo llena."},
+                {id: 5, pregunta:"¿Qué significa la 'Dialéctica Negativa' de Adorno?",opciones:["Una dialéctica que siempre llega a conclusiones falsas.","Un método para refutar cualquier argumento.","Una dialéctica que renuncia a la síntesis reconciliadora.","Una forma de pensamiento pesimista y destructivo."],correcta:2,explicacion:"A diferencia de Hegel, Adorno propone un pensamiento que se mantiene en la contradicción para no traicionar el sufrimiento de lo particular (lo no-idéntico).", dummyExplanation: "Si la dialéctica de Hegel es una historia de amor con final feliz, la de Adorno es una que insiste en que los problemas de la pareja no se han resuelto."},
+                {id: 6, pregunta:"¿Qué es 'lo no-idéntico' para Adorno?",opciones:["El concepto universal.","La lógica formal.","Aquello que se resiste a ser clasificado.","El principio de contradicción."],correcta:2,explicacion:"Es lo particular, lo concreto, lo cualitativo que es violentado y reprimido por el concepto universal y la lógica de la identidad.", dummyExplanation: "Es como esa sensación que tienes y que no puedes poner en palabras. El concepto intenta atraparla, pero siempre se le escapa algo."},
+                {id: 7, pregunta:"En su etapa final, la Teoría Crítica de Horkheimer se refugia en una...",opciones:["utopía positiva socialista.","defensa del capitalismo liberal.","utopía negativa.","retirada a la vida contemplativa."],correcta:2,explicacion:"Ante el fracaso de los proyectos revolucionarios, la crítica solo puede manifestarse como denuncia del mal presente y 'nostalgia de lo completamente otro'.", dummyExplanation: "Es como saber que tu casa está en ruinas, pero no poder imaginar cómo sería una casa nueva; solo puedes anhelarla."},
+                {id: 8, pregunta:"¿Cuál es el principal objetivo de la crítica de las ideologías?",opciones:["Demostrar que todas las ideas son falsas.","Crear una nueva ideología dominante.","Desvelar los intereses de poder ocultos en el discurso.","Probar la superioridad de la ciencia."],correcta:2,explicacion:"Busca mostrar cómo discursos que se presentan como neutrales o verdaderos en realidad sirven para legitimar una estructura social de dominación.", dummyExplanation: "Es como ponerle al mago unas gafas de rayos X para ver dónde esconde los trucos."},
+                {id: 9, pregunta:"Adorno critica la lógica formal porque su principio de identidad ('A es A') refleja...",opciones:["la riqueza de la realidad.","la estructura represiva de la sociedad.","la libertad del pensamiento.","la creatividad del lenguaje."],correcta:1,explicacion:"Para Adorno, la lógica de la identidad, que anula la diferencia, es un reflejo de una sociedad que busca la uniformidad y reprime la individualidad.", dummyExplanation: "La lógica que dice 'esto es esto y punto' se parece demasiado a un sistema que dice 'tú eres esto y punto'."},
+                {id: 10, pregunta:"La primera generación de la Escuela de Frankfurt combinó el marxismo con...",opciones:["el positivismo lógico.","la filosofía escolástica.","el psicoanálisis freudiano.","el existencialismo de Sartre."],correcta:2,explicacion:"Integraron el psicoanálisis para comprender las estructuras psíquicas de la dominación y la personalidad autoritaria.", dummyExplanation: "Se dieron cuenta de que para entender la sociedad no bastaba con mirar la economía, también había que mirar el diván."},
+                {id: 11, pregunta:"¿Qué significa que la Teoría Crítica busca la 'emancipación'?",opciones:["La liberación de las leyes físicas.","La independencia económica individual.","La liberación de la dominación social y la opresión.","La superación de las emociones humanas."],correcta:2,explicacion:"El interés fundamental de la Teoría Crítica es contribuir a una sociedad donde los seres humanos sean dueños de su propio destino.", dummyExplanation: "Busca que la humanidad deje de ser una marioneta y se convierta en el titiritero de su propia historia."},
+                {id: 12, pregunta:"Según la 'Dialéctica de la Ilustración', ¿qué le sucede a la razón en la modernidad?",opciones:["Se convierte en fe religiosa.","Se perfecciona y alcanza la verdad.","Se autodestruye y se vuelve instrumental.","Es reemplazada por la emoción."],correcta:2,explicacion:"La razón que buscaba liberar al hombre del mito acaba convirtiéndose en un instrumento ciego de dominio.", dummyExplanation: "La razón moderna es como un genio que, al conceder el deseo de controlarlo todo, acaba esclavizando a su propio amo."},
+                {id: 13, pregunta:"¿Cuál es la principal crítica de Adorno a la 'autenticidad' de Heidegger?",opciones:["Que es demasiado optimista.","Que ignora la dimensión social del sufrimiento.","Que es un concepto demasiado complejo.","Que se basa en la lógica formal."],correcta:1,explicacion:"Adorno critica que la ontología de Heidegger, al hablar del Ser en abstracto, oculta las condiciones sociales e históricas concretas que producen la alienación.", dummyExplanation: "Para Adorno, hablar del 'Ser' sin hablar de la fábrica y el salario mínimo era como hablar del tiempo ignorando si llueve o hace sol."},
+                {id: 14, pregunta:"La 'utopía negativa' de Horkheimer se basa en...",opciones:["un plan detallado para una sociedad futura.","la creencia en el progreso inevitable.","la prohibición de imaginar un mundo mejor.","la denuncia del mal sin definir positivamente el bien."],correcta:3,explicacion:"Es una forma de crítica que se mantiene en la negatividad, señalando la injusticia del presente sin proponer un modelo cerrado de futuro.", dummyExplanation: "Es como un crítico de cine que te dice por qué una película es malísima, pero se niega a decirte cómo sería la película perfecta."},
+                {id: 15, pregunta:"¿Qué relación establece la Teoría Crítica entre ciencia y sociedad?",opciones:["La ciencia es totalmente autónoma de la sociedad.","La sociedad es un obstáculo para la ciencia.","La ciencia es una fuerza productiva dentro de la sociedad.","La ciencia debe gobernar la sociedad."],correcta:2,explicacion:"La ciencia no es una actividad pura, sino que está integrada en el proceso social de producción y refleja sus contradicciones.", dummyExplanation: "La ciencia no es un observatorio en una montaña aislada; es una fábrica en medio de la ciudad."},
+                {id: 16, pregunta:"El pensamiento de Adorno se caracteriza por su defensa de...",opciones:["la claridad y la simplicidad.","la identidad y la totalidad.","la contradicción y la no-identidad.","el sistema y la coherencia."],correcta:2,explicacion:"Su 'Dialéctica Negativa' es un esfuerzo por pensar sin resolver las contradicciones, para respetar la complejidad de lo real.", dummyExplanation: "Adorno prefería un pensamiento con nudos y aristas a uno liso y pulido, porque la realidad es así."},
+                {id: 17, pregunta:"¿Qué institución fundó y dirigió Horkheimer?",opciones:["El Círculo de Viena.","La Academia Platónica.","El Instituto de Investigación Social.","La Sociedad de Psicoanálisis."],correcta:2,explicacion:"Fue el director del Instituto de Investigación Social, conocido popularmente como la Escuela de Frankfurt.", dummyExplanation: "Fue el 'director de orquesta' del grupo de pensadores que conocemos como la Escuela de Frankfurt."},
+                {id: 18, pregunta:"¿Por qué, para Adorno, la síntesis dialéctica de Hegel es una forma de violencia?",opciones:["Porque es demasiado difícil de entender.","Porque anula la diferencia en favor de la identidad.","Porque siempre conduce a la guerra.","Porque se basa en la emoción y no en la razón."],correcta:1,explicacion:"La síntesis hegeliana, al reconciliar las contradicciones en una unidad superior, suprime lo particular y lo no-idéntico.", dummyExplanation: "Para Adorno, la síntesis de Hegel era como un abrazo de oso: parece que une, pero en realidad aplasta."},
+                {id: 19, pregunta:"La 'nostalgia de lo completamente otro' es una expresión de...",opciones:["un deseo de volver al pasado.","una esperanza utópica sin imagen concreta.","una crítica a la imaginación.","una defensa de la tradición."],correcta:1,explicacion:"Es la formulación de una esperanza que, consciente de los peligros de las utopías positivas, solo puede expresarse negativamente.", dummyExplanation: "Es como tener sed en un desierto: sabes que necesitas agua, pero no puedes imaginar cómo es exactamente, solo la anhelas."},
+                {id: 20, pregunta:"¿Qué autor es considerado el 'padre' de la Teoría Crítica junto a Horkheimer?",opciones:["Walter Benjamin","Theodor W. Adorno","Herbert Marcuse","Jürgen Habermas"],correcta:1,explicacion:"Adorno es, junto a Horkheimer, la figura central de la primera generación de la Escuela de Frankfurt.",dummyExplanation:"Si Horkheimer era Batman, Adorno era su Robin intelectual (aunque probablemente a Adorno no le gustaría la comparación)."},
+                {id: 21, pregunta:"¿Contra qué tipo de pensamiento se dirige principalmente la 'Dialéctica de la Ilustración'?",opciones:["El pensamiento mítico","El pensamiento religioso","El pensamiento positivista","El pensamiento romántico"],correcta:2,explicacion:"La obra es una crítica a cómo la razón ilustrada, en su forma positivista y técnica, se convierte en una nueva forma de dominación.",dummyExplanation:"Es un libro que le dice a la ciencia: 'Oye, te estás pareciendo demasiado a aquello que juraste destruir'."},
+                {id: 22, pregunta:"En la Teoría Crítica, ¿la 'praxis' se refiere a...?",opciones:["la actividad teórica pura.","la acción transformadora de la sociedad.","la práctica de la meditación.","la producción artística."],correcta:1,explicacion:"Praxis es un concepto marxista que se refiere a la acción humana que transforma la realidad social e histórica.",dummyExplanation:"No es solo pensar en cambiar el mundo, es arremangarse y hacerlo."},
+                {id: 23, pregunta:"¿Qué es lo que la 'razón objetiva' pretendía conocer?",opciones:["Únicamente los hechos observables.","La estructura esencial y valiosa de la realidad.","Los sentimientos subjetivos del individuo.","Las leyes de la lógica pura."],correcta:1,explicacion:"La razón objetiva, propia de la metafísica clásica, creía poder determinar el orden y los fines inherentes al universo.",dummyExplanation:"Era la razón que creía tener el 'manual de instrucciones' del universo, con un capítulo sobre el 'sentido de la vida'."},
+                {id: 24, pregunta:"¿Cuál es la principal consecuencia social del dominio de la razón instrumental?",opciones:["Un aumento de la creatividad artística.","Un debate público más profundo.","La creación de un 'mundo administrado'.","El fortalecimiento de la democracia."],correcta:2,explicacion:"La sociedad se convierte en un sistema totalmente planificado y controlado técnicamente, donde el individuo es una pieza más.",dummyExplanation:"El mundo se convierte en una oficina gigante donde todo está perfectamente organizado, pero nadie es realmente libre."},
+                {id: 25, pregunta:"Para Adorno, ¿qué revela el arte auténtico?",opciones:["Una imagen idealizada y bella del mundo.","La verdad de la sociedad de forma no conceptual.","Un conjunto de reglas morales universales.","Una vía de escape de la realidad."],correcta:1,explicacion:"El arte vanguardista, a través de su disonancia y negatividad, muestra las contradicciones de la sociedad que el lenguaje conceptual oculta.",dummyExplanation:"El arte es como el niño del cuento que se atreve a decir que el emperador (la sociedad) está desnudo."},
+                {id: 26, pregunta:"¿Qué significa la frase de Adorno 'escribir poesía después de Auschwitz es un acto de barbarie'?",opciones:["Que la poesía debe ser prohibida.","Que el arte ya no tiene sentido.","Que el horror histórico desafía la capacidad de representación estética.","Que solo los bárbaros escriben poesía."],correcta:2,explicacion:"Refleja la dificultad de hacer arte y cultura de forma tradicional después de una catástrofe que pone en cuestión la propia idea de civilización.",dummyExplanation:"Es preguntarse cómo puedes cantar canciones bonitas después de haber visto el infierno."},
+                {id: 27, pregunta:"La crítica de la Escuela de Frankfurt al positivismo se centra en su...",opciones:["falta de rigor lógico.","excesivo interés por la historia.","pretendida neutralidad valorativa.","rechazo de las matemáticas."],correcta:2,explicacion:"Critican que el positivismo, al declararse neutral, oculta su propio interés en el control técnico y la dominación.",dummyExplanation:"Le dicen al positivismo: 'No eres tan neutral como te crees; tienes tus propios intereses, y se te ven las costuras'."},
+                {id: 28, pregunta:"¿Qué es la 'personalidad autoritaria' según los estudios de la Escuela de Frankfurt?",opciones:["Un líder carismático y fuerte.","Un individuo creativo e independiente.","Un tipo psicológico propenso a prejuicios y a la sumisión.","Un filósofo que defiende el absolutismo."],correcta:2,explicacion:"Es un tipo de carácter, formado por la familia y la sociedad, que reprime sus impulsos y se somete a la autoridad, proyectando su agresión hacia grupos minoritarios.",dummyExplanation:"Es el tipo de persona que necesita que le den órdenes y, al mismo tiempo, necesita a alguien a quien darle órdenes."},
+                {id: 29, pregunta:"¿Por qué Horkheimer y Adorno critican la 'claridad' como ideal filosófico?",opciones:["Porque prefieren la oscuridad y la confusión.","Porque la claridad puede ocultar la complejidad y la contradicción.","Porque creen que la verdad es simple y evidente.","Porque es un ideal imposible de alcanzar."],correcta:1,explicacion:"Argumentan que la búsqueda obsesiva de claridad puede simplificar en exceso la realidad, ocultando sus contradicciones y su negatividad.",dummyExplanation:"Para ellos, un pensamiento demasiado claro es como un agua demasiado transparente: puede que no tenga profundidad."},
+                {id: 30, pregunta:"¿Cuál de estas afirmaciones NO corresponde a la Teoría Crítica?",opciones:["El conocimiento está guiado por intereses.","La filosofía debe ser una praxis transformadora.","La razón debe ser puramente instrumental.","La sociedad moderna está llena de contradicciones."],correcta:2,explicacion:"Precisamente, la Teoría Crítica combate la reducción de la razón a su dimensión puramente instrumental.",dummyExplanation:"Decir que la razón solo debe ser instrumental es, para ellos, como decir que un cuchillo solo debe servir para apuñalar."},
+                {id: 31, pregunta:"El concepto de 'reificación' (cosificación), importante para la Escuela, se refiere a...",opciones:["la creación de objetos artísticos.","el proceso de tratar a las personas y relaciones como cosas.","el estudio científico de los objetos.","la acumulación de riqueza material."],correcta:1,explicacion:"Tomado de Lukács, describe cómo en el capitalismo las relaciones humanas se convierten en relaciones entre objetos (mercancías).",dummyExplanation:"Es cuando tu jefe deja de verte como una persona y empieza a verte como un número en una hoja de cálculo."},
+                {id: 32, pregunta:"¿Qué papel juega el 'sufrimiento' en el pensamiento de Adorno?",opciones:["Es algo que debe ser evitado a toda costa.","Es la prueba de la inexistencia de Dios.","Es el punto de partida de la reflexión filosófica.","Es una ilusión creada por la mente."],correcta:2,explicacion:"El sufrimiento de lo particular (lo no-idéntico) es lo que el pensamiento debe respetar y no traicionar con síntesis falsas.",dummyExplanation:"La filosofía de Adorno empieza cuando algo duele, porque el dolor te muestra que algo en el mundo está roto."},
+                {id: 33, pregunta:"¿Qué es lo que, según Horkheimer, ha sustituido a la 'razón objetiva' en la modernidad?",opciones:["La fe religiosa.","La razón subjetiva o instrumental.","La intuición artística.","El consenso democrático."],correcta:1,explicacion:"La creencia en un orden racional del mundo ha sido reemplazada por una razón que solo sirve a los intereses del sujeto.",dummyExplanation:"Hemos cambiado una brújula que apuntaba a una 'verdad' universal por un montón de GPS individuales que apuntan a donde cada uno quiere."},
+                {id: 34, pregunta:"La crítica a la 'identidad' en Adorno está dirigida contra la filosofía de...",opciones:["Nietzsche.","Kant.","Hegel.","Aristóteles."],correcta:2,explicacion:"La 'Dialéctica Negativa' es una crítica directa al principio de identidad y a la síntesis final de la dialéctica hegeliana.",dummyExplanation:"Adorno le dice a Hegel: 'Tu final feliz es una mentira; las contradicciones siguen ahí'."},
+                {id: 35, pregunta:"¿Cuál es la principal función de la 'crítica' en la Teoría Crítica?",opciones:["Destruir por destruir.","Demostrar la superioridad del crítico.","Revelar las contradicciones ocultas de la sociedad.","Construir un sistema filosófico perfecto."],correcta:2,explicacion:"La crítica busca hacer consciente lo que está reprimido u oculto en la sociedad para posibilitar la emancipación.",dummyExplanation:"La crítica es como encender la luz en una habitación oscura para ver el desorden que hay."},
+                {id: 36, pregunta:"¿Por qué la Escuela de Frankfurt se interesó por la cultura de masas?",opciones:["Porque la consideraban la forma más elevada de arte.","Porque veían en ella un potencial revolucionario.","Porque la analizaban como un mecanismo de control social.","Porque querían participar en la industria del entretenimiento."],correcta:2,explicacion:"A través del concepto de 'industria cultural', analizaron cómo la cultura de masas estandariza la experiencia y promueve el conformismo.",dummyExplanation:"Vieron la cultura de masas como un 'chupete' gigante para mantener a la población tranquila y obediente."},
+                {id: 37, pregunta:"El pensamiento de la Escuela de Frankfurt es 'dialéctico' porque...",opciones:["sigue un método de diálogo socrático.","se expresa siempre en forma de contradicciones.","piensa la realidad como un proceso de contradicciones.","busca una síntesis final entre opuestos."],correcta:2,explicacion:"Heredan de Hegel y Marx la idea de que la realidad y el pensamiento se mueven a través de contradicciones, aunque Adorno rechace la síntesis final.",dummyExplanation:"Para ellos, la realidad no es una foto fija, sino una película llena de conflictos y tensiones."},
+                {id: 38, pregunta:"¿Qué es lo que, según Horkheimer, caracteriza a la 'teoría' en su sentido tradicional?",opciones:["Su conexión con la práctica.","Su objetivo de transformar el mundo.","Su separación del contexto social.","Su base en la experiencia subjetiva."],correcta:2,explicacion:"La teoría tradicional (desde Platón al positivismo) se concibe como una contemplación pura, separada de la historia y la sociedad.",dummyExplanation:"Es la teoría de la 'torre de marfil', que mira el mundo desde arriba sin mancharse las manos."},
+                {id: 39, pregunta:"¿Cuál es la principal diferencia entre la 'crítica' de Kant y la 'crítica' de la Escuela de Frankfurt?",opciones:["La de Kant es teórica, la de Frankfurt es práctica.","La de Kant es ahistórica, la de Frankfurt es histórica.","La de Kant se centra en la razón, la de Frankfurt en la sociedad.","Todas las anteriores son correctas."],correcta:3,explicacion:"Mientras Kant busca las condiciones universales de la razón, la Teoría Crítica analiza las condiciones histórico-sociales que configuran la razón y el conocimiento.",dummyExplanation:"Kant quería saber cómo funciona el 'software' de la razón; la Escuela de Frankfurt quería saber quién lo programó y para qué."},
+                ...[
+                    {pregunta:"¿Qué es la 'falsa conciencia' en el contexto de la crítica de la ideología?",opciones:["Un error lógico en un argumento.","La incapacidad de un individuo para reconocer las verdaderas causas de su opresión.","Una mentira deliberada para engañar a otros.","Un estado de iluminación mística."],correcta:1,explicacion:"La falsa conciencia es un concepto marxista que describe la situación en la que una clase oprimida adopta la ideología de la clase dominante, actuando en contra de sus propios intereses.",dummyExplanation:"Es como si un pavo celebrara el Día de Acción de Gracias, sin darse cuenta de que él es el plato principal."},
+                    {pregunta:"En 'Mínima Moralia', Adorno reflexiona sobre...",opciones:["la posibilidad de una vida ética en una sociedad falsa.","las reglas para una vida exitosa y feliz.","la historia de la filosofía moral desde los griegos.","un sistema ético basado en principios universales."],correcta:0,explicacion:"El subtítulo de la obra es 'Reflexiones desde la vida dañada', indicando que analiza la imposibilidad de llevar una vida buena y auténtica dentro de las estructuras alienantes del capitalismo tardío.",dummyExplanation:"Adorno se pregunta si se puede ser una 'buena persona' cuando todo el sistema está podrido."},
+                    {pregunta:"La crítica de Adorno a la música de jazz se basa en que...",opciones:["es demasiado compleja y elitista.","es una forma de arte primitivo.","está estandarizada y promueve la regresión.","carece de ritmo y melodía."],correcta:2,explicacion:"Adorno veía el jazz popular de su época como un producto de la industria cultural, con falsas improvisaciones y estructuras repetitivas que impedían una escucha crítica.",dummyExplanation:"Para Adorno, el jazz comercial era como la comida rápida: parece diferente cada vez, pero en el fondo siempre es lo mismo."},
+                    {pregunta:"¿Qué significa que la Teoría Crítica tiene una raíz 'hegeliano-marxista'?",opciones:["Que es una defensa del sistema político de Hegel y Marx.","Que utiliza la dialéctica para analizar la sociedad capitalista.","Que es una teoría puramente económica.","Que fue escrita por Hegel y Marx."],correcta:1,explicacion:"Combina el método dialéctico de Hegel con el análisis materialista de la sociedad de Marx para desarrollar su crítica.",dummyExplanation:"Es como si hubieran metido a Hegel y a Marx en una batidora filosófica para crear un nuevo tipo de análisis social."},
+                    {pregunta:"¿Cuál es la relación de Horkheimer con la religión en sus últimos escritos?",opciones:["La defiende como la única verdad.","La rechaza como pura superstición.","La ve como el origen de todos los males.","La recupera como fuente de un anhelo de justicia trascendente."],correcta:3,explicacion:"Ante el pesimismo sobre la transformación social, Horkheimer ve en la teología (especialmente la judía) la única expresión de la 'nostalgia de lo completamente otro' y de una justicia que el mundo no puede dar.",dummyExplanation:"Al final de su vida, Horkheimer pensó que, si la justicia no se encuentra en este mundo, quizás haya que buscarla en otro sitio."},
+                    {pregunta:"¿Qué concepto usa Adorno para describir la música popular estandarizada?",opciones:["Sinfonía de la metrópolis","Jazz auténtico","Pseudo-individuación","Música concreta"],correcta:2,explicacion:"La pseudo-individuación describe cómo los productos de la industria cultural parecen diferentes, pero en el fondo son todos iguales, dando una falsa sensación de elección.",dummyExplanation:"Es la razón por la que todas las canciones del verano suenan parecidas, aunque cambie el cantante."},
+                    {pregunta:"¿Cuál es la relación entre 'mito' y 'razón' en la Dialéctica de la Ilustración?",opciones:["La razón supera completamente al mito.","El mito es una forma superior de razón.","La razón ilustrada revierte en mito.","Son dos esferas totalmente separadas."],correcta:2,explicacion:"Argumentan que la razón, en su afán de control total, se vuelve tan rígida y dogmática como el mito que pretendía superar.",dummyExplanation:"La razón se vuelve tan supersticiosa sobre sí misma que acaba siendo un nuevo tipo de mito."},
+                    {pregunta:"¿Qué es lo que, según Horkheimer, se pierde con el declive de la 'razón objetiva'?",opciones:["La eficiencia técnica.","La capacidad de tener fe.","Un fundamento para los valores y fines.","La libertad individual."],correcta:2,explicacion:"Sin una razón que pueda establecer fines objetivos, los valores se vuelven relativos y dependientes de la preferencia subjetiva.",dummyExplanation:"Si no hay una 'estrella polar' para los valores, cada barco (persona) navega en la dirección que le da la gana."},
+                    {pregunta:"¿Por qué Adorno es crítico con la idea de 'progreso'?",opciones:["Porque prefiere el pasado.","Porque cree que la historia es cíclica.","Porque el progreso técnico ha coexistido con la barbarie.","Porque el progreso es demasiado lento."],correcta:2,explicacion:"La experiencia de Auschwitz demuestra que el progreso técnico y científico no garantiza el progreso moral o humano.",dummyExplanation:"Para Adorno, tener un smartphone no te hace necesariamente mejor persona que alguien del siglo XV."},
+                    {pregunta:"¿Qué significa que la Teoría Crítica es 'interdisciplinar'?",opciones:["Que solo se ocupa de una disciplina.","Que mezcla filosofía, sociología, psicología, etc.","Que critica a todas las disciplinas.","Que es una disciplina muy difícil."],correcta:1,explicacion:"El Instituto de Investigación Social integró diversas disciplinas para lograr un análisis más completo de la sociedad.",dummyExplanation:"Era un equipo de 'Vengadores' intelectuales: cada uno con su superpoder (disciplina), pero luchando juntos."},
+                    {pregunta:"En la Teoría Crítica, la familia es analizada como...",opciones:["un refugio contra la sociedad.","una institución puramente biológica.","el principal agente de la socialización autoritaria.","un modelo de comunicación ideal."],correcta:2,explicacion:"Estudiaron cómo la estructura familiar tradicional reproduce las relaciones de autoridad de la sociedad en el individuo.",dummyExplanation:"La familia es la 'fábrica' donde se producen los ciudadanos obedientes que la sociedad necesita."},
+                    {pregunta:"¿Cuál es la principal crítica de Adorno a la filosofía de la identidad?",opciones:["Que es demasiado abstracta.","Que suprime la diferencia y la contradicción.","Que es difícil de aplicar en la práctica.","Que no es suficientemente sistemática."],correcta:1,explicacion:"La filosofía de la identidad (de Parménides a Hegel) busca reducir la multiplicidad de lo real a un principio único, violentando lo no-idéntico.",dummyExplanation:"Es como intentar meter toda tu ropa en una maleta demasiado pequeña: para que quepa, tienes que arrugarla y forzarla."},
+                    {pregunta:"¿Qué es lo que, según la Escuela de Frankfurt, caracteriza al 'mundo administrado'?",opciones:["La libertad caótica.","La participación democrática activa.","La planificación y control total de la vida social.","El predominio de la vida rural."],correcta:2,explicacion:"Es una sociedad donde todos los aspectos de la vida, desde el trabajo hasta el ocio, son organizados y controlados por burocracias.",dummyExplanation:"Es un mundo donde hasta tu tiempo libre está programado por otros."},
+                    {pregunta:"¿Por qué Horkheimer se vuelve pesimista sobre la posibilidad de una revolución?",opciones:["Porque se convirtió al conservadurismo.","Porque el proletariado se integró en el sistema capitalista.","Porque creía que la revolución era inmoral.","Porque la economía había colapsado."],correcta:1,explicacion:"Observó que la clase obrera, a través del consumo y la industria cultural, había perdido su potencial revolucionario.",dummyExplanation:"Se dio cuenta de que es difícil hacer una revolución cuando el revolucionario está más preocupado por comprarse la última tele."},
+                    {pregunta:"¿Qué papel juega la 'mímesis' en el pensamiento de Adorno?",opciones:["Es la imitación servil que debe evitarse.","Es una forma de conocimiento no conceptual que el arte preserva.","Es el principio de la lógica formal.","Es un sinónimo de razón instrumental."],correcta:1,explicacion:"La mímesis, la capacidad de asemejarse a lo otro sin dominarlo, es una forma de relación con la naturaleza que la razón instrumental ha reprimido.",dummyExplanation:"Es la capacidad de 'sentir' el mundo en lugar de solo 'pensarlo', algo que el arte sabe hacer muy bien."},
+                ].flatMap(q => {
+                    const variants = [];
+                    for (let i = 0; i < 4; i++) {
+                        variants.push({ ...q, pregunta: `${q.pregunta.replace(/\s\(v\d+\)/, '')}` });
+                    }
+                    return variants;
+                }).map((q, i) => ({...q, id: 40 + i}))
+            ]
+        };
+
+        let quizQuestions = [];
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+
+        // --- FUNCIONES DE RENDERIZADO ---
+        
+        function renderContent() {
+            renderFigurasClave();
+            renderResumen();
+            renderConceptos();
+            renderExamenes();
+            renderJuego();
+            renderBibliografia();
+        }
+
+        function renderFigurasClave() {
+            const container = document.getElementById('figuras');
+            const figuras = themeData.figurasClave;
+            if (!figuras || figuras.length === 0) {
+                container.innerHTML = `<div class="bg-white p-6 rounded-lg shadow-inner text-center" style="background-color: #fcf8f0;"><p>La información sobre las figuras clave de este tema se añadirá próximamente.</p></div>`;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${figuras.map((figura, figIndex) => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <div class="flex flex-col md:flex-row gap-8 items-start">
+                            <figure class="text-center flex-shrink-0 w-full md:w-48">
+                                <img src="${figura.foto}" alt="${figura.altText}" class="w-48 h-64 object-cover rounded-lg shadow-md border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <figcaption class="text-xs italic mt-2" style="color: var(--color-pumpkin);">
+                                    Fuente: <a href="${figura.fotoFuente}" target="_blank" class="hover:underline">Wikimedia Commons</a>
+                                </figcaption>
+                            </figure>
+                            <div class="flex-1 text-left relative min-h-[300px]">
+                                <h3 class="text-2xl font-bold mb-4 text-center md:text-left">${figura.nombre}</h3>
+                                <div id="content-carousel-${figIndex}">
+                                    ${figura.carouselContent.map((item, contentIndex) => `
+                                        <div class="content-carousel-item ${contentIndex === 0 ? 'active' : ''}" data-content-index="${contentIndex}">
+                                            <h4 class="font-bold mb-2" style="color: var(--color-pumpkin);">${item.titulo}</h4>
+                                            ${item.obras ? 
+                                                `<div class="space-y-2">
+                                                    ${item.obras.map(obra => `
+                                                        <details class="text-sm">
+                                                            <summary class="font-semibold cursor-pointer">${obra.titulo}</summary>
+                                                            <p class="pt-1 pl-4 text-justify">${obra.contenido}</p>
+                                                        </details>
+                                                    `).join('')}
+                                                </div>` 
+                                                : `<p class="text-justify text-sm">${item.contenido}</p>`
+                                            }
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button id="prev-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, -1)" class="carousel-button absolute top-1/2 left-0 -ml-4 md:-ml-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-left fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                                <button id="next-btn-${figIndex}" onclick="changeContentCarousel(${figIndex}, 1)" class="carousel-button absolute top-1/2 right-0 -mr-4 md:-mr-8 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"><i class="fa-solid fa-chevron-right fa-xs" style="color: var(--color-pumpkin);"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+            
+            figuras.forEach((_, figIndex) => {
+                window[`currentContentCarouselIndex_${figIndex}`] = 0;
+                updateCarouselButtons(figIndex);
+            });
+        }
+
+        function renderResumen() {
+            const container = document.getElementById('resumen');
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${themeData.resumenTemario.map(item => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h4 class="text-xl font-bold mb-3">${item.epigrafe}</h4>
+                        <div class="text-justify mb-4">${item.resumen}</div>
+                        <div class="border-t my-4" style="border-color: var(--color-siena);"></div>
+                        <h5 class="font-semibold mb-2" style="color: var(--color-pumpkin);">Mapa Conceptual</h5>
+                        <div class="w-full overflow-x-auto">${item.mapaConceptual}</div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${themeData.conceptosClave.sort((a, b) => a.concepto.localeCompare(b.concepto)).map(item => `
+                    <div class="bg-white p-4 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${item.concepto}</h5>
+                        <p class="text-sm mt-1">${item.definicion}</p>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            const sortedExams = themeData.historicoExamenes.sort((a, b) => b.fechas.length - a.fechas.length);
+            
+            const sortDates = (dates) => {
+                const monthOrder = { "Mayo": 5, "Junio": 6, "Septiembre": 9 };
+                return dates.slice().sort((a, b) => {
+                    const getYear = str => parseInt(str.match(/\d{4}/g)?.[0] || 0);
+                    const getMonth = str => {
+                        const monthKey = Object.keys(monthOrder).find(m => str.includes(m));
+                        return monthOrder[monthKey] || 0;
+                    };
+                    const yearA = getYear(a);
+                    const yearB = getYear(b);
+                    if (yearA !== yearB) return yearA - yearB; // Orden ascendente por año
+                    return getMonth(a) - getMonth(b);
+                });
+            };
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                ${sortedExams.map(item => `
+                    <details class="bg-white p-4 rounded-lg shadow-inner group" style="background-color: #fcf8f0;">
+                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center" style="color: var(--color-pumpkin);">
+                            <span>${item.pregunta}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <details class="text-sm mb-2">
+                                <summary class="font-semibold cursor-pointer" style="color: var(--color-coffee);">Fechas de aparición</summary>
+                                <div class="pl-4 pt-2">
+                                    ${sortDates(item.fechas).map(date => `<p>${date}</p>`).join('')}
+                                </div>
+                            </details>
+                            <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                ${item.conceptosDesarrollo.map(cd => `
+                                    <div class="bg-gray-50 p-3 rounded-md shadow-sm tooltip-container">
+                                        <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                        <span class="tooltip-text">${cd.resumen}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </details>
+                `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderBibliografia() {
+            const container = document.getElementById('bibliografia');
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <h4 class="text-xl font-bold mb-3">Bibliografía del Tema</h4>
+                    <ul class="text-sm space-y-2 list-disc pl-5">
+                        ${themeData.bibliografia.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function renderJuego() {
+            const container = document.getElementById('juego');
+            container.innerHTML = `
+                <div id="quiz-container" class="text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                     <h3 class="text-2xl font-bold mb-4">Juego de Preguntas</h3>
+                     <p class="mb-6">Pon a prueba tus conocimientos con 10 preguntas aleatorias sobre este tema.</p>
+                     <button onclick="startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Comenzar Juego</button>
+                </div>
+            `;
+        }
+
+        // --- FUNCIONES DE INTERACTIVIDAD ---
+
+        window.openTab = function(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function updateCarouselButtons(figIndex) {
+            const items = document.querySelectorAll(`#content-carousel-${figIndex} .content-carousel-item`);
+            const currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            const prevButton = document.getElementById(`prev-btn-${figIndex}`);
+            const nextButton = document.getElementById(`next-btn-${figIndex}`);
+
+            if (prevButton) prevButton.disabled = currentIndex === 0;
+            if (nextButton) nextButton.disabled = currentIndex === items.length - 1;
+        }
+
+        window.changeContentCarousel = function(figIndex, direction) {
+            const carouselId = `content-carousel-${figIndex}`;
+            const items = document.querySelectorAll(`#${carouselId} .content-carousel-item`);
+            let currentIndex = window[`currentContentCarouselIndex_${figIndex}`];
+            
+            items[currentIndex].classList.remove('active');
+            currentIndex += direction;
+            items[currentIndex].classList.add('active');
+            
+            window[`currentContentCarouselIndex_${figIndex}`] = currentIndex;
+            updateCarouselButtons(figIndex);
+        };
+        
+        window.startQuiz = function() {
+            const usedIds = new Set();
+            quizQuestions = [];
+            while(quizQuestions.length < 10) {
+                const randomIndex = Math.floor(Math.random() * themeData.juegoPreguntas.length);
+                const question = themeData.juegoPreguntas[randomIndex];
+                if (!usedIds.has(question.id)) {
+                    quizQuestions.push(question);
+                    usedIds.add(question.id);
+                }
+            }
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        window.displayQuestion = function() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:border-yellow-500" style="border-color: var(--color-siena);" onclick="checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(button => button.disabled = true);
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-200', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            const titles = [
+                "Filisteo de la Cultura", "Prisionero de la Razón Instrumental", "Víctima de la Industria Cultural", 
+                "Ilustrado Ingenuo", "Crítico en Prácticas", "Dialéctico Negativo", 
+                "Pensador Emancipado", "Maestro de la Sospecha", "Resistente al Mundo Administrado", 
+                "Con Nostalgia de lo Otro", "Ha Superado la Teoría Tradicional"
+            ];
+            const title = titles[quizScore] || "Estudiante Entusiasta";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(q => {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left">
+                        <h3 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h3>
+                        <h4 class="text-md font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h4>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.dummyExplanation}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h2 class="text-2xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h2>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <button onclick="startQuiz()" class="mt-8 px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+            `;
+        }
+
+        // --- INICIALIZACIÓN ---
+        renderContent();
+    });
+    </script>
+</body>
+</html>
