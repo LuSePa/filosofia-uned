@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 4: La problemática del conocimiento histórico - Teoría del Conocimiento II</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías como variables CSS */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para las pestañas activas */
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        /* Ocultar contenido de carruseles inactivos */
+        .content-carousel-item {
+            display: none;
+        }
+        .content-carousel-item.active {
+            display: block;
+        }
+        /* Estilos para tooltips de ayuda */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Ocultar botón 'Siguiente' en el juego por defecto */
+        .next-button {
+            display: none; 
+        }
+        /* Estilo para botones de carrusel desactivados */
+        .carousel-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 4: La problemática del conocimiento histórico</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <!-- Navegación por pestañas -->
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition active" style="border-color: transparent;" onclick="openTab(event, 'figuras')">Figuras Clave</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'resumen')">Resumen</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'conceptos')">Conceptos</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'examenes')">Exámenes</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'juego')">Juego</button>
+                <button class="tab-button flex-grow py-2 px-4 text-center border-b-2 transition" style="border-color: transparent;" onclick="openTab(event, 'bibliografia')">Bibliografía</button>
+            </div>
+
+            <!-- Contenido de las pestañas -->
+            <div id="figuras" class="tab-content"></div>
+            <div id="resumen" class="tab-content" style="display:none;"></div>
+            <div id="conceptos" class="tab-content" style="display:none;"></div>
+            <div id="examenes" class="tab-content" style="display:none;"></div>
+            <div id="juego" class="tab-content" style="display:none;"></div>
+            <div id="bibliografia" class="tab-content" style="display:none;"></div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- BASE DE DATOS DE CONTENIDO PARA EL TEMA 4 ---
+        const themeData = {
+            title: "La problemática del conocimiento histórico",
+            figurasClave: [
+                {
+                    nombre: "Friedrich Schleiermacher",
+                    imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Friedrich_Daniel_Ernst_Schleiermacher_2.jpg/800px-Friedrich_Daniel_Ernst_Schleiermacher_2.jpg",
+                    alt: "Retrato de Friedrich Schleiermacher, un hombre de mediana edad con cabello canoso peinado hacia atrás y patillas, vestido con atuendo clerical oscuro.",
+                    categorias: [
+                        { titulo: "Breve biografía", contenido: "Friedrich Schleiermacher (1768-1834) fue un influyente filólogo, teólogo y filósofo alemán asociado al romanticismo. Es ampliamente reconocido como una figura fundacional de la hermenéutica moderna. Su trabajo buscó reconciliar la crítica de la Ilustración con la tradición protestante, proponiendo una visión de la religión basada en el sentimiento y la intuición." },
+                        { titulo: "Influencias y contexto", contenido: "Inmerso en el idealismo alemán y el romanticismo, reaccionó contra el racionalismo estricto de la Ilustración. Fue influenciado por Platón, Spinoza y Kant, y su pensamiento teológico fue clave para su desarrollo filosófico. Su obra es una respuesta a la crisis de la metafísica y la necesidad de encontrar un nuevo fundamento para la comprensión." },
+                        { titulo: "Relevancia filosófica", contenido: "Elevó la hermenéutica de una disciplina auxiliar (centrada en textos teológicos o clásicos) a una 'hermenéutica universal', un método general para la comprensión de cualquier texto o discurso. Propuso el 'círculo hermenéutico' y la distinción entre interpretación gramatical (objetiva) y psicológica (subjetiva) como pilares de su método." },
+                        { 
+                            titulo: "Obras clave", 
+                            contenido: `
+                                <details class="mb-2">
+                                    <summary class="font-semibold cursor-pointer"><em>Sobre la religión: Discursos a sus menospreciadores cultivados</em> (1799)</summary>
+                                    <p class="text-xs pt-1 pl-4">Una defensa de la religión desde una perspectiva romántica, argumentando que su base es el sentimiento y la intuición (Anschauung) de lo infinito, en lugar del dogma o la moralidad racional.</p>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-semibold cursor-pointer"><em>Monólogos</em> (1800)</summary>
+                                    <p class="text-xs pt-1 pl-4">Una obra de autorreflexión que explora la individualidad, la libertad interior y la relación del yo con la humanidad y el universo, en un tono muy personal e introspectivo.</p>
+                                </details>
+                                <details>
+                                    <summary class="font-semibold cursor-pointer"><em>Hermeneutik und Kritik</em> (póstumo, 1838)</summary>
+                                    <p class="text-xs pt-1 pl-4">Recopilación de sus lecciones donde sistematiza su teoría de la interpretación. Es la obra donde expone su método hermenéutico de forma más completa, sentando las bases de la disciplina para el futuro.</p>
+                                </details>
+                            `
+                        }
+                    ]
+                },
+                {
+                    nombre: "Wilhelm Dilthey",
+                    imagen: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Wilhelm_Dilthey_zZ_seiner_Verlobung.jpg",
+                    alt: "Fotografía de un joven Wilhelm Dilthey en la época de su compromiso. Tiene el cabello oscuro, bigote y una mirada intensa.",
+                    categorias: [
+                        { titulo: "Breve biografía", contenido: "Wilhelm Dilthey (1833-1911) fue un filósofo, historiador y psicólogo alemán, y una figura clave del historicismo. Hizo de la 'vida' (Leben) el centro de su filosofía, buscando fundamentar las 'Ciencias del Espíritu' (Geisteswissenschaften) como un campo de saber autónomo, con un método propio y distinto al de las ciencias naturales." },
+                        { titulo: "Influencias y contexto", contenido: "Su pensamiento es una respuesta al positivismo de Comte y Mill, que pretendía aplicar el método de las ciencias naturales a los asuntos humanos. Fue profundamente influenciado por Kant (en su intento de una 'crítica de la razón histórica'), Schleiermacher (hermenéutica) y la Escuela Historicista alemana (Ranke)." },
+                        { titulo: "Relevancia filosófica", contenido: "Estableció la distinción metodológica fundamental entre 'explicar' (Erklären), propio de las ciencias naturales, y 'comprender' (Verstehen), propio de las ciencias del espíritu. Introdujo conceptos clave como 'vivencia' (Erlebnis) y 'estructura' (Struktur) para articular cómo se conoce el mundo histórico desde la experiencia vivida." },
+                        { 
+                            titulo: "Obras clave", 
+                            contenido: `
+                                <details class="mb-2">
+                                    <summary class="font-semibold cursor-pointer"><em>Introducción a las ciencias del espíritu</em> (1883)</summary>
+                                    <p class="text-xs pt-1 pl-4">Su obra magna donde argumenta la necesidad de un fundamento epistemológico propio para las ciencias humanas, basado en la comprensión de la experiencia vivida y la realidad histórico-social.</p>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-semibold cursor-pointer"><em>Ideas para una psicología descriptiva y analítica</em> (1894)</summary>
+                                    <p class="text-xs pt-1 pl-4">Propone una nueva psicología que, en lugar de buscar explicaciones causales como las ciencias naturales, se centre en describir la 'estructura' de la vida psíquica tal como se da en la experiencia directa.</p>
+                                </details>
+                                <details>
+                                    <summary class="font-semibold cursor-pointer"><em>La estructuración del mundo histórico por las ciencias del espíritu</em> (1910)</summary>
+                                    <p class="text-xs pt-1 pl-4">Un trabajo de madurez donde refina su enfoque hermenéutico, explorando cómo la vida se objetiva en formas culturales y cómo la comprensión de estas objetivaciones nos permite conocer la historia.</p>
+                                </details>
+                            `
+                        }
+                    ]
+                }
+            ],
+            bibliografia: [
+                "Sánchez Meca, D. (2019). <em>Iniciación a la Teoría del Conocimiento</em>. Dykinson. (Capítulo 12: La problemática del conocimiento histórico, pp. 439-472).",
+                "Escudero Pérez, A. (s.f.). <em>Apuntes de Teoría del Conocimiento II</em>. (Tema 4: Heidegger y Gadamer: la hermenéutica filosófica).",
+                "Rezola Amelivia, R. (2015). <em>Dilthey: Comprender la historia implica comprender la vida</em>. EMSE EDAPP."
+            ],
+            resumenTemario: [
+                {
+                    epigrafe: "1. Constitución del Método Hermenéutico como Método del Conocimiento Histórico",
+                    resumen: `<p class='text-justify'>La hermenéutica, como método para el conocimiento histórico, evoluciona desde la necesidad de interpretar textos en la filología y la teología. Su objetivo es superar las interpretaciones dogmáticas para descubrir el sentido original. <strong>Friedrich Schleiermacher</strong> es la figura central de esta transformación, al proponer una <strong>'hermenéutica universal'</strong>. Su proyecto no se limita a reglas para textos específicos, sino que busca establecer una teoría general del acto de comprender.</p>
+                    <p class='text-justify mt-4'>Para Schleiermacher, la comprensión es un <strong>'arte para evitar malentendidos'</strong>, ya que parte del supuesto de que la incomprensión es el estado natural. Su enfoque, de raíz romántica, es fundamentalmente psicologista: el objetivo último es <strong>reconstruir el acto creador y la individualidad del autor</strong>. Para ello, distingue dos momentos inseparables:</p>
+                    <ul class='list-disc ml-6 space-y-2 mt-2 text-justify'>
+                        <li><strong>Interpretación Gramatical:</strong> Es el lado objetivo del método. Se centra en el lenguaje como un sistema de reglas compartidas, analizando el texto en su contexto lingüístico y en relación con otras obras del mismo género y época.</li>
+                        <li><strong>Interpretación Psicológica (o Técnica):</strong> Es el lado subjetivo y creativo. Busca ir más allá de lo meramente dicho para captar la singularidad del pensamiento del autor, su estilo único. Este es un acto <strong>'adivinatorio'</strong>, basado en la <strong>'congenialidad'</strong> o afinidad espiritual entre el intérprete y el autor, posible gracias a una 'metafísica de la vida' que postula una naturaleza humana común.</li>
+                    </ul>
+                    <p class='text-justify mt-4'>Esta dualidad da lugar al <strong>círculo hermenéutico</strong>: la comprensión de una parte del texto presupone una idea del todo, pero la idea del todo solo se construye a partir de la comprensión de sus partes. El ideal, nunca completamente alcanzable, es <strong>'comprender al autor mejor de lo que él mismo se comprendió'</strong>, al hacer conscientes los presupuestos que para él eran irreflexivos. La aplicación de este método a la historia genera un debate clave: <strong>Hegel</strong> lo utiliza para su filosofía especulativa, viendo la historia como el despliegue de una totalidad (el Espíritu Absoluto). En cambio, la <strong>Escuela Historicista</strong>, con <strong>Leopold von Ranke</strong> a la cabeza, lo aplica a la investigación empírica, rechazando las construcciones a priori y buscando mostrar la historia 'tal como realmente fue'.</p>`,
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Hermenéutica</text><rect x="200" y="20" width="180" height="40" class="box"/><text x="290" y="45" class="text">Schleiermacher</text><rect x="200" y="90" width="180" height="40" class="box"/><text x="290" y="115" class="text">Círculo Hermenéutico</text><rect x="430" y="55" width="160" height="40" class="box"/><text x="510" y="80" class="text">Aplicación a la Historia</text><path d="M150,75 C165,60 180,45 200,40" class="arrow"/><path d="M150,75 C165,90 180,105 200,110" class="arrow"/><path d="M380,40 C395,50 410,55 430,60" class="arrow"/><path d="M380,110 C395,100 410,95 430,90" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "2. El Intento de Dilthey de una Fundamentación Hermenéutica de las Ciencias del Espíritu",
+                    resumen: "<p class='text-justify'><strong>Wilhelm Dilthey</strong> busca dar un fundamento epistemológico a las <strong>Ciencias del Espíritu</strong> (historia, sociología, etc.), diferenciándolas de las ciencias naturales. Propone una <strong>'crítica de la razón histórica'</strong>, análoga a la de Kant. Mientras las ciencias naturales <strong>explican</strong> (Erklären) los fenómenos mediante leyes causales, las del espíritu <strong>comprenden</strong> (Verstehen) las manifestaciones de la vida. El conocimiento histórico no parte de un sujeto teórico frente a un objeto externo, sino de la <strong>'vivencia' (Erlebnis)</strong>, la experiencia interna donde sujeto y objeto no están separados. Las vivencias se organizan en <strong>'estructuras' (Struktur)</strong> de significado. El objetivo es comprender las 'objetivaciones de la vida' (arte, derecho, etc.). Sin embargo, el proyecto de Dilthey se enfrenta a la aporía de cómo pasar de la vivencia subjetiva a un conocimiento histórico objetivo y universal, acercándose al idealismo hegeliano que criticaba y sin liberarse del todo del modelo positivista de ciencia.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Dilthey</text><rect x="200" y="20" width="160" height="40" class="box"/><text x="280" y="45" class="text">Vivencia (Erlebnis)</text><rect x="200" y="90" width="160" height="40" class="box"/><text x="280" y="115" class="text">Estructura (Struktur)</text><rect x="410" y="55" width="180" height="40" class="box"/><text x="500" y="80" class="text">Comprensión (Verstehen)</text><path d="M150,75 C165,60 180,45 200,40" class="arrow"/><path d="M150,75 C165,90 180,105 200,110" class="arrow"/><path d="M360,40 C375,50 390,55 410,60" class="arrow"/><path d="M360,110 C375,100 390,95 410,90" class="arrow"/></svg>`
+                },
+                {
+                    epigrafe: "3. La Objetividad del Conocimiento Histórico: Condiciones y Límites",
+                    resumen: "<p class='text-justify'>Dilthey intenta resolver el problema de la objetividad histórica. Sostiene que la razón histórica tiene una <strong>infinitud potencial</strong>: a través de la simpatía y un <strong>método comparativo</strong>, el individuo puede superar su propia finitud y acceder a la universalidad del mundo histórico. El conocimiento histórico se convierte en una forma de <strong>autoconocimiento</strong>, pues al comprender las objetivaciones del espíritu, el hombre se comprende a sí mismo. La ciencia es vista como un 'hecho de la vida', una tendencia natural de esta a buscar la estabilidad. Sin embargo, Dilthey queda atrapado por el <strong>ideal científico del positivismo</strong>. Su intento de fundamentar las ciencias del espíritu en la 'vida' choca con su deseo de dotarlas de una objetividad similar a la de las ciencias naturales, lo que le lleva a reducir la historia a un 'texto' que hay que descifrar, sin poder resolver la tensión entre la experiencia vital y la inducción metódica.</p>",
+                    mapaConceptual: `<svg width="100%" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg"><style>.box{fill: #F3EAD3; stroke: #A0522D; stroke-width:2; rx:10;} .text{font-family: Lato, sans-serif; fill: #6F4E37; text-anchor: middle;} .arrow{stroke: #D35400; stroke-width:2; marker-end: url(#arrowhead);}</style><defs><marker id="arrowhead" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D35400" /></marker></defs><rect x="10" y="55" width="140" height="40" class="box"/><text x="80" y="80" class="text">Objetividad Histórica</text><rect x="230" y="20" width="140" height="40" class="box"/><text x="300" y="45" class="text">Autoconocimiento</text><rect x="230" y="90" width="140" height="40" class="box"/><text x="300" y="115" class="text">Método Comparativo</text><rect x="430" y="55" width="160" height="40" class="box"/><text x="510" y="80" class="text">Aporía del Positivismo</text><path d="M150,75 C170,60 200,45 230,40" class="arrow"/><path d="M150,75 C170,90 200,105 230,110" class="arrow"/><path d="M370,40 C385,50 405,55 430,60" class="arrow"/><path d="M370,110 C385,100 405,95 430,90" class="arrow"/></svg>`
+                }
+            ],
+            conceptosClave: [
+                { concepto: "Hermenéutica", definicion: "Originalmente, el arte de interpretar textos. Con Schleiermacher y Dilthey, se convierte en la metodología fundamental de las Ciencias del Espíritu." },
+                { concepto: "Círculo Hermenéutico", definicion: "Principio según el cual la comprensión de una parte de un texto o de un hecho histórico depende de la comprensión del todo, y viceversa." },
+                { concepto: "Ciencias del Espíritu (Geisteswissenschaften)", definicion: "Término de Dilthey para designar las disciplinas que estudian las realidades histórico-sociales (historia, derecho, arte), en contraposición a las ciencias naturales." },
+                { concepto: "Vivencia (Erlebnis)", definicion: "Concepto clave en Dilthey. Es la unidad inmediata de la vida psíquica, donde la conciencia experimenta la realidad sin la separación sujeto-objeto." },
+                { concepto: "Estructura (Struktur)", definicion: "En Dilthey, es el nexo de significado que une las vivencias. No es una relación causal, sino una configuración interna que dota de sentido a un decurso vital." },
+                { concepto: "Comprensión (Verstehen)", definicion: "Operación cognoscitiva básica de las Ciencias del Espíritu, que busca captar el significado de las expresiones de la vida, en oposición a la 'explicación' causal de las ciencias naturales." },
+                { concepto: "Historicismo", definicion: "Corriente de pensamiento (Ranke, Droysen) que enfatiza la singularidad de cada época histórica y la necesidad de comprenderla desde sus propios términos, rechazando las construcciones a priori de la filosofía de la historia." },
+                { concepto: "Razón Histórica", definicion: "Proyecto de Dilthey de realizar una crítica de la razón en su dimensión histórica, para fundamentar la objetividad del conocimiento en las Ciencias del Espíritu." },
+                { concepto: "Interpretación Gramatical", definicion: "En Schleiermacher, es la parte objetiva de la hermenéutica, que se centra en el lenguaje común y las reglas gramaticales del texto." },
+                { concepto: "Interpretación Psicológica (o Técnica)", definicion: "En Schleiermacher, es la parte subjetiva y 'adivinatoria' de la hermenéutica, que busca reconstruir el proceso mental y la individualidad del autor." },
+                { concepto: "Espíritu Objetivo", definicion: "Concepto hegeliano que Dilthey adapta. Se refiere a las objetivaciones de la vida (arte, derecho, religión) que constituyen el mundo histórico-social." },
+                { concepto: "Hermenéutica Universal", definicion: "Proyecto de Schleiermacher para establecer una teoría general del acto de comprender, aplicable a cualquier tipo de discurso o texto." },
+                { concepto: "Comprensión Adivinatoria / Congenialidad", definicion: "En Schleiermacher, el acto intuitivo de 'ponerse en el lugar del otro' para reconstruir su acto creador, basado en una afinidad espiritual." },
+                { concepto: "Explicación (Erklären)", definicion: "Según Dilthey, es la operación cognoscitiva de las ciencias naturales, que busca establecer leyes causales para explicar los fenómenos." },
+                { concepto: "Objetivaciones de la Vida", definicion: "Término de Dilthey para las creaciones humanas (arte, derecho, estado) en las que la vida se expresa y se hace comprensible." }
+            ],
+            historicoExamenes: [
+                {
+                    pregunta: "La fundamentación de las ciencias del espíritu en Dilthey (6 apariciones)",
+                    fechas: ["Septiembre 2016", "Mayo/Junio 2018", "Septiembre 2018", "Mayo/Junio 2019 (2ª)", "Septiembre 2022", "Mayo/Junio 2024 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Crítica de la Razón Histórica", resumen: "El proyecto de Dilthey de ampliar la crítica kantiana para dar un fundamento epistemológico a las ciencias histórico-sociales." },
+                        { concepto: "Diferencia con Ciencias Naturales", resumen: "Distinción entre 'explicación' (Naturwissenschaften) y 'comprensión' (Geisteswissenschaften)." },
+                        { concepto: "Vivencia (Erlebnis)", resumen: "La base del conocimiento histórico como experiencia vivida, donde no hay separación sujeto-objeto." },
+                        { concepto: "Estructura y Significado", resumen: "El nexo que une las vivencias no es causal, sino una estructura de significado que emerge de la vida misma." }
+                    ]
+                },
+                {
+                    pregunta: "El proyecto de una 'hermenéutica universal' en Schleiermacher (4 apariciones)",
+                    fechas: ["Septiembre 2015", "Mayo/Junio 2022", "Septiembre 2023", "Mayo/Junio 2024 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Arte de evitar malentendidos", resumen: "La hermenéutica como técnica necesaria porque la incomprensión es la norma, no la excepción." },
+                        { concepto: "Interpretación Gramatical y Psicológica", resumen: "La doble vertiente del método: el análisis objetivo del lenguaje y la reconstrucción subjetiva del pensamiento del autor." },
+                        { concepto: "Círculo Hermenéutico", resumen: "La relación dialéctica entre la parte y el todo en el proceso de comprensión." },
+                        { concepto: "Comprensión Congenial", resumen: "El acto 'adivinatorio' de reconstruir la producción original del autor, basado en una metafísica de la vida común." }
+                    ]
+                },
+                {
+                    pregunta: "Comprensión y explicación en Dilthey (2 apariciones)",
+                    fechas: ["Mayo/Junio 2016 (2ª)", "Mayo/Junio 2019 (1ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Dualismo Metodológico", resumen: "Establecimiento de dos métodos distintos para dos tipos de ciencia: la explicación causal para la naturaleza y la comprensión para el espíritu." },
+                        { concepto: "Objeto de Estudio", resumen: "Las ciencias naturales estudian fenómenos externos regidos por la causalidad. Las del espíritu, las objetivaciones de la vida humana." },
+                        { concepto: "Vivencia como base", resumen: "La comprensión se fundamenta en la 'vivencia' (Erlebnis), la experiencia interna de la realidad histórica." },
+                        { concepto: "Objetivo del Conocimiento", resumen: "La explicación busca leyes generales. La comprensión busca captar el significado singular de las manifestaciones de la vida." }
+                    ]
+                },
+                {
+                    pregunta: "Vivencia y estructura en Dilthey (1 aparición)",
+                    fechas: ["Mayo/Junio 2015 (2ª)"],
+                    conceptosDesarrollo: [
+                        { concepto: "Vivencia (Erlebnis)", resumen: "Unidad básica de la experiencia vital, un 'darse cuenta' inmediato donde la conciencia y el contenido no están separados." },
+                        { concepto: "Estructura (Struktur)", resumen: "El nexo que organiza las vivencias. No es una cadena causal, sino una configuración de significado que dota de unidad a un tramo de la vida." },
+                        { concepto: "Relación entre ambas", resumen: "La estructura emerge de las vivencias y les confiere un significado general, permitiendo la comprensión de la vida psíquica." },
+                        { concepto: "Fundamento Psicológico", resumen: "Ambos conceptos son la base del intento inicial de Dilthey de fundamentar las ciencias del espíritu en una psicología descriptiva." }
+                    ]
+                }
+            ],
+            juegoPreguntas: [
+                // 50 PREGUNTAS ORIGINALES
+                {pregunta:"¿Cuál es el objetivo principal de la 'hermenéutica universal' de Schleiermacher?",opciones:["Demostrar la superioridad del método teológico sobre el filológico.","Crear un lenguaje formal y lógicamente perfecto para la filosofía.","Establecer el arte de evitar malentendidos en cualquier discurso.","Aplicar el método de las ciencias naturales a los textos históricos."],correcta:2,explicacion:"Schleiermacher parte de que el malentendido es la norma, por lo que se necesita un 'arte' (Kunstlehre) para alcanzar la comprensión correcta.", dummyExplanation: "Schleiermacher pensaba que hablar con otros es como caminar por un campo de minas de malentendidos, y la hermenéutica es el mapa para no pisar ninguna."},
+                {pregunta:"En la hermenéutica de Schleiermacher, la 'interpretación gramatical' se enfoca en...",opciones:["la psicología profunda e individual del autor y sus motivaciones.","el lenguaje como un sistema objetivo de reglas compartidas.","las intenciones ocultas y no declaradas que subyacen en el texto.","la reacción emocional que la obra suscita en el lector moderno."],correcta:1,explicacion:"La interpretación gramatical es la parte 'objetiva' del método, centrada en el lenguaje y sus reglas comunes, compartidas por el autor y el intérprete.", dummyExplanation: "Es la parte del detective que se fija en las pistas objetivas: la gramática, el significado de las palabras... lo que está a la vista de todos."},
+                {pregunta:"¿Qué implica el acto 'adivinatorio' en la comprensión según Schleiermacher?",opciones:["Utilizar métodos estadísticos para analizar la frecuencia de palabras.","Reconstruir el acto creador del autor por afinidad espiritual.","Consultar un oráculo para revelar el sentido oculto del texto.","Seguir ciegamente la tradición interpretativa sin cuestionarla."],correcta:1,explicacion:"Implica una transposición o 'congenialidad' con el autor para recrear su proceso mental, yendo más allá de las reglas objetivas.", dummyExplanation: "Es como si el intérprete se convirtiera en un actor de método, intentando 'meterse en la cabeza' del autor para entender por qué escribió lo que escribió."},
+                {pregunta:"¿Qué es el 'círculo hermenéutico'?",opciones:["Un error lógico que invalida cualquier tipo de interpretación textual.","Un grupo de debate filosófico fundado en el siglo XIX en Alemania.","La idea de que la comprensión se mueve del todo a la parte y viceversa.","Un símbolo místico que representa la totalidad del conocimiento humano."],correcta:2,explicacion:"Es la estructura fundamental de la comprensión: no se puede entender una parte sin una idea del todo, y el todo solo se construye a partir de las partes.", dummyExplanation: "Es como montar un puzle: necesitas tener una idea de la imagen final para saber dónde va cada pieza, pero la imagen solo la completas poniendo las piezas."},
+                {pregunta:"¿Qué significa la máxima de Schleiermacher: 'comprender al autor mejor de lo que él mismo se comprendió'?",opciones:["Que el intérprete moderno es siempre más inteligente que el autor antiguo.","Que se deben corregir los errores gramaticales y fácticos del autor.","Que se pueden hacer conscientes los presupuestos inconscientes de la obra.","Que la obra original es siempre imperfecta y debe ser mejorada."],correcta:2,explicacion:"El intérprete puede objetivar y hacer explícitas las condiciones y presupuestos que para el autor eran inconscientes o no tematizados.", dummyExplanation: "Es como cuando tu amigo te cuenta un sueño y tú te das cuenta de lo que significa de verdad. El autor 'soñó' la obra, el intérprete la 'psicoanaliza'."},
+                {pregunta:"¿Cómo aplicó Hegel el principio hermenéutico a la historia?",opciones:["Estudiando los hechos históricos de forma completamente aislada.","Concibiendo la historia como el autodesarrollo del Espíritu Absoluto.","Negando radicalmente la posibilidad de conocer el pasado con certeza.","Dando prioridad a las biografías individuales de los grandes hombres."],correcta:1,explicacion:"Hegel entiende la historia universal como la 'totalidad' desde la cual cada evento individual cobra su verdadero sentido, como una manifestación del Espíritu.", dummyExplanation: "Para Hegel, la historia era como una gran novela escrita por el Espíritu, y cada hecho histórico era un capítulo que solo tenía sentido dentro de la trama general."},
+                {pregunta:"¿Cuál fue la principal crítica de la Escuela Historicista (Ranke) a Hegel?",opciones:["Su falta de fe religiosa y su ateísmo implícito en el sistema.","Su rechazo de la investigación empírica y su construcción a priori.","Su estilo de escritura excesivamente oscuro y difícil de seguir.","Su desinterés por la historia económica y social de los pueblos."],correcta:1,explicacion:"Los historicistas criticaron a Hegel por deducir la historia desde un esquema filosófico previo, en lugar de partir de la investigación concreta de las fuentes.", dummyExplanation: "Los historicistas le dijeron a Hegel: 'No puedes escribir la crítica de la película sin haberla visto. Primero, a los archivos; después, a filosofar'."},
+                {pregunta:"¿Cuál era el lema del historiador Leopold von Ranke?",opciones:["'La historia es siempre escrita por los vencedores de las guerras'.","'Mostrar cómo fueron realmente las cosas' (wie es eigentlich gewesen).","'El fin de la historia justifica los medios utilizados para alcanzarlo'.","'Todo tiempo pasado fue mejor que el presente que vivimos ahora'."],correcta:1,explicacion:"Ranke aspiraba a una objetividad que consistía en describir el pasado en sus propios términos, sin juzgarlo desde el presente, mostrando 'wie es eigentlich gewesen'.", dummyExplanation: "Ranke quería ser como una cámara de vídeo del pasado, grabando los hechos sin añadir filtros ni comentarios."},
+                {pregunta:"El proyecto de Dilthey de una 'crítica de la razón histórica' era una analogía con la obra de...",opciones:["Platón y su 'República' para fundamentar el estado ideal.","Aristóteles y su 'Metafísica' para encontrar las primeras causas.","Hegel y su 'Fenomenología' para describir el Espíritu.","Kant y su 'Crítica de la razón pura' para fundamentar la ciencia."],correcta:3,explicacion:"Dilthey pretendía hacer por las 'Ciencias del Espíritu' lo que Kant había hecho por las ciencias naturales en su 'Crítica de la razón pura': fundamentar su posibilidad y objetividad.", dummyExplanation: "Dilthey vio la 'Crítica de la razón pura' de Kant y pensó: 'Quiero hacer lo mismo, pero para la historia'."},
+                {pregunta:"¿Qué diferencia establece Dilthey entre las ciencias naturales y las ciencias del espíritu?",opciones:["Las primeras son exactas y fáciles, las segundas son inexactas y difíciles.","Las primeras explican (Erklären), las segundas comprenden (Verstehen).","Las primeras son objetivas y verdaderas, las segundas son subjetivas y falsas.","Las primeras usan la matemática, las segundas se basan en la poesía."],correcta:1,explicacion:"Es la distinción metodológica fundamental: las ciencias naturales explican los fenómenos mediante leyes causales, mientras que las del espíritu comprenden el significado de las expresiones de la vida.", dummyExplanation: "Un físico te 'explica' por qué llueve (causas y efectos). Un historiador 'comprende' por qué estalló una revolución (motivos y significados)."},
+                {pregunta:"¿Qué es la 'vivencia' (Erlebnis) para Dilthey?",opciones:["Un recuerdo vago de la infancia que marca la personalidad adulta.","Una emoción particularmente intensa y transformadora en la vida.","La unidad inmediata de la experiencia, sin separación sujeto-objeto.","Un experimento científico controlado realizado en un laboratorio."],correcta:2,explicacion:"La vivencia es el dato fundamental de la conciencia histórica, la forma en que la vida es captada desde dentro antes de cualquier reflexión o análisis.", dummyExplanation: "La 'vivencia' es como sentir el calor del sol en la piel. No estás pensando 'un objeto externo emite fotones...', simplemente lo sientes. Es la experiencia en estado puro."},
+                {pregunta:"¿Qué caracteriza a la 'estructura' (Struktur) en el pensamiento de Dilthey?",opciones:["Es una relación necesaria de causa y efecto entre dos fenómenos.","Es una ley matemática de carácter universal y aplicable a todo.","Es un nexo de significado que une las diferentes vivencias.","Es una construcción social arbitraria impuesta por el poder."],correcta:2,explicacion:"La estructura dota de unidad y sentido a un conjunto de vivencias, no por causalidad, sino por su configuración interna, como las notas en una melodía.", dummyExplanation: "Si tu vida fuera una canción, las 'vivencias' serían las notas sueltas y la 'estructura' sería la melodía que las une y les da sentido."},
+                {pregunta:"¿Por qué el conocimiento histórico tiene un estatus privilegiado para Dilthey?",opciones:["Porque es más fácil de adquirir que el conocimiento de la física.","Porque el historiador es también parte de la historia que estudia.","Porque se basa en documentos escritos que son siempre infalibles.","Porque no requiere el uso de complejas fórmulas matemáticas."],correcta:1,explicacion:"A diferencia del científico natural que estudia un objeto externo, el sujeto del conocimiento histórico es parte de la misma realidad que investiga.", dummyExplanation: "Es como si un pez estudiara el agua. El historiador está 'dentro' de lo que estudia, la propia historia."},
+                {pregunta:"¿Qué problema fundamental encuentra Dilthey en su intento de fundamentar las ciencias del espíritu?",opciones:["La escasez de documentos históricos fiables de épocas antiguas.","La dificultad de pasar de la vivencia individual a la objetividad.","La fuerte oposición de los científicos naturales a su proyecto.","La prohibición de sus teorías por parte de las autoridades religiosas."],correcta:1,explicacion:"La principal aporía de su pensamiento es cómo elevar la comprensión, basada en la vivencia subjetiva, a un conocimiento con validez objetiva y universal.", dummyExplanation: "El gran reto de Dilthey fue: ¿cómo pasamos de 'lo que yo sentí' a 'lo que pasó de verdad para todos'?"},
+                {pregunta:"La hermenéutica de Schleiermacher se basa en una 'metafísica de la vida' que postula...",opciones:["la total e irreductible diferencia espiritual entre los individuos.","una base común que une a toda la humanidad y permite la afinidad.","la superioridad de la vida animal sobre la vida humana racional.","la inexistencia del alma y la reducción de todo a materia."],correcta:1,explicacion:"Postula que cada individuo es una manifestación de la vida total, lo que hace posible la 'congenialidad' y la comprensión adivinatoria del otro.", dummyExplanation: "Es la idea de que, en el fondo, todos estamos 'cortados por el mismo patrón' (la Vida), y por eso podemos llegar a entendernos."},
+                {pregunta:"La reacción de la Escuela Historicista contra Hegel se puede calificar de...",opciones:["profundamente metafísica, buscando un nuevo absoluto en la historia.","empirista, al insistir en la investigación de las fuentes documentales.","racionalista, al intentar deducir la historia de principios lógicos.","escéptica, al negar cualquier posibilidad de conocer el pasado."],correcta:1,explicacion:"Los historicistas, como Ranke, insistían en la investigación empírica de las fuentes como base del conocimiento histórico, frente a la deducción especulativa de Hegel.", dummyExplanation: "Frente a Hegel que quería adivinar la historia desde su sillón, los historicistas se pusieron las botas y bajaron a la mina de los archivos."},
+                {pregunta:"Para Dilthey, el arte es un 'órgano especial de la comprensión de la vida' porque...",opciones:["resulta más entretenido y ameno que la ciencia experimental.","expresa la vida con una profundidad inaccesible a la teoría.","todos los grandes artistas han sido también buenos psicólogos.","es la única fuente de verdad completamente objetiva y universal."],correcta:1,explicacion:"En el arte, 'algo espiritual se desprende de su creador', permitiendo una comprensión más directa y profunda de la vida que la mera observación o reflexión.", dummyExplanation: "Dilthey pensaba que si quieres entender la vida de verdad, leas una gran novela en lugar de un tratado de sociología."},
+                {pregunta:"¿Cuál es la contradicción final en el proyecto de Dilthey?",opciones:["Intenta ser a la vez un gran historiador y un importante filósofo.","Escribe en un estilo deliberadamente complejo y difícil de seguir.","Su 'conciencia histórica' universal se asemeja al 'saber absoluto' de Hegel.","Nunca fue capaz de terminar su obra principal por problemas de salud."],correcta:2,explicacion:"A pesar de su crítica al idealismo, su aspiración a una objetividad total para las ciencias del espíritu lo acerca a la posición hegeliana que pretendía superar.", dummyExplanation: "Dilthey criticó a Hegel por creerse el árbitro final de la historia, pero al final él mismo acabó queriendo ser ese árbitro."},
+                {pregunta:"Schleiermacher distingue entre la interpretación 'gramatical' y la...",opciones:["interpretación lógica, que analiza la estructura argumentativa.","interpretación estética, que valora la belleza formal del texto.","interpretación psicológica, que busca captar la mente del autor.","interpretación matemática, que busca patrones numéricos ocultos."],correcta:2,explicacion:"La interpretación psicológica (o técnica) es la que busca captar la individualidad y el proceso mental del autor, como complemento a la gramatical.", dummyExplanation: "La gramatical mira el 'qué' se dice (las palabras), la psicológica mira el 'quién' lo dice (el autor)."},
+                {pregunta:"¿Qué papel juega la 'vida' en la filosofía de Dilthey?",opciones:["Es un obstáculo irracional que el conocimiento debe superar.","Es el origen de todo significado y la base de las ciencias del espíritu.","Es un concepto puramente biológico sin ninguna relevancia filosófica.","Es una etapa primitiva que debe ser superada por la razón pura."],correcta:1,explicacion:"Para Dilthey, la vida misma se autointerpreta y es la fuente última de todos los significados que las ciencias del espíritu estudian.", dummyExplanation: "Para Dilthey, la 'vida' no es solo respirar y comer, es la fábrica de la que salen todos los significados del mundo."},
+                {pregunta:"¿En qué dos ámbitos culturales se sintió con más fuerza la necesidad de un método hermenéutico a partir del Renacimiento?",opciones:["La ciencia experimental y la política de los nuevos estados.","La filología clásica y la teología protestante.","La medicina clínica y la arquitectura de las catedrales.","La música polifónica y la pintura al óleo sobre lienzo."],correcta:1,explicacion:"La necesidad de interpretar correctamente los textos clásicos antiguos (filología) y la Biblia (teología) impulsó el desarrollo de la hermenéutica.", dummyExplanation: "Hacía falta un 'manual de instrucciones' para entender textos antiguos y sagrados que se habían vuelto difíciles de descifrar."},
+                {pregunta:"La concepción de la historia de Ranke se opone a la de Hegel principalmente en que...",opciones:["Ranke era mucho más optimista que Hegel respecto al futuro.","Ranke rechaza que un 'telos' o fin predetermine la historia.","Hegel era un historiador profesional y Ranke solo un filósofo.","Ranke se centró únicamente en la historia de Alemania y Prusia."],correcta:1,explicacion:"Ranke y la Escuela Historicista critican la idea de Hegel de un plan o fin (telos) que guía la historia universal desde fuera o desde el final.", dummyExplanation: "Hegel veía la historia como una película con un final ya escrito; Ranke la veía como una serie donde ni los guionistas saben qué pasará."},
+                {pregunta:"¿Qué entiende Dilthey por 'objetivaciones de la vida'?",opciones:["Las leyes de la física que rigen el universo material.","Los instintos animales que compartimos con otras especies.","Las creaciones culturales como el arte, el derecho o la religión.","Los sueños y las fantasías que provienen del inconsciente."],correcta:2,explicacion:"Son las formas en que la vida humana se expresa y se hace accesible a la comprensión: instituciones, obras de arte, sistemas de creencias, etc.", dummyExplanation: "Son las 'huellas' que la vida deja en el mundo, como el arte o las leyes, y que los historiadores siguen para entender el pasado."},
+                {pregunta:"La 'contradicción insalvable' en la hermenéutica de Schleiermacher radica en la dificultad de conciliar...",opciones:["la fe religiosa con la razón científica moderna.","la interpretación gramatical y la psicológica.","la poesía épica con la poesía lírica en su método.","el método adivinatorio con el método comparativo."],correcta:1,explicacion:"Schleiermacher se debate en cómo practicar al mismo tiempo una interpretación objetiva (gramatical) y una subjetiva (psicológica), ya que centrarse en una parece excluir la otra.", dummyExplanation: "Era como intentar mirar por un telescopio y un microscopio a la vez: enfocar en lo general (el lenguaje) hacía perder de vista lo particular (el autor), y viceversa."},
+                {pregunta:"¿Qué filósofo influyó en Dilthey para que pasara de una fundamentación psicológica a una hermenéutica?",opciones:["Kant, con su distinción entre fenómeno y noúmeno.","Hegel, con su concepto de Espíritu Objetivo.","Husserl, con su análisis de la intencionalidad y el significado.","Schleiermacher, con su proyecto de hermenéutica universal."],correcta:2,explicacion:"Las 'Investigaciones Lógicas' de Husserl permitieron a Dilthey usar conceptos como 'estructura' o 'significado' sin tener que derivarlos de la psicología individual, abriendo la vía a una hermenéutica de la vida.", dummyExplanation: "Husserl le dio a Dilthey las herramientas filosóficas para hablar de 'significados' sin tener que meterse en la mente de cada persona."},
+                {pregunta:"Para la Escuela Historicista, cada época histórica...",opciones:["es una simple preparación necesaria para la siguiente etapa.","es siempre inferior a la época clásica de Grecia y Roma.","tiene su propia perfección y un valor intrínseco e incomparable.","está completamente determinada por las condiciones económicas."],correcta:2,explicacion:"Rechazando la idea de progreso lineal, los historicistas como Ranke defendían que cada periodo histórico es 'inmediato a Dios', es decir, tiene un valor propio y no debe ser juzgado como un simple escalón hacia el presente.", dummyExplanation: "Para ellos, cada época era como una obra de arte única, no un simple borrador de la nuestra."},
+                {pregunta:"¿Cuál es la base de la 'simpatía' que hace posible la comprensión para Dilthey?",opciones:["Haber tenido una educación y una formación muy similares.","La pertenencia a la misma clase social y económica.","Una 'semejanza natural' o naturaleza humana común a todos.","Un esfuerzo puramente intelectual para analizar los datos."],correcta:2,explicacion:"Dilthey, siguiendo a Schleiermacher, presupone una naturaleza humana común que permite, mediante la transposición, comprender las vivencias ajenas.", dummyExplanation: "La idea es que, en el fondo, todos los humanos tenemos el mismo 'software', y por eso podemos entender los 'programas' de los demás."},
+                {pregunta:"El método comparativo de Dilthey fue criticado porque...",opciones:["era demasiado complicado de aplicar en la práctica historiográfica.","hace las cosas simultáneas, lo cual es esencialmente antihistórico.","solo servía para estudiar la historia del arte y de la literatura.","era una copia casi literal del método propuesto antes por Hegel."],correcta:1,explicacion:"La crítica principal es que al comparar diferentes épocas o culturas, se las saca de su contexto temporal y se las trata como si fueran contemporáneas, perdiendo la perspectiva histórica.", dummyExplanation: "Es como hacer un 'collage' con fotos de diferentes épocas: puede quedar bonito, pero pierdes el sentido de cómo eran las cosas en cada momento."},
+                {pregunta:"¿Qué es lo que, según Dilthey, distingue la experiencia histórica del conocimiento científico-natural?",opciones:["La historia es inherentemente menos verdadera que la ciencia.","La historia se basa en la 'vivencia', un proceso vital y no en hechos.","La ciencia se basa en libros y la historia en la tradición oral.","La ciencia es objetiva mientras que la historia es pura opinión."],correcta:1,explicacion:"El conocimiento natural parte de la observación de hechos externos, mientras que el histórico parte de la experiencia vivida desde dentro.", dummyExplanation: "Un científico mira una tormenta desde la ventana (hecho externo). Un historiador intenta entender qué se sentía viviendo en medio de la Revolución Francesa (experiencia vital)."},
+                {pregunta:"La hermenéutica de Schleiermacher es 'universal' porque...",opciones:["se puede aplicar a todos los idiomas conocidos del universo.","pretende ser una teoría general del comprender, más allá de textos.","fue aceptada por todos los filósofos de su época sin excepción.","solo puede ser practicada por genios de talla universal."],correcta:1,explicacion:"Su proyecto era superar las hermenéuticas especializadas (teológica, filológica) para crear una teoría general del acto de la comprensión en sí mismo.", dummyExplanation: "Schleiermacher no quería solo un manual para leer la Biblia, quería el manual definitivo para entender cualquier cosa que dijera cualquier persona."},
+                {pregunta:"¿Qué autor es considerado el iniciador de la 'hermenéutica metódica'?",opciones:["Hegel, con su fenomenología del espíritu y su lógica.","Dilthey, con su fundamentación de las ciencias del espíritu.","Ranke, con su desarrollo del método histórico-crítico.","Schleiermacher, con su teoría del arte de la interpretación."],correcta:3,explicacion:"Schleiermacher fue el primer pensador en intentar una fundamentación teórica sistemática del método hermenéutico como un 'arte' (Kunstlehre) de la comprensión.", dummyExplanation: "Schleiermacher fue el que escribió el primer 'libro de reglas' serio sobre cómo entender bien lo que otros escribieron."},
+                {pregunta:"La reacción de la Escuela Historicista se dirigió fundamentalmente contra la filosofía de la historia de...",opciones:["Kant y su idea de una historia universal en sentido cosmopolita.","Hegel y su construcción especulativa del desarrollo del Espíritu.","Marx y su teoría del materialismo histórico y la lucha de clases.","Vico y su idea de los 'corsi e ricorsi' o ciclos históricos."],correcta:1,explicacion:"El historicismo de Ranke y otros fue una reacción directa contra la construcción especulativa y a priori de la historia universal de Hegel.", dummyExplanation: "Los historicistas eran como detectives que querían basarse en pruebas (documentos), mientras que Hegel era como un novelista que ya sabía el final de la historia antes de empezar a escribir."},
+                {pregunta:"Para Dilthey, ¿cuál es la relación entre el individuo y el 'espíritu objetivo'?",opciones:["El individuo es totalmente libre e independiente del espíritu objetivo.","El espíritu objetivo determina completamente al individuo sin remedio.","El individuo se realiza a través de las objetivaciones de la vida.","El espíritu objetivo es una ilusión creada por los individuos poderosos."],correcta:2,explicacion:"El individuo se encuentra y se realiza en las formas del espíritu objetivo (derecho, arte, etc.), que le dan cauces para su expresión y autoconocimiento.", dummyExplanation: "El individuo es como un músico, y el espíritu objetivo (la cultura) es la orquesta y la partitura que le permiten tocar."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la 'crítica de la razón histórica' debe fundamentar?",opciones:["La superioridad de la historia sobre las ciencias naturales.","La objetividad y validez de las Ciencias del Espíritu.","La existencia de Dios a través de las regularidades de la historia.","La inevitabilidad del progreso hacia una sociedad perfecta."],correcta:1,explicacion:"El objetivo de Dilthey era asegurar un fundamento epistemológico sólido para las ciencias humanas, dándoles un estatus científico equiparable al de las ciencias naturales.", dummyExplanation: "Dilthey quería que la Historia pudiera sentarse en la misma mesa que la Física y ser tomada igual de en serio."},
+                {pregunta:"¿Qué papel juega la 'vida' en la filosofía tardía de Dilthey?",opciones:["Es un caos irracional que el conocimiento debe dominar y reprimir.","Es la realidad creadora y la fuente de todo significado posible.","Es un concepto puramente biológico sin ninguna relevancia filosófica.","Es una etapa primitiva que debe ser superada por la razón pura."],correcta:1,explicacion:"Influido por la fenomenología, Dilthey llega a la conclusión de que la vida misma se autointerpreta y es la base última de las ciencias del espíritu.", dummyExplanation: "Para Dilthey, la 'vida' es el gran director de orquesta que está detrás de toda la música de la historia."},
+                {pregunta:"¿Cuál es una de las principales aporías del pensamiento de Dilthey?",opciones:["Su escepticismo radical que niega cualquier tipo de conocimiento.","Su materialismo determinista que anula la libertad humana.","Su incapacidad para escapar de la metafísica idealista que critica.","Su rechazo total de la ciencia y su defensa de la superstición."],correcta:2,explicacion:"A pesar de su crítica a Hegel, su concepto de 'conciencia histórica' que abarca la totalidad del mundo humano lo acerca peligrosamente al 'saber absoluto' hegeliano.", dummyExplanation: "Dilthey intentó huir de la sombra de Hegel, pero al final la sombra se le parecía demasiado."},
+                {pregunta:"El método hermenéutico de Schleiermacher se compone de un método comparativo y otro...",opciones:["deductivo, que parte de principios universales para llegar a lo particular.","experimental, que realiza pruebas controladas para verificar hipótesis.","adivinatorio, que busca una captación intuitiva de la individualidad.","estadístico, que analiza datos cuantitativos para hallar patrones."],correcta:2,explicacion:"El método adivinatorio es la intuición inmediata que busca captar lo individual, transformándose el intérprete en el autor.", dummyExplanation: "Además de comparar textos como un filólogo, Schleiermacher decía que a veces hay que tener un momento de 'flash' intuitivo para pillar de verdad al autor."},
+                {pregunta:"¿Qué entiende Ranke por 'necesidad' en la historia?",opciones:["Un destino predeterminado por los dioses o una fuerza sobrenatural.","Las leyes económicas que rigen la sociedad de forma determinista.","El poder de lo que ya ha sucedido, que condiciona las nuevas acciones.","La falta de libertad de los individuos, que son meros títeres."],correcta:2,explicacion:"La necesidad no es una fuerza externa, sino el efecto de las decisiones libres del pasado, que se convierten en el fundamento y límite para las decisiones del presente.", dummyExplanation: "En la historia, según Ranke, las decisiones de ayer se convierten en los muros y las puertas de hoy."},
+                {pregunta:"¿Por qué, para Dilthey, el sujeto que investiga la historia no puede ser un 'yo' puramente teórico como en Kant?",opciones:["Porque el sujeto histórico es un ser dominado por pasiones irracionales.","Porque el sujeto está implicado en el objeto que estudia: la historia.","Porque la historia es demasiado compleja para ser abarcada por la razón.","Porque Kant nunca mostró un verdadero interés por la historia."],correcta:1,explicacion:"El investigador es parte del flujo histórico; no puede situarse fuera como un observador neutral de la naturaleza.", dummyExplanation: "No puedes estudiar una fiesta desde fuera; para entenderla de verdad, tienes que estar dentro, aunque sea en un rincón observando."},
+                {pregunta:"¿Qué es lo que, según Dilthey, permite que la 'vivencia' sea la base de las ciencias del espíritu?",opciones:["Que es universalmente idéntica para todos los seres humanos.","Que en ella se da la identidad originaria de sujeto y objeto.","Que puede ser medida con precisión mediante instrumentos.","Que es la fuente de toda moralidad y de los juicios de valor."],correcta:1,explicacion:"En la vivencia, la conciencia no se enfrenta a un objeto externo, sino que se experimenta a sí misma en su relación con el mundo, superando la dicotomía sujeto-objeto.", dummyExplanation: "En la vivencia no hay un 'yo' mirando a un 'eso'. Hay un 'yo-sintiendo-eso' todo junto, en un pack indivisible."},
+                {pregunta:"¿Cuál es la principal diferencia entre la 'hermenéutica metódica' y la 'ontología hermenéutica'?",opciones:["La primera es más antigua y fue superada por la segunda.","La primera es un método, la segunda afirma que el ser es comprensión.","La primera se aplica a textos, la segunda solo a la naturaleza.","La primera es de origen alemán, mientras que la segunda es francesa."],correcta:1,explicacion:"La hermenéutica metódica (Schleiermacher, Dilthey) busca reglas para la interpretación. La ontología hermenéutica (Heidegger, Gadamer) sostiene que la comprensión es la estructura fundamental de la existencia.", dummyExplanation: "La metódica te da un martillo para clavar clavos. La ontológica te dice que, en el fondo, tú mismo eres un martillo."},
+                {pregunta:"¿Qué supuso la crítica de la Reforma Protestante a la interpretación de la Biblia?",opciones:["La negación de la importancia de la Biblia como texto sagrado.","La afirmación de que solo el Papa tenía la autoridad para interpretarla.","La idea de que la Escritura se interpreta a sí misma (el todo por la parte).","La propuesta de leer la Biblia como si fuera un texto de ciencia."],correcta:2,explicacion:"Los reformadores, como Lutero, defendieron que el sentido de un pasaje individual debía buscarse en el contexto del conjunto de la Escritura, sin necesidad de la tradición dogmática de la Iglesia.", dummyExplanation: "Los reformadores dijeron: 'Para entender este versículo, no le preguntes al Papa, pregúntale al resto de la Biblia'."},
+                {pregunta:"¿Cuál es la principal debilidad del 'método comparativo' propuesto por Dilthey para alcanzar la objetividad?",opciones:["Es muy lento y costoso, y requiere una gran erudición por parte del historiador.","Requiere el conocimiento de muchos idiomas antiguos y modernos.","Anula la dimensión histórica al hacer todo simultáneo y comparable.","Solo es aplicable a la historia del arte y de la literatura, no a la política."],correcta:2,explicacion:"Al comparar diferentes culturas o épocas para extraer tipos generales, se corre el riesgo de descontextualizarlas y perder su singularidad histórica.", dummyExplanation: "Comparar a un caballero medieval con un samurái puede ser interesante, pero corres el riesgo de olvidar que vivían en mundos completamente diferentes."},
+                {pregunta:"El historicismo de Ranke, a pesar de su empirismo, mantiene un presupuesto metafísico que es...",opciones:["la creencia en un progreso indefinido y lineal de la humanidad.","la idea de un 'espíritu divino' que garantiza el sentido de la historia.","la negación absoluta de la libertad humana frente al destino.","la afirmación del materialismo histórico como motor de la historia."],correcta:1,explicacion:"Para Ranke, el sentido último de los momentos históricos remite a un espíritu divino que los conoce en su plenitud, una idea que muestra la influencia del panteísmo.", dummyExplanation: "Ranke era como un detective que confiaba en las pruebas, pero creía que al final había un 'director' divino que se aseguraba de que la historia tuviera sentido."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la ciencia histórica y la experiencia de la vida tienen en común?",opciones:["Ambas son completamente objetivas y están libres de subjetividad.","Ambas son formas de autoconocimiento del espíritu humano.","Ambas son inútiles para la vida práctica y solo tienen valor teórico.","Ambas conducen inevitablemente a la desesperación y al pesimismo."],correcta:1,explicacion:"La ciencia histórica es una continuación metódica de la autorreflexión que la vida ya realiza sobre sí misma. Es una forma de autoconocimiento.", dummyExplanation: "La vida te da 'lecciones' a base de experiencias. La historia, según Dilthey, hace lo mismo pero a lo grande y con notas a pie de página."},
+                {pregunta:"¿Qué autor influyó en Schleiermacher con la idea del 'círculo' entre la totalidad y la individualidad?",opciones:["Aristóteles, con su distinción entre potencia y acto en la metafísica.","Kant, con su idea de los juicios sintéticos a priori en la ciencia.","Lutero, con su principio de que la Escritura se interpreta a sí misma.","Descartes, con su método de la duda para alcanzar la certeza."],correcta:2,explicacion:"La idea luterana de que la Biblia se interpreta a sí misma (el todo guía la comprensión de la parte y viceversa) es un precedente directo del círculo hermenéutico.", dummyExplanation: "La idea del círculo ya estaba en la teología de Lutero, Schleiermacher solo la 'tuneó' para la filosofía."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la 'comprensión' capta en las 'expresiones de la vida'?",opciones:["Las leyes causales que rigen los fenómenos sociales de forma necesaria.","Los errores lógicos en el pensamiento de los agentes históricos.","El significado o la interioridad que se manifiesta en los actos.","La estructura material y económica que subyace a la cultura."],correcta:2,explicacion:"La comprensión se dirige al significado, a lo 'interior' que se manifiesta en lo 'exterior' (la expresión), superando la mera explicación causal.", dummyExplanation: "Cuando ves a alguien llorar, no solo 'explicas' que sus glándulas lacrimales funcionan, 'comprendes' que está triste."},
+                {pregunta:"La Escuela Historicista se caracteriza por su valoración de...",opciones:["la universalidad de la razón como guía de la historia humana.","la singularidad de cada época histórica y su valor propio.","los modelos matemáticos para predecir el futuro de la historia.","la historia como una constante y necesaria lucha de clases."],correcta:1,explicacion:"Frente a las grandes leyes universales de la filosofía de la historia, el historicismo enfatiza que cada momento histórico es único y debe ser comprendido en su particularidad.", dummyExplanation: "Los historicistas eran como coleccionistas de mariposas: cada una era única y especial, y no querían reducirlas a una 'idea de mariposa'."},
+                {pregunta:"¿Qué es lo que, en última instancia, limita la objetividad del conocimiento histórico para Dilthey?",opciones:["La falta de inteligencia y preparación de la mayoría de los historiadores.","La influencia del ideal científico positivista que no logra superar.","La escasez de documentos fiables, especialmente de épocas remotas.","La brevedad de la vida humana, que impide abarcar toda la historia."],correcta:1,explicacion:"La tensión no resuelta entre su filosofía de la vida y la coacción del ideal metódico de la ciencia moderna le impide fundamentar plenamente una objetividad propia para las ciencias del espíritu.", dummyExplanation: "Dilthey quería que la historia fuera una ciencia 'guay' y con alma, pero al mismo tiempo sentía la presión de que tenía que parecerse a la física para que la tomaran en serio."},
+                {pregunta:"El concepto de 'congenialidad' en Schleiermacher es fundamental para su método...",opciones:["gramatical, que se basa en las reglas comunes del lenguaje.","comparativo, que establece relaciones entre diferentes textos.","adivinatorio, que se basa en una afinidad espiritual con el autor.","lógico, que analiza la coherencia interna de los argumentos."],correcta:2,explicacion:"La congenialidad, o afinidad de espíritus basada en una humanidad común, es lo que hace posible el salto 'adivinatorio' para reconstruir el pensamiento del autor.", dummyExplanation: "Es la idea de que para entender a un poeta, tienes que tener un poco de 'alma de poeta' tú también."},
+                
+                // 50 PREGUNTAS NUEVAS
+                {pregunta:"¿Cuál era el objetivo de la hermenéutica en el ámbito filológico durante el Renacimiento?",opciones:["Crear nuevas obras literarias imitando el estilo clásico.","Redescubrir el sentido genuino de la literatura clásica antigua.","Traducir los textos clásicos a todas las lenguas modernas europeas.","Demostrar la superioridad de la literatura latina sobre la griega."],correcta:1,explicacion:"En el ámbito filológico, se requería como instrumento para redescubrir la literatura clásica antigua, cuyo sentido se había vuelto extraño.", dummyExplanation: "Era como encontrar un mapa del tesoro antiguo y necesitar un experto para descifrarlo y encontrar el verdadero significado."},
+                {pregunta:"¿Qué postulado de Ernesti fue clave para la independencia de la hermenéutica?",opciones:["Que debía desvincularse de toda restricción dogmática.","Que la interpretación bíblica debía seguir el dogma de la Iglesia.","Que solo los teólogos podían interpretar correctamente los textos.","Que la Biblia era un texto puramente histórico sin valor divino."],correcta:0,explicacion:"Ernesti postuló que la hermenéutica debe ser un método puramente científico, sin diferencia entre la interpretación de libros sagrados y profanos.", dummyExplanation: "Ernesti dijo: 'Vamos a tratar todos los libros por igual, sin favoritismos divinos. Las mismas reglas para todos'."},
+                {pregunta:"Según Schleiermacher, la comprensión se hace necesaria cuando...",opciones:["el texto es muy antiguo y está en otro idioma.","no existe una comprensión inmediata y puede haber un malentendido.","el autor del texto es un genio reconocido universalmente.","se quiere memorizar un texto para recitarlo públicamente."],correcta:1,explicacion:"El esfuerzo por comprender se produce cuando no hay una comprensión inmediata, ya que la posibilidad del malentendido es universal.", dummyExplanation: "Según Schleiermacher, solo nos ponemos a 'interpretar' de verdad cuando algo no nos cuadra a la primera."},
+                {pregunta:"¿Qué movimiento filosófico influyó en la sensibilidad de Schleiermacher por lo individual y concreto?",opciones:["El Racionalismo cartesiano.","El Empirismo de Locke.","El Romanticismo.","El Positivismo de Comte."],correcta:2,explicacion:"La sensibilidad por lo individual y concreto en Schleiermacher proviene de la actitud romántica, en oposición a la Ilustración.", dummyExplanation: "El Romanticismo le susurró al oído a Schleiermacher que cada persona es un universo único, no una copia de un modelo universal."},
+                {pregunta:"¿Qué es, en último término, la hermenéutica para Schleiermacher?",opciones:["Un comportamiento adivinatorio para entrar en el espíritu del autor.","Una aplicación estricta de reglas lógicas para analizar un texto.","Un método para encontrar errores históricos en los documentos.","Una forma de crítica literaria basada en la opinión personal."],correcta:0,explicacion:"La hermenéutica es, en último término, un comportamiento adivinatorio, una recreación del acto creador del autor.", dummyExplanation: "Para Schleiermacher, interpretar es como hacer de médium para contactar con el espíritu del autor."},
+                {pregunta:"¿Qué entiende Hegel por historia universal?",opciones:["Una colección de anécdotas sobre grandes personajes del pasado.","El camino del Espíritu hacia su plena autoconciencia y comprensión.","Un proceso cíclico que se repite sin ningún tipo de progreso.","Un caos de acontecimientos sin ningún sentido ni dirección."],correcta:1,explicacion:"Para Hegel, la historia universal es el proceso teleológico a través del cual el Espíritu Absoluto se realiza y se conoce a sí mismo.", dummyExplanation: "Hegel veía la historia como la autobiografía del Espíritu, que iba madurando y entendiéndose a sí mismo con cada capítulo."},
+                {pregunta:"¿Qué es lo que, según Ranke, confiere sentido al acontecer histórico?",opciones:["Las ideas y proyectos subjetivos de los individuos que actúan.","Un plan divino preestablecido desde el inicio de los tiempos.","Los juegos de fuerzas resultantes de las decisiones históricas.","La lucha de clases como motor principal de todos los cambios."],correcta:2,explicacion:"Para Ranke, el sentido no viene de las intenciones, sino de los juegos de fuerzas resultantes de las decisiones, que producen continuidad.", dummyExplanation: "Ranke pensaba que la historia es como una partida de ajedrez cósmica: lo que importa no es lo que cada jugador quería hacer, sino cómo queda el tablero tras cada movimiento."},
+                {pregunta:"¿Qué es la 'conciencia histórica' para Dilthey?",opciones:["Un saber absoluto y definitivo sobre el pasado, presente y futuro.","La capacidad de elevarse sobre los prejuicios del propio presente.","Un sentimiento de nostalgia por las épocas pasadas y perdidas.","La memoria colectiva de un pueblo transmitida por mitos."],correcta:1,explicacion:"La conciencia histórica implica desarrollar un 'sentido histórico' para superar la vinculación al propio punto de partida y alcanzar una comprensión más universal.", dummyExplanation: "Tener conciencia histórica es como poder quitarte las gafas de tu época para intentar ver el pasado con otros ojos."},
+                {pregunta:"¿Qué concepto toma Dilthey de la fenomenología de Husserl para su teoría?",opciones:["El de 'noúmeno' o cosa en sí.","El de 'mónada' sin ventanas.","El de 'intencionalidad' y 'significado'.","El de 'voluntad de poder'."],correcta:2,explicacion:"Dilthey aprende de Husserl a usar conceptos como 'estructura' o 'significado' sin tener que deducirlos de elementos psicológicos atómicos.", dummyExplanation: "Husserl le prestó a Dilthey la idea de que los significados son como 'cosas' que se pueden estudiar, no solo sentimientos dentro de la cabeza de alguien."},
+                {pregunta:"¿Por qué la 'conciencia histórica' de Dilthey es internamente contradictoria?",opciones:["Porque niega la existencia de la historia misma.","Porque se basa en documentos que a menudo son falsos.","Porque no puede alcanzar un saber absoluto al estar ella misma condicionada.","Porque solo se puede aplicar a la historia del arte y no a la política."],correcta:2,explicacion:"El condicionamiento histórico de la conciencia no permite su propia consumación como saber absoluto, lo que genera una contradicción.", dummyExplanation: "Es la paradoja del pez que quiere estudiar el océano: por mucho que nade, nunca podrá verlo desde fuera porque él mismo es parte del océano."},
+                {pregunta:"¿Qué autor es un precedente clave de la hermenéutica al postular una comprensión circular de la Biblia?",opciones:["Santo Tomás de Aquino.","Martín Lutero.","San Agustín.","Guillermo de Ockham."],correcta:1,explicacion:"La idea luterana de que la Escritura se interpreta a sí misma, donde el conjunto guía la comprensión de la parte, es un claro precedente del círculo hermenéutico.", dummyExplanation: "Lutero fue el primero en decir que para entender un trozo de la Biblia, lo mejor es preguntarle al resto de la Biblia."},
+                {pregunta:"¿Qué es lo que, según Schleiermacher, fundamenta la posibilidad de la 'congenialidad'?",opciones:["Una educación idéntica entre intérprete y autor.","La pertenencia a la misma clase social y económica.","Una metafísica de la vida que postula una naturaleza humana común.","La intervención de una inspiración divina en el intérprete."],correcta:2,explicacion:"La metafísica de la vida de Schleiermacher postula una vinculación previa de todas las individualidades que hace posible la comprensión adivinatoria.", dummyExplanation: "Schleiermacher creía que todos estamos conectados por el 'wifi' de la Vida, y eso nos permite 'sintonizar' con los pensamientos de otros."},
+                {pregunta:"¿Cuál es la principal diferencia entre el método 'adivinatorio' y el 'comparativo' en Schleiermacher?",opciones:["El adivinatorio es rápido y el comparativo es lento.","El adivinatorio es inmediato e intuitivo, el comparativo es mediato y analítico.","El adivinatorio es para la poesía y el comparativo para la prosa.","El adivinatorio siempre acierta y el comparativo a menudo falla."],correcta:1,explicacion:"El método adivinatorio busca la comprensión inmediata de lo individual, mientras que el comparativo procede de forma mediata, comparando lo particular con lo general.", dummyExplanation: "El adivinatorio es un flechazo de comprensión. El comparativo es un trabajo de detective, juntando pistas poco a poco."},
+                {pregunta:"¿Qué entiende Dilthey por 'autoconocimiento' a través de la historia?",opciones:["Descubrir los traumas infantiles de los grandes personajes históricos.","La comprensión de la propia posibilidad de comportarse históricamente.","Aprender de los errores del pasado para no repetirlos en el futuro.","Reconocer la superioridad de la propia época sobre todas las anteriores."],correcta:1,explicacion:"El conocimiento histórico es una relación reflexiva de comprensión que lleva a una progresiva posesión de la propia historicidad.", dummyExplanation: "Para Dilthey, estudiar historia es como mirarse en un espejo que te muestra no solo quién eres, sino todo lo que podrías haber sido."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la ciencia como 'hecho de la vida' busca fundamentalmente?",opciones:["La dominación técnica de la naturaleza.","La justificación de un orden social determinado.","La estabilidad en medio del cambio incesante.","El placer estético derivado del conocimiento puro."],correcta:2,explicacion:"El impulso científico surge de la necesidad interna de la vida de estabilizar algo fijo en medio del cambio incesante de percepciones y deseos.", dummyExplanation: "La vida es un río revuelto, y la ciencia, según Dilthey, es el intento de construir un pequeño embarcadero para tener algo a lo que agarrarse."},
+                {pregunta:"¿Cuál es la principal objeción de Dilthey al neokantismo?",opciones:["Su excesivo interés por la estética y el arte.","Su dogmatismo al aplicar las categorías kantianas a la historia.","Su falta de rigor lógico en sus argumentaciones.","Su rechazo de la filosofía trascendental de Kant."],correcta:1,explicacion:"Dilthey critica al neokantismo por aplicar de forma dogmática las categorías del conocimiento natural al mundo histórico, sin ver su diferencia fundamental.", dummyExplanation: "Dilthey les dijo a los neokantianos: 'No se puede medir la historia con la misma regla que se mide un planeta'."},
+                {pregunta:"¿Qué autor influyó en la Escuela Historicista con su idea de que cada época tiene su propia perfección?",opciones:["Herder.","Voltaire.","Rousseau.","Montesquieu."],correcta:0,explicacion:"La idea de que cada época tiene su propio centro de gravedad y no debe ser juzgada con los patrones de otra es una idea clave de Herder, que influyó en el historicismo.", dummyExplanation: "Herder fue el que dijo que no se puede juzgar a los Beatles con los criterios del reguetón; cada época tiene su propia música."},
+                {pregunta:"¿Qué es lo que, según Schleiermacher, constituye el objeto de la interpretación psicológica?",opciones:["El sentido objetivo de las palabras y su gramática.","La estructura social en la que vivió el autor.","La singularidad del pensamiento y el acto creador del autor.","Los arquetipos universales presentes en la obra."],correcta:2,explicacion:"La interpretación psicológica o técnica se sitúa en la esfera del pensamiento o ámbito del proceso creador interno del autor para captar su individualidad.", dummyExplanation: "La interpretación psicológica intenta responder a la pregunta: '¿En qué demonios estaba pensando el autor cuando escribió esto?'."},
+                {pregunta:"¿Cuál es la consecuencia de la aplicación de la hermenéutica a la historia por parte de Hegel?",opciones:["La historia se convierte en una ciencia empírica y positiva.","Se niega cualquier posibilidad de progreso en la historia.","La historia se llena de un contenido metafísico y teleológico.","Se da prioridad a las historias locales sobre la historia universal."],correcta:2,explicacion:"Hegel llena el principio hermenéutico con el contenido metafísico del desarrollo del Espíritu, abocando a una metafísica de la historia universal.", dummyExplanation: "Hegel usó la hermenéutica para convertir la historia en el guion de su propia película filosófica, con un final feliz ya decidido."},
+                {pregunta:"¿Qué es lo que, según Dilthey, diferencia la 'vivencia' de una simple percepción kantiana?",opciones:["La vivencia es siempre falsa, la percepción es verdadera.","La vivencia es puramente intelectual, la percepción es sensible.","En la vivencia no hay distinción entre acto y contenido.","La vivencia es individual, la percepción es universal."],correcta:2,explicacion:"En la vivencia tiene realidad palpable la identidad de sujeto y objeto, no hay distinción entre el acto de vivir y el contenido vivido.", dummyExplanation: "Una percepción es como ver una foto de una tarta. Una vivencia es comerte la tarta."},
+                {pregunta:"¿Qué es lo que, según Ranke, mantiene unido el nexo histórico?",opciones:["La voluntad de un líder carismático.","Un plan divino que guía los acontecimientos.","La dialéctica de libertad y necesidad.","La estructura económica de la sociedad."],correcta:2,explicacion:"La dialéctica entre la libertad de las nuevas decisiones y la necesidad impuesta por lo ya acaecido es lo que constituye el nexo histórico.", dummyExplanation: "Para Ranke, la historia avanza por el tira y afloja entre 'lo que queremos hacer' y 'lo que nos dejan hacer las decisiones del pasado'."},
+                {pregunta:"¿Cuál es la principal diferencia entre la concepción de la historia de Hegel y la de la Escuela Historicista?",opciones:["Hegel era pesimista y los historicistas optimistas.","Hegel se basaba en la filosofía y los historicistas en la investigación.","Hegel estudiaba la historia moderna y los historicistas la antigua.","Hegel era alemán y los historicistas eran franceses."],correcta:1,explicacion:"Los historicistas propugnan la investigación histórica concreta frente a la construcción a priori y especulativa de Hegel.", dummyExplanation: "Hegel intentaba entender la historia leyendo en los posos del café de la filosofía; los historicistas preferían ir a los archivos a leer los periódicos de la época."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la 'vida' tiene en común con un texto?",opciones:["Ambos son creaciones divinas.","Ambos están escritos en un lenguaje matemático.","Ambos tienen una estructura de significado (todo y partes).","Ambos son completamente caóticos e incomprensibles."],correcta:2,explicacion:"El nexo estructural de la vida, como el de un texto, está determinado por la relación hermenéutica entre el todo y las partes.", dummyExplanation: "Dilthey pensaba que la vida es como una novela que se va escribiendo a sí misma, y para entenderla hay que leerla como tal."},
+                {pregunta:"¿Cuál es el principal problema del ideal de objetividad histórica de Dilthey?",opciones:["Es demasiado subjetivo y se basa en la emoción.","Depende de una 'simpatía' que no puede ser un método científico.","Es una copia exacta del método de las ciencias naturales.","Fue rechazado por todos los historiadores de su tiempo."],correcta:1,explicacion:"El método comparativo de Dilthey, basado en la simpatía, no puede ser legitimado como un método científico objetivo para el conocimiento histórico.", dummyExplanation: "El problema de Dilthey es que su método para entender la historia se basaba en 'tener buen rollo' con el pasado, y eso no es muy científico."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la ciencia histórica hace con la experiencia de la vida?",opciones:["La niega y la sustituye por conceptos abstractos.","La continúa y la eleva metódicamente a la objetividad.","La considera una fuente de errores que debe ser ignorada.","La convierte en una obra de arte literaria."],correcta:1,explicacion:"Las ciencias del espíritu intentan elevarse metódicamente por encima de la contingencia subjetiva para alcanzar la objetividad del conocimiento histórico.", dummyExplanation: "Para Dilthey, la vida te da la materia prima (experiencias) y la historia es el chef que la cocina para convertirla en un plato objetivo."},
+                {pregunta:"La hermenéutica romántica de Schleiermacher tiene un fuerte componente...",opciones:["positivista.","materialista.","psicologista.","estructuralista."],correcta:2,explicacion:"Su enfoque se centra en la reconstrucción de la vida mental del autor, lo que le da un marcado carácter psicologista.", dummyExplanation: "Schleiermacher quería ser un poco psicólogo de los autores para entender sus obras."},
+                {pregunta:"¿Qué es lo que, según la Escuela Historicista, no debe hacer el historiador?",opciones:["Utilizar documentos de archivo.","Escribir de forma clara y comprensible.","Juzgar el pasado con los valores del presente.","Comparar diferentes épocas históricas."],correcta:2,explicacion:"El historicismo rechaza la idea de juzgar el pasado desde un patrón modélico (como el presente), defendiendo que cada época debe ser entendida desde sí misma.", dummyExplanation: "Un buen historicista no juzga a un caballero medieval por no usar un smartphone."},
+                {pregunta:"¿Qué es lo que, para Dilthey, constituye la 'estructura hermenéutica de la vida'?",opciones:["La vida misma se autointerpreta y está referida a la reflexión.","La vida está determinada por leyes causales como la naturaleza.","La vida es un texto sagrado escrito por una inteligencia superior.","La vida es un caos sin sentido que solo el arte puede ordenar."],correcta:0,explicacion:"La vida misma tiene sentido hermenéutico: se autointerpreta y tiende a la reflexión y a la configuración de unidades de significado.", dummyExplanation: "Dilthey creía que la vida no solo se vive, sino que también se 'piensa' y se 'cuenta' a sí misma constantemente."},
+                {pregunta:"¿Cuál es la principal influencia de Kant en el proyecto de Dilthey?",opciones:["Su teoría estética sobre lo bello y lo sublime.","Su ética del imperativo categórico.","Su 'crítica de la razón pura' como modelo a ampliar.","Su filosofía de la religión y sus pruebas de la existencia de Dios."],correcta:2,explicacion:"Dilthey concibe su 'crítica de la razón histórica' como una continuación y complemento de la 'Crítica de la razón pura' de Kant.", dummyExplanation: "Dilthey fue como un fan de Kant que quiso hacer una secuela de su obra más famosa."},
+                {pregunta:"¿Qué es lo que, según Schleiermacher, hace posible la 'adivinación' en la hermenéutica?",opciones:["El uso de técnicas esotéricas y místicas.","Un riguroso análisis lógico del texto.","La 'congenialidad' o identidad de espíritus.","La memorización completa de la obra."],correcta:2,explicacion:"La comprensión adivinatoria se basa en una afinidad espiritual (congenialidad) que permite al intérprete transformarse en el otro y captar su individualidad.", dummyExplanation: "Para entender a alguien de verdad, dice Schleiermacher, tienes que estar en su misma 'onda'."},
+                {pregunta:"¿Cuál es el principal peligro del 'método comparativo' en historia, según la crítica posterior?",opciones:["Que es muy difícil encontrar dos épocas para comparar.","Que ignora los documentos escritos y se fía de la tradición oral.","Que deshistoriza los fenómenos al tratarlos como simultáneos.","Que requiere un conocimiento enciclopédico imposible de alcanzar."],correcta:2,explicacion:"El método comparativo es criticado porque, al hacer las cosas explícitamente simultáneas, no es compatible con la idea de un conocimiento histórico.", dummyExplanation: "Comparar es como sacar a los personajes de sus películas y ponerlos juntos en una foto: pierden todo el contexto."},
+                {pregunta:"¿Qué es lo que, para Dilthey, se objetiva en las 'ciencias del espíritu'?",opciones:["Las leyes inmutables de la naturaleza.","La estructura de la mente humana universal.","El espíritu objetivo o las objetivaciones de la vida.","Las intenciones secretas de los grandes líderes."],correcta:2,explicacion:"Las ciencias del espíritu estudian las objetivaciones de la vida: arte, religión, derecho, etc., donde el espíritu humano se ha manifestado.", dummyExplanation: "Las ciencias del espíritu son como la arqueología del alma humana: estudian las 'ruinas' que ha dejado a lo largo de la historia."},
+                {pregunta:"¿Qué es lo que, según la Escuela Historicista, impulsa el devenir histórico?",opciones:["Un plan divino preestablecido.","La lucha de clases económicas.","La dialéctica entre libertad y necesidad.","El azar puro y la contingencia."],correcta:2,explicacion:"Para Ranke, el nexo histórico se constituye por la dialéctica entre la libertad de las decisiones y la necesidad creada por los efectos de decisiones pasadas.", dummyExplanation: "La historia, para los historicistas, es un baile entre lo que queremos hacer y lo que el pasado nos deja hacer."},
+                {pregunta:"¿Cuál es la principal diferencia entre la 'vivencia' de Dilthey y la 'intuición' de Husserl?",opciones:["La vivencia es sensible y la intuición es intelectual.","La vivencia es histórica y la intuición es atemporal.","La vivencia es la base de la comprensión, no de una ciencia de esencias.","La vivencia es siempre verdadera y la intuición puede ser falsa."],correcta:2,explicacion:"Mientras la intuición de Husserl busca captar esencias puras, la vivencia de Dilthey es la base para comprender el nexo vital e histórico.", dummyExplanation: "La intuición de Husserl es como una foto perfecta de la 'idea' de un caballo. La vivencia de Dilthey es la sensación de galopar sobre un caballo real."},
+                {pregunta:"¿Qué es lo que, según Schleiermacher, caracteriza al 'pensamiento individual' que la hermenéutica busca comprender?",opciones:["Es una copia imperfecta de las Ideas platónicas.","Es una combinación libre y expresión de una esencia individual.","Está completamente determinado por las leyes de la lógica.","Es un reflejo directo de la estructura económica de la sociedad."],correcta:1,explicacion:"El objeto de la comprensión es el pensamiento individual, que por esencia es combinación libre, expresión y exteriorización de una individualidad.", dummyExplanation: "Schleiermacher creía que cada autor es un chef con su propia receta secreta, y la hermenéutica es el arte de descubrir esa receta."},
+                {pregunta:"¿Cuál es la principal consecuencia del 'giro hermenéutico' en la concepción del conocimiento histórico?",opciones:["La historia se convierte en una ciencia exacta como la física.","El conocimiento histórico se entiende como interpretación, no como copia.","Se abandona el estudio de los documentos y se prioriza la especulación.","La historia pasa a ser una rama auxiliar de la teología."],correcta:1,explicacion:"Con la hermenéutica, se asume que el conocimiento no es una adecuación a la 'cosa en sí', sino una interpretación mediada por el lenguaje y la historia.", dummyExplanation: "El giro hermenéutico es darse cuenta de que el historiador no es un fotógrafo del pasado, sino un pintor que lo interpreta."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la 'vida' hace por sí misma?",opciones:["Tiende inevitablemente hacia la perfección moral.","Busca la aniquilación y el retorno a la nada.","Se autointerpreta y tiende a la reflexión.","Obedece ciegamente a las leyes de la física."],correcta:2,explicacion:"Para Dilthey, la vida misma contiene saber y está referida a la reflexión. La vida misma se autointerpreta.", dummyExplanation: "La vida, para Dilthey, no solo vive, sino que también se mira al espejo y se pregunta '¿quién soy?'."},
+                {pregunta:"¿Qué es lo que, según la Escuela Historicista, debe evitar el historiador a toda costa?",opciones:["La investigación minuciosa de los archivos.","El uso de un lenguaje claro y accesible.","Las construcciones a priori y la filosofía especulativa.","La publicación de sus resultados en revistas científicas."],correcta:2,explicacion:"Los historicistas rechazan cualquier concepción a priori de la historia, defendiendo que el conocimiento debe surgir de la investigación concreta.", dummyExplanation: "Un buen historicista, antes de hablar, se asegura de tener los papeles (documentos) en la mano."},
+                {pregunta:"¿Qué es lo que, según Schleiermacher, permite la 'interpretación gramatical'?",opciones:["Adivinar los sentimientos más profundos del autor.","Captar el sentido objetivo de las palabras en su contexto.","Descubrir los errores lógicos en la argumentación del texto.","Evaluar la calidad estética de la obra literaria."],correcta:1,explicacion:"La interpretación gramatical, como parte objetiva, se refiere al sentido objetivo de las palabras e investiga las regularidades del lenguaje.", dummyExplanation: "La interpretación gramatical es como leer el diccionario y la gramática para asegurarse de que entiendes lo que las palabras significan literalmente."},
+                {pregunta:"¿Qué es lo que, según Dilthey, constituye el 'nexo propio de la experiencia vital del individuo'?",opciones:["Una cadena de causas y efectos puramente mecánicos.","Una estructura de significado que no es vivida por nadie.","Un nexo general biográfico que puede ser conocido.","Una serie de acontecimientos completamente azarosos."],correcta:2,explicacion:"Dilthey busca cómo se configura un nexo a partir de la vivencia, un nexo biográfico que puede ser conocido y revivido.", dummyExplanation: "Tu vida, para Dilthey, no es una lista de la compra de eventos, es una historia con su propio argumento y significado."},
+                {pregunta:"¿Cuál es el principal problema de la 'conciencia histórica' como sustituto del saber absoluto?",opciones:["Es demasiado optimista sobre la naturaleza humana.","Se basa en una visión pesimista y nihilista de la historia.","Su propio condicionamiento histórico le impide ser absoluta.","Solo es accesible para unos pocos genios a lo largo de la historia."],correcta:2,explicacion:"El condicionamiento histórico de la conciencia no permite su propia consumación como saber absoluto, lo que la hace internamente contradictoria.", dummyExplanation: "La conciencia histórica no puede ser el árbitro final del partido porque ella misma está jugando en el campo."},
+                {pregunta:"¿Qué es lo que, según Schleiermacher, es la 'tarea infinita' de la hermenéutica?",opciones:["La traducción de todos los textos a un único lenguaje universal.","La memorización de todas las grandes obras de la literatura.","La reconstrucción completa del pensamiento del autor.","La refutación de todas las interpretaciones anteriores."],correcta:2,explicacion:"La reconstrucción del acto creador del autor es un ideal regulador, una tarea que, por la individualidad del objeto, nunca se completa del todo.", dummyExplanation: "Intentar entender completamente a un autor es como intentar vaciar el océano con un cubo: una tarea que nunca se acaba."},
+                {pregunta:"¿Qué es lo que, según Dilthey, la 'razón histórica' tiene como infinitud potencial?",opciones:["La capacidad de predecir el futuro con total exactitud.","La posibilidad de elevarse sobre toda limitación subjetiva.","El poder de cambiar el pasado a voluntad mediante la interpretación.","La creación de un lenguaje perfecto para describir la historia."],correcta:1,explicacion:"Dilthey piensa en una comprensión histórica universal fundada en la totalidad e interna infinitud del espíritu, que se eleva sobre la propia finitud.", dummyExplanation: "Dilthey creía que, con suficiente entrenamiento, la mente del historiador podía convertirse en una máquina del tiempo para entender cualquier época."},
+                {pregunta:"¿Cuál es la principal diferencia entre la 'historia' para Hegel y para Ranke?",opciones:["Para Hegel es teológica, para Ranke es económica.","Para Hegel es especulativa, para Ranke es empírica.","Para Hegel es cíclica, para Ranke es lineal.","Para Hegel es pesimista, para Ranke es optimista."],correcta:1,explicacion:"Hegel construye la historia a priori desde la filosofía, mientras que Ranke y el historicismo parten de la investigación empírica de las fuentes.", dummyExplanation: "Hegel escribía la historia desde su torre de marfil filosófica; Ranke se ponía el sombrero de explorador y bajaba a las trincheras de los archivos."}
+            ]
+        };
+
+        let quizQuestions = [];
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+        
+        let slideStates = {};
+
+        // --- FUNCIONES DE RENDERIZADO ---
+        
+        function renderContent() {
+            renderFigurasClave();
+            renderResumen();
+            renderConceptos();
+            renderExamenes();
+            renderJuego();
+            renderBibliografia();
+        }
+
+        function renderFigurasClave() {
+            const container = document.getElementById('figuras');
+            if (themeData.figurasClave && themeData.figurasClave.length > 0) {
+                const figurasHTML = themeData.figurasClave.map((figura, figIndex) => {
+                    const carouselId = `figura-carousel-${figIndex}`;
+                    slideStates[carouselId] = 0; // Initialize slide state
+
+                    const carouselItems = figura.categorias.map((cat, catIndex) => `
+                        <div class="content-carousel-item ${catIndex === 0 ? 'active' : ''}">
+                            <h5 class="font-bold text-lg mb-2" style="color: var(--color-pumpkin);">${cat.titulo}</h5>
+                            <div class="text-sm space-y-2">${cat.contenido}</div>
+                        </div>
+                    `).join('');
+
+                    return `
+                        <div class="bg-white p-6 rounded-lg shadow-inner mb-8" style="background-color: #fcf8f0;">
+                            <h4 class="text-2xl font-bold text-center">${figura.nombre}</h4>
+                            <div class="flex flex-col md:flex-row md:space-x-6 mt-4">
+                                <div class="md:w-1/3 flex-shrink-0 flex flex-col items-center">
+                                     <figure class="w-full max-w-[140px]">
+                                        <img src="${figura.imagen}" alt="${figura.alt}" class="w-full h-auto object-cover rounded-md mb-2">
+                                        <figcaption class="text-xs text-center italic"><a href="${figura.imagen}" target="_blank" class="hover:underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a></figcaption>
+                                    </figure>
+                                </div>
+                                <div class="md:w-2/3 relative flex items-center mt-4 md:mt-0">
+                                    <button onclick="changeSlide('${carouselId}', -1)" class="carousel-button absolute left-0 z-10 p-2 rounded-full transition hover:bg-black/10" style="background-color: transparent; color: var(--color-coffee);"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <div id="${carouselId}" class="carousel-content-wrapper w-full h-full px-12">
+                                        ${carouselItems}
+                                    </div>
+                                    <button onclick="changeSlide('${carouselId}', 1)" class="carousel-button absolute right-0 z-10 p-2 rounded-full transition hover:bg-black/10" style="background-color: transparent; color: var(--color-coffee);"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                container.innerHTML = `<div class="space-y-8">${figurasHTML}</div>`;
+            } else {
+                container.innerHTML = `<div class="bg-white p-6 rounded-lg shadow-inner text-center" style="background-color: #fcf8f0;"><p>La información sobre las figuras clave de este tema se añadirá próximamente.</p></div>`;
+            }
+        }
+
+        function renderResumen() {
+            const container = document.getElementById('resumen');
+            container.innerHTML = `
+                <div class="space-y-8">
+                ${themeData.resumenTemario.map(item => `
+                    <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h4 class="text-xl font-bold mb-3">${item.epigrafe}</h4>
+                        <div class="text-base space-y-4">${item.resumen}</div>
+                        <div class="border-t my-4" style="border-color: var(--color-siena);"></div>
+                        <h5 class="font-semibold mb-2" style="color: var(--color-pumpkin);">Mapa Conceptual</h5>
+                        <div class="w-full overflow-x-auto">${item.mapaConceptual}</div>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos');
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${themeData.conceptosClave.sort((a, b) => a.concepto.localeCompare(b.concepto)).map(item => `
+                    <div class="bg-white p-4 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                        <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${item.concepto}</h5>
+                        <p class="text-sm mt-1">${item.definicion}</p>
+                    </div>
+                `).join('')}
+                </div>
+            `;
+        }
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            
+            // Función para convertir una fecha en formato "Mes Año" a un valor numérico comparable
+            const parseDateToNumber = (dateStr) => {
+                const yearMatch = dateStr.match(/\d{4}/);
+                const year = yearMatch ? parseInt(yearMatch[0]) : 0;
+                let month = 0;
+                if (dateStr.includes("Septiembre")) month = 9;
+                else if (dateStr.includes("Mayo/Junio")) month = 6; // Usamos 6 para Junio
+                return year * 100 + month;
+            };
+
+            // Ordenamos las preguntas por su fecha más reciente, de forma descendente
+            const sortedExams = themeData.historicoExamenes.sort((a, b) => {
+                const lastDateA = Math.max(...a.fechas.map(parseDateToNumber));
+                const lastDateB = Math.max(...b.fechas.map(parseDateToNumber));
+                return lastDateB - lastDateA; // Orden descendente
+            });
+            
+            // Función para ordenar las fechas de aparición de cada pregunta de forma cronológica ascendente
+            const sortDatesAscending = (dates) => {
+                return dates.slice().sort((a, b) => parseDateToNumber(a) - parseDateToNumber(b));
+            };
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                ${sortedExams.map(item => `
+                    <details class="bg-white p-4 rounded-lg shadow-inner group" style="background-color: #fcf8f0;">
+                        <summary class="font-semibold cursor-pointer list-none flex justify-between items-center" style="color: var(--color-pumpkin);">
+                            <span>${item.pregunta}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <details class="text-sm mb-2">
+                                <summary class="font-semibold cursor-pointer" style="color: var(--color-coffee);">Fechas de aparición</summary>
+                                <div class="pl-4 pt-2">
+                                    ${sortDatesAscending(item.fechas).map(date => `<p>${date}</p>`).join('')}
+                                </div>
+                            </details>
+                            <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                ${item.conceptosDesarrollo.map(cd => `
+                                    <div class="bg-gray-50 p-3 rounded-md shadow-sm tooltip-container">
+                                        <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                        <span class="tooltip-text">${cd.resumen}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </details>
+                `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderBibliografia() {
+            const container = document.getElementById('bibliografia');
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <h4 class="text-xl font-bold mb-3">Bibliografía del Tema</h4>
+                    <ul class="text-sm space-y-2 list-disc pl-5">
+                        ${themeData.bibliografia.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function renderJuego() {
+            const container = document.getElementById('juego');
+            container.innerHTML = `
+                <div id="quiz-container" class="text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                     <h3 class="text-2xl font-bold mb-4">Juego de Preguntas</h3>
+                     <p class="mb-6">Pon a prueba tus conocimientos con 10 preguntas aleatorias sobre este tema.</p>
+                     <button onclick="startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Comenzar Juego</button>
+                </div>
+            `;
+        }
+
+        // --- FUNCIONES DE INTERACTIVIDAD ---
+
+        window.openTab = function(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        window.showSlide = function(carouselId, n) {
+            const carousel = document.getElementById(carouselId);
+            if (!carousel) return;
+
+            const slides = carousel.querySelectorAll('.content-carousel-item');
+            const prevBtn = carousel.parentElement.querySelector('button:first-of-type');
+            const nextBtn = carousel.parentElement.querySelector('button:last-of-type');
+
+            if (!slides.length) return;
+
+            slides.forEach(slide => slide.style.display = 'none');
+            
+            let currentSlide = slideStates[carouselId];
+            currentSlide = (n + slides.length) % slides.length;
+            slideStates[carouselId] = currentSlide;
+            
+            slides[currentSlide].style.display = 'block';
+
+            if (prevBtn && nextBtn) {
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === slides.length - 1;
+            }
+        }
+
+        window.changeSlide = function(carouselId, n) {
+            let currentSlide = slideStates[carouselId] || 0;
+            showSlide(carouselId, currentSlide + n);
+        }
+
+        window.startQuiz = function() {
+            const shuffled = [...themeData.juegoPreguntas].sort(() => 0.5 - Math.random());
+            quizQuestions = shuffled.slice(0, 10);
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        window.displayQuestion = function() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:border-yellow-500" style="border-color: var(--color-siena);" onclick="checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(button => button.disabled = true);
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-200', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            
+            const titles = [
+                "Archivista Novato", "Lector de Crónicas", "Estudiante de Ranke",
+                "Filólogo Aficionado", "Hermenéuta en Prácticas", "Comprensivo Diltheyano",
+                "Crítico de la Razón Histórica", "Intérprete Congenial", "Maestro del Círculo Hermenéutico",
+                "Historiador Consumado", "Espíritu Absoluto"
+            ];
+            const title = titles[quizScore] || "Viajero en el Tiempo";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(q => {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left">
+                        <h3 class="text-lg font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h3>
+                        <h4 class="text-md font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h4>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.dummyExplanation}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h2 class="text-2xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h2>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <button onclick="startQuiz()" class="mt-8 px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+            `;
+        }
+
+        // --- INICIALIZACIÓN ---
+        renderContent();
+        Object.keys(slideStates).forEach(carouselId => {
+            showSlide(carouselId, 0);
+        });
+    });
+    </script>
+</body>
+</html>
