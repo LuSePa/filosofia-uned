@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 8.1: Figuras Clave - El itinerario intelectual de Nietzsche</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías del ejemplo */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para pestañas y enlaces de pestaña */
+        .tab-button {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            border-bottom-width: 2px;
+            transition: all 0.3s;
+            border-color: transparent;
+            text-decoration: none;
+            color: var(--color-coffee);
+        }
+        .tab-button:hover {
+            color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.05);
+        }
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        .carousel-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        /* Estilos para tooltips y botones de conceptos */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 240px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -120px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            font-family: var(--font-body);
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .concept-button {
+            display: inline-block;
+            background-color: var(--color-siena);
+            color: var(--color-cream);
+            padding: 2px 8px;
+            border-radius: 9999px; /* pill shape */
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 2px;
+            cursor: help;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 8: El itinerario intelectual de Nietzsche</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <!-- Barra de navegación de pestañas -->
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <button class="tab-button active">Figuras Clave</button>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.2.html" class="tab-button">Resumen</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.3.html" class="tab-button">Conceptos</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.4.html" class="tab-button">Exámenes</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.html" class="tab-button">Juego</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.6.html" class="tab-button">Bibliografía</a>
+            </div>
+
+            <!-- Contenido de la Pestaña "Figuras Clave" -->
+            <div id="figuras" class="tab-content">
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #fcf8f0;">
+                    <div class="flex flex-col md:flex-row gap-6 items-start">
+                        <!-- Columna Izquierda: Foto Principal -->
+                        <div class="w-full md:w-1/3 flex-shrink-0">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nietzsche187a.jpg/800px-Nietzsche187a.jpg" alt="Retrato fotográfico de Friedrich Nietzsche en blanco y negro, circa 1875. Es un hombre joven con un bigote espeso y poblado, mirando directamente a la cámara con una expresión seria e intensa." class="w-full h-auto object-contain rounded-lg shadow-lg">
+                            <h3 class="text-2xl font-bold text-center mt-4">Friedrich Nietzsche</h3>
+                            <p class="text-sm text-center" style="color: var(--color-coffee);">(1844-1900)</p>
+                            <a href="https://commons.wikimedia.org/wiki/File:Nietzsche187a.jpg" target="_blank" class="text-xs text-center block mt-1 underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a>
+                        </div>
+
+                        <!-- Columna Derecha: Carruseles -->
+                        <div class="w-full md:w-2/3 space-y-4">
+                            <!-- Carrusel Biografía -->
+                            <div class="relative p-4 rounded-lg border" style="border-color: var(--color-siena);">
+                                <h3 class="text-xl font-bold text-center mb-2" style="color: var(--color-coffee);">Biografía por Etapas</h3>
+                                <div id="bio-content" class="text-center min-h-[6rem] flex items-center justify-center"></div>
+                                <button id="bio-prev" onclick="changeCarouselSlide('bio', -1)" class="carousel-button absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 text-xl leading-none hover:bg-opacity-75">&lt;</button>
+                                <button id="bio-next" onclick="changeCarouselSlide('bio', 1)" class="carousel-button absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 text-xl leading-none hover:bg-opacity-75">&gt;</button>
+                            </div>
+                            <!-- Carrusel Obra -->
+                            <div class="relative p-4 rounded-lg border" style="border-color: var(--color-siena);">
+                                 <h3 class="text-xl font-bold text-center mb-2" style="color: var(--color-coffee);">Obra Cronológica</h3>
+                                <div id="works-content" class="text-center min-h-[6rem] flex items-center justify-center"></div>
+                                <button id="works-prev" onclick="changeCarouselSlide('works', -1)" class="carousel-button absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 text-xl leading-none hover:bg-opacity-75">&lt;</button>
+                                <button id="works-next" onclick="changeCarouselSlide('works', 1)" class="carousel-button absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 text-xl leading-none hover:bg-opacity-75">&gt;</button>
+                            </div>
+                            <!-- Carrusel Influencia -->
+                            <div class="relative p-4 rounded-lg border" style="border-color: var(--color-siena);">
+                                 <h3 class="text-xl font-bold text-center mb-2" style="color: var(--color-coffee);">Legado e Influencia</h3>
+                                <div id="influence-content" class="text-center min-h-[6rem] flex items-center justify-center"></div>
+                                <button id="influence-prev" onclick="changeCarouselSlide('influence', -1)" class="carousel-button absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 text-xl leading-none hover:bg-opacity-75">&lt;</button>
+                                <button id="influence-next" onclick="changeCarouselSlide('influence', 1)" class="carousel-button absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 text-xl leading-none hover:bg-opacity-75">&gt;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t my-8" style="border-color: var(--color-siena);"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-white p-6 rounded-lg shadow-inner flex items-center gap-4 transform transition hover:scale-105" style="background-color: #fcf8f0;">
+                            <div class="flex-shrink-0 text-center w-24">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Friedrich_Wilhelm_Ritschl_-_Imagines_philologorum.jpg" alt="Retrato de Friedrich Ritschl. Es un hombre mayor con cabello y barba blancos, gafas y una expresión académica y seria." class="w-24 h-24 rounded-full object-cover border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <a href="https://commons.wikimedia.org/wiki/File:Friedrich_Wilhelm_Ritschl_-_Imagines_philologorum.jpg" target="_blank" class="text-xs mt-1 underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold">Friedrich Ritschl</h4>
+                                <p class="text-xs font-semibold mb-2" style="color: var(--color-coffee);">(1806-1876)</p>
+                                <p class="text-sm text-justify">Influyente filólogo clásico y mentor de Nietzsche en las universidades de Bonn y Leipzig. Reconoció el extraordinario talento de su joven discípulo y fue clave para que Nietzsche obtuviera la cátedra de filología en Basilea a la temprana edad de 24 años.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-inner flex items-center gap-4 transform transition hover:scale-105" style="background-color: #fcf8f0;">
+                            <div class="flex-shrink-0 text-center w-24">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/RichardWagner.jpg/800px-RichardWagner.jpg" alt="Retrato fotográfico de Richard Wagner en sepia. Es un hombre de mediana edad con cabello peinado hacia atrás y patillas, mirando hacia un lado con expresión pensativa." class="w-24 h-24 rounded-full object-cover border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <a href="https://commons.wikimedia.org/wiki/File:RichardWagner.jpg" target="_blank" class="text-xs mt-1 underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold">Richard Wagner</h4>
+                                <p class="text-xs font-semibold mb-2" style="color: var(--color-coffee);">(1813-1883)</p>
+                                <p class="text-sm text-justify">Compositor alemán y figura central en la primera etapa de Nietzsche. Su proyecto de una 'obra de arte total' inspiró 'El nacimiento de la tragedia'. La relación pasó de la admiración a una amarga ruptura.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-inner flex items-center gap-4 transform transition hover:scale-105" style="background-color: #fcf8f0;">
+                            <div class="flex-shrink-0 text-center w-24">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg/800px-Arthur_Schopenhauer_by_J_Sch%C3%A4fer%2C_1859b.jpg" alt="Fotografía de Arthur Schopenhauer en su vejez. Es un hombre con abundante cabello blanco y patillas, vestido con ropas oscuras y mirando directamente a la cámara con gesto serio." class="w-24 h-24 rounded-full object-cover border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <a href="https://commons.wikimedia.org/wiki/File:Arthur_Schopenhauer_by_J_Sch%C3%A4fer,_1859b.jpg" target="_blank" class="text-xs mt-1 underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold">Arthur Schopenhauer</h4>
+                                <p class="text-xs font-semibold mb-2" style="color: var(--color-coffee);">(1788-1860)</p>
+                                <p class="text-sm text-justify">Filósofo cuya obra 'El mundo como voluntad y representación' fue una revelación para el joven Nietzsche. Lo consideró su 'gran educador', aunque más tarde se distanciará de su pesimismo y su negación de la voluntad.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-inner flex items-center gap-4 transform transition hover:scale-105" style="background-color: #fcf8f0;">
+                            <div class="flex-shrink-0 text-center w-24">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Lou_Andreas-Salom%C3%A9_-_Foto_Atelier_Elvira.jpg/800px-Lou_Andreas-Salom%C3%A9_-_Foto_Atelier_Elvira.jpg" alt="Retrato de estudio de Lou Andreas-Salomé. Es una mujer joven con el cabello recogido, vestida con un elegante traje oscuro y mirando a la cámara con una expresión serena y segura." class="w-24 h-24 rounded-full object-cover border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <a href="https://commons.wikimedia.org/wiki/File:Lou_Andreas-Salom%C3%A9_-_Foto_Atelier_Elvira.jpg" target="_blank" class="text-xs mt-1 underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold">Lou Andreas-Salomé</h4>
+                                <p class="text-xs font-semibold mb-2" style="color: var(--color-coffee);">(1861-1937)</p>
+                                <p class="text-sm text-justify">Escritora y psicoanalista de origen ruso. Mantuvo una intensa y compleja relación intelectual y personal con Nietzsche en 1882. Su rechazo a la propuesta de matrimonio de Nietzsche marcó profundamente al filósofo.</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-6 rounded-lg shadow-inner flex items-center gap-4 transform transition hover:scale-105" style="background-color: #fcf8f0;">
+                            <div class="flex-shrink-0 text-center w-24">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Nietzsche_paul-ree_lou-von-salome188.jpg" alt="Fotografía de estudio de 1882 que muestra a Lou Andreas-Salomé sentada en una carretilla, sosteniendo un látigo, mientras Nietzsche y Paul Rée están delante, como si tiraran de ella." class="w-24 h-24 rounded-full object-cover border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <a href="https://commons.wikimedia.org/wiki/File:Nietzsche_paul-ree_lou-von-salome188.jpg" target="_blank" class="text-xs mt-1 underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold">Paul Rée</h4>
+                                <p class="text-xs font-semibold mb-2" style="color: var(--color-coffee);">(1849-1901)</p>
+                                <p class="text-sm text-justify">Filósofo y amigo de Nietzsche durante su período 'ilustrado'. Compartían un interés por el análisis psicológico y el origen de la moral, aunque Nietzsche acabaría considerando su enfoque demasiado anclado en el utilitarismo inglés.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-inner flex items-center gap-4 transform transition hover:scale-105" style="background-color: #fcf8f0;">
+                            <div class="flex-shrink-0 text-center w-24">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Elisabeth_F%C3%B6rster-Nietzsche%2C_1910.tif/lossy-page1-1280px-Elisabeth_F%C3%B6rster-Nietzsche%2C_1910.tif.jpg" alt="Retrato fotográfico de Elisabeth Förster-Nietzsche en su madurez. Es una mujer con el cabello blanco recogido, vestida de forma elegante y con una expresión formal." class="w-24 h-24 rounded-full object-cover border-4 mx-auto" style="border-color: var(--color-siena);">
+                                <a href="https://commons.wikimedia.org/wiki/File:Elisabeth_F%C3%B6rster-Nietzsche,_1910.tif" target="_blank" class="text-xs mt-1 underline" style="color: var(--color-siena);">Fuente: Wikimedia Commons</a>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold">Elisabeth Förster-Nietzsche</h4>
+                                <p class="text-xs font-semibold mb-2" style="color: var(--color-coffee);">(1846-1935)</p>
+                                <p class="text-sm text-justify">Hermana de Nietzsche y guardiana de su legado. Fundó el Archivo Nietzsche y editó sus póstumos de forma tendenciosa, especialmente en 'La voluntad de poder', facilitando la posterior apropiación nazi de su filosofía.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // Datos para los carruseles
+        const carousels = {
+            bio: {
+                currentIndex: 0,
+                slides: [
+                    { title: "Juventud y Formación (1844-1872)", content: "Nacido en Röcken en una familia de pastores luteranos, su educación en la prestigiosa escuela de Pforta le proporcionó una base clásica excepcional. Estudió filología con el eminente Friedrich Ritschl, quien reconoció su genio y le facilitó una cátedra en Basilea con solo 24 años. Esta etapa está marcada por el descubrimiento de Schopenhauer, a quien consideró su 'educador', y su intensa amistad con Richard Wagner, cuya música inspiró su primera gran obra, 'El nacimiento de la tragedia' (1872)." },
+                    { title: "Período Ilustrado y Espíritu Libre (1878-1882)", content: "Aquejado por una salud cada vez más frágil, abandona su cátedra en 1879. Este acto coincide con su ruptura intelectual con Wagner y Schopenhauer. Inicia una vida errante por Italia, Suiza y Francia. En este período 'ilustrado', adopta un estilo aforístico y un método 'científico' para demoler ídolos. Publica 'Humano, demasiado humano' (1878), 'Aurora' (1881) y 'La gaya ciencia' (1882). Mantiene una intensa relación con Paul Rée y Lou Andreas-Salomé." },
+                    { title: "Zaratustra y la Madurez (1883-1888)", content: "La etapa de máxima creatividad y aislamiento. Tras la decepción con Rée y Salomé, se sumerge en la escritura de su obra más poética, 'Así habló Zaratustra' (1883-1885), donde presenta sus ideas del Superhombre y el Eterno Retorno. Le siguen obras fundamentales que desarrollan su proyecto de 'transvaloración de todos los valores': 'Más allá del bien y del mal' (1886) y 'La genealogía de la moral' (1887)." },
+                    { title: "Colapso y Silencio (1889-1900)", content: "En 1888, en Turín, vive un último y febril año de producción, escribiendo 'El crepúsculo de los ídolos', 'El Anticristo' y su autobiografía 'Ecce Homo'. El 3 de enero de 1889 sufre un colapso mental del que nunca se recuperaría. Pasa la última década de su vida en demencia, bajo el cuidado de su madre y luego de su hermana Elisabeth. Fallece en Weimar el 25 de agosto de 1900." }
+                ]
+            },
+            works: {
+                currentIndex: 0,
+                slides: [
+                    { title: "El nacimiento de la tragedia (1872)", content: "Obra revolucionaria donde analiza la cultura griega como el resultado de la tensión entre dos fuerzas estéticas primordiales. Critica la visión idealizada de Grecia y ve en la tragedia ática la síntesis perfecta de arte y vida, destruida posteriormente por el racionalismo socrático.", concepts: [ {term: "Apolíneo", definition: "Impulso de la forma, el orden, la belleza y la individuación. Asociado al sueño y la escultura."}, {term: "Dionisíaco", definition: "Impulso del caos, la embriaguez, la desmesura y la disolución del yo. Asociado a la música."}, {term: "Sócrates", definition: "Símbolo del racionalismo que, según Nietzsche, destruyó la tragedia."}, {term: "Wagner", definition: "El compositor es visto como la esperanza de un renacimiento moderno del espíritu trágico."} ] },
+                    { title: "1ª Intempestiva: David Strauss (1873)", content: "Un ataque feroz contra el teólogo David Strauss, a quien Nietzsche convierte en el arquetipo del 'filisteo culto': el erudito autocomplaciente de la nueva Alemania, cuya cultura es superficial y está al servicio del Estado, no de la vida.", concepts: [ {term: "Filisteo culto", definition: "Intelectual mediocre que consume cultura como prestigio, pero es incapaz de verdadera creatividad."}, {term: "Cultura Alemana", definition: "Nietzsche lamenta la autocomplacencia y la pérdida de profundidad de la cultura alemana tras la unificación."} ] },
+                    { title: "2ª Intempestiva: Sobre la historia (1874)", content: "Una crítica a la 'enfermedad histórica' de la modernidad: el exceso de conocimiento histórico que paraliza la acción. Aboga por subordinar la historia a la vida a través de sus usos monumental, anticuario y crítico.", concepts: [ {term: "Enfermedad histórica", definition: "El exceso de memoria que debilita la capacidad de un pueblo para crear su propio futuro."}, {term: "Olvido", definition: "Facultad activa y necesaria para la salud, que permite trazar un horizonte y actuar."}, {term: "Crítica", definition: "El uso de la historia que permite juzgar y superar el pasado para liberarse de su peso."} ] },
+                    { title: "3ª Intempestiva: Schopenhauer (1874)", content: "Presenta a Schopenhauer como el modelo del verdadero educador y filósofo, un pensador honesto y solitario que se atreve a ir contra su tiempo, en contraste con los filósofos académicos al servicio del Estado.", concepts: [ {term: "Educador", definition: "El verdadero filósofo libera el potencial del individuo para que llegue a ser quien es."}, {term: "Genio", definition: "El individuo excepcional cuya existencia justifica la de toda la humanidad."}, {term: "Soledad", definition: "Condición necesaria del filósofo auténtico, que debe apartarse de las opiniones del rebaño."} ] },
+                    { title: "4ª Intempestiva: Wagner en Bayreuth (1876)", content: "Un ambivalente homenaje a Wagner y su festival, escrito cuando la desilusión de Nietzsche ya era profunda. Entre los elogios, se deslizan críticas a la teatralidad y al nacionalismo del proyecto wagneriano.", concepts: [ {term: "Obra de arte total", definition: "Ideal wagneriano de unificar las artes para regenerar la cultura."}, {term: "Decadencia", definition: "Nietzsche empieza a ver en Wagner síntomas de la decadencia moderna, como la necesidad de efectos teatrales y el sentimentalismo cristiano."} ] },
+                    { title: "Humano, demasiado humano (1878)", content: "Marca el inicio de su período 'ilustrado'. Con un estilo aforístico, utiliza la 'química de las ideas' y la psicología para mostrar el origen 'demasiado humano' (egoísmo, miedo, vanidad) de la moral, la religión y el arte.", concepts: [ {term: "Espíritu Libre", definition: "El pensador que se ha emancipado de los dogmas y se dedica a la filosofía experimental."}, {term: "Genealogía", definition: "Método que busca el origen 'demasiado humano' de los valores."}, {term: "Psicología", definition: "Herramienta fundamental para desenmascarar las motivaciones ocultas tras los ideales."}, {term: "Química de las Ideas", definition: "Metáfora para el análisis que descompone los sentimientos 'superiores' en sus elementos básicos."} ] },
+                    { title: "Aurora (1881)", content: "Subtitulada 'Pensamientos sobre los prejuicios morales', esta obra profundiza en el análisis genealógico, investigando cómo se han formado nuestros sentimientos morales a través de un largo proceso de domesticación social.", concepts: [ {term: "Moralidad de la costumbre", definition: "La forma más antigua de moral, donde lo 'bueno' es la obediencia a la tradición por miedo a lo nuevo."}, {term: "Crueldad", definition: "El dolor como medio para grabar la memoria, la responsabilidad y la culpa en el 'animal hombre'."}, {term: "Prejuicios Morales", definition: "Las creencias morales heredadas que el espíritu libre debe poner en cuestión."} ] },
+                    { title: "La gaya ciencia (1882)", content: "Una celebración del conocimiento como una 'ciencia alegre'. Aquí anuncia la 'muerte de Dios', presenta la figura de Zaratustra y formula por primera vez, como una pregunta terrible, la idea del Eterno Retorno.", concepts: [ {term: "Muerte de Dios", definition: "El evento central de la modernidad: la pérdida de fe en el fundamento que daba sentido al mundo."}, {term: "Amor Fati", definition: "Amor al destino. Aceptar y amar todo lo que sucede como condición para desear el Eterno Retorno."}, {term: "Nihilismo", definition: "La consecuencia de la Muerte de Dios: el desmoronamiento de todos los valores."}, {term: "Zaratustra", definition: "El profeta que anunciará las nuevas enseñanzas, presentado por primera vez en esta obra."} ] },
+                    { title: "Así habló Zaratustra (1883-1885)", content: "Su obra más poética y personal, un 'evangelio' para un nuevo tipo de humanidad. A través de la figura del profeta Zaratustra, presenta sus enseñanzas más profundas: el Superhombre, la Voluntad de Poder y el Eterno Retorno.", concepts: [ {term: "Übermensch", definition: "El 'Superhombre'. Tipo humano que supera el nihilismo creando sus propios valores."}, {term: "Voluntad de Poder", definition: "El impulso de todo ser por crecer, dominar y auto-superarse."}, {term: "Último hombre", definition: "El hombre mediocre que solo busca comodidad, contrafigura del Superhombre."}, {term: "Tres Transformaciones", definition: "El espíritu se convierte en camello (carga), león (destrucción) y niño (creación)."}] },
+                    { title: "Más allá del bien y del mal (1886)", content: "Subtitulada 'Preludio a una filosofía del futuro', es una crítica sistemática a la tradición filosófica y moral. Distingue entre la 'moral de señores' y la 'moral de esclavos' como los dos tipos básicos de valoración.", concepts: [ {term: "Moral de señores", definition: "Moral activa que surge de la autoafirmación de los fuertes."}, {term: "Moral de esclavos", definition: "Moral reactiva que nace del resentimiento de los débiles."}, {term: "Perspectivismo", definition: "No hay 'hechos en sí', solo interpretaciones."}, {term: "Filósofo del futuro", definition: "El nuevo tipo de pensador, legislador de valores, que Nietzsche anuncia."} ] },
+                    { title: "La genealogía de la moral (1887)", content: "Tres tratados que investigan el origen de nuestros conceptos morales. Es la aplicación más rigurosa de su método genealógico, mostrando cómo la moral judeocristiana nace de una 'sublevación de los esclavos' impulsada por el resentimiento.", concepts: [ {term: "Resentimiento", definition: "Odio impotente de los débiles que se vuelve creativo e invierte los valores aristocráticos."}, {term: "Mala conciencia", definition: "La interiorización de la agresividad, que se vuelve contra el propio individuo."}, {term: "Ideal Ascético", definition: "La valoración del sufrimiento y la abnegación como medio de poder para los débiles."}, {term: "Castigo", definition: "Su origen no es la 'culpa', sino un acto de crueldad y una demostración de poder."} ] },
+                    { title: "El Crepúsculo de los Ídolos (1889)", content: "Un resumen de su filosofía 'a martillazos'. En esta obra tardía, Nietzsche 'ausculta' los 'ídolos' eternos (la razón, la moral, la verdad) para mostrar que están vacíos, que son síntomas de decadencia.", concepts: [ {term: "Ídolos", definition: "Las 'verdades' eternas de la filosofía y la moral que Nietzsche se propone derribar."}, {term: "Martillo", definition: "El método del filósofo: golpear los ídolos para comprobar si son huecos."}, {term: "Gran Estilo", definition: "El arte que domina el caos de las pasiones, la victoria de lo apolíneo sobre lo dionisíaco."}, {term: "Moral como contranaturaleza", definition: "La moral tradicional como un ataque a los instintos fundamentales de la vida."} ] },
+                    { title: "El Anticristo (póstumo, 1895)", content: "Su 'maldición sobre el cristianismo'. Un ataque radical a la moral cristiana, que considera la forma más extrema de la negación de la vida, una moral nacida del resentimiento que ha envenenado a la humanidad.", concepts: [ {term: "Decadencia", definition: "El cristianismo es la religión de la decadencia, que se pone del lado de todo lo débil y fracasado."}, {term: "Compasión", definition: "Para Nietzsche, no es una virtud, sino un sentimiento que multiplica el sufrimiento y debilita la vida."}, {term: "Jesús vs. Cristianismo", definition: "Nietzsche distingue a Jesús, un 'idiota' noble, de la Iglesia y Pablo, quienes falsificaron su mensaje."} ] },
+                    { title: "Ecce Homo (póstumo, 1908)", content: "Su fascinante y provocadora autobiografía intelectual. Con títulos de capítulo como 'Por qué soy tan sabio' o 'Por qué escribo tan buenos libros', Nietzsche se presenta como un 'destino' que dividirá la historia en dos.", concepts: [ {term: "Destino", definition: "Nietzsche se ve a sí mismo como un acontecimiento decisivo en la historia del pensamiento."}, {term: "Convertirse en lo que se es", definition: "El imperativo de realizar la propia singularidad, más allá de la moral del rebaño."}, {term: "Dioniso vs. el Crucificado", definition: "La oposición final entre la afirmación trágica de la vida y su negación nihilista."} ] },
+                    { title: "Legado Póstumo y Lecturas (Nachlass)", content: "Los cuadernos de apuntes inéditos de Nietzsche son tan vastos como su obra publicada. La primera edición de 'La Voluntad de Poder', compilada por su hermana Elisabeth, fue una manipulación que facilitó la apropiación nazi. La edición crítica de Colli y Montinari restituyó el orden cronológico y el rigor filológico, abriendo nuevas vías de interpretación.", concepts: [ {term: "Nachlass", definition: "Término para el legado de escritos no publicados, el 'laboratorio' del pensamiento de Nietzsche."}, {term: "Falsificación", definition: "La edición de su hermana creó la imagen de un sistema filosófico que Nietzsche nunca escribió, alterando y reordenando fragmentos."}, {term: "Hermenéutica", definition: "La historia de la recepción de Nietzsche es una lucha de interpretaciones, lo que demuestra la naturaleza perspectivista de su propia filosofía."}, {term: "Voluntad de Poder (libro)", definition: "El libro póstumo compilado por su hermana, no debe confundirse con la hipótesis filosófica de Nietzsche."} ] }
+                ]
+            },
+            influence: {
+                currentIndex: 0,
+                slides: [
+                    { title: "Existencialismo", content: "Autores como Sartre, Camus y Heidegger recogieron sus ideas sobre la libertad, la responsabilidad individual y la creación de valores tras la 'muerte de Dios'." },
+                    { title: "Psicoanálisis", content: "Freud reconoció la profundidad de las intuiciones psicológicas de Nietzsche sobre las pulsiones y la represión, admitiendo que 'sabía más de sí mismo que cualquier otro hombre que haya vivido'." },
+                    { title: "Postestructuralismo", content: "Pensadores como Foucault, Derrida y Deleuze se inspiraron en su método genealógico, su crítica a la verdad y su concepción del poder para deconstruir las estructuras del saber occidental." },
+                    { title: "Literatura y Arte", content: "Su influencia se extiende a escritores como Thomas Mann, Hermann Hesse, André Gide, y a artistas de diversas disciplinas que exploraron sus ideas sobre lo dionisíaco y la voluntad de poder." }
+                ]
+            }
+        };
+
+        function setupCarousels() {
+            showCarouselSlide('bio', 0);
+            showCarouselSlide('works', 0);
+            showCarouselSlide('influence', 0);
+        }
+
+        function updateCarouselButtons(type) {
+            const carousel = carousels[type];
+            const prevButton = document.getElementById(`${type}-prev`);
+            const nextButton = document.getElementById(`${type}-next`);
+            if (prevButton && nextButton) {
+                prevButton.disabled = carousel.currentIndex === 0;
+                nextButton.disabled = carousel.currentIndex === carousel.slides.length - 1;
+            }
+        }
+
+        window.showCarouselSlide = function(type, index) {
+            const carousel = carousels[type];
+            const slide = carousel.slides[index];
+            const container = document.getElementById(`${type}-content`);
+            if (container) {
+                container.innerHTML = `
+                    <div>
+                        <h5 class="font-bold mb-2">${slide.title}</h5>
+                        <p class="text-sm">${slide.content}</p>
+                    </div>
+                `;
+
+                if (type === 'works' && slide.concepts) {
+                    let conceptsHTML = '<div class="mt-3 flex flex-wrap justify-center gap-1">';
+                    slide.concepts.forEach(concept => {
+                        conceptsHTML += `
+                            <div class="tooltip-container">
+                                <span class="concept-button">${concept.term}</span>
+                                <span class="tooltip-text">${concept.definition}</span>
+                            </div>
+                        `;
+                    });
+                    conceptsHTML += '</div>';
+                    container.querySelector('div').innerHTML += conceptsHTML;
+                }
+            }
+            updateCarouselButtons(type);
+        }
+
+        window.changeCarouselSlide = function(type, n) {
+            const carousel = carousels[type];
+            const newIndex = carousel.currentIndex + n;
+            if (newIndex >= 0 && newIndex < carousel.slides.length) {
+                carousel.currentIndex = newIndex;
+                showCarouselSlide(type, carousel.currentIndex);
+            }
+        }
+        
+        // Inicializar los carruseles
+        setupCarousels();
+    });
+    </script>
+</body>
+</html>
+
 
