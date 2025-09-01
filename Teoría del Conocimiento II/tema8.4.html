@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 8.4: Exámenes - El itinerario intelectual de Nietzsche</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para pestañas y enlaces de pestaña */
+        .tab-button {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            border-bottom-width: 2px;
+            transition: all 0.3s;
+            border-color: transparent;
+            text-decoration: none;
+            color: var(--color-coffee);
+        }
+        .tab-button:hover {
+            color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.05);
+        }
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        /* Estilos para sub-pestañas */
+        .subtab-button.active {
+            background-color: var(--color-pumpkin);
+            color: var(--color-cream);
+        }
+        .subtab-content {
+            display: none;
+        }
+        .subtab-content.active {
+            display: block;
+        }
+        /* Estilos para tooltips */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--color-coffee);
+            color: var(--color-cream);
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-family: var(--font-body);
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 8: El itinerario intelectual de Nietzsche</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <!-- Barra de navegación de pestañas -->
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.1.html" class="tab-button">Figuras Clave</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.2.html" class="tab-button">Resumen</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.3.html" class="tab-button">Conceptos</a>
+                <button class="tab-button active">Exámenes</button>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.html" class="tab-button">Juego</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.6.html" class="tab-button">Bibliografía</a>
+            </div>
+
+            <!-- Contenido de la Pestaña "Exámenes" -->
+            <div id="examenes" class="tab-content">
+                <!-- El contenido se generará aquí con JavaScript -->
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const examenesData = {
+            secciones: [
+                {
+                    titulo: "Los escritos de juventud",
+                    id: "examenes_juventud",
+                    preguntas: [
+                        {
+                            pregunta: "El drama musical como obra de arte total en El nacimiento de la tragedia de Nietzsche",
+                            fechas: ["Mayo/Junio 2019 (2ª)", "Mayo/Junio 2025 (2ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Apolíneo y Dionisíaco", resumen: "La dualidad de impulsos artísticos (orden/forma vs. caos/embriaguez) cuya síntesis da lugar a la tragedia." },
+                                { concepto: "Música como voluntad", resumen: "La música es la expresión directa de la voluntad primordial, el fondo dionisíaco del mundo." },
+                                { concepto: "Mito trágico", resumen: "El mito proporciona las imágenes apolíneas que permiten visualizar y hacer soportable el sufrimiento dionisíaco." },
+                                { concepto: "Gesamtkunstwerk (Obra de arte total)", resumen: "Ideal de una obra que, como la tragedia griega o el drama wagneriano, unifica música, poesía y acción para crear una experiencia colectiva y transformadora." }
+                            ]
+                        },
+                        {
+                            pregunta: "Las figuras de Sócrates y Eurípides en 'El nacimiento de la tragedia'",
+                            fechas: ["Septiembre 2019"],
+                            conceptosDesarrollo: [
+                                { concepto: "Optimismo socrático", resumen: "La creencia de que la razón puede conocerlo todo y que la virtud es conocimiento. Es el principio antitético al espíritu trágico." },
+                                { concepto: "Muerte de la tragedia", resumen: "Eurípides, influido por Sócrates, introduce el realismo psicológico y el diálogo racional en la tragedia, destruyendo su base mítica y musical." },
+                                { concepto: "Hombre teórico", resumen: "El tipo humano inaugurado por Sócrates, que encuentra el máximo placer en el conocimiento y cree poder corregir la existencia con la razón." },
+                                { concepto: "Decadencia", resumen: "El socratismo representa el inicio de la decadencia de la cultura griega, al reprimir los instintos dionisíacos en favor de una lógica abstracta." }
+                            ]
+                        },
+                        {
+                            pregunta: "La Segunda intempestiva: Historia y vida",
+                            fechas: ["Mayo/Junio 2019 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Enfermedad histórica", resumen: "El exceso de conocimiento histórico en la cultura moderna, que paraliza la capacidad de actuar y crear en el presente." },
+                                { concepto: "Lo ahistórico y lo suprahistórico", resumen: "La capacidad de olvidar y de encontrar valores eternos en el arte y la religión, necesarios para contrarrestar el peso de la historia." },
+                                { concepto: "Historia monumental, anticuaria y crítica", resumen: "Los tres únicos usos de la historia que están al servicio de la vida, en contraposición a la historia como ciencia pura." },
+                                { concepto: "Plasticidad", resumen: "La fuerza de un individuo o cultura para crecer, asimilar el pasado y crear a partir de sí mismo, sin ser aplastado por el conocimiento histórico." }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Nietzsche y la filología clásica",
+                    id: "examenes_filologia",
+                    preguntas: [
+                        {
+                            pregunta: "Las críticas de Nietzsche al gremio de los filólogos",
+                            fechas: ["Mayo/Junio 2025 (2ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Filisteísmo culto", resumen: "Acusación a los filólogos de ser eruditos mediocres, autocomplacientes y hostiles a la verdadera grandeza del espíritu griego." },
+                                { concepto: "Ciencia vs. Vida", resumen: "La filología académica, como ciencia positivista, se ha puesto al servicio de un conocimiento estéril en lugar de servir a la vida y a la formación (Bildung)." },
+                                { concepto: "Falsificación de la Antigüedad", resumen: "Los filólogos proyectan los valores de la modernidad (racionalismo, moralismo) sobre los griegos, creando una imagen 'humanizada' y domesticada que oculta su carácter trágico y terrible." },
+                                { concepto: "Filología del futuro", resumen: "Propuesta de una filología que sea un arte interpretativo y una crítica de la cultura, utilizando el pasado para juzgar y transformar el presente." }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "La filosofía del espíritu libre",
+                    id: "examenes_espiritu_libre",
+                    preguntas: [
+                        {
+                            pregunta: "La configuración del método genealógico en los escritos de madurez temprana",
+                            fechas: ["Mayo/Junio 2014 (2ª)", "Mayo/Junio 2022", "Mayo/Junio 2025 (2ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Filosofía histórica", resumen: "El método genealógico se basa en la idea de que nada es eterno; todos los conceptos, sentimientos y valores tienen un origen (Herkunft) y una historia." },
+                                { concepto: "Análisis químico", resumen: "Metáfora para describir el método de descomponer las ideas y sentimientos 'superiores' en sus elementos más básicos y 'demasiado humanos' (pulsiones, errores, vanidad)." },
+                                { concepto: "Cuerpo como hilo conductor", resumen: "El método genealógico remite en última instancia a la fisiología. Las morales y las metafísicas son un lenguaje de signos de los afectos y los estados corporales." },
+                                { concepto: "Perspectivismo", resumen: "No hay 'hechos morales', solo interpretaciones morales. La genealogía muestra cómo diferentes perspectivas (diferentes voluntades de poder) crean diferentes valores." }
+                            ]
+                        },
+                        {
+                            pregunta: "La filosofía del espíritu libre: ¿Nietzsche ilustrado?",
+                            fechas: ["Mayo/Junio 2025 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Espíritu libre (Freigeist)", resumen: "El pensador que se ha emancipado de los dogmas de la tradición (moral, religión, metafísica) y se dedica a una 'filosofía experimental'." },
+                                { concepto: "Gaya ciencia", resumen: "La actitud del espíritu libre, que utiliza el rigor del análisis científico y psicológico para disolver las 'verdades' establecidas, pero sin la pesadez del erudito." },
+                                { concepto: "Crítica a la moral", resumen: "El espíritu libre no busca fundamentar la moral (como Kant), sino problematizarla, investigando su origen extramoral en el miedo y la costumbre." },
+                                { concepto: "Continuidad y ruptura", resumen: "Aunque parece una ruptura con su etapa anterior ('metafísica de artista'), la crítica a la cultura continúa, pero con un nuevo método (genealogía) y un nuevo estilo (aforístico)." }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "El pensamiento del último Nietzsche",
+                    id: "examenes_ultimo_nietzsche",
+                    preguntas: [
+                         {
+                            pregunta: "La hipótesis de la voluntad de poder y la nueva concepción de la ciencia",
+                            fechas: ["Septiembre 2014", "Mayo/Junio 2014 (1ª)", "Septiembre 2019", "Mayo/Junio 2022", "Mayo/Junio 2025 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Voluntad de Poder", resumen: "El mundo como un juego de fuerzas donde cada centro de poder busca expandirse e imponer su perspectiva. Es la esencia del devenir." },
+                                { concepto: "Crítica al mecanicismo", resumen: "La ciencia moderna (mecanicista) ofrece una interpretación empobrecida del mundo, reduciéndolo a cantidad y causalidad, y eliminando la cualidad y la intencionalidad." },
+                                { concepto: "Interpretación", resumen: "No hay hechos, solo interpretaciones. La ciencia no descubre la 'verdad en sí', sino que impone una perspectiva útil para el dominio y la conservación de un tipo de vida." },
+                                { concepto: "Cuerpo como hilo conductor", resumen: "El conocimiento es una función del cuerpo. La voluntad de poder se manifiesta en los instintos y afectos que guían nuestras interpretaciones del mundo." }
+                            ]
+                        },
+                        {
+                            pregunta: "El superhombre como imagen de la gran salud",
+                            fechas: ["Mayo/Junio 2014 (1ª)", "Septiembre 2019", "Mayo/Junio 2022", "Mayo/Junio 2025 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Übermensch (Superhombre)", resumen: "El tipo humano que supera al hombre moderno, nihilista y domesticado. Es el creador de nuevos valores, el 'sentido de la tierra'." },
+                                { concepto: "Muerte de Dios", resumen: "El Superhombre surge como respuesta a la pérdida de los valores absolutos. Es quien puede vivir sin necesidad de un más allá y crear su propio sentido." },
+                                { concepto: "Gran Salud", resumen: "No es la ausencia de enfermedad, sino la fuerza para integrar y superar el sufrimiento, la contradicción y los aspectos terribles de la existencia. Es una salud espiritual y fisiológica." },
+                                { concepto: "Autosuperación", resumen: "El Superhombre no es una meta final, sino un proceso constante de superación de sí mismo, encarnando la dinámica de la Voluntad de Poder." }
+                            ]
+                        },
+                        {
+                            pregunta: "Causas de la mediocridad del hombre moderno y el gregarismo",
+                            fechas: ["Mayo/Junio 2014 (1ª)", "Mayo/Junio 2014 (2ª)", "Mayo/Junio 2015 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Moral de esclavos", resumen: "El triunfo histórico de la moral judeocristiana, que valora la debilidad, la compasión y la igualdad, ha 'domesticado' al hombre." },
+                                { concepto: "Gregarismo", resumen: "La tendencia del hombre moderno a buscar seguridad en el rebaño, renunciando a la individualidad y a la excelencia por miedo a la soledad y al riesgo." },
+                                { concepto: "Decadencia", resumen: "La mediocridad es un síntoma de decadencia fisiológica, de una vida descendente que ya no es capaz de crear valores afirmativos." },
+                                { concepto: "El último hombre", resumen: "La figura descrita por Zaratustra que representa el culmen de esta mediocridad: un ser que solo busca la comodidad y la felicidad superficial, sin grandes pasiones ni anhelos." }
+                            ]
+                        },
+                        {
+                            pregunta: "La crítica de Nietzsche a los 'ismos' modernos (socialismo, nacionalismo, liberalismo, feminismo)",
+                            fechas: ["Septiembre 2014", "Mayo/Junio 2015 (1ª)", "Mayo/Junio 2014 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Moral de rebaño", resumen: "Todos estos movimientos son, para Nietzsche, secularizaciones de la moral cristiana. Buscan la igualdad y el bienestar del rebaño, nivelando toda jerarquía natural." },
+                                { concepto: "Antifeminismo", resumen: "Critica el movimiento feminista como un intento de 'masculinizar' a la mujer, haciéndole perder su 'naturaleza' y su poder de seducción." },
+                                { concepto: "Crítica al Estado", resumen: "Ve al Estado moderno, especialmente en sus formas nacionalistas y socialistas, como un 'nuevo ídolo' que aplasta al individuo." },
+                                { concepto: "Decadencia política", resumen: "Estas ideologías son síntomas de la decadencia europea, de la pérdida de los instintos aristocráticos y de la voluntad de crear grandes individuos." }
+                            ]
+                        },
+                        {
+                            pregunta: "Amor fati y eterno retorno en Nietzsche",
+                            fechas: ["Septiembre 2014", "Mayo/Junio 2015 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Eterno Retorno", resumen: "El pensamiento más abismal: la idea de que cada instante se repetirá infinitamente. Funciona como un imperativo selectivo." },
+                                { concepto: "Amor Fati", resumen: "El 'amor al destino'. La actitud del superhombre que no solo soporta, sino que ama todo lo que sucede, incluido el sufrimiento, como parte necesaria del todo." },
+                                { concepto: "Afirmación de la vida", resumen: "El eterno retorno es la fórmula suprema de la afirmación de la vida, en contra de toda moral que la niegue o busque consuelo en un 'más allá'." },
+                                { concepto: "Voluntad de Poder", resumen: "Solo una voluntad de poder fuerte y ascendente es capaz de querer el eterno retorno de sí misma." }
+                            ]
+                        },
+                         {
+                            pregunta: "La transvaloración de todos los valores",
+                            fechas: ["Septiembre 2014"],
+                            conceptosDesarrollo: [
+                                { concepto: "Inversión de los valores", resumen: "La tarea filosófica de Nietzsche: derrocar los valores platónico-cristianos (compasión, igualdad, renuncia) que son hostiles a la vida." },
+                                { concepto: "Moral de señores vs. Moral de esclavos", resumen: "La transvaloración implica sustituir la moral reactiva (de esclavos), nacida del resentimiento, por una moral activa (de señores), que surge de la afirmación de la fuerza." },
+                                { concepto: "Filósofo-legislador", resumen: "El tipo de filósofo que no se limita a analizar, sino que crea nuevos valores y da una nueva dirección a la humanidad." },
+                                { concepto: "Más allá del bien y del mal", resumen: "La transvaloración no consiste en proponer un 'nuevo bien', sino en superar la propia estructura de la moralidad basada en oposiciones dualistas." }
+                            ]
+                        },
+                        {
+                            pregunta: "La idea nietzscheana de autosuperación",
+                            fechas: ["Mayo/Junio 2014 (1ª)"],
+                            conceptosDesarrollo: [
+                                { concepto: "Voluntad de Poder", resumen: "El impulso incesante de todo ser por expandir su fuerza y superar su estado actual." },
+                                { concepto: "Übermensch", resumen: "El ideal de un ser que encarna la autosuperación constante como 'sentido de la tierra'." },
+                                { concepto: "Tres Transformaciones", resumen: "La metáfora del camello, el león y el niño, que describe el camino del espíritu hacia la autosuperación y la creación." },
+                                { concepto: "Amor Fati", resumen: "La afirmación del destino, superando el resentimiento, como forma suprema de autosuperación." }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    titulo: "Los fragmentos póstumos",
+                    id: "examenes_postumos",
+                    preguntas: []
+                }
+            ]
+        };
+
+        // Función para parsear y ordenar las fechas
+        const parseDate = (dateString) => {
+            const yearMatch = dateString.match(/(\d{4})/);
+            const year = yearMatch ? parseInt(yearMatch[0]) : 0;
+            let month = 0; // Default
+            if (dateString.includes('Septiembre')) month = 9;
+            if (dateString.includes('Mayo/Junio')) month = 6;
+            return { year, month };
+        };
+
+        const getMostRecentDate = (dates) => {
+            return dates
+                .map(parseDate)
+                .sort((a, b) => {
+                    if (b.year !== a.year) return b.year - a.year;
+                    return b.month - a.month;
+                })[0];
+        };
+
+        // Ordenar las preguntas
+        examenesData.secciones.forEach(seccion => {
+            seccion.preguntas.sort((a, b) => {
+                const freqA = a.fechas.length;
+                const freqB = b.fechas.length;
+
+                if (freqB !== freqA) {
+                    return freqB - freqA;
+                }
+
+                const mostRecentA = getMostRecentDate(a.fechas);
+                const mostRecentB = getMostRecentDate(b.fechas);
+
+                if (mostRecentB.year !== mostRecentA.year) {
+                    return mostRecentB.year - mostRecentA.year;
+                }
+                
+                return mostRecentB.month - mostRecentA.month;
+            });
+        });
+
+
+        function renderExamenes() {
+            const container = document.getElementById('examenes');
+            if (!container) return;
+
+            let subTabsHTML = '<div class="flex flex-wrap justify-center gap-2 mb-6">';
+            let subContentHTML = '';
+
+            examenesData.secciones.forEach((seccion, index) => {
+                const isActive = index === 0 ? 'active' : '';
+                subTabsHTML += `<button class="subtab-button ${isActive} px-4 py-2 text-sm font-semibold rounded-md transition" style="background-color: #f7f2e9; color: var(--color-coffee);" onclick="openSubTab(event, 'examenes-${seccion.id}')">${seccion.titulo}</button>`;
+                
+                let content = '';
+                if (seccion.preguntas && seccion.preguntas.length > 0) {
+                    content = `<div class="space-y-4">` + seccion.preguntas.map(item => `
+                        <details class="bg-white/50 p-4 rounded-lg shadow-sm group" style="background-color: #fcf8f0;">
+                            <summary class="font-semibold cursor-pointer list-none flex justify-between items-center">
+                                <span>${item.pregunta}</span>
+                                <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                                <details class="bg-white p-2 rounded-md shadow-sm mb-4">
+                                    <summary class="font-semibold text-xs cursor-pointer list-none">
+                                        Fechas de aparición (${item.fechas.length})
+                                    </summary>
+                                    <ul class="text-xs list-disc pl-5 mt-2 space-y-1">
+                                        ${item.fechas.map(fecha => `<li>${fecha}</li>`).join('')}
+                                    </ul>
+                                </details>
+                                <p class="font-semibold my-2" style="color: var(--color-coffee);">Conceptos clave a desarrollar:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                                    ${item.conceptosDesarrollo.map(cd => `
+                                        <div class="bg-white p-3 rounded-md shadow-sm tooltip-container">
+                                            <span class="font-semibold" style="color: var(--color-pumpkin);">${cd.concepto}</span>
+                                            <span class="tooltip-text">${cd.resumen}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </details>
+                    `).join('') + `</div>`;
+                } else {
+                    content = `<p class="text-center text-sm text-gray-500">No hay preguntas de examen registradas para esta sección.</p>`;
+                }
+
+                subContentHTML += `<div id="examenes-${seccion.id}" class="subtab-content ${isActive}">${content}</div>`;
+            });
+
+            subTabsHTML += '</div>';
+            container.innerHTML = `<div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #f7f2e9;">${subTabsHTML}${subContentHTML}</div>`;
+            
+            const firstSubTab = container.querySelector('.subtab-button.active');
+            if(firstSubTab) {
+                firstSubTab.style.backgroundColor = 'var(--color-pumpkin)';
+                firstSubTab.style.color = 'var(--color-cream)';
+            }
+        }
+        
+        window.openSubTab = function(evt, subTabName) {
+            const parent = evt.target.closest('.tab-content > div');
+            
+            let subtabcontent = parent.querySelectorAll(".subtab-content");
+            for (let i = 0; i < subtabcontent.length; i++) {
+                subtabcontent[i].style.display = "none";
+            }
+
+            let subtablinks = parent.querySelectorAll(".subtab-button");
+            for (let i = 0; i < subtablinks.length; i++) {
+                subtablinks[i].className = subtablinks[i].className.replace(" active", "");
+                subtablinks[i].style.backgroundColor = '#f7f2e9';
+                subtablinks[i].style.color = 'var(--color-coffee)';
+            }
+
+            document.getElementById(subTabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            evt.currentTarget.style.backgroundColor = 'var(--color-pumpkin)';
+            evt.currentTarget.style.color = 'var(--color-cream)';
+        }
+
+        // --- INICIALIZACIÓN ---
+        renderExamenes();
+        document.getElementById('examenes').style.display = 'block';
+    });
+    </script>
+</body>
+</html>
