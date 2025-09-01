@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 8.3: Conceptos - El itinerario intelectual de Nietzsche</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para pestañas y enlaces de pestaña */
+        .tab-button {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            border-bottom-width: 2px;
+            transition: all 0.3s;
+            border-color: transparent;
+            text-decoration: none;
+            color: var(--color-coffee);
+        }
+        .tab-button:hover {
+            color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.05);
+        }
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        blockquote {
+            background-color: #F3EAD3;
+            border-left: 4px solid var(--color-pumpkin);
+            padding: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--color-coffee);
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 8: El itinerario intelectual de Nietzsche</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <!-- Barra de navegación de pestañas -->
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.1.html" class="tab-button">Figuras Clave</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.2.html" class="tab-button">Resumen</a>
+                <button class="tab-button active">Conceptos</button>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.4.html" class="tab-button">Exámenes</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.html" class="tab-button">Juego</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.6.html" class="tab-button">Bibliografía</a>
+            </div>
+
+            <!-- Contenido de la Pestaña "Conceptos" -->
+            <div id="conceptos" class="tab-content">
+                <div class="bg-white p-6 rounded-lg shadow-inner" style="background-color: #f7f2e9;">
+                    <p class="text-center mb-6">Un glosario de los términos fundamentales en el pensamiento de Nietzsche, organizados según su aparición en las obras principales de su itinerario intelectual.</p>
+                    <div id="conceptos-container" class="space-y-4">
+                        <!-- Los conceptos se generarán aquí -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const conceptosPorObra = [
+            {
+                obra: "El nacimiento de la tragedia (1872)",
+                cita: {
+                    texto: "¡Qué tuvo que sufrir este pueblo para poder llegar a ser tan bello!",
+                    fuente: "El Nacimiento de la Tragedia, § 25"
+                },
+                conceptos: [
+                    { concepto: "Apolíneo", definicion: "Impulso artístico de la naturaleza asociado al sueño, la forma, la mesura, la belleza plástica y el principio de individuación. Representa el orden y la claridad frente al caos." },
+                    { concepto: "Dionisíaco", definicion: "Impulso artístico primordial asociado a la embriaguez, el caos, la desmesura, la música y la disolución del individuo en la unidad primordial. Representa el fondo terrible y gozoso de la existencia." },
+                    { concepto: "Metafísica de artista", definicion: "La idea, presente en esta obra, de que la existencia y el mundo solo se justifican como un fenómeno estético, una creación artística del 'Uno primordial'."},
+                    { concepto: "Hombre teórico", definicion: "El tipo humano inaugurado por Sócrates, que cree poder comprender y corregir la existencia a través de la razón y la ciencia."},
+                    { concepto: "Pesimismo de la fuerza", definicion: "Un pesimismo que no reniega de la vida, sino que la afirma en su totalidad, reconociendo su carácter terrible y trágico como condición para la grandeza."}
+                ]
+            },
+            {
+                obra: "1ª Intempestiva: David Strauss (1873)",
+                cita: {
+                    texto: "Se autoengaña creyéndose un hombre culto.",
+                    fuente: "David Strauss, el confesor y el escritor, § 1"
+                },
+                conceptos: [
+                    { concepto: "Filisteo culto (Bildungsphilister)", definicion: "Término peyorativo para la burguesía culta, caracterizada por una erudición superficial y hostil a la verdadera creatividad." },
+                    { concepto: "Bildung", definicion: "Ideal alemán de 'formación' o 'cultura' integral, que Nietzsche ve traicionado por la cultura de su tiempo." }
+                ]
+            },
+            {
+                obra: "2ª Intempestiva: Sobre la historia (1874)",
+                cita: {
+                    texto: "La historia pertenece ante todo al activo y poderoso, al que libra una gran batalla y necesita modelos, maestros y consoladores y no puede encontrarlos entre sus coetáneos.",
+                    fuente: "Sobre la utilidad y los inconvenientes de la historia para la vida, § 2"
+                },
+                conceptos: [
+                    { concepto: "Historia monumental", definicion: "Uso de la historia que busca en el pasado grandes ejemplos para inspirar la acción en el presente." },
+                    { concepto: "Historia anticuaria", definicion: "Uso de la historia que venera y conserva el pasado, corriendo el riesgo de momificar la vida." },
+                    { concepto: "Historia crítica", definicion: "Uso de la historia que juzga y condena el pasado para liberarse de su peso." }
+                ]
+            },
+             {
+                obra: "3ª Intempestiva: Schopenhauer (1874)",
+                cita: {
+                    texto: "La cultura es, en cambio, algo distinto: [...] liberación.",
+                    fuente: "Schopenhauer como educador, § 3"
+                },
+                conceptos: [
+                     { concepto: "Genio", definicion: "El individuo excepcional cuya existencia justifica la de toda la humanidad. Schopenhauer es presentado como un ejemplo." }
+                ]
+            },
+             {
+                obra: "4ª Intempestiva: Wagner en Bayreuth (1876)",
+                cita: {
+                    texto: "Bayreuth significa para nosotros la consagración matutina en el día del combate.",
+                    fuente: "Richard Wagner en Bayreuth, § 11"
+                },
+                conceptos: [
+                     { concepto: "Arte dionisíaco", definicion: "En esta obra, todavía se asocia a Wagner con la capacidad de unificar las artes, aunque ya con una visión crítica." }
+                ]
+            },
+            {
+                obra: "Humano, demasiado humano (1878)",
+                cita: {
+                    texto: "La creencia en la verdad comienza con la duda de todas las 'verdades' creídas hasta entonces.",
+                    fuente: "Humano, demasiado humano, I, § 34"
+                },
+                conceptos: [
+                    { concepto: "Espíritu libre (Freigeist)", definicion: "Figura del filósofo que se ha emancipado de las ataduras de la tradición, la moral y la religión para experimentar con el pensamiento." },
+                    { concepto: "Filosofía histórica", definicion: "Enfoque que entiende que todos los conceptos y sentimientos tienen un devenir, oponiéndose a la creencia en esencias eternas." },
+                    { concepto: "Química de las ideas y los sentimientos", definicion: "Metáfora para el método genealógico: descomponer los conceptos y sentimientos 'superiores' en sus elementos más básicos y 'demasiado humanos'."}
+                ]
+            },
+            {
+                obra: "Aurora (1881)",
+                cita: {
+                    texto: "Nosotros, sin embargo, queremos llegar a ser los que somos, los nuevos, los únicos, los incomparables, los que se dan leyes a sí mismos, los que se crean a sí mismos.",
+                    fuente: "Aurora, § 103"
+                },
+                conceptos: [
+                    { concepto: "Moralidad de la costumbre (Sittlichkeit der Sitte)", definicion: "La forma más antigua de moral, donde lo 'bueno' es la obediencia a la tradición por miedo a lo nuevo e individual." },
+                    { concepto: "Inmoralista", definicion: "La postura del filósofo que se sitúa 'fuera' de la moral vigente para analizarla como un fenómeno, cuestionando el valor de los valores."}
+                ]
+            },
+             {
+                obra: "La gaya ciencia (1882)",
+                cita: {
+                    texto: "La vida un medio del conocimiento — con este principio en el corazón no sólo se puede vivir valerosamente sino incluso vivir alegremente y reír alegremente.",
+                    fuente: "La gaya ciencia, § 324"
+                },
+                conceptos: [
+                    { concepto: "Muerte de Dios", definicion: "Diagnóstico del acontecimiento central de la modernidad: la pérdida de la fe en el Dios cristiano y en todos los valores absolutos que daban sentido al mundo." },
+                     { concepto: "Gaya ciencia", definicion: "Actitud del espíritu libre: una búsqueda del conocimiento alegre, ligera y experimental, que no teme las profundidades."},
+                    { concepto: "Sintomatología", definicion: "El método de Nietzsche de 'leer' los fenómenos culturales como síntomas que revelan el estado de salud o enfermedad (la fisiología) de una cultura."}
+                ]
+            },
+            {
+                obra: "Así habló Zaratustra (1883-1885)",
+                cita: {
+                    texto: "Tres transformaciones del espíritu os nombro: cómo el espíritu se convierte en camello, y el camello en león, y el león, al fin, en niño.",
+                    fuente: "Así habló Zaratustra, I, 'De las tres transformaciones'"
+                },
+                conceptos: [
+                    { concepto: "Übermensch (Superhombre)", definicion: "El tipo humano superior que supera al hombre actual, nihilista y domesticado. Es un creador de valores, el 'sentido de la tierra', que surge tras la 'muerte de Dios'." },
+                    { concepto: "Voluntad de Poder (Wille zur Macht)", definicion: "El impulso incesante de todo ser por expandir su fuerza, dominar e imponer sus propias valoraciones. No es un querer algo, sino el querer mismo como autoacrecentamiento." },
+                    { concepto: "Eterno Retorno de lo Mismo", definicion: "El pensamiento más abismal: la idea de que cada instante se repetirá infinitamente. Funciona como un imperativo selectivo que solo puede afirmar quien ama la vida en su totalidad." },
+                    { concepto: "Último hombre", definicion: "La contrafigura del superhombre. El hombre mediocre del final del nihilismo, que solo busca la comodidad y ha perdido toda capacidad de crear y superarse."}
+                ]
+            },
+            {
+                obra: "Más allá del bien y del mal (1886)",
+                cita: {
+                    texto: "Quien con monstruos lucha cuide de convertirse a su vez en monstruo. Cuando miras largo tiempo a un abismo, el abismo también mira dentro de ti.",
+                    fuente: "Más allá del bien y del mal, § 146"
+                },
+                conceptos: [
+                    { concepto: "Moral de señores", definicion: "Moral activa que surge de la autoafirmación de los fuertes y nobles, que crean sus propios valores." },
+                    { concepto: "Moral de esclavos", definicion: "Moral reactiva que nace del resentimiento de los débiles e impotentes, invirtiendo los valores aristocráticos." },
+                    { concepto: "Perspectivismo", definicion: "La tesis de que no hay 'hechos en sí', solo interpretaciones condicionadas por la voluntad de poder de quien interpreta." },
+                    { concepto: "Filósofo del futuro", definicion: "El nuevo tipo de pensador, legislador de valores, que Nietzsche anuncia."}
+                ]
+            },
+            {
+                obra: "La genealogía de la moral (1887)",
+                cita: {
+                    texto: "Criar un animal al que le sea lícito hacer promesas — ¿no es ésa la paradójica tarea que la naturaleza se ha propuesto con respecto al hombre?",
+                    fuente: "La genealogía de la moral, Tratado II, § 1"
+                },
+                conceptos: [
+                     { concepto: "Genealogía", definicion: "Método crítico que busca el origen (Herkunft) de los valores morales en relaciones de poder, procesos psicológicos y fisiológicos." },
+                    { concepto: "Resentimiento", definicion: "Sentimiento de odio e impotencia de los débiles hacia los fuertes, que se vuelve creativo y da origen a la moral de esclavos mediante la inversión de los valores." },
+                    { concepto: "Mala conciencia", definicion: "La interiorización de la agresividad, que se vuelve contra el propio individuo al no poder descargarse hacia fuera, creando el sentimiento de culpa y el 'alma'."},
+                    { concepto: "Ideal Ascético", definicion: "El ideal que valora la abnegación y el sufrimiento, manifestación de la voluntad de poder de los débiles para dominar a los fuertes."}
+                ]
+            },
+            {
+                obra: "El Crepúsculo de los Ídolos (1889)",
+                cita: {
+                    texto: "Sin música la vida sería un error.",
+                    fuente: "Crepúsculo de los Ídolos, 'Máximas y flechas', § 33"
+                },
+                conceptos: [
+                    { concepto: "Gran salud", definicion: "Estado de fortaleza que no es ausencia de enfermedad, sino la capacidad de superar la enfermedad y el dolor para hacerse más fuerte." },
+                    { concepto: "Ídolos", definicion: "Las 'verdades' eternas de la filosofía y la moral que Nietzsche se propone derribar." },
+                    { concepto: "Martillo", definicion: "El método del filósofo: golpear los ídolos para comprobar si son huecos." },
+                    { concepto: "Moral como contranaturaleza", definicion: "La moral tradicional como un ataque a los instintos fundamentales de la vida." }
+                ]
+            },
+            {
+                obra: "El Anticristo (1895)",
+                cita: {
+                    texto: "El cristianismo se ha puesto de parte de todo lo débil, bajo, malogrado, ha hecho un ideal de la contradicción a los instintos de conservación de la vida fuerte.",
+                    fuente: "El Anticristo, § 5"
+                },
+                conceptos: [
+                    { concepto: "Transvaloración de todos los valores", definicion: "La tarea del filósofo del futuro: la inversión de los valores judeocristianos y platónicos para establecer nuevos valores que afirmen la vida." },
+                    { concepto: "Decadencia (Décadence)", definicion: "El estado fisiológico y espiritual de una voluntad de poder debilitada, que busca consuelos en la moral, la religión y el arte nihilistas." },
+                    { concepto: "Compasión", definicion: "Para Nietzsche, no es una virtud, sino un sentimiento que multiplica el sufrimiento y debilita la vida." },
+                    { concepto: "Jesús vs. Cristianismo", definicion: "Nietzsche distingue a Jesús, un 'idiota' noble, de la Iglesia y Pablo, quienes falsificaron su mensaje." }
+                ]
+            },
+            {
+                obra: "Ecce Homo (1908)",
+                cita: {
+                    texto: "Mi suerte, la de ser mi propio padre, por decirlo así.",
+                    fuente: "Ecce Homo, 'Por qué soy tan sabio', § 1"
+                },
+                conceptos: [
+                    { concepto: "Dioniso vs. el Crucificado", definicion: "La oposición final y fundamental entre la afirmación trágica de la vida (Dioniso) y su negación nihilista (el Crucificado)." },
+                    { concepto: "Amor fati (Amor al destino)", definicion: "Fórmula para la máxima afirmación de la vida; desear que nada sea distinto, ni en el pasado, ni en el futuro, ni por toda la eternidad." }
+                ]
+            }
+        ];
+
+        function renderConceptos() {
+            const container = document.getElementById('conceptos-container');
+            if (!container) return;
+
+            let html = '';
+            conceptosPorObra.forEach(obraData => {
+                let conceptosHTML = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">';
+                obraData.conceptos.forEach(c => {
+                    conceptosHTML += `
+                        <div class="bg-white p-4 rounded-lg shadow-sm transform transition hover:scale-105 hover:shadow-md" style="background-color: #fcf8f0;">
+                            <h5 class="font-bold text-lg" style="color: var(--color-pumpkin);">${c.concepto}</h5>
+                            <p class="text-sm mt-2 text-justify">${c.definicion}</p>
+                        </div>`;
+                });
+                conceptosHTML += '</div>';
+
+                html += `
+                    <details class="bg-white/50 p-4 rounded-lg shadow-sm group">
+                        <summary class="font-bold text-xl cursor-pointer list-none flex justify-between items-center" style="color: var(--color-coffee);">
+                            <span>${obraData.obra}</span>
+                            <i class="fa-solid fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-siena);">
+                            <blockquote>
+                                <p>${obraData.cita.texto}</p>
+                                <footer class="text-right text-sm font-semibold" style="color: var(--color-siena);">- <em>${obraData.cita.fuente}</em></footer>
+                            </blockquote>
+                            ${conceptosHTML}
+                        </div>
+                    </details>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+        
+        // --- INICIALIZACIÓN ---
+        renderConceptos();
+        document.getElementById('conceptos').style.display = 'block';
+    });
+    </script>
+</body>
+</html>
