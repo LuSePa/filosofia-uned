@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 8.5: Juego - El itinerario intelectual de Nietzsche</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        /* Estilos para pestañas y enlaces de pestaña */
+        .tab-button {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            border-bottom-width: 2px;
+            transition: all 0.3s;
+            border-color: transparent;
+            text-decoration: none;
+            color: var(--color-coffee);
+        }
+        .tab-button:hover {
+            color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.05);
+        }
+        .tab-button.active {
+            border-color: var(--color-pumpkin);
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--color-pumpkin);
+            font-weight: bold;
+        }
+        .game-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-weight: bold;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+        }
+        .game-link:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Tema 8: El itinerario intelectual de Nietzsche</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <!-- Barra de navegación de pestañas -->
+            <div class="flex flex-wrap border-b mb-6" style="border-color: var(--color-siena);">
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.1.html" class="tab-button">Figuras Clave</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.2.html" class="tab-button">Resumen</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.3.html" class="tab-button">Conceptos</a>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.4.html" class="tab-button">Exámenes</a>
+                <button class="tab-button active">Juego</button>
+                <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.6.html" class="tab-button">Bibliografía</a>
+            </div>
+
+            <!-- Contenido de la Pestaña "Juego" -->
+            <div id="juego" class="tab-content">
+                 <div class="text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #f7f2e9;">
+                    <h3 class="text-2xl font-bold mb-4">El Ascenso de Zaratustra</h3>
+                    <p class="mb-8">Pon a prueba tu conocimiento. Elige una de las siguientes secciones para comenzar el test correspondiente.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.1.html" class="game-link text-white" style="background-color: var(--color-pumpkin);">
+                            Los escritos de juventud
+                        </a>
+                        <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.2.html" class="game-link text-white" style="background-color: var(--color-pumpkin);">
+                            Nietzsche y la filología clásica
+                        </a>
+                        <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.3.html" class="game-link text-white" style="background-color: var(--color-pumpkin);">
+                            La filosofía del espíritu libre
+                        </a>
+                        <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.4.html" class="game-link text-white" style="background-color: var(--color-pumpkin);">
+                            El pensamiento del último Nietzsche
+                        </a>
+                    </div>
+                    <div class="flex justify-center mt-6">
+                        <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.5.html" class="game-link text-white w-full md:w-1/2" style="background-color: var(--color-pumpkin);">
+                            Los fragmentos póstumos
+                        </a>
+                    </div>
+
+                    <div class="w-full my-8 border-t border-dashed" style="border-color: var(--color-siena);"></div>
+                    
+                    <div class="flex justify-center">
+                        <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.6.html" class="game-link text-white" style="background-color: var(--color-coffee);">
+                            El Abismo de Zaratustra (Reto completo)
+                        </a>
+                    </div>
+                 </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+</body>
+</html>
