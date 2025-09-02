@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego: Los fragmentos póstumos - El itinerario intelectual de Nietzsche</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Lato & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Paleta de colores y tipografías */
+        :root {
+            --color-pumpkin: #D35400;
+            --color-cream: #F3EAD3;
+            --color-coffee: #6F4E37;
+            --color-siena: #A0522D;
+            --font-headings: 'Merriweather', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-coffee);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            color: var(--color-pumpkin);
+        }
+        footer h4, footer h5, footer h6 {
+            font-family: var(--font-body);
+        }
+        .next-button {
+            display: none; /* Oculto por defecto */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor principal -->
+    <div id="app-container" class="container mx-auto p-4 md:p-8">
+        
+        <header>
+            <h2 class="text-3xl font-bold text-center mb-8 pt-8">Juego: Los fragmentos póstumos</h2>
+        </header>
+        
+        <main class="w-full max-w-5xl mx-auto">
+            <!-- Contenido de la Pestaña "Juego" -->
+            <div id="juego" class="tab-content">
+                 <div id="quiz-container" class="relative text-center bg-white p-8 rounded-lg shadow-inner" style="background-color: #f7f2e9;">
+                     <!-- El contenido del juego se generará aquí -->
+                 </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-gray-100 text-center py-6 mt-12 border-t-4" style="border-color: var(--color-siena); background-color: #f7f2e9;">
+        <div class="container mx-auto px-4">
+            <h4 class="text-lg font-bold" style="color: var(--color-coffee);">TEORÍA DEL CONOCIMIENTO II</h4>
+            <h5 class="text-base" style="color: var(--color-coffee);">Grado en Filosofía, UNED - Curso 2024-2025</h5>
+            <h6 class="text-sm font-semibold mt-2" style="color: var(--color-pumpkin);">Contenido elaborado por Lucía Serrano con la asistencia de IA (Canva de Gemini)</h6>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const quizData = {
+            id: "postumos",
+            titulo: "Los fragmentos póstumos",
+            logros: ["Lector Curioso", "Archivero Aficionado", "Filólogo en Prácticas", "Detective Filosófico", "Editor Crítico", "Desmitificador", "Guardián del Legado", "Intérprete de Zaratustra", "Pensador Intempestivo", "Maestro Genealogista", "Heredero del Nachlass"],
+            preguntas: [
+                {pregunta: "¿Qué característica principal NO describe los apuntes póstumos de Nietzsche?", opciones: ["Eran textos exclusivamente destinados a publicación.", "Poseían un carácter muy heterogéneo.", "Mostraban niveles de elaboración variables.", "Constituían un legado póstumo inmenso."], correcta: 0, explicacion: "Los fragmentos póstumos no estaban destinados directamente a publicación, a diferencia de sus obras ya publicadas. Su riqueza radica en su espontaneidad y desarrollo libre del pensamiento.", dummyExplanation: "Los cuadernos de Nietzsche eran notas personales, no borradores finales para sus libros; no estaban pensados para ser publicados tal cual."},
+                {pregunta: "¿Cuál es la principal utilidad de los fragmentos póstumos de Nietzsche?", opciones: ["Permitir comprender la génesis de sus obras.", "Ofrecer textos pulidos para nuevas ediciones.", "Servir como material biográfico exclusivo.", "Documentar solo sus lecturas personales."], correcta: 0, explicacion: "Son de enorme interés para comprender la génesis y el trasfondo de sus obras publicadas, y a su vez completan y amplían lo ya publicado.", dummyExplanation: "Estas notas ayudan a entender cómo surgieron sus ideas para los libros que publicó, mostrando el 'detrás de cámaras' de su pensamiento."},
+                {pregunta: "¿Cómo desmitifican los fragmentos póstumos la imagen de Nietzsche como 'filósofo-genio'?", opciones: ["Revelando un arduo trabajo de estudio y crítica.", "Mostrando ideas por inspiración espontánea.", "Documentando solo sus momentos de ocio.", "Confirmando su aislamiento intelectual."], correcta: 0, explicacion: "Los fragmentos muestran que Nietzsche gestaba sus pensamientos mediante un duro y prolongado trabajo de lectura, estudio, reflexión y discusión crítica, no por simple inspiración.", dummyExplanation: "Sus cuadernos evidencian que su filosofía era fruto de un gran esfuerzo y estudio, no de destellos de genialidad sin trabajo."},
+                {pregunta: "¿Qué aspecto del pensamiento de Nietzsche revela el material póstumo?", opciones: ["Su carácter siempre inacabado y en ejercicio.", "Su tendencia a resolver todo en dogmas finales.", "Su falta de interés en la reflexión profunda.", "Su apego a verdades absolutas e inmutables."], correcta: 0, explicacion: "El material póstumo muestra el carácter siempre inacabado de su pensamiento, cuya esencia consiste en su ejercicio mismo, sin resolverse en dogmas finales ni verdades absolutas.", dummyExplanation: "Sus notas demuestran que su forma de pensar era un proceso constante y abierto, sin conclusiones definitivas o verdades cerradas."},
+                {pregunta: "¿Qué obras o doctrinas encuentran su desarrollo casi exclusivo en el material póstumo?", opciones: ["El eterno retorno, el Übermensch, la voluntad de poder.", "El nacimiento de la tragedia, Humano, demasiado humano.", "Así habló Zaratustra, Más allá del bien y del mal.", "La genealogía de la moral, El Anticristo."], correcta: 0, explicacion: "Doctrinas fundamentales como el eterno retorno, el Übermensch (superhombre) y la voluntad de poder se desarrollan casi exclusivamente en el material póstumo de Nietzsche.", dummyExplanation: "Las ideas más importantes de Nietzsche, como el Superhombre o la Voluntad de Poder, se encuentran principalmente en sus notas que no publicó en vida."},
+                {pregunta: "Según Heidegger, ¿dónde se encuentra la 'auténtica filosofía' de Nietzsche?", opciones: ["En su obra póstuma.", "En sus primeras obras publicadas.", "En su correspondencia personal.", "En sus borradores de juventud."], correcta: 0, explicacion: "Heidegger afirmó que lo publicado por Nietzsche fue un 'primer plano', y que 'La auténtica filosofía de Nietzsche está en su obra póstuma'.", dummyExplanation: "Para Heidegger, las ideas más profundas de Nietzsche no estaban en sus libros editados, sino en sus cuadernos de trabajo."},
+                {pregunta: "¿Cuál fue una dificultad significativa con el legado póstumo de Nietzsche?", opciones: ["Lograr una edición fiable y libre de manipulaciones.", "La escasez de material textual disponible.", "La ausencia de interés académico en él.", "La simplicidad de su ordenación temática."], correcta: 0, explicacion: "Por la complejidad del material y la historia de su publicación, no fue fácil disponer de una edición fiable, completa y libre de manipulaciones e tergiversaciones.", dummyExplanation: "Sus notas eran un desorden, y las primeras ediciones fueron alteradas, dificultando saber qué era realmente de Nietzsche."},
+                {pregunta: "¿Quién supervisó la primera edición parcial de los Fragmentos póstumos de Nietzsche?", opciones: ["Elisabeth Förster-Nietzsche.", "Fritz Koegel.", "Giorgio Colli.", "Mazzino Montinari."], correcta: 0, explicacion: "La primera edición parcial fue realizada por Fritz Koegel bajo la supervisión de Elisabeth Förster-Nietzsche, la hermana del filósofo.", dummyExplanation: "La hermana de Nietzsche fue quien controló las primeras publicaciones de las notas sin terminar de su hermano."},
+                {pregunta: "¿Cuál fue una de las principales manipulaciones en las primeras versiones de *La voluntad de poder*?", opciones: ["Dividir aforismos y fusionar fragmentos.", "Mantener el orden cronológico estricto.", "Ser fiel a los contenidos originales.", "Excluir citas de otros autores."], correcta: 0, explicacion: "Se dividían aforismos destruyendo su continuidad, se fusionaban fragmentos originalmente separados y se incluían citas de lecturas como textos propios de Nietzsche, cambiando el sentido original.", dummyExplanation: "Se cortaron y pegaron sus textos de forma que cambiaban su significado original, incluso mezclando sus palabras con las de otros."},
+                {pregunta: "¿Cuál fue la novedad principal de la edición de Karl Schlechta de las obras de Nietzsche?", opciones: ["Presentar el material póstumo en orden cronológico.", "Reafirmar el orden sistemático previo.", "Excluir por completo los fragmentos póstumos.", "Utilizar únicamente obras ya publicadas."], correcta: 0, explicacion: "La importancia de la edición de Schlechta consistió en publicar el material póstumo que Elisabeth y Peter Gast habían reunido, pero renunciando al orden sistemático y presentándolo en simple orden cronológico.", dummyExplanation: "Schlechta reorganizó las notas de Nietzsche por fecha, desechando el orden temático que le habían dado anteriormente."},
+                {pregunta: "¿Qué tesis defendió Karl Schlechta sobre *La voluntad de poder*?", opciones: ["Que era una falsificación de la hermana de Nietzsche.", "Que era el *Hauptwerk* planeado por el filósofo.", "Que fue una obra totalmente ajena a Nietzsche.", "Que solo contenía escritos filológicos juveniles."], correcta: 0, explicacion: "Schlechta defendía la tesis de que la idea de una supuesta gran obra sistemática como *La voluntad de poder* era una falsificación de la hermana, con intención editorial.", dummyExplanation: "Schlechta afirmó que el libro 'La Voluntad de Poder' fue una invención de la hermana de Nietzsche para vender más libros, no un proyecto real de él."},
+                {pregunta: "¿Cuál fue una de las acusaciones sobre la confección de *La voluntad de poder* por Elisabeth?", opciones: ["Arbitrariedad filológica y forzamientos falsificadores.", "Extrema fidelidad al original de Nietzsche.", "Uso de criterios filológicos impecables.", "Respeto absoluto del contexto cronológico."], correcta: 0, explicacion: "La labor de Elisabeth y Peter Gast se caracterizó por arbitrariedad filológica, continuos forzamientos falsificadores y carecía de criterios aceptables de corrección.", dummyExplanation: "Se dice que el libro 'La Voluntad de Poder' fue manipulado y alterado por su hermana sin respetar los escritos originales."},
+                {pregunta: "¿Anunció Nietzsche una obra con el título *La voluntad de poder*?", opciones: ["Sí, en contraportadas de obras publicadas.", "No, el título fue invención de su hermana.", "Solo en cartas privadas no verificadas.", "Únicamente en borradores de su juventud."], correcta: 0, explicacion: "Nietzsche anunció una obra con el título *La voluntad de poder: Intento de una transvaloración de los valores* en la contraportada de *Más allá del bien y del mal* y en *La genealogía de la moral*.", dummyExplanation: "Sí, Nietzsche sí planeó un libro con ese título y lo mencionó en algunos de sus propios escritos publicados."},
+                {pregunta: "¿Por qué Nietzsche abandonó la realización de su proyecto *La voluntad de poder*?", opciones: ["Estaba profundamente insatisfecho con lo logrado.", "Su hermana le prohibió continuar con ella.", "Había perdido el interés en la filosofía.", "Se dedicó exclusivamente a su filología."], correcta: 0, explicacion: "La correspondencia de Nietzsche contiene testimonios incontestables sobre su intención de abandonar la realización de esta obra a partir de finales del verano de 1888, al estar insatisfecho con lo logrado.", dummyExplanation: "Nietzsche dejó de trabajar en ese libro porque no estaba contento con cómo le estaba quedando."},
+                {pregunta: "¿Qué edición de la obra de Nietzsche es considerada la primera crítica, fiable y libre de intromisiones?", opciones: ["La KGW de Colli y Montinari.", "La Grossoktavausgabe (GOA).", "La edición de Fritz Koegel.", "La Musarionausgabe (MU)."], correcta: 0, explicacion: "La edición de Giorgio Colli y Mazzino Montinari, *Friedrich Nietzsche Werke. Kritische Gesamtausgabe (KGW)*, publicada a partir de 1967, fue la primera elaboración con calidad científica y rigor filológico.", dummyExplanation: "La edición de Colli-Montinari es la que se considera correcta porque, por fin, publicó los escritos de Nietzsche sin alteraciones ni censuras."},
+                {pregunta: "¿Cuál fue el criterio principal de la edición Colli-Montinari para los fragmentos póstumos?", opciones: ["Publicarlos en su contexto natural cronológico.", "Presentarlos en un orden sistemático preconcebido.", "Omitir los que parecieran incompletos.", "Centrarse solo en los borradores de obras."], correcta: 0, explicacion: "El criterio principal de la KGW fue desechar la idea de un orden sistemático y publicar los fragmentos del *Nachlass* en su contexto natural, ordenándolos cronológicamente.", dummyExplanation: "Esta edición organizó todas las notas de Nietzsche por la fecha en que las escribió, sin intentar darles un orden temático artificial."},
+                {pregunta: "¿Qué logró la edición Colli-Montinari en relación con *La voluntad de poder*?", opciones: ["Disolver su composición interesada y sin fundamento.", "Confirmar su estatus como obra principal.", "Reafirmar el orden sistemático de Elisabeth.", "Publicar una versión ampliada del original."], correcta: 0, explicacion: "La edición Colli-Montinari disuelve esta composición interesada y sin fundamento de parte de los *Nachgelassene*, ordenando cronológicamente la totalidad de los apuntes.", dummyExplanation: "Esta edición demostró que el libro 'La Voluntad de Poder' no era un proyecto auténtico de Nietzsche y desmanteló su estructura."},
+                {pregunta: "¿Quién es un filósofo nazi que conectó a Nietzsche con el 'Heil Hitler!'?", opciones: ["Alfred Bäumler.", "Martin Heidegger.", "Jürgen Habermas.", "Karl Löwith."], correcta: 0, explicacion: "Alfred Bäumler, filósofo nazi, concluyó su libro sobre Nietzsche con la frase: 'y si dirigiéndonos a esos jóvenes decimos: ¡Heil Hitler! con el mismo saludo saludamos también a Friedrich Nietzsche'.", dummyExplanation: "Alfred Bäumler, un pensador nazi, usó las ideas de Nietzsche para justificar y apoyar el régimen de Hitler."},
+                {pregunta: "¿Qué crítica importante aplicó Nietzsche a mitos como el de la raza o el nacionalismo alemán?", opciones: ["La crítica genealógica de la cultura occidental.", "Un análisis meramente histórico-político.", "Una defensa de la pureza racial germánica.", "Una apología de los valores tradicionales."], correcta: 0, explicacion: "Nietzsche aplicó su crítica genealógica de la cultura occidental a mitos como el de la raza y a ideologías como el nacionalismo alemán, y a la redención estética de Wagner.", dummyExplanation: "Nietzsche usó su método de analizar los orígenes de las ideas para criticar nociones como la raza o el nacionalismo alemán, desenmascarando sus fundamentos."},
+                {pregunta: "¿Qué postura debe tomarse hoy frente a las simplificaciones de Nietzsche, según el texto?", opciones: ["Prevenir contra ellas, mostrando su complejidad.", "Defender las interpretaciones de izquierda.", "Aceptar la reducción de su filosofía a la barbarie.", "Exorcizar todos los elementos aristocráticos."], correcta: 0, explicacion: "Se debe prevenir contra las simplificaciones, poniendo de manifiesto elementos de dureza aristocrática junto a otros que impiden reducir su filosofía a la barbarie.", dummyExplanation: "Hay que evitar las interpretaciones simplistas de Nietzsche y reconocer que su pensamiento es complejo, con ideas fuertes, pero sin reducirlo a mera barbarie."},
+                {pregunta: "¿Qué factor condiciona en gran medida los resultados de la interpretación de Nietzsche?", opciones: ["La conciencia de las condiciones históricas del intérprete.", "El nivel de erudición filológica del estudioso.", "El acceso a todas las obras publicadas del autor.", "Su propia ideología política personal."], correcta: 0, explicacion: "La conciencia de las condiciones históricas, sociales y culturales desde las que se lleva a cabo su interpretación es lo que condiciona en buena medida los resultados de ella.", dummyExplanation: "Cómo entendemos a Nietzsche depende mucho de la época y el contexto social y cultural en el que vivimos."},
+                {pregunta: "¿Cuál fue la primera gran malinterpretación de Nietzsche, según el texto?", opciones: ["La llevada a cabo por su hermana, Elisabeth.", "La interpretación de Alfred Bäumler.", "La recepción de los movimientos de izquierda.", "La crítica de Karl Schlechta."], correcta: 0, explicacion: "La primera gran malinterpretación fue la que, todavía en vida del filósofo e inmediatamente después, llevó a cabo su hermana Elisabeth.", dummyExplanation: "La primera persona en tergiversar las ideas y la imagen de Nietzsche fue su propia hermana, Elizabeth."},
+                {pregunta: "¿Con qué objetivo Elisabeth Förster-Nietzsche idealizó a su hermano?", opciones: ["Presentarlo como héroe defensor de la tradición germánica.", "Mostrarlo como un crítico radical de su tiempo.", "Destacar su ateísmo y antimoralismo.", "Revelar su pensamiento inacabado y dinámico."], correcta: 0, explicacion: "Elisabeth intentó idealizar a Nietzsche como el genio-héroe-santo, entusiasta y defensor de los valores de la noble tradición germánica, con una íntima religiosidad.", dummyExplanation: "La hermana de Nietzsche quiso que la gente lo viera como un héroe y defensor de las tradiciones alemanas, ocultando sus críticas."},
+                {pregunta: "¿Qué elementos iconoclastas de Nietzsche trató Elisabeth de diluir o neutralizar?", opciones: ["Su irreligiosidad, ateísmo e inmoralismo.", "Su profundo respeto por la moral cristiana.", "Su defensa del nacionalismo alemán.", "Su apego a los valores burgueses de la época."], correcta: 0, explicacion: "Elisabeth intentó diluir los elementos iconoclastas de su talante espiritual, como su irreligiosidad, su ateísmo, su inmoralismo y su propósito de derrocar los grandes valores tradicionales.", dummyExplanation: "La hermana de Nietzsche intentó esconder las ideas de su hermano que chocaban con la sociedad, como su falta de religión o su crítica a la moral."},
+                {pregunta: "¿Qué acciones caracterizaron el monopolio de Elisabeth sobre el Archivo de Nietzsche?", opciones: ["Prohibiciones, censuras y acciones judiciales.", "Ediciones críticas y filológicamente correctas.", "Promoción abierta de diversas interpretaciones.", "Colaboración con estudiosos independientes."], correcta: 0, explicacion: "Elisabeth ejerció un intolerante monopolio sobre el Archivo, con continuas prohibiciones, censuras e incluso acciones judiciales contra todo lo que debilitara la leyenda y el culto que había creado.", dummyExplanation: "La hermana de Nietzsche controlaba sus escritos de forma muy estricta, impidiendo publicaciones y llevando a gente a juicio para proteger su versión de él."},
+                {pregunta: "Según Karl Löwith, ¿qué hizo la reflexión de Nietzsche respecto al III Reich?", opciones: ["Preparó espiritualmente el camino.", "Se opuso firmemente a sus ideas.", "No tuvo ninguna relación significativa.", "Fue totalmente ignorada por los nazis."], correcta: 0, explicacion: "Karl Löwith señala que 'la reflexión de Nietzsche preparó espiritualmente el camino al III Reich, si bien los precursores han indicado siempre a los demás una calle que ellos mismos no siguieron'.", dummyExplanation: "Löwith dijo que las ideas de Nietzsche, sin que él lo buscara, ayudaron de alguna manera a crear las condiciones para el ascenso del nazismo."},
+                {pregunta: "¿Cómo interpretó Alfred Bäumler la doctrina de la voluntad de poder de Nietzsche?", opciones: ["Como una filosofía de la política basada en la violencia.", "Como una propuesta para la paz universal.", "Como un ideal de desarrollo personal pacífico.", "Como una crítica a toda forma de poder."], correcta: 0, explicacion: "Bäumler interpretó la voluntad de poder como una filosofía de la política, entendida a partir de la comprensión nietzscheana del genio griego como plena aceptación de la violencia y crueldad de la existencia.", dummyExplanation: "Un pensador nazi, Bäumler, vio en la 'Voluntad de Poder' de Nietzsche una justificación para una política que aceptara la violencia."},
+                {pregunta: "¿Qué esencia de la historia europea creyó Bäumler que desvelaba la voluntad de poder?", opciones: ["La violencia en la búsqueda de dominio y supremacía.", "La búsqueda de la armonía y la cooperación.", "El progreso hacia una sociedad más justa.", "La evolución hacia la razón y la lógica pura."], correcta: 0, explicacion: "Para Bäumler, la doctrina de la voluntad de poder tenía el sentido de desvelar la verdadera esencia de la historia europea: la violencia que acompaña la búsqueda de dominio y supremacía política.", dummyExplanation: "Según Bäumler, la 'Voluntad de Poder' de Nietzsche mostraba que la historia de Europa se basaba en la lucha por el poder y la dominación."},
+                {pregunta: "¿Cómo fue malinterpretado el concepto de 'decadencia' en Nietzsche por algunos?", opciones: ["Como un odio a la modernización y la democratización.", "Como una defensa del progreso y la industria.", "Como una alabanza a la civilización burguesa.", "Como una crítica a los valores románticos."], correcta: 0, explicacion: "Se consideró que Nietzsche, con su crítica a la decadencia, era un símbolo del odio por la democratización y la industrialización (modernización).", dummyExplanation: "Algunos pensaron que cuando Nietzsche criticaba la 'decadencia', lo que en realidad le molestaba era la sociedad moderna y la democracia."},
+                {pregunta: "¿Qué aspecto de la cultura, según interpretaciones nacionalistas, debía ser purificado para volver a los orígenes germánicos?", opciones: ["Todo rastro de cultura judeo-cristiana.", "Los elementos paganos y precristianos.", "La influencia de la filosofía griega clásica.", "Las aportaciones del humanismo renacentista."], correcta: 0, explicacion: "La vuelta a los orígenes se entendía como un proceso de limpieza y purificación de todo rastro de cultura judeo-cristiana, que supuestamente había desfigurado las esencias de la cultura germánica.", dummyExplanation: "Algunos nacionalistas creían que para recuperar una 'esencia alemana' pura, había que eliminar todo lo que viniera de la cultura judía y cristiana."},
+                {pregunta: "¿Cómo fue capitalizada la crítica de Nietzsche al cristianismo por el nacionalsocialismo?", opciones: ["En sentido político, como oposición a la democracia.", "Como una llamada a la reforma teológica interna.", "Como una defensa de la moral tradicional.", "Como una promoción del ascetismo individual."], correcta: 0, explicacion: "La crítica de Nietzsche al cristianismo pudo ser muy bien aprovechada y capitalizada por el nacionalsocialismo en sentido político, oponiéndola a la democracia de raigambre cristiana.", dummyExplanation: "Los nazis usaron la crítica de Nietzsche al cristianismo para argumentar que la democracia, al tener raíces cristianas, era débil y ajena al espíritu alemán."},
+                {pregunta: "¿Qué prueba sugiere que Nietzsche interesó menos a los nazis de lo que se creyó?", opciones: ["La escasa mención en la obra de Alfred Rosenberg.", "El rechazo explícito de Hitler a sus obras.", "La prohibición de sus libros en la Alemania nazi.", "Su incorporación al panteón de héroes nazis."], correcta: 0, explicacion: "En el libro *Der Mythus des 20. Jahrhunderts* de Alfred Rosenberg, uno de los principales ideólogos del nazismo, el nombre de Nietzsche aparece citado en solo cinco páginas, viéndolo como una desviación.", dummyExplanation: "Aunque se piensa lo contrario, Nietzsche no era tan importante para los nazis; uno de sus líderes ideológicos apenas lo mencionaba."},
+                {pregunta: "¿Qué aspectos del pensamiento de Nietzsche eran explícitamente contrarios al nacionalsocialismo?", opciones: ["Su rechazo al nacionalismo y crítica a la raza.", "Su admiración por el militarismo prusiano.", "Su defensa de la pureza racial germánica.", "Su elogio de la religión como arte nacional."], correcta: 0, explicacion: "Nietzsche rechazó continuamente el nacionalismo (precisamente el alemán), criticó implacablemente el mito de la raza y se burló de la propuesta wagneriana de la religión como arte, entre otros puntos.", dummyExplanation: "Nietzsche odiaba el nacionalismo y las ideas racistas, lo que chocaba directamente con lo que defendían los nazis."},
+                {pregunta: "¿Cuál fue el propósito común de Löwith, Jaspers y Heidegger tras la guerra?", opciones: ["Deshacer el mito creado en torno a Nietzsche.", "Integrar a Nietzsche en la ideología nazi.", "Promover una lectura exclusivamente política.", "Revalidar las ediciones previas de su hermana."], correcta: 0, explicacion: "Los tres filósofos consideraron urgente deshacer el mito de Nietzsche y se opusieron a su integración orgánica en la ideología nazi, buscando presentarlo como una nueva filosofía rigurosa.", dummyExplanation: "Después de la guerra, pensadores como Löwith, Jaspers y Heidegger quisieron limpiar la imagen de Nietzsche y mostrarlo como un filósofo serio, no como un propagandista nazi."},
+                {pregunta: "¿Qué idea tenía Heidegger sobre la culminación de la historia europea (metafísica)?", opciones: ["Que se materializa en estructuras de organización total.", "Que alcanza su fin en la democracia liberal.", "Que se dirige hacia una libertad sin límites.", "Que culmina en el olvido de toda organización."], correcta: 0, explicacion: "Para Heidegger, la historia europea, como historia de la metafísica, llega a su cumplimiento final en nuestra época, materializándose en estructuras sociales y políticas de 'organización total' (nazismo, comunismo, democracia liberal).", dummyExplanation: "Heidegger creía que la historia de Europa terminaba con la aparición de sistemas que controlaban todo, como los nazis, los comunistas o incluso las democracias capitalistas."},
+                {pregunta: "¿Por qué Heidegger no se retractó nunca del nazismo, según el texto?", opciones: ["Consideraba que su filosofía le obligaba a asumir ese destino.", "Mantenía una profunda afinidad ideológica.", "Temía las represalias del régimen derrotado.", "No fue consciente de las implicaciones políticas."], correcta: 0, explicacion: "Para Heidegger, era parte esencial de su filosofía considerar que el descubrimiento del destino de Occidente le obligaba a asumir ese destino con todas sus consecuencias.", dummyExplanation: "Heidegger no se echó atrás con su pasado nazi porque pensaba que su filosofía le exigía aceptar el rumbo de la civilización, con todo lo que eso implicaba."},
+                {pregunta: "¿Qué valor de la estética nietzscheana interesó a los movimientos de vanguardia?", opciones: ["Su valor subversivo en la crítica cultural.", "Su apego a la tradición artística clásica.", "Su defensa de la identidad del sujeto.", "Su búsqueda de la armonía y el orden."], correcta: 0, explicacion: "Los movimientos de vanguardia, como el expresionismo, se fijaron sobre todo en el valor subversivo que es propio de la estética nietzscheana y su vinculación con la negación de la identidad.", dummyExplanation: "Los artistas de vanguardia vieron en Nietzsche una forma de revolucionar el arte y la cultura, usándolo para criticar las ideas establecidas."},
+                {pregunta: "¿Con qué conectaron los vanguardistas la temática de la apariencia estética y la negación de la identidad?", opciones: ["La alienación y desintegración del sujeto.", "El fortalecimiento del yo individual.", "La unidad armónica del ser humano.", "La estabilidad de los roles sociales."], correcta: 0, explicacion: "Los vanguardistas aplicaron esta temática a su crítica de la cultura burguesa, conectándola especialmente con la alienación y desintegración del sujeto en conglomerados de roles impuestos.", dummyExplanation: "Los artistas de vanguardia relacionaron las ideas de Nietzsche sobre la estética y la pérdida del yo con cómo la sociedad burguesa hacía que las personas se sintieran perdidas y divididas."},
+                {pregunta: "¿Por qué los movimientos de vanguardia creyeron encontrar en Nietzsche un 'hombre radicalmente nuevo'?", opciones: ["Buscaban una transformación revolucionaria de la sociedad.", "Admiraban su conservadurismo político.", "Valoraban su defensa de los valores burgueses.", "Creían en su apego a las instituciones tradicionales."], correcta: 0, explicacion: "Los movimientos de vanguardia buscaban un hombre radicalmente nuevo y una transformación revolucionaria de la sociedad, y creyeron encontrar estas dos cosas en el pensamiento de Nietzsche.", dummyExplanation: "Los artistas y pensadores revolucionarios vieron en Nietzsche ideas para crear un nuevo tipo de ser humano y una sociedad completamente diferente."},
+                {pregunta: "¿Cómo interpretaron algunos marxistas el concepto de superhombre de Nietzsche?", opciones: ["Como imagen del hombre total que supera la fragmentación.", "Como ideal de una élite dominadora y autoritaria.", "Como un producto de la fantasía pequeño-burguesa.", "Como una figura de sumisión al orden establecido."], correcta: 0, explicacion: "Estos intérpretes vieron el superhombre como imagen de ese hombre total, que debía superar la fragmentación del sujeto producida por la división del trabajo y la violencia de las relaciones sociales capitalistas.", dummyExplanation: "Ciertos marxistas pensaron que el 'Superhombre' de Nietzsche representaba a un ser humano completo, capaz de superar las divisiones que la sociedad capitalista impone."},
+                {pregunta: "¿Qué veía Lukács, un marxista ortodoxo, en la idea del superhombre de Nietzsche?", opciones: ["El ideal desesperado de la conciencia pequeño-burguesa.", "Un proyecto revolucionario para la sociedad sin clases.", "Una visión optimista de la capacidad humana.", "Una crítica radical al propio capitalismo."], correcta: 0, explicacion: "Lukács vio en Nietzsche el ideal desesperado de la conciencia pequeño-burguesa que, frustrada con el capitalismo, busca compensación en una visión trágica y una actitud heroica ilusoria.", dummyExplanation: "Lukács, un marxista estricto, creía que el 'Superhombre' de Nietzsche era solo un sueño triste de la clase media, que no había logrado cambiar el sistema capitalista."},
+                {pregunta: "¿Qué interpretaron Bloch, Adorno y Horkheimer en el superhombre nietzscheano?", opciones: ["La imagen utópica de un cumplimiento revolucionario.", "Un símbolo de la decadencia de Occidente.", "Una justificación del totalitarismo político.", "Un mero reflejo de la moral burguesa."], correcta: 0, explicacion: "Marxistas menos ortodoxos como Bloch, Adorno y Horkheimer vieron en la idea nietzscheana del superhombre y en su crítica a la cultura la imagen utópica de un cumplimiento revolucionario.", dummyExplanation: "Otros pensadores marxistas, menos rígidos, vieron en el Superhombre de Nietzsche una idea esperanzadora para una revolución que cambiaría la sociedad."},
+                {pregunta: "¿Qué tipo de interpretaciones de Nietzsche deberían ser superadas hoy?", opciones: ["Las que vienen de la extrema derecha y extrema izquierda.", "Las nuevas visiones que representan avances.", "Las basadas en una comprensión compleja.", "Las que reconocen su versatilidad."], correcta: 0, explicacion: "El texto sugiere que esos 'Nietzsches pertenecientes ya al pasado', el que viene de la extrema derecha y el que viene de la extrema izquierda, no deberían ser defendidos hoy.", dummyExplanation: "Hoy en día, las interpretaciones antiguas de Nietzsche, tanto las fascistas como las comunistas, ya no se consideran válidas."},
+                {pregunta: "¿Qué desafío del pensamiento de Nietzsche interesa hoy sobre todo?", opciones: ["Un replanteamiento del concepto de cultura.", "La confirmación de valores morales absolutos.", "El fomento de la homogeneidad social.", "La aceptación de la comodidad tecnológica."], correcta: 0, explicacion: "Hoy interesa el desafío de Nietzsche para un replanteamiento del concepto de cultura y del proceso de asimilación de los individuos a ella.", dummyExplanation: "Lo más valioso de Nietzsche hoy es cómo nos reta a repensar qué significa la cultura y cómo nos moldea como individuos."},
+                {pregunta: "¿Cuál es el sentido de la propuesta de Nietzsche de una transvaloración de los valores?", opciones: ["Una terapia contra la enfermedad nihilista.", "Un retorno a los valores cristianos originales.", "Una reafirmación de la moral burguesa.", "Una aceptación pasiva de la mediocridad."], correcta: 0, explicacion: "La transvaloración de los valores de la moral europea es una terapia de la que podría conjeturarse un giro hacia la salud que venciera la enfermedad nihilista.", dummyExplanation: "La 'transvaloración' de Nietzsche es su idea para 'curar' la sociedad de la falta de sentido, inventando nuevos valores que nos hagan más fuertes y sanos."},
+                {pregunta: "¿Qué desenmascara Nietzsche sobre la excesiva confianza en la razón y la técnica?", opciones: ["Las ilusiones que genera y la debilidad humana.", "La base para el paraíso del confort absoluto.", "El camino hacia la superación de todo sufrimiento.", "El único medio para la salud social."], correcta: 0, explicacion: "Nietzsche desenmascara las ilusiones que genera la excesiva confianza en las posibilidades de la razón y de la técnica, lo que expresa la debilidad de una humanidad que no es capaz de soportar los aspectos duros de la vida.", dummyExplanation: "Nietzsche decía que confiar demasiado en la razón y la tecnología es una trampa que esconde nuestra debilidad para enfrentar los problemas de la vida."},
+                {pregunta: "¿Qué valor atribuye Nietzsche a la cultura griega antigua frente a la ideología del progreso?", opciones: ["La considera superior y más sana que lo posterior.", "La ve como un primer paso hacia la decadencia.", "La identifica con el inicio de la enfermedad nihilista.", "La juzga como un modelo de conformismo social."], correcta: 0, explicacion: "La cultura griega, como etapa en el origen de nuestra historia, se muestra como algo muy superior a lo que ha venido después, desmintiendo la ideología del progreso.", dummyExplanation: "Para Nietzsche, la cultura de la antigua Grecia era mejor y más vital que las civilizaciones posteriores, contradiciendo la idea de que todo progreso es siempre para bien."},
+                {pregunta: "¿Qué defiende Nietzsche respecto al ser humano en un devenir constante?", opciones: ["La posibilidad de un hombre no reprimido y creativo.", "La necesidad de que su impulso se estandarice.", "La imposibilidad de superar sus limitaciones.", "La perduración invariable de su condición."], correcta: 0, explicacion: "Nietzsche defiende la posibilidad de un hombre no reprimido en su impulso de autosuperación y a quien su cultura no le desposea de sus fuentes vitales creativas.", dummyExplanation: "Nietzsche creía que las personas no deberían ser limitadas por la sociedad, sino que la cultura debería ayudarles a ser más creativas y a superarse a sí mismas."},
+                {pregunta: "¿Qué tipo de cultura anhela Nietzsche en su crítica a la civilización nihilista?", opciones: ["Una cultura de la diversidad y coexistencia de valores.", "Una que imponga verdades absolutas y valores únicos.", "Una basada en la búsqueda de seguridad inamovible.", "Una que reprima la creatividad individual libre."], correcta: 0, explicacion: "Anhela una cultura de la diversidad, de la coexistencia de valores y formas de vida diferentes, de la pluralidad de ideas, y de la transformación como destrucción y nueva creación.", dummyExplanation: "Nietzsche soñaba con una sociedad donde hubiera muchas ideas y formas de vida diferentes, y donde el cambio fuera la norma, en lugar de una única verdad rígida."}
+            ]
+        };
+
+        let quizQuestions = [];
+        let sessionQuestions = {}; // Almacena las preguntas ya usadas en la sesión
+        let currentQuizQuestionIndex = 0;
+        let quizScore = 0;
+        let failedQuestions = [];
+
+        function shuffle(array) {
+            let currentIndex = array.length;
+            let temporaryValue, randomIndex;
+            
+            while (0 !== currentIndex) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+
+        function startQuiz() {
+            const allQuestionsBank = quizData.preguntas;
+
+            if (!sessionQuestions[quizData.id] || sessionQuestions[quizData.id].length < 10) {
+                 sessionQuestions[quizData.id] = shuffle([...allQuestionsBank]);
+            }
+            
+            quizQuestions = sessionQuestions[quizData.id].splice(0, 10);
+
+            currentQuizQuestionIndex = 0;
+            quizScore = 0;
+            failedQuestions = [];
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (currentQuizQuestionIndex < quizQuestions.length) {
+                const q = quizQuestions[currentQuizQuestionIndex];
+                quizContainer.innerHTML = `
+                    <p class="text-sm text-gray-500 mb-2">Pregunta ${currentQuizQuestionIndex + 1} de ${quizQuestions.length}</p>
+                    <h4 class="text-xl font-semibold mb-6">${q.pregunta}</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${q.opciones.map((opcion, index) => `
+                            <button class="quiz-option p-4 border-2 rounded-lg text-left transition hover:border-yellow-500" style="border-color: var(--color-siena);" onclick="window.checkAnswer(${index})">${opcion}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="mt-6 text-sm"></div>
+                    <button id="next-q-btn" class="next-button mt-4 px-6 py-2 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);" onclick="window.displayQuestion()">Siguiente</button>
+                `;
+            } else {
+                showResults();
+            }
+        }
+
+        window.checkAnswer = function(selectedIndex) {
+            const q = quizQuestions[currentQuizQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-q-btn');
+
+            options.forEach(function(button) { button.disabled = true; });
+
+            if (selectedIndex === q.correcta) {
+                quizScore++;
+                options[selectedIndex].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-green-700 font-bold">¡Correcto!</p>`;
+            } else {
+                options[selectedIndex].classList.add('bg-red-200', 'border-red-500');
+                options[q.correcta].classList.add('bg-green-200', 'border-green-500');
+                feedback.innerHTML = `<p class="text-red-700 font-bold">Incorrecto.</p>`;
+                failedQuestions.push(q);
+            }
+            
+            feedback.innerHTML += `<p class="mt-2 text-justify">${q.explicacion}</p>`;
+            
+            nextButton.style.display = 'inline-block';
+            currentQuizQuestionIndex++;
+        }
+
+        function showResults() {
+            const quizContainer = document.getElementById('quiz-container');
+            const titles = quizData.logros;
+            const title = titles[quizScore] || "Estudiante Entusiasta";
+
+            let failedSectionHTML = '';
+            if (failedQuestions.length > 0) {
+                const failedItemsHTML = failedQuestions.map(function(q) {
+                    const correctAnswerText = q.opciones[q.correcta];
+                    return `
+                    <div class="mb-6 text-left p-4 bg-white rounded-lg shadow-sm border-l-4 border-red-400" style="background-color: #fcf8f0;">
+                        <h5 class="text-md font-bold mb-2" style="color: var(--color-pumpkin);">${q.pregunta}</h5>
+                        <h6 class="text-sm font-semibold mb-2" style="color: var(--color-coffee);">${correctAnswerText}</h6>
+                        <p class="text-sm text-justify" style="color: var(--color-coffee);">${q.dummyExplanation}</p>
+                    </div>
+                `}).join('');
+
+                failedSectionHTML = `
+                <div class="mt-8 pt-4 border-t" style="border-color: var(--color-siena);">
+                    <h4 class="text-xl font-bold mb-4 text-left" style="color: var(--color-coffee);">Repasemos los fallos:</h4>
+                    ${failedItemsHTML}
+                </div>
+                `;
+            } else {
+                failedSectionHTML = '<p class="mt-6 text-green-600 font-semibold">¡Excelente! No has fallado ninguna pregunta.</p>';
+            }
+
+            quizContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-2">Juego Terminado</h3>
+                <p class="text-lg mb-4">Tu puntuación: <strong style="color: var(--color-pumpkin);">${quizScore} de ${quizQuestions.length}</strong></p>
+                <p class="text-xl font-bold mb-6" style="color: var(--color-pumpkin);">${title}</p>
+                
+                ${failedSectionHTML}
+
+                <div class="mt-8 flex justify-center gap-4">
+                    <button onclick="window.startQuiz()" class="px-6 py-3 rounded-lg shadow-md text-white font-bold transition hover:opacity-90" style="background-color: var(--color-pumpkin);">Jugar de Nuevo</button>
+                    <a href="https://lusepa.github.io/filosofia-uned/Teor%C3%ADa%20del%20Conocimiento%20II/tema8.5.html" class="px-6 py-3 rounded-lg shadow-md font-bold transition hover:bg-gray-100" style="background-color: #f7f2e9; border: 1px solid var(--color-pumpkin); color: var(--color-pumpkin); text-decoration: none;">Menú de Juegos</a>
+                </div>
+            `;
+        }
+        
+        window.startQuiz = startQuiz;
+        window.displayQuestion = displayQuestion;
+        window.checkAnswer = checkAnswer;
+
+        // --- INICIALIZACIÓN ---
+        startQuiz();
+    });
+    </script>
+</body>
+</html>
